@@ -1,0 +1,122 @@
+{
+  "created_at": "2026-04-26T03:29:31.400862Z",
+  "updated_at": "2026-04-26T03:29:31.400862Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 1,
+  "flow_id": 6,
+  "flow_name": "flow-6",
+  "flow_key": "flow_6",
+  "recipient_email": {
+    "emails": []
+  },
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "bh_project_name": "flow-service-project",
+  "bh_project_id": 2,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 6
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 6,
+        "data": {
+          "flow_id": 6,
+          "flow_name": "flow-6",
+          "flow_key": "flow_6",
+          "bh_project_id": 2,
+          "recipient_email": {
+            "emails": []
+          },
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 2,
+        "data": {
+          "flow_definition_id": 2,
+          "flow_id": 6,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "flow-6",
+              "flow_name": "flow-6",
+              "flow_id": 6,
+              "flow_type": "INGESTION",
+              "flow_key": "flow_6",
+              "description": "Flow for flow-6",
+              "version": "1.0.0",
+              "project_id": 2,
+              "project_name": "flow-service-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 1,
+              "bh_environment_id": 1,
+              "bh_environment_name": "azure-westus3",
+              "parameters": [],
+              "tasks": [
+                {
+                  "task_id": "custom__e13410c76",
+                  "type": "BashOperator",
+                  "trigger_rule": "all_success",
+                  "bash_command": "echo\"Hello World\"",
+                  "depends_on": []
+                }
+              ],
+              "template_parameters": []
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 2,
+        "data": {
+          "flow_deployment_id": 2,
+          "flow_id": 6,
+          "bh_env_id": 1,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
