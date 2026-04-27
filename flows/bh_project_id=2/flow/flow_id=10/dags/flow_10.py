@@ -40,6 +40,7 @@ with DAG(
             'flow_tags': [],
             'flow_type': 'INGESTION',
             'tenant_id': 1,
+            'cloud_provider': 'azure',
             'flow_status': 'In Progress',
         }
     )
