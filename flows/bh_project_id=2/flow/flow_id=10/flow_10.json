@@ -87,6 +87,8 @@
                   "depends_on": []
                 }
               ],
+              "bh_project_id": 2,
+              "cloud_provider": "azure",
               "template_parameters": []
             }
           },
@@ -107,7 +109,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-04-27 07:09:47.633138+00:00",
+          "last_deployed_at": "2026-04-27 08:02:47.824927+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
