@@ -1,0 +1,135 @@
+name: Local Airflow DAG Sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      sync_scope:
+        description: 'Which DAGs to sync'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - list
+      dag_list:
+        description: 'DAG file names (comma-separated, e.g. flow_10.py). Used when sync_scope=list.'
+        required: false
+        type: string
+
+env:
+  # Default local params for injection
+  BH_ENVIRONMENT_NAME: 'local'
+  BH_ENVIRONMENT_ID: '1'
+  BH_KC_SECRET_URL: 'bh-app-sathish-azure-keycloak-1-v1-secrets'
+  PIPELINE_BASE_PATH: '/Workspace/Shared/codespace'
+  SETUP_BASE_PATH: '/Workspace/Shared/bh-dev-utils'
+
+jobs:
+  sync-dags-local:
+    name: Sync DAGs to Local Airflow
+    runs-on: [self-hosted, local-deploy]
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Discover DAGs from flows
+        run: |
+          set -e
+          mkdir -p _all_dags _sync_dags
+
+          # Collect all DAGs from flows/**/dags/*.py into _all_dags
+          count=0
+          while IFS= read -r -d '' f; do
+            base=$(basename "$f")
+            cp "$f" "_all_dags/${base}"
+            count=$((count + 1))
+          done < <(find flows -path '*/dags/*.py' -type f -print0 2>/dev/null || true)
+
+          if [ "$count" -eq 0 ]; then
+            echo "No DAG files found under flows/*/flow/dags/"
+            exit 0
+          fi
+
+          # If dag_list provided, select only those; otherwise sync all
+          if [ -n "${{ github.event.inputs.dag_list }}" ] && [ "${{ github.event.inputs.sync_scope }}" = "list" ]; then
+            echo "Syncing selected DAGs: ${{ github.event.inputs.dag_list }}"
+            for name in $(echo "${{ github.event.inputs.dag_list }}" | tr ',' ' '); do
+              name=$(echo "$name" | xargs)
+              [ -z "$name" ] && continue
+              base=${name%.py}
+              fname="${base}.py"
+              if [ -f "_all_dags/${fname}" ]; then
+                cp "_all_dags/${fname}" _sync_dags/
+              else
+                echo "Warning: DAG not found: $name"
+              fi
+            done
+          else
+            echo "Syncing all discovered DAGs"
+            cp _all_dags/*.py _sync_dags/ 2>/dev/null || true
+          fi
+
+          echo "DAG files to sync:"
+          ls -la _sync_dags/
+
+      - name: Inject Airflow params into DAGs
+        run: |
+          python3 << 'PYEOF'
+          import os
+          import re
+
+          dags_dir = "_sync_dags"
+          env_name = os.environ.get("BH_ENVIRONMENT_NAME", "local-dev")
+          env_id = os.environ.get("BH_ENVIRONMENT_ID", "0")
+          kc_secret = os.environ.get("BH_KC_SECRET_URL", "local-vault")
+          pipeline_path = os.environ.get("PIPELINE_BASE_PATH", "/opt/airflow/data")
+          setup_path = os.environ.get("SETUP_BASE_PATH", "/opt/airflow/plugins")
+
+          params_block = '''    params={
+            "bh_environment_name": "%s",
+            "bh_environment_id": %s,
+            "bh_kc_secret_url": "%s",
+            "pipeline_base_path": "%s",
+            "setup_base_path": "%s"
+          }''' % (env_name, env_id, kc_secret, pipeline_path, setup_path)
+
+          for fname in os.listdir(dags_dir):
+              if not fname.endswith(".py"):
+                  continue
+              path = os.path.join(dags_dir, fname)
+              with open(path, "r") as f:
+                  content = f.read()
+
+              if ") as dag:" not in content:
+                  continue
+
+              dag_block = re.search(r"with\s+DAG\s*\((.*?)\)\s*as\s*dag:", content, re.DOTALL)
+              if not dag_block:
+                  continue
+              inner = dag_block.group(1)
+              if re.search(r"\bparams\s*=\s*\{", inner):
+                  inner_new = re.sub(r"\bparams\s*=\s*\{[^}]*\}", params_block.strip(), inner, count=1)
+              else:
+                  if re.search(r",\s*$", inner):
+                      inner_new = inner.rstrip() + "\n" + params_block
+                  else:
+                      inner_new = re.sub(r"(\s*)$", r",\n" + params_block + r"\n    \1", inner, count=1)
+              content = content[:dag_block.start(1)] + inner_new + content[dag_block.end(1):]
+
+              with open(path, "w") as f:
+                  f.write(content)
+              print("Injected params into", fname)
+          PYEOF
+
+      - name: Deploy to Local Airflow Volume
+        run: |
+          if [ "$(ls -A _sync_dags 2>/dev/null)" ]; then
+            # Copy to the shared volume mount point inside the runner
+            cp -v _sync_dags/*.py /opt/airflow/deploy_target/
+            echo "Successfully deployed DAGs to /opt/airflow/deploy_target/"
+          else
+            echo "No DAG files to deploy."
+          fi
