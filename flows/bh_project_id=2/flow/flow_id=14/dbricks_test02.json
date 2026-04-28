@@ -71,7 +71,7 @@
               "description": "Flow for dbricks-test02",
               "version": "1.0.0",
               "project_id": 2,
-              "project_name": "flow-service-project",
+              "project_name": "Default Project",
               "cron_expression": null,
               "flow_tags": [],
               "tenant_id": 1,
@@ -111,7 +111,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-04-28 12:11:48.862086+00:00",
+          "last_deployed_at": "2026-04-28 12:58:48.396870+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
