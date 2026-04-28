@@ -84,8 +84,10 @@
                   "type": "CreateCompute",
                   "depends_on": [],
                   "cluster_name": "dbricks_test_cluster",
-                  "cloud_type": "azure",
-                  "compute_type": "databricks"
+                  "cloud_type": "databricks",
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "compute_config": "test-01",
+                  "airflow_connection_id": "databricks_deafult"
                 }
               ],
               "bh_project_id": 2,
@@ -109,7 +111,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-04-28 10:20:14.301420+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
