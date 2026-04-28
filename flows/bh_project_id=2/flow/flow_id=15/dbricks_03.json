@@ -135,6 +135,17 @@
                   "compute_type": "DATABRICKS_CLUSTER",
                   "cluster_name": "dbricks_test_cluster",
                   "airflow_connection_id": "databricks_deafult"
+                },
+                {
+                  "task_id": "custom__d0940df6e",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "custom__0704938fa"
+                  ],
+                  "pipeline_name": "pipeline-flow-test",
+                  "pipeline_id": 2,
+                  "bh_project_name": "flow-service-project",
+                  "job_flow_id": "{{ task_instance.xcom_pull(task_ids='custom__0704938fa', key='return_value') }}"
                 }
               ],
               "bh_project_id": 2,
@@ -160,7 +171,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-04-28 13:33:34.201392+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
