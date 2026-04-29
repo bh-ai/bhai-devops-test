@@ -80,7 +80,7 @@
               "parameters": [],
               "tasks": [
                 {
-                  "task_id": "custom__b1e49137b",
+                  "task_id": "custom__e71483d45",
                   "type": "CreateCompute",
                   "depends_on": [],
                   "output_variables": [
@@ -138,7 +138,7 @@
                   },
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
-                  "cluster_name": "dbricks_test_cluster_02",
+                  "cluster_name": "dbricks_test_cluster",
                   "airflow_connection_id": "databricks_default"
                 }
               ],
@@ -162,7 +162,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-04-29 12:07:27.114440+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
