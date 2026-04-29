@@ -61,56 +61,38 @@ with DAG(
         compute = factory.get_compute(compute_type="databricks")
         payload = (
             {
-                "created_at": "2026-04-28T05:19:31.103192Z",
-                "updated_at": "2026-04-28T05:19:31.103192Z",
-                "created_by": "sathish@bighammer.ai",
-                "updated_by": "sathish@bighammer.ai",
-                "is_deleted": False,
-                "deleted_by": None,
-                "tenant_id": 1,
-                "compute_config_id": 1,
-                "compute_config_name": "test-01",
-                "cloud_provider": "databricks",
-                "compute_type": "DATABRICKS_CLUSTER",
-                "bh_env_id": 2,
-                "bh_env_name": "dbricks-westus",
-                "compute_config": {
-                    "cluster_name": "flow_service_databricks_AK_Local_0303_V1",
-                    "spark_version": "15.4.x-scala2.12",
-                    "node_type_id": "Standard_D4s_v3",
-                    "num_workers": 0,
-                    "autoscale": None,
-                    "driver_node_type_id": None,
-                    "runtime_engine": None,
-                    "data_security_mode": "SINGLE_USER",
-                    "single_user_name": "sathish@bighammer.ai",
-                    "policy_id": None,
-                    "apply_policy_default_values": True,
-                    "idempotency_token": None,
-                    "aws_attributes": None,
-                    "azure_attributes": None,
-                    "gcp_attributes": None,
-                    "single_node": True,
-                    "autotermination_minutes": 15,
-                    "enable_elastic_disk": True,
-                    "spark_conf": {},
-                    "spark_env_vars": {},
-                    "custom_tags": {},
-                    "cluster_log_conf": {
-                        "test": "sathish"
-                    },
-                    "init_scripts": [
-                        "/Workspace/Shared/bh-dev-utils/scripts/bh_databricks_grpc_server.sh"
-                    ],
-                    "libraries": [],
-                    "databricks_region": None,
-                    "bh_tags": []
-                },
-                "compute_profile": None,
                 "cluster_name": "dbricks_test_cluster",
+                "spark_version": "15.4.x-scala2.12",
+                "node_type_id": "Standard_D4s_v3",
+                "num_workers": 0,
+                "autoscale": None,
+                "driver_node_type_id": None,
+                "runtime_engine": None,
+                "data_security_mode": "SINGLE_USER",
+                "single_user_name": "sathish@bighammer.ai",
+                "policy_id": None,
+                "apply_policy_default_values": True,
+                "idempotency_token": None,
+                "aws_attributes": None,
+                "azure_attributes": None,
+                "gcp_attributes": None,
+                "single_node": True,
+                "autotermination_minutes": 15,
+                "enable_elastic_disk": True,
+                "spark_conf": {},
                 "spark_env_vars": {
                     "SECRET_MANAGER_PROVIDER": "databricks"
-                }
+                },
+                "custom_tags": {},
+                "cluster_log_conf": {
+                    "test": "sathish"
+                },
+                "init_scripts": [
+                    "/Workspace/Shared/bh-dev-utils/scripts/bh_databricks_grpc_server.sh"
+                ],
+                "libraries": [],
+                "databricks_region": None,
+                "bh_tags": []
             }
         )
         cluster_id = compute.create_compute(
