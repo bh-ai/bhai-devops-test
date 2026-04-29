@@ -51,7 +51,7 @@ with DAG(
 
     def create_databricks_cluster_custom_8214ee45d(**context):
         from airflow_plugins.cloud_factory import CloudFactory
-        hook = DatabricksHook(databricks_conn_id='databricks_deafult')
+        hook = DatabricksHook(databricks_conn_id='databricks_default')
         conn = hook.get_conn()
         workspace_url = (conn.host or '').rstrip('/')
         token = conn.password
