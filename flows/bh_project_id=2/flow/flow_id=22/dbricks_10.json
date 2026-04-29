@@ -140,6 +140,23 @@
                   "compute_type": "DATABRICKS_CLUSTER",
                   "cluster_name": "dbricks_test_cluster",
                   "airflow_connection_id": "databricks_default"
+                },
+                {
+                  "task_id": "custom__58043bfc9",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "custom__3e14d4a7c"
+                  ],
+                  "pipeline_name": "pipeline-flow-test",
+                  "pipeline_id": 2,
+                  "bh_project_name": "flow-service-project",
+                  "compute_binding": {
+                    "source_task_id": "custom__3e14d4a7c",
+                    "source_output_id": "compute_id"
+                  },
+                  "cloud_type": "azure",
+                  "compute_type": "databricks",
+                  "job_flow_id": "{{ task_instance.xcom_pull(task_ids='custom__3e14d4a7c', key='return_value') }}"
                 }
               ]
             }
@@ -161,7 +178,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-04-29 13:36:53.962789+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
