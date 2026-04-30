@@ -40,7 +40,7 @@ env:
   AZURE_STORAGE_CONTAINER: ${{ vars.AZURE_STORAGE_CONTAINER || 'bh-airflow' }}
   AZURE_DAG_PREFIX: ${{ vars.AZURE_DAG_PREFIX || 'dags' }}
   AZURE_CODEBASE_PREFIX: ${{ vars.AZURE_CODEBASE_PREFIX || 'codebase' }}
-  PIPELINE_BASE_PATH: ${{ vars.PIPELINE_BASE_PATH || '/Workspace/Shared/codespace' }}
+  PIPELINE_BASE_PATH: ${{ vars.DATABRICKS_WORKSPACE_PATH || '/Workspace/Users/sathish@bighammer.ai/bhai-devops' }}
   BH_ENVIRONMENT_NAME: ${{ vars.BH_ENVIRONMENT_NAME || 'Azure-Databricks-AK-Dev-Local-V9' }}
   BH_ENVIRONMENT_ID: ${{ vars.BH_ENVIRONMENT_ID || '14' }}
   BH_KC_SECRET_URL: ${{ vars.BH_KC_SECRET_URL || 'bh-dev-westus3-kv-key-scope/bh-app-abccorporation-databricks-keycloak-14-v1-secrets' }}

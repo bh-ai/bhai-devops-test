@@ -34,7 +34,7 @@ jobs:
       contents: read
     env:
       # Resolved per job so environment-scoped vars apply (repo or env variable).
-      DATABRICKS_WORKSPACE_PATH: ${{ vars.DATABRICKS_WORKSPACE_PATH || '/Workspace/Shared/codespace' }}
+      DATABRICKS_WORKSPACE_PATH: ${{ vars.DATABRICKS_WORKSPACE_PATH || '/Workspace/Users/sathish@bighammer.ai/bhai-devops' }} #/Workspace/Shared/codespace
 
     steps:
       - name: Checkout repository
