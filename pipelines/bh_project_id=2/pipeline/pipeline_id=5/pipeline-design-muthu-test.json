@@ -1,0 +1,93 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"name": "pipeline-design-muthu-test",
+	"description": " ",
+	"version": "1.0.0",
+	"parameters": [],
+	"connections": {
+		"store_dim": {
+			"name": "Postgres-azure",
+			"connection_type": "PostgreSQL",
+			"connection_config_id": 1,
+			"database": "sample_db",
+			"schema": "consumer_demo",
+			"secret_name": "bh-postgres-postgresazure"
+		},
+		"target_sathish_pipeline_test3004_1": {
+			"name": "Postgres-azure",
+			"connection_type": "PostgreSQL",
+			"connection_config_id": 1,
+			"database": "sample_db",
+			"schema": "public",
+			"secret_name": "bh-postgres-postgresazure"
+		}
+	},
+	"sources": {
+		"store_dim": {
+			"name": "store_dim",
+			"source_type": "Relational",
+			"schema_name": "consumer_demo",
+			"data_src_id": 37,
+			"table_name": "store_dim",
+			"connection": {
+				"$ref": "#/connections/store_dim"
+			}
+		}
+	},
+	"targets": {
+		"target_sathish_pipeline_test3004_1": {
+			"name": "target_sathish_pipeline_test3004_1",
+			"load_mode": "append",
+			"table_name": "target_sathish_pipeline_test3004",
+			"schema_name": "public",
+			"target_type": "Relational",
+			"connection": {
+				"$ref": "#/connections/target_sathish_pipeline_test3004_1"
+			}
+		}
+	},
+	"transformations": [
+		{
+			"name": "store_dim",
+			"dependent_on": [],
+			"transformation": "Reader",
+			"source": {
+				"$ref": "#/sources/store_dim"
+			},
+			"read_options": {
+				"header": true
+			},
+			"select_columns": [],
+			"drop_columns": [],
+			"rename_columns": {}
+		},
+		{
+			"name": "Sorter",
+			"transformation": "Sorter",
+			"dependent_on": [
+				"store_dim"
+			],
+			"sort_columns": [
+				{
+					"column": "store_name",
+					"order": "asc"
+				}
+			]
+		},
+		{
+			"name": "target_sathish_pipeline_test3004_1",
+			"transformation": "Writer",
+			"dependent_on": [
+				"Sorter"
+			],
+			"target": {
+				"$ref": "#/targets/target_sathish_pipeline_test3004_1"
+			},
+			"file_name": "output.csv",
+			"write_options": {
+				"header": true,
+				"sep": ","
+			}
+		}
+	]
+}
