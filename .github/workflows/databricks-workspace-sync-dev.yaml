@@ -43,6 +43,11 @@ jobs:
       - name: Set up Databricks CLI
         uses: databricks/setup-cli@main
 
+      - name: Debug repo contents
+        run: |
+          pwd
+          ls -R
+          
       - name: Sync to Databricks workspace
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
