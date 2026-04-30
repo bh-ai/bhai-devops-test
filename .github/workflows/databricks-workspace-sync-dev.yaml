@@ -42,7 +42,7 @@ jobs:
 
       - name: Set up Databricks CLI
         uses: databricks/setup-cli@main
-
+        
       - name: Debug repo contents
         run: |
           pwd
@@ -55,7 +55,7 @@ jobs:
         run: |
           # One-way sync: local repo -> workspace (Databricks CLI 0.205+)
           # --full = full sync each run; omit for incremental.
-          databricks sync . "${{ env.DATABRICKS_WORKSPACE_PATH }}" --full
+          databricks sync . "${{ env.DATABRICKS_WORKSPACE_PATH }}" --full --debug
 
       - name: Summary
         run: |
