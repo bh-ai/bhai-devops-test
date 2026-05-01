@@ -158,6 +158,8 @@
                     "source_task_id": "create_compute_dfc4acc1d",
                     "source_output_id": "compute_id"
                   },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
                   "job_flow_id": "{{ task_instance.xcom_pull(task_ids='create_compute_dfc4acc1d', key='return_value') }}"
                 }
               ]
@@ -180,7 +182,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-01 09:50:22.321695+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
