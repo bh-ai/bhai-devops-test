@@ -115,7 +115,14 @@
                   },
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
-                  "cluster_name": "dbricks_test_cluster"
+                  "cluster_name": "dbricks_test_cluster",
+                  "output_variables": [
+                    {
+                      "id": "compute_id",
+                      "label": "Cluster / job identifier",
+                      "xcom_key": "return_value"
+                    }
+                  ]
                 },
                 {
                   "task_id": "submit_job_7ba4bb1f5",
@@ -174,7 +181,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-06 14:42:29.793540+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
