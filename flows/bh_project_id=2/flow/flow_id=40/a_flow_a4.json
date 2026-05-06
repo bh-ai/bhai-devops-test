@@ -71,7 +71,7 @@
               "description": "Flow for a-flow-a4",
               "version": "1.0.0",
               "project_id": 2,
-              "project_name": "flow-service-project",
+              "project_name": "Default Project",
               "cron_expression": null,
               "flow_tags": [],
               "tenant_id": 1,
@@ -124,7 +124,8 @@
                       "xcom_key": "return_value"
                     }
                   ],
-                  "cluster_name": "flow_service_databricks_AK_Local_0303_V1"
+                  "cluster_name": "flow_service_databricks_AK_Local_0303_V1",
+                  "airflow_connection_id": "databricks_default"
                 },
                 {
                   "task_id": "submit_job_5fe4b4df2",
@@ -183,7 +184,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-06 11:45:34.777402+00:00",
+          "last_deployed_at": "2026-05-06 11:50:49.970745+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
