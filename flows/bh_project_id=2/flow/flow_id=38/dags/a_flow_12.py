@@ -171,7 +171,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_submit_job_24241c166_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/bh-dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/bh-dev-utils/pipelines/bh_project_id=2/pipeline/pipeline_id=5/pipeline-design-muthu-test.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=2/pipeline/pipeline_id=5/pipeline-design-muthu-test.json",
                 "databricks",
                 "/Workspace/Shared/bh-dev-utils/schemas"
             ]
