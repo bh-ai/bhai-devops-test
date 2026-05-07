@@ -85,6 +85,7 @@
                   "depends_on": [],
                   "name": "Custom",
                   "nodeId": "Custom_1778134129581",
+                  "airflow_connection_id": "databricks_default",
                   "compute_config": {
                     "cluster_name": "cinq03-pipeline-cluster",
                     "spark_version": "15.4.x-scala2.12",
@@ -108,15 +109,16 @@
                     "spark_env_vars": {},
                     "custom_tags": {},
                     "cluster_log_conf": null,
-                    "init_scripts": [],
+                    "init_scripts": [
+                      "/Workspace/Shared/bh-dev-utils/scripts/bh_test_databricks_grpc_server_codeartifact.sh"
+                    ],
                     "libraries": [],
                     "databricks_region": "us-west-1",
                     "bh_tags": []
                   },
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
-                  "cluster_name": "cinq03-pipeline-cluster",
-                  "airflow_connection_id": "databricks_default"
+                  "cluster_name": "cinq03-pipeline-cluster"
                 },
                 {
                   "task_id": "submit_job_a5645621a",
@@ -194,7 +196,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-07 06:11:09.042318+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
