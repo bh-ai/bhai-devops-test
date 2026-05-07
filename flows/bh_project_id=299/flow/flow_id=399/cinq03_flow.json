@@ -129,6 +129,7 @@
                   "name": "Custom_2",
                   "nodeId": "Custom_1778134171644",
                   "bh_project_name": "flow-test-project",
+                  "pipeline_key": "cinqcare_member_file_8_21_25_212",
                   "pipeline_name": "CinqCare Member File 8_21_25_212",
                   "pipeline_id": 596,
                   "compute_binding": {
@@ -137,8 +138,7 @@
                   },
                   "compute_type": "DATABRICKS_CLUSTER",
                   "cloud_type": "databricks",
-                  "job_flow_id": "{{ task_instance.xcom_pull(task_ids='create_compute_5b4438e27', key='return_value') }}",
-                  "pipeline_key": "cinqcare_member_file_8_21_25_212"
+                  "job_flow_id": "{{ task_instance.xcom_pull(task_ids='create_compute_5b4438e27', key='return_value') }}"
                 },
                 {
                   "task_id": "submit_job_003476d55",
@@ -170,13 +170,13 @@
                   ],
                   "name": "Custom_4",
                   "nodeId": "Custom_1778134173171",
+                  "airflow_connection_id": "databricks_default",
                   "compute_binding": {
                     "source_task_id": "create_compute_5b4438e27",
                     "source_output_id": "compute_id"
                   },
                   "compute_type": "DATABRICKS_CLUSTER",
-                  "cloud_type": "databricks",
-                  "airflow_connection_id": "databricks_default"
+                  "cloud_type": "databricks"
                 }
               ]
             }
@@ -198,7 +198,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-07 08:55:13.483584+00:00",
+          "last_deployed_at": "2026-05-07 09:01:17.429719+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
