@@ -70,8 +70,8 @@
               "flow_key": "aks_flow_1",
               "description": "Flow for aks-flow-1",
               "version": "1.0.0",
-              "project_id": 2,
-              "project_name": "Default Project",
+              "project_id": 299,
+              "project_name": "flow-test-project",
               "cron_expression": null,
               "flow_tags": [],
               "tenant_id": 220,
@@ -85,6 +85,7 @@
                   "depends_on": [],
                   "name": "Custom",
                   "nodeId": "Custom_1778077801040",
+                  "airflow_connection_id": "databricks_default",
                   "compute_config": {
                     "cluster_name": "dbricks_test_cluster",
                     "spark_version": "15.4.x-scala2.12",
@@ -122,8 +123,7 @@
                       "label": "Cluster / job identifier",
                       "xcom_key": "return_value"
                     }
-                  ],
-                  "airflow_connection_id": "databricks_default"
+                  ]
                 },
                 {
                   "task_id": "submit_job_7ba4bb1f5",
@@ -182,7 +182,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-06 15:01:49.628001+00:00",
+          "last_deployed_at": "2026-05-07 02:10:38.823927+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
