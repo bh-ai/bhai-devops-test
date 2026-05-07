@@ -152,7 +152,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_submit_job_a5645621a_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/bh-dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=596/CinqCare Member File 8_21_25_212.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=596/cinqcare_member_file_8_21_25_212.json",
                 "databricks",
                 "/Workspace/Shared/bh-dev-utils/schemas"
             ]
@@ -217,7 +217,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_submit_job_003476d55_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/bh-dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=597/silver_raw_cinqcare_member_file_to_members_enrollment_load_260507_b1e6.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=597/cinqcare_member_file_8_21_25_212.json",
                 "databricks",
                 "/Workspace/Shared/bh-dev-utils/schemas"
             ]
