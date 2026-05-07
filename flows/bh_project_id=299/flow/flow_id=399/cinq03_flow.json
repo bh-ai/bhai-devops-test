@@ -149,9 +149,10 @@
                   ],
                   "name": "Custom_3",
                   "nodeId": "Custom_1778134172570",
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "cinqcare_member_file_8_21_25_212",
                   "pipeline_name": "silver_raw_cinqcare_member_file_to_members_enrollment_load_260507_b1e6",
                   "pipeline_id": 597,
-                  "bh_project_name": "flow-test-project",
                   "compute_binding": {
                     "source_task_id": "create_compute_5b4438e27",
                     "source_output_id": "compute_id"
@@ -197,7 +198,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-07 07:47:47.801045+00:00",
+          "last_deployed_at": "2026-05-07 08:55:13.483584+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
