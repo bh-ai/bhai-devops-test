@@ -118,7 +118,14 @@
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
                   "cluster_name": "cinq07-cluster",
-                  "airflow_connection_id": "databricks_default"
+                  "airflow_connection_id": "databricks_default",
+                  "output_variables": [
+                    {
+                      "id": "compute_id",
+                      "label": "Cluster / job identifier",
+                      "xcom_key": "return_value"
+                    }
+                  ]
                 },
                 {
                   "task_id": "submit_job_96c403d0f",
@@ -128,10 +135,10 @@
                   ],
                   "name": "Custom_2",
                   "nodeId": "Custom_1778168805682",
-                  "pipeline_name": "cinq07",
-                  "pipeline_id": 616,
                   "bh_project_name": "flow-test-project",
                   "pipeline_key": "cinq07",
+                  "pipeline_name": "cinq07",
+                  "pipeline_id": 616,
                   "compute_binding": {
                     "source_task_id": "create_compute_4464aa669",
                     "source_output_id": "compute_id"
@@ -149,10 +156,10 @@
                   ],
                   "name": "Custom_3",
                   "nodeId": "Custom_1778168806224",
-                  "pipeline_name": "silver_raw_cinqcare_member_file_to_members_enrollment_load_260507_36c5",
-                  "pipeline_id": 617,
                   "bh_project_name": "flow-test-project",
                   "pipeline_key": "silver_raw_cinqcare_member_file_to_members_enrollment_load_260507_36c5",
+                  "pipeline_name": "silver_raw_cinqcare_member_file_to_members_enrollment_load_260507_36c5",
+                  "pipeline_id": 617,
                   "compute_binding": {
                     "source_task_id": "create_compute_4464aa669",
                     "source_output_id": "compute_id"
@@ -170,13 +177,13 @@
                   ],
                   "name": "Custom_4",
                   "nodeId": "Custom_1778168806798",
+                  "airflow_connection_id": "databricks_default",
                   "compute_binding": {
                     "source_task_id": "create_compute_4464aa669",
                     "source_output_id": "compute_id"
                   },
                   "compute_type": "DATABRICKS_CLUSTER",
                   "cloud_type": "databricks",
-                  "airflow_connection_id": "databricks_default",
                   "trigger_rule": "all_done"
                 }
               ],
@@ -202,7 +209,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-07 15:48:44.420547+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
