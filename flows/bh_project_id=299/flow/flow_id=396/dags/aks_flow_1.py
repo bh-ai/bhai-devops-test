@@ -32,8 +32,8 @@ with DAG(
             'flow_id': 396,
             'flow_name': 'aks-flow-1',
             'flow_key': 'aks_flow_1',
-            'bh_project_id': 2,
-            'project_name': 'Default Project',
+            'bh_project_id': 299,
+            'project_name': 'flow-test-project',
             'flow_tags': [],
             'flow_type': 'INGESTION',
             'tenant_id': 220,
@@ -150,7 +150,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_submit_job_7ba4bb1f5_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/bh-dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=2/pipeline/pipeline_id=591/fulfilled_orders_net_sales_filter_260506_edc8.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=591/fulfilled_orders_net_sales_filter_260506_edc8.json",
                 "databricks",
                 "/Workspace/Shared/bh-dev-utils/schemas"
             ]
