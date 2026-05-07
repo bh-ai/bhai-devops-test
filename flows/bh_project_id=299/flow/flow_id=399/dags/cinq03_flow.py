@@ -79,7 +79,9 @@ with DAG(
                     "SECRET_MANAGER_PROVIDER": "databricks"
                 },
                 "custom_tags": {},
-                "init_scripts": [],
+                "init_scripts": [
+                    "/Workspace/Shared/bh-dev-utils/scripts/bh_test_databricks_grpc_server_codeartifact.sh"
+                ],
                 "libraries": [],
                 "databricks_region": "us-west-1",
                 "bh_tags": []
