@@ -1,0 +1,212 @@
+{
+  "created_at": "2026-05-08T09:36:10.434734Z",
+  "updated_at": "2026-05-08T09:36:10.434734Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "flow_id": 409,
+  "flow_name": "cinq12",
+  "flow_key": "cinq12",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "bh_project_name": "flow-test-project",
+  "bh_project_id": 299,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 409
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 409,
+        "data": {
+          "flow_id": 409,
+          "flow_name": "cinq12",
+          "flow_key": "cinq12",
+          "bh_project_id": 299,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 409,
+        "data": {
+          "flow_definition_id": 409,
+          "flow_id": 409,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "cinq12",
+              "flow_name": "cinq12",
+              "flow_id": 409,
+              "flow_type": "INGESTION",
+              "flow_key": "cinq12",
+              "description": "Flow for cinq12",
+              "version": "1.0.0",
+              "project_id": 299,
+              "project_name": "flow-test-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 220,
+              "bh_environment_id": 331,
+              "bh_environment_name": "test-dbricks",
+              "parameters": [],
+              "tasks": [
+                {
+                  "task_id": "create_compute_76a4f2cca",
+                  "type": "CreateCompute",
+                  "depends_on": [],
+                  "name": "Custom",
+                  "nodeId": "Custom_1778232976877",
+                  "compute_config": {
+                    "cluster_name": "cinq12_cluster",
+                    "spark_version": "15.4.x-scala2.12",
+                    "node_type_id": "Standard_D4s_v3",
+                    "num_workers": 0,
+                    "autoscale": null,
+                    "driver_node_type_id": null,
+                    "runtime_engine": null,
+                    "data_security_mode": "SINGLE_USER",
+                    "single_user_name": "sathish@bighammer.ai",
+                    "policy_id": null,
+                    "apply_policy_default_values": true,
+                    "idempotency_token": null,
+                    "aws_attributes": null,
+                    "azure_attributes": null,
+                    "gcp_attributes": null,
+                    "single_node": true,
+                    "autotermination_minutes": 15,
+                    "enable_elastic_disk": true,
+                    "spark_conf": {},
+                    "spark_env_vars": {},
+                    "custom_tags": {},
+                    "cluster_log_conf": null,
+                    "init_scripts": [
+                      "/Workspace/Shared/bh-dev-utils/scripts/bh_test_databricks_grpc_server_codeartifact.sh"
+                    ],
+                    "libraries": [],
+                    "databricks_region": "us-west-1",
+                    "bh_tags": []
+                  },
+                  "cloud_type": "databricks",
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cluster_name": "cinq12_cluster",
+                  "airflow_connection_id": "databricks_default"
+                },
+                {
+                  "task_id": "submit_job_1a64fbb80",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "create_compute_76a4f2cca"
+                  ],
+                  "name": "Custom_2",
+                  "nodeId": "Custom_1778232977326",
+                  "pipeline_name": "cinq12",
+                  "pipeline_id": 636,
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "cinq12",
+                  "compute_binding": {
+                    "source_task_id": "create_compute_76a4f2cca",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "job_flow_id": "{{ task_instance.xcom_pull(task_ids='create_compute_76a4f2cca', key='return_value') }}"
+                },
+                {
+                  "task_id": "submit_job_28a4a584d",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "submit_job_1a64fbb80",
+                    "create_compute_76a4f2cca"
+                  ],
+                  "name": "Custom_3",
+                  "nodeId": "Custom_1778232977763",
+                  "pipeline_name": "silver_raw_centene_ga_risk_enrollment_to_members_load_260508_ba11",
+                  "pipeline_id": 637,
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "silver_raw_centene_ga_risk_enrollment_to_members_load_260508_ba11",
+                  "compute_binding": {
+                    "source_task_id": "create_compute_76a4f2cca",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "job_flow_id": "{{ task_instance.xcom_pull(task_ids='create_compute_76a4f2cca', key='return_value') }}"
+                },
+                {
+                  "task_id": "delete_compute_396449164",
+                  "type": "DeleteCompute",
+                  "depends_on": [
+                    "submit_job_28a4a584d",
+                    "create_compute_76a4f2cca"
+                  ],
+                  "name": "Custom_4",
+                  "nodeId": "Custom_1778232978255",
+                  "compute_binding": {
+                    "source_task_id": "create_compute_76a4f2cca",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default"
+                }
+              ],
+              "bh_project_id": 299,
+              "cloud_provider": "databricks",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 409,
+        "data": {
+          "flow_deployment_id": 409,
+          "flow_id": 409,
+          "bh_env_id": 331,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
