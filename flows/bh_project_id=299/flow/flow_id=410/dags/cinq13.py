@@ -1,0 +1,287 @@
+
+from airflow import DAG
+from datetime import datetime, timedelta
+from airflow_plugins.dag_task_definitions.common_task import CommonTask
+from airflow_plugins.dag_task_definitions.lineage_task import LineageTask
+
+common_task = CommonTask(dag_id='cinq13', dag_params={})
+lineage_task = LineageTask(dag_id='cinq13', dag_params={})
+
+default_args = {
+    'owner': 'bh',
+    'start_date': datetime.now() - timedelta(days=1),
+    'retries': 0
+}
+
+with DAG(
+    dag_id='cinq13',
+    default_args=default_args,
+    schedule=None,
+    catchup=False,
+    tags=[]
+) as dag:
+
+
+    from airflow.operators.python import PythonOperator
+    start_flow_task = PythonOperator(
+        task_id='start_flow_task',
+        python_callable=common_task.start_dag_task,
+        on_success_callback=common_task.success_callback,
+        on_failure_callback=common_task.failure_callback,
+        params = {
+            'flow_id': 410,
+            'flow_name': 'cinq13',
+            'flow_key': 'cinq13',
+            'bh_project_id': 299,
+            'project_name': 'flow-test-project',
+            'flow_tags': [],
+            'flow_type': 'INGESTION',
+            'tenant_id': 220,
+            'flow_status': 'In Progress',
+        }
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow.providers.databricks.hooks.databricks import DatabricksHook
+
+    def create_databricks_cluster_create_compute_63f453c71(**context):
+        from airflow_plugins.cloud_factory import CloudFactory
+        hook = DatabricksHook(databricks_conn_id='databricks_default')
+        conn = hook.get_conn()
+        workspace_url = (conn.host or '').rstrip('/')
+        token = conn.password
+        if not workspace_url or not token:
+            raise ValueError("Databricks connection must have host and password (token)")
+        factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
+        compute = factory.get_compute(compute_type="databricks")
+        payload = (
+            {
+                "cluster_name": "cinq13_cluster",
+                "spark_version": "15.4.x-scala2.12",
+                "node_type_id": "Standard_D4s_v3",
+                "num_workers": 0,
+                "autoscale": None,
+                "driver_node_type_id": None,
+                "runtime_engine": None,
+                "data_security_mode": "SINGLE_USER",
+                "single_user_name": "sathish@bighammer.ai",
+                "policy_id": None,
+                "apply_policy_default_values": True,
+                "idempotency_token": None,
+                "aws_attributes": None,
+                "azure_attributes": None,
+                "gcp_attributes": None,
+                "single_node": True,
+                "autotermination_minutes": 15,
+                "enable_elastic_disk": True,
+                "spark_conf": {},
+                "spark_env_vars": {
+                    "SECRET_MANAGER_PROVIDER": "databricks"
+                },
+                "custom_tags": {},
+                "init_scripts": [
+                    "/Workspace/Shared/bh-dev-utils/scripts/bh_test_databricks_grpc_server_codeartifact.sh"
+                ],
+                "libraries": [],
+                "databricks_region": "us-west-1",
+                "bh_tags": []
+            }
+        )
+        cluster_id = compute.create_compute(
+            payload,
+            compute_name=payload.get("cluster_name"),
+            run_async=False,
+        )
+        if not cluster_id:
+            raise ValueError("create_compute did not return cluster_id")
+        return cluster_id
+
+    create_compute_63f453c71 = PythonOperator(
+        task_id='create_compute_63f453c71',
+        python_callable=create_databricks_cluster_create_compute_63f453c71,
+        on_success_callback=common_task.success_callback,
+        on_failure_callback=common_task.failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.cloud_factory import CloudFactory
+    import logging
+    logger = logging.getLogger(__name__)
+
+    def submit_job_to_cluster(**context):
+        params = context.get("params") or {}
+        job_config = params.get("job_config")
+        if not job_config:
+            raise ValueError("Missing job_config in params")
+
+        # Prefer compute_id from params (supports Jinja xcom_pull strings), fallback to XCom.
+        compute_id = params.get("compute_id")
+        xcom_key = str(params.get("compute_xcom_key") or "return_value")
+        if not compute_id or (isinstance(compute_id, str) and "{" in compute_id):
+            ti = context["ti"]
+            # Most flows normalize the create task_id to 'create_compute'. Keep a legacy fallback.
+            compute_task_id = params.get("compute_task_id") or "create_compute"
+            compute_id = ti.xcom_pull(task_ids=compute_task_id, key=xcom_key)
+            if not compute_id:
+                compute_id = ti.xcom_pull(task_ids="databricks_create_cluster_task", key=xcom_key)
+
+        if not compute_id or (isinstance(compute_id, str) and "{" in compute_id):
+            raise ValueError("No compute_id from params or XCom")
+
+        from airflow.hooks.base import BaseHook
+        conn = BaseHook.get_connection('databricks_default')
+        workspace_url = (conn.host or '').rstrip('/')
+        token = conn.password
+        if not workspace_url or not token:
+            raise ValueError("Databricks connection must have host and password (token)")
+
+        factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
+        compute = factory.get_compute(compute_type="databricks")
+        result = compute.execute_job(compute_id, job_config, run_async=False)
+        if result.get("status") == "FAILED":
+            raise RuntimeError(result.get("error", "Job submission failed"))
+        run_id = result.get("run_id")
+        if run_id:
+            context["ti"].xcom_push(key="run_id", value=run_id)
+        return result
+
+    _submit_params = {
+        "compute_task_id": "create_compute_63f453c71",
+        "job_config": {
+            "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_submit_job_5fb43a0c1_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/bh-dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=640/cinq13.json",
+                "databricks",
+                "/Workspace/Shared/bh-dev-utils/schemas"
+            ]
+        },
+        "compute_xcom_key": "return_value"
+    }
+    submit_job_5fb43a0c1 = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='submit_job_5fb43a0c1',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=common_task.success_callback,
+        on_failure_callback=common_task.failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.cloud_factory import CloudFactory
+    import logging
+    logger = logging.getLogger(__name__)
+
+    def submit_job_to_cluster(**context):
+        params = context.get("params") or {}
+        job_config = params.get("job_config")
+        if not job_config:
+            raise ValueError("Missing job_config in params")
+
+        # Prefer compute_id from params (supports Jinja xcom_pull strings), fallback to XCom.
+        compute_id = params.get("compute_id")
+        xcom_key = str(params.get("compute_xcom_key") or "return_value")
+        if not compute_id or (isinstance(compute_id, str) and "{" in compute_id):
+            ti = context["ti"]
+            # Most flows normalize the create task_id to 'create_compute'. Keep a legacy fallback.
+            compute_task_id = params.get("compute_task_id") or "create_compute"
+            compute_id = ti.xcom_pull(task_ids=compute_task_id, key=xcom_key)
+            if not compute_id:
+                compute_id = ti.xcom_pull(task_ids="databricks_create_cluster_task", key=xcom_key)
+
+        if not compute_id or (isinstance(compute_id, str) and "{" in compute_id):
+            raise ValueError("No compute_id from params or XCom")
+
+        from airflow.hooks.base import BaseHook
+        conn = BaseHook.get_connection('databricks_default')
+        workspace_url = (conn.host or '').rstrip('/')
+        token = conn.password
+        if not workspace_url or not token:
+            raise ValueError("Databricks connection must have host and password (token)")
+
+        factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
+        compute = factory.get_compute(compute_type="databricks")
+        result = compute.execute_job(compute_id, job_config, run_async=False)
+        if result.get("status") == "FAILED":
+            raise RuntimeError(result.get("error", "Job submission failed"))
+        run_id = result.get("run_id")
+        if run_id:
+            context["ti"].xcom_push(key="run_id", value=run_id)
+        return result
+
+    _submit_params = {
+        "compute_task_id": "create_compute_63f453c71",
+        "job_config": {
+            "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_submit_job_d3b4b60b9_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/bh-dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=641/silver_raw_centene_ga_risk_enrollment_to_members_260508_d94e.json",
+                "databricks",
+                "/Workspace/Shared/bh-dev-utils/schemas"
+            ]
+        },
+        "compute_xcom_key": "return_value"
+    }
+    submit_job_d3b4b60b9 = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='submit_job_d3b4b60b9',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=common_task.success_callback,
+        on_failure_callback=common_task.failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.cloud_factory import CloudFactory
+    import logging
+    logger = logging.getLogger(__name__)
+
+    def terminate_databricks_resources(**context):
+        ti = context["ti"]
+        compute_id = ti.xcom_pull(task_ids="create_compute_63f453c71", key="return_value")
+        if not compute_id or (isinstance(compute_id, str) and "{" in compute_id):
+            params = context.get("params") or {}
+            compute_id = params.get("compute_id")
+        if not compute_id or (isinstance(compute_id, str) and "{" in compute_id):
+            logger.warning("No compute_id from XCom task create_compute_63f453c71 or params; skipping terminate")
+            return
+        from airflow.hooks.base import BaseHook
+        conn = BaseHook.get_connection('databricks_default')
+        workspace_url = (conn.host or '').rstrip('/')
+        token = conn.password
+        if not workspace_url or not token:
+            raise ValueError("Databricks connection must have host and password (token)")
+        factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
+        compute = factory.get_compute(compute_type="databricks")
+        ok = compute.terminate_compute(compute_id, run_async=False)
+        logger.info("Terminated cluster %s: %s", compute_id, ok)
+
+    _terminate_params = {}
+    delete_compute_3b34e1364 = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='delete_compute_3b34e1364',
+        python_callable=terminate_databricks_resources,
+        params=_terminate_params,
+        on_success_callback=common_task.success_callback,
+        on_failure_callback=common_task.failure_callback,
+        trigger_rule='all_done',
+    )
+
+
+    from airflow.operators.python import PythonOperator
+    end_flow_task = PythonOperator(
+        task_id='end_flow_task',
+        pre_execute=common_task.pre_execute_callback,
+        python_callable=common_task.end_dag_task,
+        on_failure_callback=common_task.failure_callback
+    )
+
+    start_flow_task >> create_compute_63f453c71
+    create_compute_63f453c71 >> submit_job_5fb43a0c1
+    submit_job_5fb43a0c1 >> submit_job_d3b4b60b9
+    create_compute_63f453c71 >> submit_job_d3b4b60b9
+    submit_job_d3b4b60b9 >> delete_compute_3b34e1364
+    create_compute_63f453c71 >> delete_compute_3b34e1364
+    delete_compute_3b34e1364 >> end_flow_task
