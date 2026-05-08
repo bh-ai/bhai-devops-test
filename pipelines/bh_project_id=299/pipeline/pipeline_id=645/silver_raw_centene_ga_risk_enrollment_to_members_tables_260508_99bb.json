@@ -44,7 +44,7 @@
         "data_src_id": 986,
         "name": "centene_ga_risk_enrollment_0805_ddxtl",
         "source_type": "Relational",
-        "table_name": "centene_ga_risk_enrollment_0805_ddxtl",
+        "table_name": "centene_ga_risk_enrollment_0805",
         "connection": {
           "$ref": "#/connections/databricks-azure_cinqdev"
         },
