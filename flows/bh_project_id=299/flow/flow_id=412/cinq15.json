@@ -1,0 +1,192 @@
+{
+  "created_at": "2026-05-08T13:34:36.996256Z",
+  "updated_at": "2026-05-08T13:34:36.996256Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "flow_id": 412,
+  "flow_name": "cinq15",
+  "flow_key": "cinq15",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "bh_project_name": "flow-test-project",
+  "bh_project_id": 299,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 412
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 412,
+        "data": {
+          "flow_id": 412,
+          "flow_name": "cinq15",
+          "flow_key": "cinq15",
+          "bh_project_id": 299,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 412,
+        "data": {
+          "flow_definition_id": 412,
+          "flow_id": 412,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "cinq15",
+              "flow_name": "cinq15",
+              "flow_id": 412,
+              "flow_type": "INGESTION",
+              "flow_key": "cinq15",
+              "description": "Flow for cinq15",
+              "version": "1.0.0",
+              "project_id": 299,
+              "project_name": "flow-test-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 220,
+              "bh_environment_id": 331,
+              "bh_environment_name": "test-dbricks",
+              "parameters": [],
+              "tasks": [
+                {
+                  "task_id": "create_compute_4a94fa0f5",
+                  "type": "CreateCompute",
+                  "depends_on": [],
+                  "name": "Custom",
+                  "nodeId": "Custom_1778247293074",
+                  "compute_config": {
+                    "function_app_name": "bhai-catalog-api-svrlss",
+                    "function_name": "PreIngestRun",
+                    "resource_group": "bh-nprd-d-westus3-rg",
+                    "region": "westus3",
+                    "function_key": null,
+                    "function_url": "https://bhai-catalog-api-svrlss.azurewebsites.net/api/PreIngestRun?code=ocjq2olTCaBnDIP5GdoFTvjdY26x5oSOHX-viZqsN5xjAzFuNyAOQw==",
+                    "cluster_name": "cinq15_cluster"
+                  },
+                  "cloud_type": "databricks",
+                  "compute_type": "AZURE_FUNCTION",
+                  "cluster_name": "cinq15_cluster",
+                  "airflow_connection_id": "databricks_default"
+                },
+                {
+                  "task_id": "submit_job_3c8434051",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "create_compute_4a94fa0f5"
+                  ],
+                  "name": "Custom_2",
+                  "nodeId": "Custom_1778247293835",
+                  "pipeline_name": "cinq15",
+                  "pipeline_id": 644,
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "cinq15",
+                  "compute_binding": {
+                    "source_task_id": "create_compute_4a94fa0f5",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "AZURE_FUNCTION",
+                  "cloud_type": "databricks",
+                  "job_flow_id": "{{ task_instance.xcom_pull(task_ids='create_compute_4a94fa0f5', key='return_value') }}"
+                },
+                {
+                  "task_id": "submit_job_cfa46d0d2",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "submit_job_3c8434051",
+                    "create_compute_4a94fa0f5"
+                  ],
+                  "name": "Custom_3",
+                  "nodeId": "Custom_1778247294192",
+                  "pipeline_name": "silver_raw_centene_ga_risk_enrollment_to_members_tables_260508_99bb",
+                  "pipeline_id": 645,
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "silver_raw_centene_ga_risk_enrollment_to_members_tables_260508_99bb",
+                  "compute_binding": {
+                    "source_task_id": "create_compute_4a94fa0f5",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "AZURE_FUNCTION",
+                  "cloud_type": "databricks",
+                  "job_flow_id": "{{ task_instance.xcom_pull(task_ids='create_compute_4a94fa0f5', key='return_value') }}"
+                },
+                {
+                  "task_id": "delete_compute_f1340e1d4",
+                  "type": "DeleteCompute",
+                  "depends_on": [
+                    "submit_job_cfa46d0d2",
+                    "create_compute_4a94fa0f5"
+                  ],
+                  "name": "Custom_4",
+                  "nodeId": "Custom_1778247294965",
+                  "airflow_connection_id": "databricks_default",
+                  "compute_binding": {
+                    "source_task_id": "create_compute_4a94fa0f5",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "AZURE_FUNCTION",
+                  "cloud_type": "databricks",
+                  "trigger_rule": "all_done"
+                }
+              ],
+              "bh_project_id": 299,
+              "cloud_provider": "databricks",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 412,
+        "data": {
+          "flow_deployment_id": 412,
+          "flow_id": 412,
+          "bh_env_id": 331,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
