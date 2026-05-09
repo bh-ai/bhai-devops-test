@@ -85,8 +85,9 @@
                   "depends_on": [],
                   "name": "Create_Compute",
                   "nodeId": "Create Compute_1778330690261",
+                  "airflow_connection_id": "databricks_default",
                   "compute_config": {
-                    "cluster_name": "flow_service_databricks_AK_Local_0303_V1",
+                    "cluster_name": "dbricks_test_cluster_02",
                     "spark_version": "15.4.x-scala2.12",
                     "node_type_id": "Standard_D4s_v3",
                     "num_workers": 0,
@@ -117,8 +118,14 @@
                   },
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
-                  "airflow_connection_id": "databricks_default",
-                  "cluster_name": "flow_service_databricks_AK_Local_0303_V1"
+                  "output_variables": [
+                    {
+                      "id": "compute_id",
+                      "label": "Cluster / job identifier",
+                      "xcom_key": "return_value"
+                    }
+                  ],
+                  "cluster_name": "dbricks_test_cluster_02"
                 },
                 {
                   "name": "Submit_Notebook",
@@ -177,7 +184,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-09 12:45:33.918003+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
