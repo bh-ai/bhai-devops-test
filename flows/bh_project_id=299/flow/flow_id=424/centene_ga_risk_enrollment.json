@@ -1,0 +1,218 @@
+{
+  "created_at": "2026-05-10T10:31:20.724299Z",
+  "updated_at": "2026-05-10T10:31:20.724299Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "flow_id": 424,
+  "flow_name": "centene_ga_risk_enrollment",
+  "flow_key": "centene_ga_risk_enrollment",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "bh_project_name": "flow-test-project",
+  "bh_project_id": 299,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 424
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 424,
+        "data": {
+          "flow_id": 424,
+          "flow_name": "centene_ga_risk_enrollment",
+          "flow_key": "centene_ga_risk_enrollment",
+          "bh_project_id": 299,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 424,
+        "data": {
+          "flow_definition_id": 424,
+          "flow_id": 424,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "centene_ga_risk_enrollment",
+              "flow_name": "centene_ga_risk_enrollment",
+              "flow_id": 424,
+              "flow_type": "INGESTION",
+              "flow_key": "centene_ga_risk_enrollment",
+              "description": "Flow for centene_ga_risk_enrollment",
+              "version": "1.0.0",
+              "project_id": 299,
+              "project_name": "flow-test-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 220,
+              "bh_environment_id": 331,
+              "bh_environment_name": "test-dbricks",
+              "parameters": [],
+              "tasks": [
+                {
+                  "task_id": "create_compute_3a64f5550",
+                  "type": "CreateCompute",
+                  "depends_on": [],
+                  "name": "Create_Compute",
+                  "nodeId": "Create Compute_1778409254559",
+                  "airflow_connection_id": "databricks_defaultcen",
+                  "compute_config": {
+                    "cluster_name": "centene_enrolment",
+                    "spark_version": "15.4.x-scala2.12",
+                    "node_type_id": "Standard_D4s_v3",
+                    "num_workers": 0,
+                    "autoscale": null,
+                    "driver_node_type_id": null,
+                    "runtime_engine": null,
+                    "data_security_mode": "SINGLE_USER",
+                    "single_user_name": "sathish@bighammer.ai",
+                    "policy_id": null,
+                    "apply_policy_default_values": true,
+                    "idempotency_token": null,
+                    "aws_attributes": null,
+                    "azure_attributes": null,
+                    "gcp_attributes": null,
+                    "single_node": true,
+                    "autotermination_minutes": 15,
+                    "enable_elastic_disk": true,
+                    "spark_conf": {},
+                    "spark_env_vars": {},
+                    "custom_tags": {},
+                    "cluster_log_conf": null,
+                    "init_scripts": [
+                      "/Workspace/Shared/bh-dev-utils/scripts/bh_test_databricks_grpc_server_codeartifact.sh"
+                    ],
+                    "libraries": [],
+                    "databricks_region": "us-west-1",
+                    "bh_tags": []
+                  },
+                  "cloud_type": "databricks",
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cluster_name": "centene_enrolment",
+                  "output_variables": [
+                    {
+                      "id": "compute_id",
+                      "label": "Cluster / job identifier",
+                      "xcom_key": "return_value"
+                    }
+                  ]
+                },
+                {
+                  "task_id": "submit_job_3da4fa71f",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "create_compute_3a64f5550"
+                  ],
+                  "name": "Submit_Job",
+                  "nodeId": "Submit Job_1778409468933",
+                  "pipeline_name": "enrollment_centene_ga_risk_243",
+                  "pipeline_id": 653,
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "enrollment_centene_ga_risk_243",
+                  "compute_binding": {
+                    "source_task_id": "create_compute_3a64f5550",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks"
+                },
+                {
+                  "task_id": "submit_job_ee64922a9",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "submit_job_3da4fa71f",
+                    "create_compute_3a64f5550"
+                  ],
+                  "name": "Submit_Job_2",
+                  "nodeId": "Submit Job_1778409498286",
+                  "pipeline_name": "silver_raw_centene_ga_risk_enrollment_mapping_260510_dbfa",
+                  "pipeline_id": 654,
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "silver_raw_centene_ga_risk_enrollment_mapping_260510_dbfa",
+                  "compute_binding": {
+                    "source_task_id": "create_compute_3a64f5550",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks"
+                },
+                {
+                  "task_id": "delete_compute_eb54bf87b",
+                  "type": "DeleteCompute",
+                  "depends_on": [
+                    "submit_job_ee64922a9",
+                    "create_compute_3a64f5550"
+                  ],
+                  "name": "Delete_Compute",
+                  "nodeId": "Delete Compute_1778409593310",
+                  "airflow_connection_id": "databricks_default",
+                  "compute_binding": {
+                    "source_task_id": "create_compute_3a64f5550",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "trigger_rule": "all_success"
+                }
+              ],
+              "bh_project_id": 299,
+              "cloud_provider": "databricks",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 424,
+        "data": {
+          "flow_deployment_id": 424,
+          "flow_id": 424,
+          "bh_env_id": 331,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
