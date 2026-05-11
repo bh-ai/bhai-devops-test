@@ -15,8 +15,7 @@
 name: Sync to Databricks workspace
 
 on:
-  push:
-    branches: [main]
+
   workflow_dispatch:
     inputs:
       target_environment:
