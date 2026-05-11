@@ -43,7 +43,7 @@ env:
   PIPELINE_BASE_PATH: ${{ vars.DATABRICKS_WORKSPACE_PATH || '/Workspace/Users/sathish@bighammer.ai/bhai-devops' }}
   BH_ENVIRONMENT_NAME: ${{ vars.BH_ENVIRONMENT_NAME || 'Azure-Databricks-AK-Dev-Local-V9' }}
   BH_ENVIRONMENT_ID: ${{ vars.BH_ENVIRONMENT_ID || '14' }}
-  BH_KC_SECRET_URL: ${{ vars.BH_KC_SECRET_URL || 'bh-dev-westus3-kv-key-scope/bh-app-abccorporation-databricks-keycloak-14-v1-secrets' }}
+  #BH_KC_SECRET_URL: ${{ vars.BH_KC_SECRET_URL || 'bh-dev-westus3-kv-key-scope/bh-app-abccorporation-databricks-keycloak-14-v1-secrets' }}
   SETUP_BASE_PATH: ${{ vars.SETUP_BASE_PATH || '/Workspace/Shared/bh-dev-utils' }}
 
 jobs:
@@ -112,7 +112,6 @@ jobs:
           dags_dir = "_sync_dags"
           env_name = os.environ.get("BH_ENVIRONMENT_NAME", "azure-westus3")
           env_id = os.environ.get("BH_ENVIRONMENT_ID", "1")
-          kc_secret = os.environ.get("BH_KC_SECRET_URL", "bh-app-sathish-azure-keycloak-1-v1-secrets")
           pipeline_path = os.environ.get("PIPELINE_BASE_PATH", "/Workspace/Shared/codespace")
           setup_path = os.environ.get("SETUP_BASE_PATH", "/Workspace/Shared/bh-dev-utils")
 
