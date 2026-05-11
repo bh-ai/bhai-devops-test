@@ -127,7 +127,6 @@ jobs:
           params_block = '''    params={
             "bh_environment_name": "%s",
             "bh_environment_id": %s,
-            "bh_kc_secret_url": "%s",
             "pipeline_base_path": "%s",
             "setup_base_path": "%s"
           }''' % (esc(env_name), env_id_int, esc(kc_secret), esc(pipeline_path), esc(setup_path))
