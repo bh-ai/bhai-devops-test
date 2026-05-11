@@ -10,11 +10,7 @@
 name: Sync DAGs to Azure Airflow and pipelines to Databricks
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'flows/**'
-      - 'pipelines/**'
+
   workflow_dispatch:
     inputs:
       target_environment:
