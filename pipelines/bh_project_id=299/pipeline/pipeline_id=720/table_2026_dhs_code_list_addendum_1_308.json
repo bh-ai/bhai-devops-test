@@ -1,0 +1,272 @@
+{
+  "created_at": "2026-05-12T16:22:49.748599Z",
+  "updated_at": "2026-05-12T16:22:49.748599Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 720,
+  "pipeline_name": "table_2026_dhs_code_list_addendum_1_308",
+  "pipeline_key": "table_2026_dhs_code_list_addendum_1_308",
+  "bh_project_id": 299,
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-sathish-git",
+  "pipeline_json": {
+    "name": "table_2026_dhs_code_list_addendum_1_308",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "parameters": [],
+    "connections": {
+      "landing_table_2026_dhs_code_list_addendum_1_file_connection": {
+        "name": "landing_table_2026_dhs_code_list_addendum_1_file_connection",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_table_2026_dhs_code_list_addendum_1_db_connection": {
+        "name": "bronze_table_2026_dhs_code_list_addendum_1_db_connection",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      }
+    },
+    "sources": {
+      "landing_source_table_2026_dhs_code_list_addendum_1": {
+        "name": "landing_source_table_2026_dhs_code_list_addendum_1",
+        "source_type": "File",
+        "file_name": "bhargs/6-Reference Data/2026_DHS_Code_List_Addendum.xlsx",
+        "connection": {
+          "$ref": "#/connections/landing_table_2026_dhs_code_list_addendum_1_file_connection"
+        },
+        "data_src_id": 1228
+      }
+    },
+    "targets": {
+      "bronze_target_table_2026_dhs_code_list_addendum_1": {
+        "name": "bronze_target_table_2026_dhs_code_list_addendum_1",
+        "target_type": "Relational",
+        "table_name": "table_2026_dhs_code_list_addendum_1",
+        "connection": {
+          "$ref": "#/connections/bronze_table_2026_dhs_code_list_addendum_1_db_connection"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 1229
+      }
+    },
+    "transformations": [
+      {
+        "name": "landing_read_table_2026_dhs_code_list_addendum_1",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_table_2026_dhs_code_list_addendum_1"
+        },
+        "file_type": "Excel",
+        "read_options": {
+          "fetch_size": 10000,
+          "inferSchema": false,
+          "sheetName": "HCPCS CODES",
+          "sheet_name": "HCPCS CODES",
+          "useHeader": true,
+          "timestampFormat": "yyyy-MM-dd HH:mm:ss",
+          "treatEmptyValuesAsNulls": true,
+          "addColorColumns": false,
+          "maxRowsInMemory": 20,
+          "excerptSize": 10,
+          "mode": "PERMISSIVE",
+          "columnNameOfCorruptRecord": "_corrupt_record"
+        },
+        "schema": [
+          {
+            "name": "hcpcs_code",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "procedure_description",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "_corrupt_record",
+            "type": "string",
+            "nullable": true
+          }
+        ],
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_table_2026_dhs_code_list_addendum_1"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'table_2026_dhs_code_list_addendum_1'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "dataset_id": "schema_drift_table_2026_dhs_code_list_addendum_1",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_table_2026_dhs_code_list_addendum_1",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_table_2026_dhs_code_list_addendum_1"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      }
+    ],
+    "description": "Cloned from File to DB Ingestion V2",
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "table_2026_dhs_code_list_addendum_1",
+      "business_date": "2026-05-12",
+      "delivery_id": "table_2026_dhs_code_list_addendum_1_2026-05-12",
+      "batch_id": 1,
+      "use_existing_batch_id": false,
+      "validate_existing_batch": true,
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "input_registry_processed_on_stage": "bronze",
+      "seed_stage_rows": true,
+      "stages": [
+        "bronze"
+      ],
+      "storage": {
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        },
+        "namespace": {
+          "catalog": "main",
+          "schema": "control"
+        }
+      },
+      "stage_to_transformations": {
+        "bronze": [
+          "landing_read_table_2026_dhs_code_list_addendum_1",
+          "add_lineage_metadata",
+          "schema_drift_guard",
+          "bronze_write_table_2026_dhs_code_list_addendum_1"
+        ]
+      },
+      "error_threshold_pct": 50.0
+    }
+  },
+  "pipeline_type": "design",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
