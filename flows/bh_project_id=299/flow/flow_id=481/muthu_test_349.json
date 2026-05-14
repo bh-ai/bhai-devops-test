@@ -453,8 +453,9 @@
                   ],
                   "name": "Create_Compute",
                   "nodeId": "Create Compute_1778735965990",
+                  "airflow_connection_id": "databricks_default",
                   "compute_config": {
-                    "cluster_name": "muthu",
+                    "cluster_name": "test",
                     "spark_version": "15.4.x-scala2.12",
                     "node_type_id": "Standard_D4s_v3",
                     "num_workers": 0,
@@ -485,8 +486,7 @@
                   },
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
-                  "cluster_name": "muthu",
-                  "airflow_connection_id": "databricks_default"
+                  "cluster_name": "test"
                 }
               ],
               "bh_project_id": 299,
@@ -511,7 +511,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-14 05:20:24.020612+00:00",
+          "last_deployed_at": "2026-05-14 05:20:45.454945+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
