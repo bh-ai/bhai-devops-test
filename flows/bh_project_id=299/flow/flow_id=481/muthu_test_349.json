@@ -359,10 +359,10 @@
                   ],
                   "name": "Validate",
                   "nodeId": "validate_validate_inbound_files",
-                  "min_bytes": "",
-                  "max_bytes": "",
-                  "min_files": "",
-                  "max_files": ""
+                  "min_bytes": 1,
+                  "max_bytes": 100,
+                  "min_files": 1,
+                  "max_files": 10
                 },
                 {
                   "task_id": "create_compute",
@@ -497,7 +497,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-14 05:10:24.843980+00:00",
+          "last_deployed_at": "2026-05-14 05:11:47.664013+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
