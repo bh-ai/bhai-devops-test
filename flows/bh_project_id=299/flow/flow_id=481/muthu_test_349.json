@@ -343,7 +343,7 @@
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
-                  "fail_on_invalid": false,
+                  "fail_on_invalid": true,
                   "sources": [
                     {
                       "source_name": "cinqcare_member_file_8_21_25",
@@ -352,11 +352,17 @@
                       "is_required": true,
                       "min_bytes": 10,
                       "min_files": 1,
-                      "filename_regex": "cinqcare_member_file_8_21_25"
+                      "filename_regex": "cinqcare_member_file_8_21_25",
+                      "max_bytes": 1,
+                      "max_files": 10
                     }
                   ],
                   "name": "Validate",
-                  "nodeId": "validate_validate_inbound_files"
+                  "nodeId": "validate_validate_inbound_files",
+                  "min_bytes": 1,
+                  "max_bytes": 1000,
+                  "min_files": 1,
+                  "max_files": 10
                 },
                 {
                   "task_id": "create_compute",
@@ -491,7 +497,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-13 16:46:17.609811+00:00",
+          "last_deployed_at": "2026-05-14 04:41:19.334082+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
