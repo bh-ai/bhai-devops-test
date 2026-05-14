@@ -152,7 +152,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_submit_job_6b2412b0c_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=732/fedelis_update_2_329.json",
+                "/Workspace/Shared/codespace/test/pipelines/flow_fedelis_1/fedelis_update_2_329.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -217,7 +217,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_submit_job_74043cbfe_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=733/silver_raw_fidelis_ny_upstate_to_members_dedupe_load_260513_f772.json",
+                "/Workspace/Shared/codespace/test/pipelines/flow_fedelis_1/silver_raw_fidelis_ny_upstate_to_members_dedupe_load_260513_f772.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
