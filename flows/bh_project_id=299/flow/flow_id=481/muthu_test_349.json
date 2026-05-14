@@ -365,60 +365,10 @@
                   "max_files": 10
                 },
                 {
-                  "task_id": "create_compute",
-                  "type": "CreateCompute",
-                  "depends_on": [
-                    "validate_inbound_files"
-                  ],
-                  "airflow_connection_id": "databricks_default",
-                  "name": "Create_Compute",
-                  "nodeId": "create_compute_create_compute",
-                  "cluster_name": "pre-ingest-anal",
-                  "compute_config": {
-                    "cluster_name": "pre-ingest-anal",
-                    "spark_version": "15.4.x-scala2.12",
-                    "node_type_id": "Standard_D4s_v3",
-                    "num_workers": 0,
-                    "autoscale": null,
-                    "driver_node_type_id": null,
-                    "runtime_engine": null,
-                    "data_security_mode": "SINGLE_USER",
-                    "single_user_name": "sathish@bighammer.ai",
-                    "policy_id": null,
-                    "apply_policy_default_values": true,
-                    "idempotency_token": null,
-                    "aws_attributes": null,
-                    "azure_attributes": null,
-                    "gcp_attributes": null,
-                    "single_node": true,
-                    "autotermination_minutes": 15,
-                    "enable_elastic_disk": true,
-                    "spark_conf": {},
-                    "spark_env_vars": {},
-                    "custom_tags": {},
-                    "cluster_log_conf": null,
-                    "init_scripts": [
-                      "/Workspace/Shared/dev-utils/scripts/bh_test_databricks_grpc_server_codeartifact.sh"
-                    ],
-                    "libraries": [],
-                    "databricks_region": "us-west-1",
-                    "bh_tags": []
-                  },
-                  "cloud_type": "databricks",
-                  "compute_type": "DATABRICKS_CLUSTER",
-                  "output_variables": [
-                    {
-                      "id": "compute_id",
-                      "label": "Cluster / job identifier",
-                      "xcom_key": "return_value"
-                    }
-                  ]
-                },
-                {
                   "task_id": "run_pipelines_muthu_test",
                   "type": "SubmitJob",
                   "depends_on": [
-                    "create_compute"
+                    "create_compute_6d14ae0ec"
                   ],
                   "bh_project_name": "flow-test-project",
                   "pipeline_key": "muthu_test",
@@ -431,7 +381,7 @@
                     "source_task_id": "create_compute",
                     "source_output_id": "compute_id"
                   },
-                  "compute_type": "AZURE_FUNCTION",
+                  "compute_type": "DATABRICKS_CLUSTER",
                   "cloud_type": "databricks"
                 },
                 {
@@ -494,6 +444,49 @@
                   },
                   "name": "Delete_Compute",
                   "nodeId": "delete_compute_delete_compute"
+                },
+                {
+                  "task_id": "create_compute_6d14ae0ec",
+                  "type": "CreateCompute",
+                  "depends_on": [
+                    "validate_inbound_files"
+                  ],
+                  "name": "Create_Compute",
+                  "nodeId": "Create Compute_1778735965990",
+                  "compute_config": {
+                    "cluster_name": "muthu",
+                    "spark_version": "15.4.x-scala2.12",
+                    "node_type_id": "Standard_D4s_v3",
+                    "num_workers": 0,
+                    "autoscale": null,
+                    "driver_node_type_id": null,
+                    "runtime_engine": null,
+                    "data_security_mode": "SINGLE_USER",
+                    "single_user_name": "sathish@bighammer.ai",
+                    "policy_id": null,
+                    "apply_policy_default_values": true,
+                    "idempotency_token": null,
+                    "aws_attributes": null,
+                    "azure_attributes": null,
+                    "gcp_attributes": null,
+                    "single_node": true,
+                    "autotermination_minutes": 15,
+                    "enable_elastic_disk": true,
+                    "spark_conf": {},
+                    "spark_env_vars": {},
+                    "custom_tags": {},
+                    "cluster_log_conf": null,
+                    "init_scripts": [
+                      "/Workspace/Shared/dev-utils/scripts/bh_test_databricks_grpc_server_codeartifact.sh"
+                    ],
+                    "libraries": [],
+                    "databricks_region": "us-west-1",
+                    "bh_tags": []
+                  },
+                  "cloud_type": "databricks",
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cluster_name": "muthu",
+                  "airflow_connection_id": "databricks_default"
                 }
               ],
               "bh_project_id": 299,
@@ -518,7 +511,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-14 05:17:23.700532+00:00",
+          "last_deployed_at": "2026-05-14 05:17:57.346910+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
