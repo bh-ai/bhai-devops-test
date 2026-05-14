@@ -350,10 +350,10 @@
                       "prefix": "bhargs/1-Enrollment/1-Enrollment/Centene GA Risk/",
                       "ignore_subfolders": true,
                       "is_required": true,
-                      "min_bytes": 10,
+                      "min_bytes": 1,
                       "min_files": 1,
                       "filename_regex": "cinqcare_member_file_8_21_25",
-                      "max_bytes": 1,
+                      "max_bytes": 100,
                       "max_files": 10
                     }
                   ],
@@ -370,6 +370,9 @@
                   "depends_on": [
                     "validate_inbound_files"
                   ],
+                  "airflow_connection_id": "databricks_default",
+                  "name": "Create_Compute",
+                  "nodeId": "create_compute_create_compute",
                   "cluster_name": "pre-ingest-anal",
                   "compute_config": {
                     "function_app_name": "bhai-catalog-api-svrlss",
@@ -382,16 +385,13 @@
                   },
                   "cloud_type": "databricks",
                   "compute_type": "AZURE_FUNCTION",
-                  "airflow_connection_id": "databricks_default",
                   "output_variables": [
                     {
                       "id": "compute_id",
                       "label": "Cluster / job identifier",
                       "xcom_key": "return_value"
                     }
-                  ],
-                  "name": "Create_Compute",
-                  "nodeId": "create_compute_create_compute"
+                  ]
                 },
                 {
                   "task_id": "run_pipelines_muthu_test",
@@ -401,6 +401,9 @@
                   ],
                   "bh_project_name": "flow-test-project",
                   "pipeline_key": "muthu_test",
+                  "airflow_connection_id": "databricks_default",
+                  "name": "Submit_Job",
+                  "nodeId": "Submit_Job_run_pipelines_muthu_test",
                   "pipeline_name": "muthu_test",
                   "pipeline_id": 747,
                   "compute_binding": {
@@ -408,10 +411,7 @@
                     "source_output_id": "compute_id"
                   },
                   "compute_type": "AZURE_FUNCTION",
-                  "cloud_type": "databricks",
-                  "airflow_connection_id": "databricks_default",
-                  "name": "Submit_Job",
-                  "nodeId": "Submit_Job_run_pipelines_muthu_test"
+                  "cloud_type": "databricks"
                 },
                 {
                   "task_id": "run_pipelines_silver_raw_cinqcare_member_dedupe_to_enrollment_260513_ec9f",
@@ -421,6 +421,9 @@
                   ],
                   "bh_project_name": "flow-test-project",
                   "pipeline_key": "silver_raw_cinqcare_member_dedupe_to_enrollment_260513_ec9f",
+                  "airflow_connection_id": "databricks_default",
+                  "name": "Submit_Job_2",
+                  "nodeId": "Submit_Job_run_pipelines_silver_raw_cinqcare_member_dedupe_to_enrollment_260513_ec9f",
                   "pipeline_name": "silver_raw_cinqcare_member_dedupe_to_enrollment_260513_ec9f",
                   "pipeline_id": 748,
                   "compute_binding": {
@@ -428,10 +431,7 @@
                     "source_output_id": "compute_id"
                   },
                   "compute_type": "AZURE_FUNCTION",
-                  "cloud_type": "databricks",
-                  "airflow_connection_id": "databricks_default",
-                  "name": "Submit_Job_2",
-                  "nodeId": "Submit_Job_run_pipelines_silver_raw_cinqcare_member_dedupe_to_enrollment_260513_ec9f"
+                  "cloud_type": "databricks"
                 },
                 {
                   "task_id": "archive_processed_files",
@@ -497,7 +497,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-14 05:05:46.056297+00:00",
+          "last_deployed_at": "2026-05-14 05:10:24.843980+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
