@@ -264,24 +264,21 @@
           "flow_id": 481,
           "flow_json": {
             "flowJson": {
-              "$schema": "https://json-schema.org/draft-07/schema#",
+              "$schema": "http://json-schema.org/draft-07/schema#",
               "name": "muthu_test_349",
               "flow_name": "muthu_test_349",
               "flow_id": 481,
-              "flow_key": "muthu_test_349",
               "flow_type": "INGESTION",
-              "description": "muthu_test",
+              "flow_key": "muthu_test_349",
+              "description": "Flow for muthu_test_349",
               "version": "1.0.0",
               "project_id": 299,
               "project_name": "flow-test-project",
               "cron_expression": null,
+              "flow_tags": [],
               "tenant_id": 220,
-              "flow_tags": [
-                {
-                  "key": "environment",
-                  "value": "dev"
-                }
-              ],
+              "bh_environment_id": 331,
+              "bh_environment_name": "test-dbricks",
               "parameters": [
                 {
                   "key": "allow_empty",
@@ -354,7 +351,8 @@
                       "ignore_subfolders": true,
                       "is_required": true,
                       "min_bytes": 10,
-                      "min_files": 1
+                      "min_files": 1,
+                      "filename_regex": "cinqcare_member_file_8_21_25"
                     }
                   ],
                   "name": "Validate",
@@ -374,7 +372,7 @@
                     "region": "westus3",
                     "function_key": null,
                     "function_url": "https://bhai-catalog-api-svrlss.azurewebsites.net/api/PreIngestRun?code=ocjq2olTCaBnDIP5GdoFTvjdY26x5oSOHX-viZqsN5xjAzFuNyAOQw==",
-                    "compute_config_name": "pre-ingest-anal"
+                    "cluster_name": "pre-ingest-anal"
                   },
                   "cloud_type": "databricks",
                   "compute_type": "AZURE_FUNCTION",
@@ -471,10 +469,7 @@
                   "nodeId": "delete_compute_delete_compute"
                 }
               ],
-              "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
-              "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
               "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
             }
@@ -496,7 +491,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-13 16:46:17.609811+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
