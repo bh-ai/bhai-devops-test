@@ -1,0 +1,140 @@
+{
+  "created_at": "2026-05-14T04:46:53.601973Z",
+  "updated_at": "2026-05-14T04:46:53.601973Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "flow_id": 482,
+  "flow_name": "flow_test_1",
+  "flow_key": "flow_test_1",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "bh_project_name": "flow-test-project",
+  "bh_project_id": 299,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 482
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 482,
+        "data": {
+          "flow_id": 482,
+          "flow_name": "flow_test_1",
+          "flow_key": "flow_test_1",
+          "bh_project_id": 299,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 482,
+        "data": {
+          "flow_definition_id": 482,
+          "flow_id": 482,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "flow_test_1",
+              "flow_name": "flow_test_1",
+              "flow_id": 482,
+              "flow_type": "INGESTION",
+              "flow_key": "flow_test_1",
+              "description": "Flow for flow_test_1",
+              "version": "1.0.0",
+              "project_id": 299,
+              "project_name": "flow-test-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 220,
+              "bh_environment_id": 331,
+              "bh_environment_name": "test-dbricks",
+              "parameters": [],
+              "tasks": [
+                {
+                  "name": "Validate",
+                  "nodeId": "Validate_1778734019999",
+                  "task_id": "validate_inbound_files_9ff46d21d",
+                  "type": "ValidateInboundFiles",
+                  "fail_on_invalid": true,
+                  "bucket_name": "my-test-bucket",
+                  "source_prefix": "claims-cms-ndjson/test/",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-landingazureakv1",
+                  "sources": [
+                    {
+                      "source_name": "test",
+                      "prefix": "tets",
+                      "filename_regex": "",
+                      "ignore_subfolders": true,
+                      "is_required": true,
+                      "required_patterns": [],
+                      "min_bytes": 1,
+                      "max_bytes": "",
+                      "min_files": 1,
+                      "max_files": ""
+                    }
+                  ],
+                  "depends_on": []
+                }
+              ],
+              "bh_project_id": 299,
+              "cloud_provider": "databricks",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 482,
+        "data": {
+          "flow_deployment_id": 482,
+          "flow_id": 482,
+          "bh_env_id": 331,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
