@@ -99,9 +99,9 @@
                       "is_required": true,
                       "required_patterns": [],
                       "min_bytes": 1,
-                      "max_bytes": "",
+                      "max_bytes": 1000,
                       "min_files": 1,
-                      "max_files": ""
+                      "max_files": 10
                     }
                   ],
                   "depends_on": []
@@ -129,7 +129,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-14 04:47:53.300408+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
