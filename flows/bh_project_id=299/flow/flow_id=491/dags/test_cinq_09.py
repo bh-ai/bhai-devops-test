@@ -114,11 +114,14 @@ with DAG(
         context["ti"].xcom_push(key="bh_audit_metadata", value={
             "databricks_cluster_id": cluster_id,
             "databricks_cluster_size": num_workers,
-            "databricks_user_account": user_account
+            "databricks_user_account": user_account,
+            "ingestion_group_id": None,
+            "flow_id": 491
         })
         return cluster_id
 
     create_compute_af540b11e = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
         task_id='create_compute_af540b11e',
         python_callable=create_databricks_cluster_create_compute_af540b11e,
         on_success_callback=common_task.success_callback,
@@ -157,6 +160,31 @@ with DAG(
         if not compute_id or (isinstance(compute_id, str) and "{" in compute_id):
             raise ValueError("No compute_id from params or XCom")
 
+
+        valid_files = params.get("valid_files")
+        if isinstance(valid_files, str) and "{{" in valid_files:
+            valid_files = context["task"].render_template(valid_files, context)
+        if valid_files:
+            import json
+            import os
+            from collections import defaultdict
+            by_source = defaultdict(list)
+            for f in valid_files:
+                if not isinstance(f, dict):
+                    continue
+                key = f.get("key")
+                if not key or str(key).startswith("__"):
+                    continue
+                src_name = (f.get("source_name") or "default").strip() or "default"
+                rel = f.get("relative_key") or os.path.basename(str(key))
+                by_source[src_name].append(str(rel).strip().lstrip("/"))
+            overrides = {sn: ",".join(sorted(set(paths))) for sn, paths in by_source.items() if paths}
+            if overrides:
+                job_config = dict(job_config)
+                args = list(job_config.get("parameters") or [])
+                args.append(json.dumps(overrides, separators=(",", ":")))
+                job_config["parameters"] = args
+
         from airflow.hooks.base import BaseHook
         conn = BaseHook.get_connection('databricks_default')
         workspace_url = (conn.host or '').rstrip('/')
@@ -183,6 +211,10 @@ with DAG(
             "databricks_cluster_id": compute_id,
             "databricks_user_account": user_account
         }
+        # Audit context for the submit_job event: ingestion_group_id, flow_id, pipeline_id.
+        for _audit_k in ("ingestion_group_id", "flow_id", "pipeline_id"):
+            if params.get(_audit_k) is not None:
+                audit_meta[_audit_k] = params.get(_audit_k)
 
         factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
         compute = factory.get_compute(compute_type="databricks")
@@ -230,6 +262,9 @@ with DAG(
                 "/Workspace/Shared/dev-utils/schemas"
             ]
         },
+        "ingestion_group_id": None,
+        "flow_id": 491,
+        "pipeline_id": 626,
         "compute_xcom_key": "output_1"
     }
     submit_job_52a44ce01 = PythonOperator(
@@ -280,7 +315,9 @@ with DAG(
 
         ti.xcom_push(key="bh_audit_metadata", value={
             "databricks_cluster_id": compute_id,
-            "databricks_user_account": user_account
+            "databricks_user_account": user_account,
+            "ingestion_group_id": None,
+            "flow_id": 491
         })
 
         factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
