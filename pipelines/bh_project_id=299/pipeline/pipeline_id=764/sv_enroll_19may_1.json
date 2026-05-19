@@ -1,6 +1,6 @@
 {
   "created_at": "2026-05-19T05:38:24.093140Z",
-  "updated_at": "2026-05-19T07:18:10.867155Z",
+  "updated_at": "2026-05-19T07:25:33.773027Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -14,8 +14,8 @@
   "tags": null,
   "status": "active",
   "pipeline_version_id": null,
-  "bh_project_name": null,
-  "bh_github_username": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-sathish-git",
   "pipeline_json": {
     "name": "sv_enroll_19may_1",
     "version": "1.0.0",
@@ -636,7 +636,7 @@
       "atomic_commit_enabled": true,
       "group_id": 369,
       "expected_group_members": 1,
-      "group_run_id": "sv_enroll_19may_1_20260519T071810Z"
+      "group_run_id": "sv_enroll_19may_1_20260519T072533Z"
     }
   },
   "pipeline_type": "design",
