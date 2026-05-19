@@ -252,24 +252,21 @@
           "flow_id": 483,
           "flow_json": {
             "flowJson": {
-              "$schema": "https://json-schema.org/draft-07/schema#",
+              "$schema": "http://json-schema.org/draft-07/schema#",
               "name": "muthu_test_1_350",
               "flow_name": "muthu_test_1_350",
               "flow_id": 483,
-              "flow_key": "muthu_test_1_350",
               "flow_type": "INGESTION",
-              "description": "muthu_test_1",
+              "flow_key": "muthu_test_1_350",
+              "description": "Flow for muthu_test_1_350",
               "version": "1.0.0",
               "project_id": 299,
               "project_name": "flow-test-project",
               "cron_expression": null,
+              "flow_tags": [],
               "tenant_id": 220,
-              "flow_tags": [
-                {
-                  "key": "environment",
-                  "value": "dev"
-                }
-              ],
+              "bh_environment_id": 330,
+              "bh_environment_name": "dbricks",
               "parameters": [
                 {
                   "key": "allow_empty",
@@ -356,7 +353,7 @@
                   ],
                   "cluster_name": "test-dbricks-cmp-001",
                   "compute_config": {
-                    "cluster_name": "flow_service_databricks_AK_Local_0303_V1",
+                    "cluster_name": "test-dbricks-cmp-001",
                     "spark_version": "15.4.x-scala2.12",
                     "node_type_id": "Standard_D4s_v3",
                     "num_workers": 0,
@@ -383,8 +380,7 @@
                     ],
                     "libraries": [],
                     "databricks_region": "us-west-1",
-                    "bh_tags": [],
-                    "compute_config_name": "test-dbricks-cmp-001"
+                    "bh_tags": []
                   },
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
@@ -450,21 +446,18 @@
                   "depends_on": [
                     "archive_processed_files"
                   ],
+                  "airflow_connection_id": "databricks_default",
+                  "name": "Delete_Compute",
+                  "nodeId": "delete_compute_delete_compute",
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
-                  "airflow_connection_id": "databricks_default",
                   "compute_binding": {
                     "source_task_id": "create_compute",
                     "source_output_id": "compute_id"
-                  },
-                  "name": "Delete_Compute",
-                  "nodeId": "delete_compute_delete_compute"
+                  }
                 }
               ],
-              "bh_environment_id": 330,
-              "template_parameters": [],
               "bh_project_id": 299,
-              "bh_environment_name": "dbricks",
               "cloud_provider": "databricks",
               "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
             }
@@ -486,7 +479,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-14 05:34:08.113620+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
