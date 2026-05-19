@@ -456,11 +456,14 @@ with DAG(
         context["ti"].xcom_push(key="bh_audit_metadata", value={
             "databricks_cluster_id": cluster_id,
             "databricks_cluster_size": num_workers,
-            "databricks_user_account": user_account
+            "databricks_user_account": user_account,
+            "ingestion_group_id": None,
+            "flow_id": 498
         })
         return cluster_id
 
     create_compute = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
         task_id='create_compute',
         python_callable=create_databricks_cluster_create_compute,
         on_success_callback=common_task.success_callback,
@@ -549,6 +552,10 @@ with DAG(
             "databricks_cluster_id": compute_id,
             "databricks_user_account": user_account
         }
+        # Audit context for the submit_job event: ingestion_group_id, flow_id, pipeline_id.
+        for _audit_k in ("ingestion_group_id", "flow_id", "pipeline_id"):
+            if params.get(_audit_k) is not None:
+                audit_meta[_audit_k] = params.get(_audit_k)
 
         factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
         compute = factory.get_compute(compute_type="databricks")
@@ -596,6 +603,9 @@ with DAG(
                 "/Workspace/Shared/dev-utils/schemas"
             ]
         },
+        "ingestion_group_id": None,
+        "flow_id": 498,
+        "pipeline_id": 764,
         "compute_xcom_key": "return_value",
         "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}"
     }
@@ -690,6 +700,10 @@ with DAG(
             "databricks_cluster_id": compute_id,
             "databricks_user_account": user_account
         }
+        # Audit context for the submit_job event: ingestion_group_id, flow_id, pipeline_id.
+        for _audit_k in ("ingestion_group_id", "flow_id", "pipeline_id"):
+            if params.get(_audit_k) is not None:
+                audit_meta[_audit_k] = params.get(_audit_k)
 
         factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
         compute = factory.get_compute(compute_type="databricks")
@@ -737,6 +751,9 @@ with DAG(
                 "/Workspace/Shared/dev-utils/schemas"
             ]
         },
+        "ingestion_group_id": None,
+        "flow_id": 498,
+        "pipeline_id": 765,
         "compute_xcom_key": "return_value",
         "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}"
     }
@@ -977,7 +994,9 @@ with DAG(
 
         ti.xcom_push(key="bh_audit_metadata", value={
             "databricks_cluster_id": compute_id,
-            "databricks_user_account": user_account
+            "databricks_user_account": user_account,
+            "ingestion_group_id": None,
+            "flow_id": 498
         })
 
         factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
