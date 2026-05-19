@@ -18,7 +18,7 @@ with DAG(
     default_args=default_args,
     schedule=None,
     catchup=False,
-    tags=['dev']
+    tags=[]
 ) as dag:
 
 
@@ -34,7 +34,7 @@ with DAG(
             'flow_key': 'sv_enroll_19may_1_369',
             'bh_project_id': 299,
             'project_name': 'flow-test-project',
-            'flow_tags': [{'key': 'environment', 'value': 'dev'}],
+            'flow_tags': [],
             'flow_type': 'INGESTION',
             'tenant_id': 220,
             'flow_status': 'In Progress',
@@ -440,8 +440,7 @@ with DAG(
                 ],
                 "libraries": [],
                 "databricks_region": "us-west-1",
-                "bh_tags": [],
-                "compute_config_name": "test-dbricks-cmp-001"
+                "bh_tags": []
             }
         )
         cluster_id = compute.create_compute(
@@ -457,7 +456,7 @@ with DAG(
             "databricks_cluster_id": cluster_id,
             "databricks_cluster_size": num_workers,
             "databricks_user_account": user_account,
-            "ingestion_group_id": None,
+            "ingestion_group_id": 369,
             "flow_id": 498
         })
         return cluster_id
@@ -603,7 +602,7 @@ with DAG(
                 "/Workspace/Shared/dev-utils/schemas"
             ]
         },
-        "ingestion_group_id": None,
+        "ingestion_group_id": 369,
         "flow_id": 498,
         "pipeline_id": 764,
         "compute_xcom_key": "return_value",
@@ -751,7 +750,7 @@ with DAG(
                 "/Workspace/Shared/dev-utils/schemas"
             ]
         },
-        "ingestion_group_id": None,
+        "ingestion_group_id": 369,
         "flow_id": 498,
         "pipeline_id": 765,
         "compute_xcom_key": "return_value",
@@ -995,7 +994,7 @@ with DAG(
         ti.xcom_push(key="bh_audit_metadata", value={
             "databricks_cluster_id": compute_id,
             "databricks_user_account": user_account,
-            "ingestion_group_id": None,
+            "ingestion_group_id": 369,
             "flow_id": 498
         })
 
