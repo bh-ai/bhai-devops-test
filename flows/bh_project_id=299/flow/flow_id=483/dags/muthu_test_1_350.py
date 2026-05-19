@@ -18,7 +18,7 @@ with DAG(
     default_args=default_args,
     schedule=None,
     catchup=False,
-    tags=['dev']
+    tags=[]
 ) as dag:
 
 
@@ -34,7 +34,7 @@ with DAG(
             'flow_key': 'muthu_test_1_350',
             'bh_project_id': 299,
             'project_name': 'flow-test-project',
-            'flow_tags': [{'key': 'environment', 'value': 'dev'}],
+            'flow_tags': [],
             'flow_type': 'INGESTION',
             'tenant_id': 220,
             'flow_status': 'In Progress',
@@ -390,6 +390,21 @@ with DAG(
         conn = hook.get_conn()
         workspace_url = (conn.host or '').rstrip('/')
         token = conn.password
+        user_account = conn.login
+        if not user_account:
+            try:
+                import requests as _bh_rq
+                _bh_me = _bh_rq.get(
+                    workspace_url + '/api/2.0/preview/scim/v2/Me',
+                    headers={'Authorization': 'Bearer ' + token},
+                    timeout=10,
+                )
+                if _bh_me.status_code == 200:
+                    _bh_d = _bh_me.json()
+                    user_account = _bh_d.get('userName') or (_bh_d.get('emails') or [{}])[0].get('value')
+            except Exception:
+                pass
+        user_account = user_account or 'unknown'
         if not workspace_url or not token:
             raise ValueError("Databricks connection must have host and password (token)")
         factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
@@ -424,8 +439,7 @@ with DAG(
                 ],
                 "libraries": [],
                 "databricks_region": "us-west-1",
-                "bh_tags": [],
-                "compute_config_name": "test-dbricks-cmp-001"
+                "bh_tags": []
             }
         )
         cluster_id = compute.create_compute(
@@ -435,6 +449,13 @@ with DAG(
         )
         if not cluster_id:
             raise ValueError("create_compute did not return cluster_id")
+
+        num_workers = payload.get("num_workers", 0)
+        context["ti"].xcom_push(key="bh_audit_metadata", value={
+            "databricks_cluster_id": cluster_id,
+            "databricks_cluster_size": num_workers,
+            "databricks_user_account": user_account
+        })
         return cluster_id
 
     create_compute = PythonOperator(
@@ -455,6 +476,12 @@ with DAG(
         if not job_config:
             raise ValueError("Missing job_config in params")
 
+        # arrives with literal { dag.dag_id }/{ ts_nodash }. Render it here.
+        _job_name = job_config.get("name")
+        if isinstance(_job_name, str) and "{" in _job_name:
+            job_config = dict(job_config)
+            job_config["name"] = context["task"].render_template(_job_name, context)
+
         # Prefer compute_id from params (supports Jinja xcom_pull strings), fallback to XCom.
         compute_id = params.get("compute_id")
         xcom_key = str(params.get("compute_xcom_key") or "return_value")
@@ -473,17 +500,61 @@ with DAG(
         conn = BaseHook.get_connection('databricks_default')
         workspace_url = (conn.host or '').rstrip('/')
         token = conn.password
+        user_account = conn.login
+        if not user_account:
+            try:
+                import requests as _bh_rq
+                _bh_me = _bh_rq.get(
+                    workspace_url + '/api/2.0/preview/scim/v2/Me',
+                    headers={'Authorization': 'Bearer ' + token},
+                    timeout=10,
+                )
+                if _bh_me.status_code == 200:
+                    _bh_d = _bh_me.json()
+                    user_account = _bh_d.get('userName') or (_bh_d.get('emails') or [{}])[0].get('value')
+            except Exception:
+                pass
+        user_account = user_account or 'unknown'
         if not workspace_url or not token:
             raise ValueError("Databricks connection must have host and password (token)")
 
+        audit_meta = {
+            "databricks_cluster_id": compute_id,
+            "databricks_user_account": user_account
+        }
+
         factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
         compute = factory.get_compute(compute_type="databricks")
+        try:
+            _cfg = compute.get_compute_configuration(compute_id)
+            _size = _cfg.get("num_workers")
+            if _size is not None:
+                audit_meta["databricks_cluster_size"] = _size
+        except Exception as _e:
+            logger.warning("Could not resolve cluster size for %s: %s", compute_id, _e)
         result = compute.execute_job(compute_id, job_config, run_async=False)
-        if result.get("status") == "FAILED":
-            raise RuntimeError(result.get("error", "Job submission failed"))
+
         run_id = result.get("run_id")
+        job_id = result.get("job_id")
         if run_id:
             context["ti"].xcom_push(key="run_id", value=run_id)
+            audit_meta["databricks_run_id"] = run_id
+        if job_id:
+            audit_meta["databricks_job_id"] = job_id
+        run_url = result.get("run_page_url")
+        if not run_url and run_id:
+            _job_id = result.get("job_id")
+            if _job_id:
+                run_url = workspace_url + "/jobs/" + str(_job_id) + "/runs/" + str(run_id)
+            else:
+                run_url = workspace_url + "/jobs/runs/" + str(run_id)
+        if run_url:
+            context["ti"].xcom_push(key="databricks_run_url", value=run_url)
+            audit_meta["databricks_run_url"] = run_url
+        context["ti"].xcom_push(key="bh_audit_metadata", value=audit_meta)
+
+        if result.get("status") == "FAILED":
+            raise RuntimeError(result.get("error", "Job submission failed"))
         return result
 
     _submit_params = {
@@ -719,8 +790,29 @@ with DAG(
         conn = BaseHook.get_connection('databricks_default')
         workspace_url = (conn.host or '').rstrip('/')
         token = conn.password
+        user_account = conn.login
+        if not user_account:
+            try:
+                import requests as _bh_rq
+                _bh_me = _bh_rq.get(
+                    workspace_url + '/api/2.0/preview/scim/v2/Me',
+                    headers={'Authorization': 'Bearer ' + token},
+                    timeout=10,
+                )
+                if _bh_me.status_code == 200:
+                    _bh_d = _bh_me.json()
+                    user_account = _bh_d.get('userName') or (_bh_d.get('emails') or [{}])[0].get('value')
+            except Exception:
+                pass
+        user_account = user_account or 'unknown'
         if not workspace_url or not token:
             raise ValueError("Databricks connection must have host and password (token)")
+
+        ti.xcom_push(key="bh_audit_metadata", value={
+            "databricks_cluster_id": compute_id,
+            "databricks_user_account": user_account
+        })
+
         factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
         compute = factory.get_compute(compute_type="databricks")
         ok = compute.terminate_compute(compute_id, run_async=False)
