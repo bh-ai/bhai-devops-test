@@ -424,10 +424,31 @@
                   "nodeId": "create_compute_create_compute"
                 },
                 {
-                  "task_id": "run_pipelines_fideliscare_ip_claim_header_downstate_274",
+                  "task_id": "run_pipelines_claims_fedeils_downstate_ip",
                   "type": "SubmitJob",
                   "depends_on": [
                     "create_compute"
+                  ],
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "claims_fedeils_downstate_ip",
+                  "pipeline_name": "claims_fedeils_downstate_ip",
+                  "pipeline_id": 776,
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "name": "Submit_Job",
+                  "nodeId": "Submit_Job_run_pipelines_claims_fedeils_downstate_ip"
+                },
+                {
+                  "task_id": "run_pipelines_fideliscare_ip_claim_header_downstate_274",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "run_pipelines_claims_fedeils_downstate_ip"
                   ],
                   "bh_project_name": "flow-test-project",
                   "pipeline_key": "fideliscare_ip_claim_header_downstate_274",
@@ -441,7 +462,7 @@
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
-                  "name": "Submit_Job",
+                  "name": "Submit_Job_2",
                   "nodeId": "Submit_Job_run_pipelines_fideliscare_ip_claim_header_downstate_274"
                 },
                 {
@@ -462,7 +483,7 @@
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
-                  "name": "Submit_Job_2",
+                  "name": "Submit_Job_3",
                   "nodeId": "Submit_Job_run_pipelines_fideliscare_ip_claim_line_downstate_274"
                 },
                 {
@@ -483,7 +504,7 @@
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
-                  "name": "Submit_Job_3",
+                  "name": "Submit_Job_4",
                   "nodeId": "Submit_Job_run_pipelines_silver_raw_fidelis_ip_claims_to_cinqcare_silver_260511_8f17"
                 },
                 {
