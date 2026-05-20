@@ -364,12 +364,18 @@ with DAG(
             {
                 "source_name": "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331",
                 "prefix": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/IP",
+                "filename_regex": "safeharbor_FidelisCare_Prod_IPClaimHeader_FULL_CINQDOWNSTATE_*.*.txt",
+                "ignore_subfolders": True,
+                "is_required": True,
                 "min_bytes": 10,
                 "min_files": 1
             },
             {
                 "source_name": "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331",
                 "prefix": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/IP",
+                "filename_regex": "safeharbor_FidelisCare_Prod_IPClaimLine_FULL_CINQDOWNSTATE_*.*.txt",
+                "ignore_subfolders": False,
+                "is_required": True,
                 "min_bytes": 10,
                 "min_files": 1
             }
