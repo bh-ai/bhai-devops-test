@@ -62,9 +62,6 @@ with DAG(
         - "azure"
         - "/app/schemas/"
       sparkVersion: "3.4.0"
-      sparkConf:
-        "spark.eventLog.enabled": "true"
-        "spark.eventLog.dir": "abfss://spark-logs@YOUR_STORAGE_ACCOUNT.dfs.core.windows.net/"
       restartPolicy:
         type: Never
       driver:
