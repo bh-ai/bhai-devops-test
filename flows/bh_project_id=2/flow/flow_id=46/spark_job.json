@@ -1,0 +1,138 @@
+{
+  "created_at": "2026-05-23T01:14:15.441222Z",
+  "updated_at": "2026-05-23T01:14:15.441222Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 1,
+  "flow_id": 46,
+  "flow_name": "spark-job",
+  "flow_key": "spark_job",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "bh_project_name": "flow-service-project",
+  "bh_project_id": 2,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 46
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 46,
+        "data": {
+          "flow_id": 46,
+          "flow_name": "spark-job",
+          "flow_key": "spark_job",
+          "bh_project_id": 2,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 42,
+        "data": {
+          "flow_definition_id": 42,
+          "flow_id": 46,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "spark-job",
+              "flow_name": "spark-job",
+              "flow_id": 46,
+              "flow_type": "INGESTION",
+              "flow_key": "spark_job",
+              "description": "Flow for spark-job",
+              "version": "1.0.0",
+              "project_id": 2,
+              "project_name": "flow-service-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 1,
+              "bh_environment_id": 1,
+              "bh_environment_name": "azure-westus3",
+              "parameters": [],
+              "tasks": [
+                {
+                  "name": "Spark_Operator",
+                  "nodeId": "Spark Operator_1779508067077",
+                  "task_id": "spark_operator_b5a4ce9ad",
+                  "output_variables": [
+                    {
+                      "id": "spark_operator_Spark Operator_1779508067077_output_1",
+                      "label": "spark_operator_output_1",
+                      "xcom_key": "output_1"
+                    }
+                  ],
+                  "pipeline_name": "pipeline-design-muthu-test",
+                  "pipeline_id": 5,
+                  "bh_project_name": "flow-service-project",
+                  "pipeline_key": "pipeline_design_muthu_test",
+                  "node_label_driver": "spark-driver",
+                  "node_label_executor": "spark-executor",
+                  "driver_cores": 1,
+                  "driver_memory": 2,
+                  "executor_cores": 1,
+                  "executor_memory": 2,
+                  "executor_instances": 1,
+                  "type": "SparkOperator",
+                  "depends_on": []
+                }
+              ],
+              "bh_project_id": 2,
+              "cloud_provider": "azure",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 42,
+        "data": {
+          "flow_deployment_id": 42,
+          "flow_id": 46,
+          "bh_env_id": 1,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
