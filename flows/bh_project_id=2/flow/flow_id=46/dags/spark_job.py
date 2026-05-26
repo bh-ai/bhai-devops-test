@@ -61,12 +61,12 @@ with DAG(
         - "pipeline-design-muthu-test.json"
         - "azure"
         - "/app/schemas/"
-      sparkVersion: "3.4.0"
+      sparkVersion: "3.4.0"\n              sparkConf:\n                "spark.sql.execution.arrow.maxRecordsPerBatch": "10000"\n                "spark.memory.offHeap.enabled": "true"\n                "spark.memory.offHeap.size": "2g"\n                "spark.eventLog.enabled": "true"\n                "spark.eventLog.dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/"
       restartPolicy:
         type: Never
       driver:
         cores: 1
-        memory: "2g"
+        memory: "2g"\n                memoryOverhead: "1g"
         labels:
           version: 3.4.0
         serviceAccount: spark-operator-spark
@@ -80,7 +80,7 @@ with DAG(
       executor:
         cores: 1
         instances: 1
-        memory: "2g"
+        memory: "2g"\n                memoryOverhead: "1g"
         labels:
           version: 3.4.0
         nodeSelector:
