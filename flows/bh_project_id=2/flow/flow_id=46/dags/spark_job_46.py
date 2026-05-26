@@ -4,8 +4,8 @@ from datetime import datetime, timedelta
 from airflow_plugins.dag_task_definitions.common_task import CommonTask
 from airflow_plugins.dag_task_definitions.lineage_task import LineageTask
 
-common_task = CommonTask(dag_id='spark_job', dag_params={})
-lineage_task = LineageTask(dag_id='spark_job', dag_params={})
+common_task = CommonTask(dag_id='spark_job_46', dag_params={})
+lineage_task = LineageTask(dag_id='spark_job_46', dag_params={})
 
 default_args = {
     'owner': 'bh',
@@ -14,7 +14,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id='spark_job',
+    dag_id='spark_job_46',
     default_args=default_args,
     schedule=None,
     catchup=False,
