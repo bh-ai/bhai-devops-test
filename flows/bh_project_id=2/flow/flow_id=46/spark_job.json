@@ -107,7 +107,8 @@
                   "off_heap_size": "2g",
                   "spark_event_log_dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/",
                   "executor_memory_overhead": "1g",
-                  "driver_memory_overhead": "1g"
+                  "driver_memory_overhead": "1g",
+                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-80-rc"
                 }
               ],
               "bh_project_id": 2,
@@ -132,7 +133,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-23 08:06:49.178865+00:00",
+          "last_deployed_at": "2026-05-26 02:52:37.155426+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
