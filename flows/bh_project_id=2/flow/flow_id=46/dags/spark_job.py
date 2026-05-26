@@ -54,19 +54,26 @@ with DAG(
       type: Python
       pythonVersion: "3"
       mode: cluster
-      image: "transformation-utils:latest"
+      image: "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-80-rc"
       imagePullPolicy: Always
       mainApplicationFile: "local:///app/main.py"
       arguments: 
         - "pipeline-design-muthu-test.json"
         - "azure"
         - "/app/schemas/"
-      sparkVersion: "3.4.0"\n              sparkConf:\n                "spark.sql.execution.arrow.maxRecordsPerBatch": "10000"\n                "spark.memory.offHeap.enabled": "true"\n                "spark.memory.offHeap.size": "2g"\n                "spark.eventLog.enabled": "true"\n                "spark.eventLog.dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/"
+      sparkVersion: "3.4.0"
+      sparkConf:
+        "spark.sql.execution.arrow.maxRecordsPerBatch": "10000"
+        "spark.memory.offHeap.enabled": "true"
+        "spark.memory.offHeap.size": "2g"
+        "spark.eventLog.enabled": "true"
+        "spark.eventLog.dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/"
       restartPolicy:
         type: Never
       driver:
         cores: 1
-        memory: "2g"\n                memoryOverhead: "1g"
+        memory: "2g"
+        memoryOverhead: "1g"
         labels:
           version: 3.4.0
         serviceAccount: spark-operator-spark
@@ -80,7 +87,8 @@ with DAG(
       executor:
         cores: 1
         instances: 1
-        memory: "2g"\n                memoryOverhead: "1g"
+        memory: "2g"
+        memoryOverhead: "1g"
         labels:
           version: 3.4.0
         nodeSelector:
