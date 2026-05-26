@@ -1,0 +1,144 @@
+{
+  "created_at": "2026-05-26T14:04:51.445604Z",
+  "updated_at": "2026-05-26T14:04:51.445604Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "flow_id": 526,
+  "flow_name": "spark-job-pipeline",
+  "flow_key": "spark_job_pipeline",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "bh_project_name": "flow-test-project",
+  "bh_project_id": 299,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 526
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 526,
+        "data": {
+          "flow_id": 526,
+          "flow_name": "spark-job-pipeline",
+          "flow_key": "spark_job_pipeline",
+          "bh_project_id": 299,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 526,
+        "data": {
+          "flow_definition_id": 526,
+          "flow_id": 526,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "spark-job-pipeline",
+              "flow_name": "spark-job-pipeline",
+              "flow_id": 526,
+              "flow_type": "INGESTION",
+              "flow_key": "spark_job_pipeline",
+              "description": "Flow for spark-job-pipeline",
+              "version": "1.0.0",
+              "project_id": 299,
+              "project_name": "flow-test-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 220,
+              "bh_environment_id": 331,
+              "bh_environment_name": "test-dbricks",
+              "parameters": [],
+              "tasks": [
+                {
+                  "name": "Spark_Operator",
+                  "nodeId": "Spark Operator_1779804330490",
+                  "task_id": "spark_operator_533488277",
+                  "output_variables": [
+                    {
+                      "id": "spark_operator_Spark Operator_1779804330490_output_1",
+                      "label": "spark_operator_output_1",
+                      "xcom_key": "output_1"
+                    }
+                  ],
+                  "pipeline_name": "spark-job-pipeline",
+                  "pipeline_id": 844,
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "spark_job_pipeline",
+                  "node_label_driver": "spark-driver",
+                  "node_label_executor": "spark-executor",
+                  "driver_cores": 1,
+                  "driver_memory": 2,
+                  "executor_cores": 1,
+                  "executor_memory": 2,
+                  "spark_version": "3.5.0",
+                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-80-rc",
+                  "arrow_max_records_per_batch": 10000,
+                  "off_heap_size": "2g",
+                  "spark_event_log_dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/",
+                  "executor_memory_overhead": "1g",
+                  "driver_memory_overhead": "1g",
+                  "type": "SparkOperator",
+                  "depends_on": []
+                }
+              ],
+              "bh_project_id": 299,
+              "cloud_provider": "databricks",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 526,
+        "data": {
+          "flow_deployment_id": 526,
+          "flow_id": 526,
+          "bh_env_id": 331,
+          "bh_airflow_id": 8,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
