@@ -49,7 +49,7 @@ with DAG(
     kind: SparkApplication
     metadata:
       name: "spark-app-{{ ts_nodash | lower }}-spark_operator_b5a4ce9ad"
-      namespace: "spark-jobs"
+      namespace: "spark-operator"
     spec:
       type: Python
       pythonVersion: "3"
@@ -102,7 +102,7 @@ with DAG(
 
     spark_operator_b5a4ce9ad = SparkKubernetesOperator(
         task_id='spark_operator_b5a4ce9ad',
-        namespace="spark-jobs",
+        namespace="spark-operator",
         application_file=spark_app_yaml_spark_operator_b5a4ce9ad,
         kubernetes_conn_id="kubernetes_default",
         do_xcom_push=True,
