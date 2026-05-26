@@ -61,7 +61,7 @@ with DAG(
         - "pipeline-design-muthu-test.json"
         - "azure"
         - "/app/schemas/"
-      sparkVersion: "3.4.0"
+      sparkVersion: "3.5.0"
       sparkConf:
         "spark.sql.execution.arrow.maxRecordsPerBatch": "10000"
         "spark.memory.offHeap.enabled": "true"
@@ -75,7 +75,7 @@ with DAG(
         memory: "2g"
         memoryOverhead: "1g"
         labels:
-          version: 3.4.0
+          version: "3.5.0"
         serviceAccount: spark-operator-spark
         nodeSelector:
           workload: "spark-driver"
@@ -90,7 +90,7 @@ with DAG(
         memory: "2g"
         memoryOverhead: "1g"
         labels:
-          version: 3.4.0
+          version: "3.5.0"
         nodeSelector:
           workload: "spark-executor"
         tolerations:
