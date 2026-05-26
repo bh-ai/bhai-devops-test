@@ -1,0 +1,745 @@
+{
+  "created_at": "2026-05-26T08:13:19.560311Z",
+  "updated_at": "2026-05-26T12:53:07.753318Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 843,
+  "pipeline_name": "Ref_cclf_8",
+  "pipeline_key": "ref_cclf_8",
+  "bh_project_id": 299,
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-sathish-git",
+  "pipeline_json": {
+    "name": "Ref_cclf_8",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "parameters": [
+      {
+        "key": "p_d0284_aco_zc8y26_d260501",
+        "value": "D0284_cclf/P.D0284.ACO.ZC8Y26.D260501.dat"
+      }
+    ],
+    "connections": {
+      "landing_ref_cclf_8_file_connection_obj888": {
+        "name": "landing_ref_cclf_8_file_connection_obj888",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_ref_cclf_8_db_connection_obj888": {
+        "name": "bronze_ref_cclf_8_db_connection_obj888",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "bronze_referance_data",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      }
+    },
+    "sources": {
+      "landing_source_ref_cclf_8_obj888": {
+        "name": "landing_source_ref_cclf_8_obj888",
+        "source_type": "File",
+        "file_name": "${p_d0284_aco_zc8y26_d260501}",
+        "connection": {
+          "$ref": "#/connections/landing_ref_cclf_8_file_connection_obj888"
+        },
+        "data_src_id": 1691
+      }
+    },
+    "targets": {
+      "bronze_target_ref_cclf_8_obj888": {
+        "name": "bronze_target_ref_cclf_8_obj888",
+        "target_type": "Relational",
+        "table_name": "ref_cclf_8",
+        "connection": {
+          "$ref": "#/connections/bronze_ref_cclf_8_db_connection_obj888"
+        },
+        "load_mode": "append",
+        "schema": "bronze_referance_data",
+        "data_src_id": 1692
+      }
+    },
+    "transformations": [
+      {
+        "name": "landing_read_ref_cclf_8_obj888",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_ref_cclf_8_obj888"
+        },
+        "file_type": "FixedWidth",
+        "read_options": {
+          "fetch_size": 10000,
+          "encoding": "UTF-8",
+          "columnPositions": [
+            [
+              1,
+              12
+            ],
+            [
+              11,
+              22
+            ],
+            [
+              22,
+              24
+            ],
+            [
+              24,
+              27
+            ],
+            [
+              27,
+              32
+            ],
+            [
+              32,
+              42
+            ],
+            [
+              42,
+              43
+            ],
+            [
+              43,
+              44
+            ],
+            [
+              44,
+              47
+            ],
+            [
+              47,
+              49
+            ],
+            [
+              49,
+              51
+            ],
+            [
+              51,
+              61
+            ],
+            [
+              61,
+              71
+            ],
+            [
+              71,
+              81
+            ],
+            [
+              81,
+              111
+            ],
+            [
+              111,
+              126
+            ],
+            [
+              126,
+              166
+            ],
+            [
+              166,
+              167
+            ],
+            [
+              167,
+              168
+            ],
+            [
+              168,
+              178
+            ],
+            [
+              178,
+              188
+            ],
+            [
+              188,
+              233
+            ],
+            [
+              233,
+              278
+            ],
+            [
+              278,
+              318
+            ],
+            [
+              318,
+              358
+            ],
+            [
+              358,
+              398
+            ],
+            [
+              398,
+              438
+            ],
+            [
+              438,
+              538
+            ],
+            [
+              538,
+              540
+            ],
+            [
+              540,
+              545
+            ],
+            [
+              545,
+              549
+            ]
+          ],
+          "columnNames": [
+            "BENE_MBI_ID",
+            "BENE_HIC_NUM",
+            "BENE_FIPS_STATE_CD",
+            "BENE_FIPS_CNTY_CD",
+            "BENE_ZIP_CD",
+            "BENE_DOB",
+            "BENE_SEX_CD",
+            "BENE_RACE_CD",
+            "BENE_AGE",
+            "BENE_MDCR_STUS_CD",
+            "BENE_DUAL_STUS_CD",
+            "BENE_DEATH_DT",
+            "BENE_RNG_BGN_DT",
+            "BENE_RNG_END_DT",
+            "BENE_1ST_NAME",
+            "BENE_MIDL_NAME",
+            "BENE_LAST_NAME",
+            "BENE_ORGNL_ENTLMT_RSN_CD",
+            "BENE_ENTLMT_BUYIN_IND",
+            "BENE_PART_A_ENRLMT_BGN_DT",
+            "BENE_PART_B_ENRLMT_BGN_DT",
+            "BENE_LINE_1_ADR",
+            "BENE_LINE_2_ADR",
+            "BENE_LINE_3_ADR",
+            "BENE_LINE_4_ADR",
+            "BENE_LINE_5_ADR",
+            "BENE_LINE_6_ADR",
+            "GEO_ZIP_PLC_NAME",
+            "GEO_USPS_STATE_CD",
+            "GEO_ZIP5_CD",
+            "GEO_ZIP4_CD"
+          ],
+          "nullValue": "",
+          "lineSep": "\r\n",
+          "trimValues": true,
+          "skipLines": 0,
+          "mode": "PERMISSIVE",
+          "columnNameOfCorruptRecord": "corrupt_record"
+        },
+        "schema": [
+          {
+            "name": "BENE_MBI_ID",
+            "type": "string"
+          },
+          {
+            "name": "BENE_HIC_NUM",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_FIPS_STATE_CD",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_FIPS_CNTY_CD",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_ZIP_CD",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_DOB",
+            "type": "string"
+          },
+          {
+            "name": "BENE_SEX_CD",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_RACE_CD",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_AGE",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_MDCR_STUS_CD",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_DUAL_STUS_CD",
+            "type": "string"
+          },
+          {
+            "name": "BENE_DEATH_DT",
+            "type": "string"
+          },
+          {
+            "name": "BENE_RNG_BGN_DT",
+            "type": "string"
+          },
+          {
+            "name": "BENE_RNG_END_DT",
+            "type": "string"
+          },
+          {
+            "name": "BENE_1ST_NAME",
+            "type": "string"
+          },
+          {
+            "name": "BENE_MIDL_NAME",
+            "type": "string"
+          },
+          {
+            "name": "BENE_LAST_NAME",
+            "type": "string"
+          },
+          {
+            "name": "BENE_ORGNL_ENTLMT_RSN_CD",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_ENTLMT_BUYIN_IND",
+            "type": "integer"
+          },
+          {
+            "name": "BENE_PART_A_ENRLMT_BGN_DT",
+            "type": "string"
+          },
+          {
+            "name": "BENE_PART_B_ENRLMT_BGN_DT",
+            "type": "string"
+          },
+          {
+            "name": "BENE_LINE_1_ADR",
+            "type": "string"
+          },
+          {
+            "name": "BENE_LINE_2_ADR",
+            "type": "string"
+          },
+          {
+            "name": "BENE_LINE_3_ADR",
+            "type": "string"
+          },
+          {
+            "name": "BENE_LINE_4_ADR",
+            "type": "string"
+          },
+          {
+            "name": "BENE_LINE_5_ADR",
+            "type": "string"
+          },
+          {
+            "name": "BENE_LINE_6_ADR",
+            "type": "string"
+          },
+          {
+            "name": "GEO_ZIP_PLC_NAME",
+            "type": "string"
+          },
+          {
+            "name": "GEO_USPS_STATE_CD",
+            "type": "string"
+          },
+          {
+            "name": "GEO_ZIP5_CD",
+            "type": "string"
+          },
+          {
+            "name": "GEO_ZIP4_CD",
+            "type": "string"
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string"
+          }
+        ],
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj888",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_ref_cclf_8_obj888"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'ref_cclf_8'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj888",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj888"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "BENE_MBI_ID",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_HIC_NUM",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_FIPS_STATE_CD",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_FIPS_CNTY_CD",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_ZIP_CD",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_DOB",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_SEX_CD",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_RACE_CD",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_AGE",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_MDCR_STUS_CD",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_DUAL_STUS_CD",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_DEATH_DT",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_RNG_BGN_DT",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_RNG_END_DT",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_1ST_NAME",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_MIDL_NAME",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_LAST_NAME",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_ORGNL_ENTLMT_RSN_CD",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_ENTLMT_BUYIN_IND",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_PART_A_ENRLMT_BGN_DT",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_PART_B_ENRLMT_BGN_DT",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_LINE_1_ADR",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_LINE_2_ADR",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_LINE_3_ADR",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_LINE_4_ADR",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_LINE_5_ADR",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "BENE_LINE_6_ADR",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "GEO_ZIP_PLC_NAME",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "GEO_USPS_STATE_CD",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "GEO_ZIP5_CD",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "GEO_ZIP4_CD",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "dataset_id": "ref_cclf_8",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_ref_cclf_8_obj888",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj888"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_ref_cclf_8_obj888"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      }
+    ],
+    "description": "Cloned from File to DB Ingestion V2",
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "ref_cclf_8",
+      "business_date": "2026-05-26",
+      "delivery_id": "ref_cclf_8_2026-05-26",
+      "batch_id": 1,
+      "use_existing_batch_id": false,
+      "validate_existing_batch": true,
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "input_registry_processed_on_stage": "bronze",
+      "seed_stage_rows": true,
+      "stages": [
+        "bronze"
+      ],
+      "storage": {
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        },
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        }
+      },
+      "stage_to_transformations": {
+        "bronze": [
+          "landing_read_ref_cclf_8_obj888",
+          "add_lineage_metadata_obj888",
+          "schema_drift_guard_obj888",
+          "bronze_write_ref_cclf_8_obj888"
+        ]
+      },
+      "error_threshold_pct": 50.0,
+      "run_scope": "GROUP",
+      "atomic_commit_enabled": true,
+      "group_id": 416,
+      "expected_group_members": 1,
+      "group_run_id": "ref_cclf_8_20260526T125307Z"
+    }
+  },
+  "pipeline_type": "design",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
