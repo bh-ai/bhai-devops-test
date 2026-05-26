@@ -48,7 +48,7 @@ with DAG(
     apiVersion: "sparkoperator.k8s.io/v1beta2"
     kind: SparkApplication
     metadata:
-      name: "spark-app-{{ run_id | lower | regex_replace('[^a-z0-9\\-]', '-') }}-spark_operator_b5a4ce9ad"
+      name: "spark-app-{{ ts_nodash | lower }}-spark_operator_b5a4ce9ad"
       namespace: "spark-jobs"
     spec:
       type: Python
