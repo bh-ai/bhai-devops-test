@@ -60,7 +60,7 @@ with DAG(
       arguments: 
         - "pipeline-design-muthu-test.json"
         - "azure"
-        - "/app/schemas/"
+        - "/app/tmp/schemas/"
       sparkVersion: "3.5.0"
       sparkConf:
         "spark.sql.execution.arrow.maxRecordsPerBatch": "10000"
