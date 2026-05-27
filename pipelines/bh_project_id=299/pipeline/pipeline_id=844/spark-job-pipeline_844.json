@@ -1,0 +1,117 @@
+{
+    "created_at": "2026-05-26T11:24:48.942133Z",
+    "updated_at": "2026-05-27T03:56:07.931810Z",
+    "created_by": "sathish@bighammer.ai",
+    "updated_by": "sathish@bighammer.ai",
+    "is_deleted": false,
+    "deleted_by": null,
+    "tenant_id": 220,
+    "pipeline_id": 844,
+    "pipeline_name": "spark-job-pipeline",
+    "pipeline_key": "spark_job_pipeline",
+    "bh_project_id": 299,
+    "notes": "",
+    "tags": {},
+    "status": "active",
+    "pipeline_version_id": null,
+    "bh_project_name": null,
+    "bh_github_username": null,
+    "pipeline_json": {
+        "$schema": "https://json-schema.org/draft-07/schema#",
+        "name": "spark-job-pipeline",
+        "description": " ",
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "parameters": [],
+        "connections": {
+            "source_table": {
+                "name": "postgres-azure",
+                "connection_type": "PostgreSQL",
+                "connection_config_id": 184,
+                "database": "sample_db",
+                "secret_name": "bh-dev-westus3-kv-key-scope/bh-postgres-postgresazure"
+            },
+            "Target": {
+                "name": "postgres-azure",
+                "connection_type": "PostgreSQL",
+                "connection_config_id": 184,
+                "database": "sample_db",
+                "schema": "public",
+                "secret_name": "bh-dev-westus3-kv-key-scope/bh-postgres-postgresazure"
+            }
+        },
+        "sources": {
+            "source_table": {
+                "name": "source_table",
+                "source_type": "Relational",
+                "schema_name": "smaller_data",
+                "data_src_id": 1643,
+                "table_name": "source_table",
+                "connection": {
+                    "$ref": "#/connections/source_table"
+                }
+            }
+        },
+        "targets": {
+            "Target": {
+                "name": "Target",
+                "load_mode": "overwrite",
+                "table_name": "sathish_spark_job_test",
+                "schema_name": "public",
+                "target_type": "Relational",
+                "connection": {
+                    "$ref": "#/connections/Target"
+                }
+            }
+        },
+        "transformations": [
+            {
+                "name": "source_table",
+                "dependent_on": [],
+                "transformation": "Reader",
+                "source": {
+                    "$ref": "#/sources/source_table"
+                },
+                "read_options": {
+                    "header": true
+                }
+            },
+            {
+                "name": "Sorter",
+                "transformation": "Sorter",
+                "dependent_on": [
+                    "source_table"
+                ],
+                "sort_columns": [
+                    {
+                        "column": "id",
+                        "order": "asc"
+                    }
+                ]
+            },
+            {
+                "name": "Target",
+                "transformation": "Writer",
+                "dependent_on": [
+                    "Sorter"
+                ],
+                "target": {
+                    "$ref": "#/targets/Target"
+                },
+                "file_name": "Target",
+                "write_options": {
+                    "header": true,
+                    "sep": ","
+                }
+            }
+        ]
+    },
+    "pipeline_type": "design",
+    "engine_type": "pyspark",
+    "pipeline_parameters": [],
+    "total_test_scenario": null,
+    "passed_test": null,
+    "failed_test": null,
+    "sme_recommendations_count": null,
+    "process_status": null
+}
