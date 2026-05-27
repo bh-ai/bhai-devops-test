@@ -80,6 +80,10 @@ with DAG(
         - "/app/tmp/schemas/"
       sparkVersion: "3.5.0"
       sparkConf:
+        "spark.gluten.sql.columnar.backend.velox.glogSeverityLevel": "1"
+        "spark.gluten.sql.columnar.backend.velox.glogVerboseLevel": "0"
+        "spark.eventLog.compress": "true"
+        "spark.jars.ivy": "/tmp/.ivy2"
         "spark.sql.execution.arrow.maxRecordsPerBatch": "10000"
         "spark.memory.offHeap.enabled": "true"
         "spark.memory.offHeap.size": "2g"
@@ -93,6 +97,7 @@ with DAG(
         memoryOverhead: "1g"
         labels:
           version: "3.5.0"
+          azure.workload.identity/use: "true"
         serviceAccount: spark-operator-spark
         env:
           - name: PIPELINE_JSON_B64
@@ -111,6 +116,7 @@ with DAG(
         memoryOverhead: "1g"
         labels:
           version: "3.5.0"
+          azure.workload.identity/use: "true"
         env:
           - name: PIPELINE_JSON_B64
             value: "{pipeline_json_b64}"
