@@ -101,14 +101,15 @@
                   "executor_cores": 1,
                   "executor_memory": 2,
                   "spark_version": "3.5.0",
-                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-80-rc",
+                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-94-rc",
                   "arrow_max_records_per_batch": 10000,
                   "off_heap_size": "2g",
                   "spark_event_log_dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/",
                   "executor_memory_overhead": "1g",
                   "driver_memory_overhead": "1g",
                   "type": "SparkOperator",
-                  "depends_on": []
+                  "depends_on": [],
+                  "executor_instances": 1
                 }
               ],
               "bh_project_id": 299,
@@ -133,7 +134,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-27 06:08:52.279479+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
