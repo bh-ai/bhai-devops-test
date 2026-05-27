@@ -71,7 +71,7 @@ with DAG(
       type: Python
       pythonVersion: "3"
       mode: cluster
-      image: "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten/pyspark_slim:1.0.0-95-rc"
+      image: "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten/pyspark_slim:1.0.0-96-rc"
       imagePullPolicy: Always
       mainApplicationFile: "local:///app/main.py"
       arguments: 
