@@ -1,4 +1,4 @@
-name: Sync to Azure Storage
+name: Sync pipelines to Azure Storage for sparkapplication execution
 
 on:
   workflow_dispatch:
