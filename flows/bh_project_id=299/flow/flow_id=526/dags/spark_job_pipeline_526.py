@@ -80,6 +80,7 @@ with DAG(
         - "/app/tmp/schemas/"
       sparkVersion: "3.5.0"
       sparkConf:
+        "spark.jars.packages": "org.apache.hadoop:hadoop-azure:3.3.6"
         "spark.gluten.sql.columnar.backend.velox.glogSeverityLevel": "1"
         "spark.gluten.sql.columnar.backend.velox.glogVerboseLevel": "1"
         "spark.eventLog.compress": "true"
