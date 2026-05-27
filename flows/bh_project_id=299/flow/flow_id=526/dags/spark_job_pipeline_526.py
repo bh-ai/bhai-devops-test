@@ -58,7 +58,7 @@ with DAG(
       imagePullPolicy: Always
       mainApplicationFile: "local:///app/main.py"
       arguments: 
-        - "spark-job-pipeline.json"
+        - "./pipelines/bh_project_id=299/pipeline/pipeline_id=844/spark-job-pipeline.json"
         - "azure"
         - "/app/tmp/schemas/"
       sparkVersion: "3.5.0"
