@@ -1,0 +1,151 @@
+{
+  "created_at": "2026-05-26T10:00:35.025553Z",
+  "updated_at": "2026-05-26T10:00:35.025553Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 1,
+  "flow_id": 47,
+  "flow_name": "Testspakregression",
+  "flow_key": "testspakregression",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "bh_project_name": "flow-service-project",
+  "bh_project_id": 2,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 47
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 47,
+        "data": {
+          "flow_id": 47,
+          "flow_name": "Testspakregression",
+          "flow_key": "testspakregression",
+          "bh_project_id": 2,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 43,
+        "data": {
+          "flow_definition_id": 43,
+          "flow_id": 47,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "Testspakregression",
+              "flow_name": "Testspakregression",
+              "flow_id": 47,
+              "flow_type": "INGESTION",
+              "flow_key": "testspakregression",
+              "description": "Flow for Testspakregression",
+              "version": "1.0.0",
+              "project_id": 2,
+              "project_name": "flow-service-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 1,
+              "bh_environment_id": 1,
+              "bh_environment_name": "azure-westus3",
+              "parameters": [],
+              "tasks": [
+                {
+                  "name": "Spark_Operator",
+                  "nodeId": "Spark Operator_1779877149151",
+                  "task_id": "spark_operator_a164d2a44",
+                  "output_variables": [
+                    {
+                      "id": "spark_operator_Spark Operator_1779877149151_output_1",
+                      "label": "spark_operator_output_1",
+                      "xcom_key": "output_1"
+                    }
+                  ],
+                  "node_label_driver": "spark-driver",
+                  "node_label_executor": "spark-executor",
+                  "driver_cores": 1,
+                  "driver_memory": 2,
+                  "executor_cores": 1,
+                  "executor_memory": 2,
+                  "spark_version": "3.5.0",
+                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-94-rc",
+                  "arrow_max_records_per_batch": 10000,
+                  "off_heap_size": "2g",
+                  "spark_event_log_dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/",
+                  "executor_memory_overhead": "1g",
+                  "driver_memory_overhead": "1g",
+                  "spark_event_log_compress": true,
+                  "spark_abfs_hns_enabled": false,
+                  "velox_glog_severity_level": 1,
+                  "spark_wif_tenant_id": "4a548e99-bcbf-4246-86cf-898b4554b7f1",
+                  "spark_wif_client_id": "f01fd5de-fc42-4ba1-8da8-a6aaff7c5e7e",
+                  "velox_glog_verbose_level": 1,
+                  "pipeline_name": "spark-job-pipeline",
+                  "pipeline_id": 6,
+                  "bh_project_name": "flow-service-project",
+                  "pipeline_key": "spark_job_pipeline",
+                  "executor_instances": 1,
+                  "type": "SparkOperator",
+                  "depends_on": []
+                }
+              ],
+              "bh_project_id": 2,
+              "cloud_provider": "azure",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 43,
+        "data": {
+          "flow_deployment_id": 43,
+          "flow_id": 47,
+          "bh_env_id": 1,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
