@@ -86,7 +86,7 @@ with DAG(
         "spark.hadoop.fs.azure.account.auth.type.bhdevstoacct01lrs.dfs.core.windows.net": "OAuth"
         "spark.hadoop.fs.azure.account.oauth.provider.type.bhdevstoacct01lrs.dfs.core.windows.net": "org.apache.hadoop.fs.azurebfs.oauth2.WorkloadIdentityTokenProvider"
         "spark.hadoop.fs.azure.account.oauth2.msi.tenant.bhdevstoacct01lrs.dfs.core.windows.net": "4a548e99-bcbf-4246-86cf-898b4554b7f1"
-        "spark.hadoop.fs.azure.account.oauth2.client.id.bhdevstoacct01lrs.dfs.core.windows.net": "f01fd5de-fc42-4ba1-8da8-a6aaff7c5e7e"
+        "spark.hadoop.fs.azure.account.oauth2.client.id.bhdevstoacct01lrs.dfs.core.windows.net": "d6f44bc6-f3bb-4f07-bbcf-80a8f475a67f"
         "spark.hadoop.fs.azure.account.hns.enabled.bhdevstoacct01lrs.dfs.core.windows.net": "false"
         "spark.jars.ivy": "/tmp/.ivy2"
         "spark.sql.execution.arrow.maxRecordsPerBatch": "10000"
