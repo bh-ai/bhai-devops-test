@@ -17,14 +17,11 @@ on:
         required: true
         type: string
         default: './pipelines'
-      storage_account_name:
-        description: 'Target Azure Storage Account Name'
-        required: true
-        type: string
-      container_name:
-        description: 'Target Azure Storage Container Name'
-        required: true
-        type: string
+
+env:
+  AZURE_STORAGE_ACCOUNT_NAME: ${{ vars.AZURE_STORAGE_ACCOUNT_NAME || 'bhdevstoacct01' }}
+  AZURE_STORAGE_CONTAINER: ${{ vars.AZURE_STORAGE_CONTAINER || 'bh-airflow' }}
+
 jobs:
   sync-to-azure:
     name: Sync folder to Azure Storage
@@ -36,17 +33,21 @@ jobs:
         
       - name: Sync Folder via Azure CLI
         env:
-          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
         run: |
-          if [ -z "$AZURE_STORAGE_KEY" ]; then
-            echo "Error: AZURE_STORAGE_KEY secret is not set in the repository."
-            echo "Please add AZURE_STORAGE_KEY as a Repository Secret."
+          if [ -z "$AZURE_STORAGE_ACCOUNT_KEY" ]; then
+            echo "Error: AZURE_STORAGE_ACCOUNT_KEY secret is not set in the environment or repository."
+            exit 1
+          fi
+          
+          if [ -z "${{ env.AZURE_STORAGE_ACCOUNT_NAME }}" ] || [ -z "${{ env.AZURE_STORAGE_CONTAINER }}" ]; then
+            echo "Error: AZURE_STORAGE_ACCOUNT_NAME and AZURE_STORAGE_CONTAINER must be set in env or vars."
             exit 1
           fi
 
           SOURCE="${{ github.event.inputs.source_folder }}"
-          ACCOUNT="${{ github.event.inputs.storage_account_name }}"
-          CONTAINER="${{ github.event.inputs.container_name }}"
+          ACCOUNT="${{ env.AZURE_STORAGE_ACCOUNT_NAME }}"
+          CONTAINER="${{ env.AZURE_STORAGE_CONTAINER }}"
           
           # Clean up source to be used as destination path (remove leading ./ and /)
           # so that a source like './pipelines/bh_project_id=2' becomes destination 'pipelines/bh_project_id=2'
@@ -56,7 +57,7 @@ jobs:
           
           az storage blob sync \
             --account-name "$ACCOUNT" \
-            --account-key "$AZURE_STORAGE_KEY" \
+            --account-key "$AZURE_STORAGE_ACCOUNT_KEY" \
             --container "$CONTAINER" \
             --source "$SOURCE" \
             --destination "$DEST_PATH"
