@@ -65,7 +65,7 @@ with DAG(
     apiVersion: "sparkoperator.k8s.io/v1beta2"
     kind: SparkApplication
     metadata:
-      name: "spark-app-{{ ts_nodash | lower }}-spark_operator_533488277"
+      name: "spark-app-spark-operator-533488277"
       namespace: "spark-operator"
     spec:
       type: Python
