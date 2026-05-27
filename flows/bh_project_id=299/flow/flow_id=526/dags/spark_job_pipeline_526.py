@@ -106,7 +106,7 @@ with DAG(
             effect: "NoSchedule"
       executor:
         cores: 1
-        instances: 2
+        instances: 1
         memory: "2g"
         memoryOverhead: "1g"
         labels:
