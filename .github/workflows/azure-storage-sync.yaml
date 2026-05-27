@@ -1,0 +1,64 @@
+name: Sync pipelines to Azure Storage for sparkapplication execution
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: 'GitHub Environment to use (loads env secrets/vars)'
+        required: true
+        type: choice
+        options:
+          - dev
+          - qa
+          - prod
+        default: 'dev'
+      source_folder:
+        description: 'Source folder path to sync (e.g., ./pipelines or ./pipelines/bh_project_id=299)'
+        required: true
+        type: string
+        default: './pipelines'
+      storage_account_name:
+        description: 'Target Azure Storage Account Name'
+        required: true
+        type: string
+      container_name:
+        description: 'Target Azure Storage Container Name'
+        required: true
+        type: string
+jobs:
+  sync-to-azure:
+    name: Sync folder to Azure Storage
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.target_environment }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Sync Folder via Azure CLI
+        env:
+          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+        run: |
+          if [ -z "$AZURE_STORAGE_KEY" ]; then
+            echo "Error: AZURE_STORAGE_KEY secret is not set in the repository."
+            echo "Please add AZURE_STORAGE_KEY as a Repository Secret."
+            exit 1
+          fi
+
+          SOURCE="${{ github.event.inputs.source_folder }}"
+          ACCOUNT="${{ github.event.inputs.storage_account_name }}"
+          CONTAINER="${{ github.event.inputs.container_name }}"
+          
+          # Clean up source to be used as destination path (remove leading ./ and /)
+          # so that a source like './pipelines/bh_project_id=2' becomes destination 'pipelines/bh_project_id=2'
+          DEST_PATH=$(echo "$SOURCE" | sed -e 's/^\.\///' -e 's/^\///')
+          
+          echo "Syncing contents of '$SOURCE' to container '$CONTAINER' under the path '$DEST_PATH' in account '$ACCOUNT'..."
+          
+          az storage blob sync \
+            --account-name "$ACCOUNT" \
+            --account-key "$AZURE_STORAGE_KEY" \
+            --container "$CONTAINER" \
+            --source "$SOURCE" \
+            --destination "$DEST_PATH"
+          
+          echo "Sync completed successfully."
