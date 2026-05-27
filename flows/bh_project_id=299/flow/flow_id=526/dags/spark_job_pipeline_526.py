@@ -94,9 +94,9 @@ with DAG(
         labels:
           version: "3.5.0"
         serviceAccount: spark-operator-spark
-      env:
-        - name: PIPELINE_JSON_B64
-          value: "{pipeline_json_b64}"
+        env:
+          - name: PIPELINE_JSON_B64
+            value: "{pipeline_json_b64}"
         nodeSelector:
           workload: "spark-driver"
         tolerations:
@@ -111,9 +111,9 @@ with DAG(
         memoryOverhead: "1g"
         labels:
           version: "3.5.0"
-      env:
-        - name: PIPELINE_JSON_B64
-          value: "{pipeline_json_b64}"
+        env:
+          - name: PIPELINE_JSON_B64
+            value: "{pipeline_json_b64}"
         nodeSelector:
           workload: "spark-executor"
         tolerations:
