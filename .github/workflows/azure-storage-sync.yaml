@@ -21,6 +21,7 @@ on:
 env:
   AZURE_STORAGE_ACCOUNT_NAME: ${{ vars.AZURE_STORAGE_ACCOUNT_NAME || 'bhdevstoacct01' }}
   AZURE_STORAGE_CONTAINER: ${{ vars.AZURE_STORAGE_CONTAINER || 'bh-airflow' }}
+  AZURE_DAG_PREFIX: ${{ vars.AZURE_DAG_PREFIX || 'dags' }}
 
 jobs:
   sync-to-azure:
@@ -48,10 +49,17 @@ jobs:
           SOURCE="${{ github.event.inputs.source_folder }}"
           ACCOUNT="${{ env.AZURE_STORAGE_ACCOUNT_NAME }}"
           CONTAINER="${{ env.AZURE_STORAGE_CONTAINER }}"
+          DAG_PREFIX="${{ env.AZURE_DAG_PREFIX }}"
           
           # Clean up source to be used as destination path (remove leading ./ and /)
-          # so that a source like './pipelines/bh_project_id=2' becomes destination 'pipelines/bh_project_id=2'
-          DEST_PATH=$(echo "$SOURCE" | sed -e 's/^\.\///' -e 's/^\///')
+          CLEAN_SOURCE=$(echo "$SOURCE" | sed -e 's/^\.\///' -e 's/^\///')
+          
+          if [ -n "$DAG_PREFIX" ]; then
+             DAG_PREFIX=$(echo "$DAG_PREFIX" | sed -e 's/\/$//')
+             DEST_PATH="$DAG_PREFIX/$CLEAN_SOURCE"
+          else
+             DEST_PATH="$CLEAN_SOURCE"
+          fi
           
           echo "Syncing contents of '$SOURCE' to container '$CONTAINER' under the path '$DEST_PATH' in account '$ACCOUNT'..."
           
