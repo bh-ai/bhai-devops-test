@@ -101,7 +101,7 @@
                   "executor_cores": 1,
                   "executor_memory": 2,
                   "spark_version": "3.5.0",
-                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-94-rc",
+                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-95-rc",
                   "arrow_max_records_per_batch": 10000,
                   "off_heap_size": "2g",
                   "spark_event_log_dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/",
@@ -112,7 +112,9 @@
                   "executor_instances": 1,
                   "spark_wif_tenant_id": "4a548e99-bcbf-4246-86cf-898b4554b7f1",
                   "spark_wif_client_id": "f01fd5de-fc42-4ba1-8da8-a6aaff7c5e7e",
-                  "velox_glog_verbose_level": 1
+                  "velox_glog_verbose_level": 1,
+                  "spark_abfs_hns_enabled": false,
+                  "spark_event_log_compress": true
                 }
               ],
               "bh_project_id": 299,
@@ -137,7 +139,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-27 11:54:16.813910+00:00",
+          "last_deployed_at": "2026-05-27 11:58:12.200955+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
