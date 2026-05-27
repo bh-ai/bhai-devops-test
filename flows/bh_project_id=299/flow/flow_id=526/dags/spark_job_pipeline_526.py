@@ -80,7 +80,9 @@ with DAG(
         - "/app/tmp/schemas/"
       sparkVersion: "3.5.0"
       sparkConf:
-        "spark.jars.packages": "org.apache.hadoop:hadoop-azure:3.3.6"
+        "spark.jars.packages": "org.apache.hadoop:hadoop-azure:3.3.6,com.azure:azure-identity:1.10.1,com.azure:azure-storage-file-datalake:12.14.1,com.azure:azure-storage-blob:12.21.1,com.azure:azure-storage-common:12.20.1,com.azure:azure-core:1.37.0,com.microsoft.azure:msal4j:1.13.0,com.microsoft.azure:azure-keyvault-core:1.0.0"
+        "spark.driver.userClassPathFirst": "true"
+        "spark.executor.userClassPathFirst": "true"
         "spark.gluten.sql.columnar.backend.velox.glogSeverityLevel": "1"
         "spark.gluten.sql.columnar.backend.velox.glogVerboseLevel": "1"
         "spark.eventLog.compress": "true"
