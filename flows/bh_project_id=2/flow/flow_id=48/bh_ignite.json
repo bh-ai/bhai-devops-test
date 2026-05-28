@@ -111,7 +111,7 @@
                   "spark_event_log_compress": true,
                   "spark_wif_tenant_id": "4a548e99-bcbf-4246-86cf-898b4554b7f1",
                   "spark_wif_client_id": "f01fd5de-fc42-4ba1-8da8-a6aaff7c5e7e",
-                  "velox_glog_severity_level": 3,
+                  "velox_glog_severity_level": 1,
                   "velox_glog_verbose_level": 1,
                   "type": "BHIgnite",
                   "depends_on": []
@@ -139,7 +139,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-28 08:27:13.515694+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
