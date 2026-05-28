@@ -29,7 +29,7 @@
                 "connection_type": "PostgreSQL",
                 "connection_config_id": 184,
                 "database": "sample_db",
-                "secret_name": "bh-dev-westus3-kv-key-scope/bh-postgres-postgresazure"
+                "secret_name": "bh-postgres-postgresazure"
             },
             "Target": {
                 "name": "postgres-azure",
@@ -37,7 +37,7 @@
                 "connection_config_id": 184,
                 "database": "sample_db",
                 "schema": "public",
-                "secret_name": "bh-dev-westus3-kv-key-scope/bh-postgres-postgresazure"
+                "secret_name": "bh-postgres-postgresazure"
             }
         },
         "sources": {
