@@ -114,7 +114,8 @@
                   "velox_glog_severity_level": 1,
                   "velox_glog_verbose_level": 1,
                   "type": "BHIgnite",
-                  "depends_on": []
+                  "depends_on": [],
+                  "key_vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net/"
                 }
               ],
               "bh_project_id": 2,
@@ -139,7 +140,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-28 08:27:13.515694+00:00",
+          "last_deployed_at": "2026-05-28 11:29:07.516058+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
