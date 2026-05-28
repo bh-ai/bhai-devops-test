@@ -1,6 +1,6 @@
 {
   "created_at": "2026-05-28T10:05:34.620393Z",
-  "updated_at": "2026-05-28T10:05:34.620393Z",
+  "updated_at": "2026-05-28T10:05:54.482419Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -10,7 +10,7 @@
   "flow_name": "fedelis-may28-2_443",
   "flow_key": "fedelis_may28_2_443",
   "recipient_email": {},
-  "notes": "fedelis-1-28May",
+  "notes": null,
   "tags": null,
   "bh_project_name": "flow-test-project",
   "bh_project_id": 299,
@@ -35,7 +35,7 @@
           "flow_key": "fedelis_may28_2_443",
           "bh_project_id": 299,
           "recipient_email": {},
-          "notes": "fedelis-1-28May",
+          "notes": null,
           "tags": null,
           "status": "active",
           "alert_settings": {
@@ -489,7 +489,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -514,7 +513,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-05-28 10:05:53.005036+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
