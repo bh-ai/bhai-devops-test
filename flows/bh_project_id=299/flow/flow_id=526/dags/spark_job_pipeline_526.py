@@ -82,7 +82,7 @@ with DAG(
       sparkConf:
         "spark.plugins": "org.apache.gluten.GlutenPlugin"
         "spark.shuffle.manager": "org.apache.spark.shuffle.sort.ColumnarShuffleManager"
-        "spark.kubernetes.driverEnv.AZURE_VAULT_URL": "https://bh-dev-westus3-kv.vault.azure.net/"
+        "spark.kubernetes.driverEnv.AZURE_VAULT_URL": "https://bh-dev-westus3-kv-key.vault.azure.net/"
         "spark.executorEnv.AZURE_VAULT_URL": "https://bh-dev-westus3-kv.vault.azure.net/"
         "spark.gluten.sql.columnar.backend.velox.glogSeverityLevel": "1"
         "spark.gluten.sql.columnar.backend.velox.glogVerboseLevel": "1"
