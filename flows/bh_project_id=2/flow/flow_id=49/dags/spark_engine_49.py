@@ -82,6 +82,12 @@ with DAG(
       sparkConf:
         "spark.serializer": "org.apache.spark.serializer.KryoSerializer"
         "spark.sql.execution.arrow.pyspark.enabled": "true"
+        "spark.shuffle.manager": "org.apache.spark.shuffle.celeborn.SparkShuffleManager"
+        "spark.celeborn.master.endpoints": "celeborn-master:9097"
+        "spark.sql.adaptive.enabled": "true"
+        "spark.sql.adaptive.coalescePartitions.enabled": "true"
+        "spark.sql.adaptive.skewJoin.enabled": "true"
+        "spark.sql.adaptive.localShuffleReader.enabled": "true"
         "spark.eventLog.compress": "true"
         "spark.hadoop.fs.azure.account.auth.type.bhdevstoacct01lrs.dfs.core.windows.net": "OAuth"
         "spark.hadoop.fs.azure.account.oauth.provider.type.bhdevstoacct01lrs.dfs.core.windows.net": "org.apache.hadoop.fs.azurebfs.oauth2.WorkloadIdentityTokenProvider"
