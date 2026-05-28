@@ -80,8 +80,8 @@ with DAG(
         - "/app/tmp/schemas/"
       sparkVersion: "3.5.0"
       sparkConf:
-        "spark.gluten.sql.columnar.backend.velox.glogSeverityLevel": "1"
-        "spark.gluten.sql.columnar.backend.velox.glogVerboseLevel": "0"
+        "spark.serializer": "org.apache.spark.serializer.KryoSerializer"
+        "spark.sql.execution.arrow.pyspark.enabled": "true"
         "spark.eventLog.compress": "true"
         "spark.hadoop.fs.azure.account.auth.type.bhdevstoacct01lrs.dfs.core.windows.net": "OAuth"
         "spark.hadoop.fs.azure.account.oauth.provider.type.bhdevstoacct01lrs.dfs.core.windows.net": "org.apache.hadoop.fs.azurebfs.oauth2.WorkloadIdentityTokenProvider"
