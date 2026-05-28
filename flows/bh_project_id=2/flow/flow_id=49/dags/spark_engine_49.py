@@ -94,6 +94,8 @@ with DAG(
         "spark.hadoop.fs.azure.account.oauth2.msi.tenant.bhdevstoacct01lrs.dfs.core.windows.net": "4a548e99-bcbf-4246-86cf-898b4554b7f1"
         "spark.hadoop.fs.azure.account.oauth2.client.id.bhdevstoacct01lrs.dfs.core.windows.net": "f01fd5de-fc42-4ba1-8da8-a6aaff7c5e7e"
         "spark.hadoop.fs.azure.account.hns.enabled.bhdevstoacct01lrs.dfs.core.windows.net": "false"
+        "spark.kubernetes.driverEnv.AZURE_VAULT_URL": "https://bh-dev-westus3-kv-key.vault.azure.net/"
+        "spark.executorEnv.AZURE_VAULT_URL": "https://bh-dev-westus3-kv-key.vault.azure.net/"
         "spark.jars.ivy": "/tmp/.ivy2"
         "spark.eventLog.enabled": "true"
         "spark.eventLog.dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/"
