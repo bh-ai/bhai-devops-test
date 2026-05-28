@@ -110,7 +110,8 @@
                   "spark_wif_tenant_id": "4a548e99-bcbf-4246-86cf-898b4554b7f1",
                   "spark_wif_client_id": "f01fd5de-fc42-4ba1-8da8-a6aaff7c5e7e",
                   "type": "SparkEngine",
-                  "depends_on": []
+                  "depends_on": [],
+                  "key_vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net/"
                 }
               ],
               "bh_project_id": 2,
@@ -135,7 +136,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-05-28 09:34:45.702900+00:00",
+          "last_deployed_at": "2026-05-28 11:09:38.921991+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
