@@ -89,7 +89,7 @@
           },
           {
             "name": "l_quantity",
-            "type": "decimal",
+            "type": "long",
             "nullable": true
           },
           {
