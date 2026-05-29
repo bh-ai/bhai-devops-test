@@ -165,5 +165,6 @@ with DAG(
         on_failure_callback=common_task.failure_callback,
     )
 
+
     start_flow_task >> bh_ignite_ddb45dba2
     bh_ignite_ddb45dba2 >> end_flow_task
