@@ -1,0 +1,147 @@
+{
+  "created_at": "2026-05-29T11:33:59.187899Z",
+  "updated_at": "2026-05-29T11:33:59.187899Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "flow_id": 543,
+  "flow_name": "spark-engine-plain-vannila",
+  "flow_key": "spark_engine_plain_vannila",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "bh_project_name": "flow-test-project",
+  "bh_project_id": 299,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 543
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 543,
+        "data": {
+          "flow_id": 543,
+          "flow_name": "spark-engine-plain-vannila",
+          "flow_key": "spark_engine_plain_vannila",
+          "bh_project_id": 299,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 543,
+        "data": {
+          "flow_definition_id": 543,
+          "flow_id": 543,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "spark-engine-plain-vannila",
+              "flow_name": "spark-engine-plain-vannila",
+              "flow_id": 543,
+              "flow_type": "INGESTION",
+              "flow_key": "spark_engine_plain_vannila",
+              "description": "Flow for spark-engine-plain-vannila",
+              "version": "1.0.0",
+              "project_id": 299,
+              "project_name": "flow-test-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 220,
+              "bh_environment_id": 334,
+              "bh_environment_name": "azure-dev",
+              "parameters": [],
+              "tasks": [
+                {
+                  "name": "Spark_Engine",
+                  "nodeId": "Spark Engine_1780054456687",
+                  "task_id": "spark_engine_0b9437158",
+                  "output_variables": [
+                    {
+                      "id": "spark_engine_Spark Engine_1780054456687_output_1",
+                      "label": "spark_engine_output_1",
+                      "xcom_key": "output_1"
+                    }
+                  ],
+                  "pipeline_name": "tpch_q3_shipping_priority_join_260529_2fca",
+                  "pipeline_id": 895,
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "tpch_q3_shipping_priority_join_260529_2fca",
+                  "node_label_driver": "spark-driver",
+                  "node_label_executor": "spark-executor",
+                  "driver_cores": 1,
+                  "driver_memory": 2,
+                  "executor_cores": 1,
+                  "executor_memory": 2,
+                  "executor_instances": 1,
+                  "spark_version": "3.5.0",
+                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils/pyspark_slim:1.0.0-109-rc",
+                  "spark_event_log_dir": "abfss://bh-spark-logs@bhdevstoacct01lrs.dfs.core.windows.net/",
+                  "executor_memory_overhead": "1g",
+                  "driver_memory_overhead": "1g",
+                  "spark_event_log_compress": true,
+                  "key_vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net/",
+                  "spark_wif_tenant_id": "4a548e99-bcbf-4246-86cf-898b4554b7f1",
+                  "spark_wif_client_id": "d6f44bc6-f3bb-4f07-bbcf-80a8f475a67f",
+                  "type": "SparkEngine",
+                  "depends_on": []
+                }
+              ],
+              "bh_project_id": 299,
+              "cloud_provider": "azure",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 543,
+        "data": {
+          "flow_deployment_id": 543,
+          "flow_id": 543,
+          "bh_env_id": 334,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
