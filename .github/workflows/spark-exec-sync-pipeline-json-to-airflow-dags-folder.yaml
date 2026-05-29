@@ -75,11 +75,22 @@ jobs:
           
           echo "Syncing contents of '$SOURCE' to container '$CONTAINER' under the path '$DEST_PATH' in account '$ACCOUNT'..."
           
-          az storage blob sync \
-            --account-name "$ACCOUNT" \
-            --account-key "$AZURE_STORAGE_ACCOUNT_KEY" \
-            --container "$CONTAINER" \
-            --source "$SOURCE" \
-            --destination "$DEST_PATH"
+          if [ -d "$SOURCE" ]; then
+            az storage blob upload-batch \
+              --account-name "$ACCOUNT" \
+              --account-key "$AZURE_STORAGE_ACCOUNT_KEY" \
+              --destination "$CONTAINER" \
+              --destination-path "$DEST_PATH" \
+              --source "$SOURCE" \
+              --overwrite
+          else
+            az storage blob upload \
+              --account-name "$ACCOUNT" \
+              --account-key "$AZURE_STORAGE_ACCOUNT_KEY" \
+              --container-name "$CONTAINER" \
+              --file "$SOURCE" \
+              --name "$DEST_PATH" \
+              --overwrite
+          fi
           
           echo "Sync completed successfully."
