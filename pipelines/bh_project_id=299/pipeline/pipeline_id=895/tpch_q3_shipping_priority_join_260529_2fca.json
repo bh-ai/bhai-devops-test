@@ -1,0 +1,513 @@
+{
+  "created_at": "2026-05-29T02:29:59.181693Z",
+  "updated_at": "2026-05-29T02:33:00.172661Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 895,
+  "pipeline_name": "tpch_q3_shipping_priority_join_260529_2fca",
+  "pipeline_key": "tpch_q3_shipping_priority_join_260529_2fca",
+  "bh_project_id": 299,
+  "notes": "",
+  "tags": {
+    "created_from": "chat-quick-action"
+  },
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-sathish-git",
+  "pipeline_json": {
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "name": "tpch_q3_shipping_priority_join_260529_2fca",
+    "description": "TPC-H Query 3: shipping priority — customer/orders/lineitem join, filter, aggregate revenue, sort, write results",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "mode": "ENGINE",
+    "parameters": [],
+    "connections": {
+      "bh-ignite": {
+        "connection_config_id": 192,
+        "name": "bh-ignite",
+        "connection_type": "PostgreSQL",
+        "database": "bh_ignite",
+        "schema": "public",
+        "driver": "org.postgresql.Driver",
+        "host": "4.227.38.66",
+        "port": "5434",
+        "secret_name": "bh-postgres-bhignite"
+      }
+    },
+    "sources": {
+      "lineitem": {
+        "data_src_id": 1861,
+        "name": "lineitem",
+        "source_type": "Relational",
+        "table_name": "lineitem",
+        "connection": {
+          "$ref": "#/connections/bh-ignite"
+        },
+        "fields": [
+          "l_orderkey",
+          "l_partkey",
+          "l_suppkey",
+          "l_linenumber",
+          "l_quantity",
+          "l_extendedprice",
+          "l_discount",
+          "l_tax",
+          "l_returnflag",
+          "l_linestatus",
+          "l_shipdate",
+          "l_commitdate",
+          "l_receiptdate",
+          "l_shipinstruct",
+          "l_shipmode",
+          "l_comment"
+        ],
+        "schema": [
+          {
+            "name": "l_orderkey",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "l_partkey",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "l_suppkey",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "l_linenumber",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "l_quantity",
+            "type": "decimal",
+            "nullable": true
+          },
+          {
+            "name": "l_extendedprice",
+            "type": "double",
+            "nullable": true
+          },
+          {
+            "name": "l_discount",
+            "type": "double",
+            "nullable": true
+          },
+          {
+            "name": "l_tax",
+            "type": "double",
+            "nullable": true
+          },
+          {
+            "name": "l_returnflag",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "l_linestatus",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "l_shipdate",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "l_commitdate",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "l_receiptdate",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "l_shipinstruct",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "l_shipmode",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "l_comment",
+            "type": "string",
+            "nullable": true
+          }
+        ],
+        "db_schema": "public"
+      },
+      "customer": {
+        "data_src_id": 1862,
+        "name": "customer",
+        "source_type": "Relational",
+        "table_name": "customer",
+        "connection": {
+          "$ref": "#/connections/bh-ignite"
+        },
+        "fields": [
+          "c_custkey",
+          "c_name",
+          "c_address",
+          "c_nationkey",
+          "c_phone",
+          "c_acctbal",
+          "c_mktsegment",
+          "c_comment"
+        ],
+        "schema": [
+          {
+            "name": "c_custkey",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "c_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "c_address",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "c_nationkey",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "c_phone",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "c_acctbal",
+            "type": "double",
+            "nullable": true
+          },
+          {
+            "name": "c_mktsegment",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "c_comment",
+            "type": "string",
+            "nullable": true
+          }
+        ],
+        "db_schema": "public"
+      },
+      "orders": {
+        "data_src_id": 1863,
+        "name": "orders",
+        "source_type": "Relational",
+        "table_name": "orders",
+        "connection": {
+          "$ref": "#/connections/bh-ignite"
+        },
+        "fields": [
+          "o_orderkey",
+          "o_custkey",
+          "o_orderstatus",
+          "o_totalprice",
+          "o_orderdate",
+          "o_orderpriority",
+          "o_clerk",
+          "o_shippriority",
+          "o_comment"
+        ],
+        "schema": [
+          {
+            "name": "o_orderkey",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "o_custkey",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "o_orderstatus",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "o_totalprice",
+            "type": "double",
+            "nullable": true
+          },
+          {
+            "name": "o_orderdate",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "o_orderpriority",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "o_clerk",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "o_shippriority",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "o_comment",
+            "type": "string",
+            "nullable": true
+          }
+        ],
+        "db_schema": "public"
+      }
+    },
+    "targets": {
+      "tpch_q3_results": {
+        "data_src_id": 1910,
+        "name": "tpch_q3_results",
+        "target_type": "Relational",
+        "table_name": "tpch_q3_results",
+        "load_mode": "overwrite",
+        "connection": {
+          "$ref": "#/connections/bh-ignite"
+        },
+        "schema": "public"
+      }
+    },
+    "transformations": [
+      {
+        "name": "lineitem",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/lineitem"
+        },
+        "rename_columns": {
+          "l_orderkey": "l_orderkey_src_1",
+          "l_partkey": "l_partkey_src_1",
+          "l_suppkey": "l_suppkey_src_1",
+          "l_linenumber": "l_linenumber_src_1",
+          "l_quantity": "l_quantity_src_1",
+          "l_extendedprice": "l_extendedprice_src_1",
+          "l_discount": "l_discount_src_1",
+          "l_tax": "l_tax_src_1",
+          "l_returnflag": "l_returnflag_src_1",
+          "l_linestatus": "l_linestatus_src_1",
+          "l_shipdate": "l_shipdate_src_1",
+          "l_commitdate": "l_commitdate_src_1",
+          "l_receiptdate": "l_receiptdate_src_1",
+          "l_shipinstruct": "l_shipinstruct_src_1",
+          "l_shipmode": "l_shipmode_src_1",
+          "l_comment": "l_comment_src_1"
+        },
+        "read_options": {
+          "dbtable": "lineitem"
+        }
+      },
+      {
+        "name": "customer",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/customer"
+        },
+        "rename_columns": {
+          "c_custkey": "c_custkey_src_2",
+          "c_name": "c_name_src_2",
+          "c_address": "c_address_src_2",
+          "c_nationkey": "c_nationkey_src_2",
+          "c_phone": "c_phone_src_2",
+          "c_acctbal": "c_acctbal_src_2",
+          "c_mktsegment": "c_mktsegment_src_2",
+          "c_comment": "c_comment_src_2"
+        },
+        "read_options": {
+          "dbtable": "customer"
+        }
+      },
+      {
+        "name": "orders",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/orders"
+        },
+        "rename_columns": {
+          "o_orderkey": "o_orderkey_src_3",
+          "o_custkey": "o_custkey_src_3",
+          "o_orderstatus": "o_orderstatus_src_3",
+          "o_totalprice": "o_totalprice_src_3",
+          "o_orderdate": "o_orderdate_src_3",
+          "o_orderpriority": "o_orderpriority_src_3",
+          "o_clerk": "o_clerk_src_3",
+          "o_shippriority": "o_shippriority_src_3",
+          "o_comment": "o_comment_src_3"
+        },
+        "read_options": {
+          "dbtable": "orders"
+        }
+      },
+      {
+        "name": "JoinCustomerOrders",
+        "transformation": "Joiner",
+        "dependent_on": [
+          "customer",
+          "orders"
+        ],
+        "conditions": [
+          {
+            "join_input": "orders",
+            "join_condition": "c_custkey_src_2 = o_custkey_src_3",
+            "join_type": "inner"
+          }
+        ]
+      },
+      {
+        "name": "JoinAllTables",
+        "transformation": "Joiner",
+        "dependent_on": [
+          "JoinCustomerOrders",
+          "lineitem"
+        ],
+        "conditions": [
+          {
+            "join_input": "lineitem",
+            "join_condition": "o_orderkey_src_3 = l_orderkey_src_1",
+            "join_type": "inner"
+          }
+        ]
+      },
+      {
+        "name": "FilterConditions",
+        "transformation": "Filter",
+        "dependent_on": [
+          "JoinAllTables"
+        ],
+        "condition": "c_mktsegment_src_2 = 'BUILDING' AND to_date(o_orderdate_src_3) < DATE '1995-03-15' AND to_date(l_shipdate_src_1) > DATE '1995-03-15'"
+      },
+      {
+        "name": "PreAggregationExpression",
+        "transformation": "Expression",
+        "dependent_on": [
+          "FilterConditions"
+        ],
+        "derived_fields": [
+          {
+            "name": "line_revenue",
+            "expression": "l_extendedprice_src_1 * (1 - l_discount_src_1)"
+          }
+        ],
+        "select_columns": [
+          "l_orderkey_src_1",
+          "o_orderdate_src_3",
+          "o_shippriority_src_3",
+          "line_revenue"
+        ]
+      },
+      {
+        "name": "AggregateRevenue",
+        "transformation": "Aggregator",
+        "dependent_on": [
+          "PreAggregationExpression"
+        ],
+        "group_by": [
+          "l_orderkey_src_1",
+          "o_orderdate_src_3",
+          "o_shippriority_src_3"
+        ],
+        "aggregate": [
+          {
+            "expression": "round(sum(line_revenue), 2)",
+            "target_column": "revenue"
+          }
+        ]
+      },
+      {
+        "name": "SortResults",
+        "transformation": "Sorter",
+        "dependent_on": [
+          "AggregateRevenue"
+        ],
+        "sort_columns": [
+          {
+            "column": "revenue",
+            "order": "desc"
+          },
+          {
+            "column": "o_orderdate_src_3",
+            "order": "asc"
+          }
+        ]
+      },
+      {
+        "name": "tpch_q3_results_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "SortResults"
+        ],
+        "derived_fields": [
+          {
+            "name": "l_orderkey",
+            "expression": "l_orderkey_src_1"
+          },
+          {
+            "name": "o_orderdate",
+            "expression": "CAST(o_orderdate_src_3 AS DATE)"
+          },
+          {
+            "name": "o_shippriority",
+            "expression": "o_shippriority_src_3"
+          }
+        ],
+        "select_columns": [
+          "l_orderkey",
+          "revenue",
+          "o_orderdate",
+          "o_shippriority"
+        ]
+      },
+      {
+        "name": "tpch_q3_results",
+        "transformation": "Writer",
+        "dependent_on": [
+          "tpch_q3_results_final"
+        ],
+        "target": {
+          "$ref": "#/targets/tpch_q3_results"
+        },
+        "write_options": {
+          "mode": "overwrite",
+          "dbtable": "tpch_q3_results"
+        }
+      }
+    ]
+  },
+  "pipeline_type": "requirement",
+  "engine_type": "pyspark",
+  "pipeline_parameters": [],
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null
+}
