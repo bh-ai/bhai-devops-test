@@ -61,6 +61,18 @@ jobs:
              DEST_PATH="$CLEAN_SOURCE"
           fi
           
+          if [ ! -d "$SOURCE" ] && [ ! -f "$SOURCE" ]; then
+            echo "Error: Source path '$SOURCE' does not exist."
+            exit 1
+          fi
+          
+          if [ -d "$SOURCE" ]; then
+            if [ -z "$(find "$SOURCE" -type f | head -n 1)" ]; then
+              echo "Error: Source directory '$SOURCE' exists but does not contain any files."
+              exit 1
+            fi
+          fi
+          
           echo "Syncing contents of '$SOURCE' to container '$CONTAINER' under the path '$DEST_PATH' in account '$ACCOUNT'..."
           
           az storage blob sync \
