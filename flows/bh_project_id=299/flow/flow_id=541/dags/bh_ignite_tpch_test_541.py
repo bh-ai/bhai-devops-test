@@ -85,7 +85,7 @@ with DAG(
         "spark.sql.adaptive.enabled": "true"
         "spark.sql.adaptive.coalescePartitions.enabled": "true"
         "spark.sql.adaptive.skewJoin.enabled": "true"
-        "spark.sql.adaptive.localShuffleReader.enabled": "false"
+        "spark.sql.adaptive.localShuffleReader.enabled": "true"
         "spark.sql.execution.arrow.pyspark.enabled": "true"
         "spark.executorEnv.LD_PRELOAD": "/usr/lib/x86_64-linux-gnu/libjemalloc.so.2"
         "spark.driverEnv.LD_PRELOAD": "/usr/lib/x86_64-linux-gnu/libjemalloc.so.2"
