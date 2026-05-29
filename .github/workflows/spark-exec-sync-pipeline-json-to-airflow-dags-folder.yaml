@@ -75,22 +75,18 @@ jobs:
           
           echo "Syncing contents of '$SOURCE' to container '$CONTAINER' under the path '$DEST_PATH' in account '$ACCOUNT'..."
           
+          # Force update modification times so sync always overwrites Azure blobs
           if [ -d "$SOURCE" ]; then
-            az storage blob upload-batch \
-              --account-name "$ACCOUNT" \
-              --account-key "$AZURE_STORAGE_ACCOUNT_KEY" \
-              --destination "$CONTAINER" \
-              --destination-path "$DEST_PATH" \
-              --source "$SOURCE" \
-              --overwrite
+            find "$SOURCE" -exec touch {} +
           else
-            az storage blob upload \
-              --account-name "$ACCOUNT" \
-              --account-key "$AZURE_STORAGE_ACCOUNT_KEY" \
-              --container-name "$CONTAINER" \
-              --file "$SOURCE" \
-              --name "$DEST_PATH" \
-              --overwrite
+            touch "$SOURCE"
           fi
+          
+          az storage blob sync \
+            --account-name "$ACCOUNT" \
+            --account-key "$AZURE_STORAGE_ACCOUNT_KEY" \
+            --container "$CONTAINER" \
+            --source "$SOURCE" \
+            --destination "$DEST_PATH"
           
           echo "Sync completed successfully."
