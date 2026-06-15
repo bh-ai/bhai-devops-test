@@ -82,7 +82,7 @@
           "flow_parameter_id": 1281,
           "flow_id": 589,
           "parameter_name": "sources",
-          "parameter_value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026_1\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/fedelisny\", \"filename_regex\": \"safeharbor_CINQDOWNSTATE_Member_Roster_.*.xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]",
+          "parameter_value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026_1\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/fedelisny\", \"filename_regex\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026 (1).xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -334,7 +334,7 @@
                 },
                 {
                   "key": "sources",
-                  "value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026_1\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/fedelisny\", \"filename_regex\": \"safeharbor_CINQDOWNSTATE_Member_Roster_.*.xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]"
+                  "value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026_1\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/fedelisny\", \"filename_regex\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026 (1).xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]"
                 }
               ],
               "tasks": [
@@ -493,7 +493,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
