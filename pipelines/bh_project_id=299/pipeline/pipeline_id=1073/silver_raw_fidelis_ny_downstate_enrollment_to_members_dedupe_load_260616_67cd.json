@@ -1829,7 +1829,7 @@
         ]
       },
       {
-        "name": "members_emails",
+        "name": "members_emails_writer",
         "transformation": "Writer",
         "dependent_on": [
           "members_emails_final"
@@ -1844,7 +1844,7 @@
         }
       },
       {
-        "name": "members_enrollment_segments",
+        "name": "members_enrollment_segments_writer",
         "transformation": "Writer",
         "dependent_on": [
           "members_enrollment_segments_final"
@@ -1859,7 +1859,7 @@
         }
       },
       {
-        "name": "members",
+        "name": "members_writer",
         "transformation": "Writer",
         "dependent_on": [
           "members_final"
@@ -1874,7 +1874,7 @@
         }
       },
       {
-        "name": "members_addresses",
+        "name": "members_addresses_writer",
         "transformation": "Writer",
         "dependent_on": [
           "members_addresses_final"
@@ -1889,7 +1889,7 @@
         }
       },
       {
-        "name": "members_phones",
+        "name": "members_phones_writer",
         "transformation": "Writer",
         "dependent_on": [
           "members_phones_final"
@@ -1934,11 +1934,11 @@
           "members_final",
           "members_addresses_final",
           "members_phones_final",
-          "members_emails",
-          "members_enrollment_segments",
-          "members",
-          "members_addresses",
-          "members_phones"
+          "members_emails_writer",
+          "members_enrollment_segments_writer",
+          "members_writer",
+          "members_addresses_writer",
+          "members_phones_writer"
         ]
       },
       "require_input_acceptance": true,
