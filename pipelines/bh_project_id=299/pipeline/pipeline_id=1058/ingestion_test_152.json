@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-15T08:49:34.024799Z",
-  "updated_at": "2026-06-16T05:30:57.755616Z",
+  "updated_at": "2026-06-16T06:56:55.837964Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -707,7 +707,7 @@
       "atomic_commit_enabled": true,
       "group_id": 576,
       "expected_group_members": 1,
-      "group_run_id": "ingestiontest152_20260616T053057Z"
+      "group_run_id": "ingestiontest152_20260616T065655Z"
     }
   },
   "pipeline_type": "design",
