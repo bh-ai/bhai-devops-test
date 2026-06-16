@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-15T08:49:34.024799Z",
-  "updated_at": "2026-06-15T09:41:39.869102Z",
+  "updated_at": "2026-06-16T05:30:57.755616Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -672,8 +672,8 @@
     "batch_control": {
       "enabled": true,
       "feed_name": "ingestiontest152",
-      "business_date": "2026-06-15",
-      "delivery_id": "ingestiontest152_2026-06-15",
+      "business_date": "2026-06-16",
+      "delivery_id": "ingestiontest152_2026-06-16",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
@@ -707,7 +707,7 @@
       "atomic_commit_enabled": true,
       "group_id": 576,
       "expected_group_members": 1,
-      "group_run_id": "ingestiontest152_20260615T094139Z"
+      "group_run_id": "ingestiontest152_20260616T053057Z"
     }
   },
   "pipeline_type": "design",
