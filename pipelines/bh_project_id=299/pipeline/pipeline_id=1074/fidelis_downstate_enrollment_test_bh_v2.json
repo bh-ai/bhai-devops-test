@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-17T05:24:39.190705Z",
-  "updated_at": "2026-06-17T06:10:32.298402Z",
+  "updated_at": "2026-06-17T08:38:55.579139Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -15,7 +15,7 @@
   "status": "active",
   "pipeline_version_id": null,
   "bh_project_name": "flow-test-project",
-  "bh_github_username": "bh-sathish-git",
+  "bh_github_username": "bh-varadha-git",
   "pipeline_json": {
     "name": "Fidelis_downstate_enrollment_test_bh_v2",
     "version": "1.0.0",
@@ -723,7 +723,7 @@
       "atomic_commit_enabled": true,
       "group_id": 584,
       "expected_group_members": 1,
-      "group_run_id": "fidelis_downstate_enrollment_test_bh_v2_20260617T061032Z"
+      "group_run_id": "fidelis_downstate_enrollment_test_bh_v2_20260617T083854Z"
     }
   },
   "pipeline_type": "design",
