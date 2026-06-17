@@ -107,6 +107,7 @@ jobs:
           dags_dir = "_sync_dags"
           env_name = os.environ.get("BH_ENVIRONMENT_NAME", "azure-westus3")
           env_id = os.environ.get("BH_ENVIRONMENT_ID", "1")
+          cloud_provider = os.environ.get("CLOUD_PROVIDER", "databricks")
           try:
               env_id_int = int(env_id)
           except ValueError:
@@ -117,8 +118,9 @@ jobs:
 
           params_block = '''    params={
             "bh_environment_name": "%s",
-            "bh_environment_id": %s
-          }''' % (esc(env_name), env_id_int)
+            "bh_environment_id": %s,
+            "cloud_provider": "%s"
+          }''' % (esc(env_name), env_id_int, esc(cloud_provider))
 
           for fname in os.listdir(dags_dir):
               if not fname.endswith(".py"):
