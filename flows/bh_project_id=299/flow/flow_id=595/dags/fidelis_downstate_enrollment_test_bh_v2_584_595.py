@@ -807,7 +807,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_fidelis_downstate_enrollment_test_bh_v2_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1074/fidelis_downstate_enrollment_test_bh_v2.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1074/fidelis_downstate_enrollment_test_bh_v2.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -979,7 +979,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_fidelis_ny_bh_to_members_dedupe_load_260617_4c89_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1075/silver_raw_fidelis_ny_bh_to_members_dedupe_load_260617_4c89.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1075/silver_raw_fidelis_ny_bh_to_members_dedupe_load_260617_4c89.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -987,7 +987,7 @@ with DAG(
         "ingestion_group_id": 584,
         "flow_id": 595,
         "pipeline_id": 1075,
-        "feed_name": "fidelis_downstate_enrollment_test_bh_v2",
+        "feed_name": "Fidelis_downstate_enrollment_test_bh_v2",
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
         "pipeline_name": "silver_raw_fidelis_ny_bh_to_members_dedupe_load_260617_4c89",
