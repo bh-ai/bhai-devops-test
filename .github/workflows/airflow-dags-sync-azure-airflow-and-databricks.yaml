@@ -120,7 +120,7 @@ jobs:
           params_block = '''    params={
             "bh_environment_name": "%s",
             "bh_environment_id": %s,
-            "kc_secret": "%s",
+            "bh_kc_secret_url": "%s",
             "cloud_provider": "%s"
           }''' % (esc(env_name), env_id_int, esc(kc_secret), esc(cloud_provider))
 
