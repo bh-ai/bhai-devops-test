@@ -987,7 +987,7 @@ with DAG(
         "ingestion_group_id": 584,
         "flow_id": 595,
         "pipeline_id": 1075,
-        "feed_name": "Fidelis_downstate_enrollment_test_bh_v2",
+        "feed_name": "fidelis_downstate_enrollment_test_bh_v2",
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
         "pipeline_name": "silver_raw_fidelis_ny_bh_to_members_dedupe_load_260617_4c89",
