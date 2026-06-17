@@ -24,10 +24,7 @@
       {
         "key": "safeharbor_cinqdownstate_member_roster_04_02_2026",
         "value": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/batch/safeharbor__CINQDOWNSTATE_Member_Roster_04_02_2026.csv"
-      },
-      {
-        "key": "batch_id",
-        "value": 1
+      }
     ],
     "connections": {
       "landing_fidelis_downstate_ny_bh_file_connection_obj1376": {
@@ -331,7 +328,7 @@
           },
           {
             "name": "batch_id",
-            "expression": "${batch_id}"
+            "expression": "batch_id"
           }
         ]
       },
