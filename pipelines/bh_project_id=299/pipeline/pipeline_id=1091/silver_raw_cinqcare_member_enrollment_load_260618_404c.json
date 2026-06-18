@@ -44,7 +44,7 @@
         "data_src_id": 2202,
         "name": "cinqcare_member_file_8_21_25_routb",
         "source_type": "Relational",
-        "table_name": "cinqcare_member_file_8_21_25_routb",
+        "table_name": "cinqcare_member_file_8_21_25",
         "connection": {
           "$ref": "#/connections/databricks-azure_cinqdev"
         },
