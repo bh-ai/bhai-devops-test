@@ -715,7 +715,7 @@
           },
           {
             "name": "pcp_npi",
-            "expression": "assigned_provider_npi_src_1"
+            "expression": "'pcp_npi'"
           },
           {
             "name": "control_number",
