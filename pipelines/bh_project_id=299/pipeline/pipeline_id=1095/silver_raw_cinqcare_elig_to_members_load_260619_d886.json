@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-19T09:35:35.286257Z",
-  "updated_at": "2026-06-19T12:30:42.790571Z",
+  "updated_at": "2026-06-19T12:51:27.730515Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -51,64 +51,95 @@
         "fields": [
           "sbscr_nbr",
           "sbscr_nbr",
+          "sbscr_nbr",
+          "source_patient_id",
           "source_patient_id",
           "source_patient_id",
           "empi",
           "empi",
+          "empi",
+          "mbr_lst_nm",
           "mbr_lst_nm",
           "mbr_lst_nm",
           "mbr_midl_init",
           "mbr_midl_init",
+          "mbr_midl_init",
+          "mbr_fst_nm",
           "mbr_fst_nm",
           "mbr_fst_nm",
           "mbr_gdr_cd",
           "mbr_gdr_cd",
+          "mbr_gdr_cd",
+          "bth_dt",
           "bth_dt",
           "bth_dt",
           "contr_curr_pln_nm",
           "contr_curr_pln_nm",
+          "contr_curr_pln_nm",
+          "contr_nbr",
           "contr_nbr",
           "contr_nbr",
           "contr_pbp",
           "contr_pbp",
+          "contr_pbp",
+          "contr_nbr_pbp",
           "contr_nbr_pbp",
           "contr_nbr_pbp",
           "curr_mbi",
           "curr_mbi",
+          "curr_mbi",
+          "dth_dt",
           "dth_dt",
           "dth_dt",
           "record_start_dt",
           "record_start_dt",
+          "record_start_dt",
+          "record_end_dt",
           "record_end_dt",
           "record_end_dt",
           "mbr_adr_loc_adr1",
           "mbr_adr_loc_adr1",
+          "mbr_adr_loc_adr1",
+          "mbr_adr_loc_adr2",
           "mbr_adr_loc_adr2",
           "mbr_adr_loc_adr2",
           "mbr_adr_loc_cty",
           "mbr_adr_loc_cty",
+          "mbr_adr_loc_cty",
+          "mbr_adr_loc_st_cd",
           "mbr_adr_loc_st_cd",
           "mbr_adr_loc_st_cd",
           "mbr_adr_loc_zip_cd",
           "mbr_adr_loc_zip_cd",
+          "mbr_adr_loc_zip_cd",
+          "column21",
           "column21",
           "column21",
           "column22",
           "column22",
+          "column22",
+          "column23",
           "column23",
           "column23",
           "corrupt_record",
           "corrupt_record",
+          "corrupt_record",
+          "batch_id",
           "batch_id",
           "batch_id",
           "feed_name",
           "feed_name",
+          "feed_name",
+          "ingest_ts",
           "ingest_ts",
           "ingest_ts",
           "ingest_year",
           "ingest_year",
+          "ingest_year",
           "ingest_month",
           "ingest_month",
+          "ingest_month",
+          "ingest_day",
           "ingest_day",
           "ingest_day"
         ],
@@ -124,6 +155,11 @@
             "nullable": false
           },
           {
+            "name": "sbscr_nbr",
+            "type": "string",
+            "nullable": false
+          },
+          {
             "name": "source_patient_id",
             "type": "string",
             "nullable": false
@@ -132,6 +168,16 @@
             "name": "source_patient_id",
             "type": "string",
             "nullable": false
+          },
+          {
+            "name": "source_patient_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "empi",
+            "type": "string",
+            "nullable": true
           },
           {
             "name": "empi",
@@ -154,6 +200,16 @@
             "nullable": false
           },
           {
+            "name": "mbr_lst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_midl_init",
+            "type": "string",
+            "nullable": true
+          },
+          {
             "name": "mbr_midl_init",
             "type": "string",
             "nullable": true
@@ -170,6 +226,16 @@
           },
           {
             "name": "mbr_fst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_fst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_gdr_cd",
             "type": "string",
             "nullable": false
           },
@@ -194,12 +260,27 @@
             "nullable": false
           },
           {
+            "name": "bth_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
             "name": "contr_curr_pln_nm",
             "type": "string",
             "nullable": false
           },
           {
             "name": "contr_curr_pln_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_curr_pln_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_nbr",
             "type": "string",
             "nullable": false
           },
@@ -224,12 +305,27 @@
             "nullable": false
           },
           {
+            "name": "contr_pbp",
+            "type": "long",
+            "nullable": false
+          },
+          {
             "name": "contr_nbr_pbp",
             "type": "string",
             "nullable": false
           },
           {
             "name": "contr_nbr_pbp",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_nbr_pbp",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "curr_mbi",
             "type": "string",
             "nullable": false
           },
@@ -254,12 +350,27 @@
             "nullable": true
           },
           {
+            "name": "dth_dt",
+            "type": "long",
+            "nullable": true
+          },
+          {
             "name": "record_start_dt",
             "type": "long",
             "nullable": false
           },
           {
             "name": "record_start_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "record_start_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "record_end_dt",
             "type": "long",
             "nullable": false
           },
@@ -284,6 +395,16 @@
             "nullable": false
           },
           {
+            "name": "mbr_adr_loc_adr1",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_adr2",
+            "type": "string",
+            "nullable": true
+          },
+          {
             "name": "mbr_adr_loc_adr2",
             "type": "string",
             "nullable": true
@@ -300,6 +421,16 @@
           },
           {
             "name": "mbr_adr_loc_cty",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_cty",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_st_cd",
             "type": "string",
             "nullable": false
           },
@@ -324,12 +455,27 @@
             "nullable": true
           },
           {
+            "name": "mbr_adr_loc_zip_cd",
+            "type": "string",
+            "nullable": true
+          },
+          {
             "name": "column21",
             "type": "string",
             "nullable": true
           },
           {
             "name": "column21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "column21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "column22",
             "type": "string",
             "nullable": true
           },
@@ -354,6 +500,11 @@
             "nullable": true
           },
           {
+            "name": "column23",
+            "type": "string",
+            "nullable": true
+          },
+          {
             "name": "corrupt_record",
             "type": "string",
             "nullable": true
@@ -361,6 +512,16 @@
           {
             "name": "corrupt_record",
             "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "batch_id",
+            "type": "biginteger",
             "nullable": true
           },
           {
@@ -384,6 +545,16 @@
             "nullable": true
           },
           {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
             "name": "ingest_ts",
             "type": "timestamp",
             "nullable": true
@@ -404,12 +575,27 @@
             "nullable": true
           },
           {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true
+          },
+          {
             "name": "ingest_month",
             "type": "integer",
             "nullable": true
           },
           {
             "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_day",
             "type": "integer",
             "nullable": true
           },
@@ -556,6 +742,11 @@
             "nullable": false
           },
           {
+            "name": "sbscr_nbr",
+            "type": "string",
+            "nullable": false
+          },
+          {
             "name": "source_patient_id",
             "type": "string",
             "nullable": false
@@ -564,6 +755,16 @@
             "name": "source_patient_id",
             "type": "string",
             "nullable": false
+          },
+          {
+            "name": "source_patient_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "empi",
+            "type": "string",
+            "nullable": true
           },
           {
             "name": "empi",
@@ -586,6 +787,16 @@
             "nullable": false
           },
           {
+            "name": "mbr_lst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_midl_init",
+            "type": "string",
+            "nullable": true
+          },
+          {
             "name": "mbr_midl_init",
             "type": "string",
             "nullable": true
@@ -602,6 +813,16 @@
           },
           {
             "name": "mbr_fst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_fst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_gdr_cd",
             "type": "string",
             "nullable": false
           },
@@ -626,12 +847,27 @@
             "nullable": false
           },
           {
+            "name": "bth_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
             "name": "contr_curr_pln_nm",
             "type": "string",
             "nullable": false
           },
           {
             "name": "contr_curr_pln_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_curr_pln_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_nbr",
             "type": "string",
             "nullable": false
           },
@@ -656,12 +892,27 @@
             "nullable": false
           },
           {
+            "name": "contr_pbp",
+            "type": "long",
+            "nullable": false
+          },
+          {
             "name": "contr_nbr_pbp",
             "type": "string",
             "nullable": false
           },
           {
             "name": "contr_nbr_pbp",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_nbr_pbp",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "curr_mbi",
             "type": "string",
             "nullable": false
           },
@@ -686,12 +937,27 @@
             "nullable": true
           },
           {
+            "name": "dth_dt",
+            "type": "long",
+            "nullable": true
+          },
+          {
             "name": "record_start_dt",
             "type": "long",
             "nullable": false
           },
           {
             "name": "record_start_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "record_start_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "record_end_dt",
             "type": "long",
             "nullable": false
           },
@@ -716,6 +982,16 @@
             "nullable": false
           },
           {
+            "name": "mbr_adr_loc_adr1",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_adr2",
+            "type": "string",
+            "nullable": true
+          },
+          {
             "name": "mbr_adr_loc_adr2",
             "type": "string",
             "nullable": true
@@ -732,6 +1008,16 @@
           },
           {
             "name": "mbr_adr_loc_cty",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_cty",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_st_cd",
             "type": "string",
             "nullable": false
           },
@@ -756,12 +1042,27 @@
             "nullable": true
           },
           {
+            "name": "mbr_adr_loc_zip_cd",
+            "type": "string",
+            "nullable": true
+          },
+          {
             "name": "column21",
             "type": "string",
             "nullable": true
           },
           {
             "name": "column21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "column21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "column22",
             "type": "string",
             "nullable": true
           },
@@ -786,6 +1087,11 @@
             "nullable": true
           },
           {
+            "name": "column23",
+            "type": "string",
+            "nullable": true
+          },
+          {
             "name": "corrupt_record",
             "type": "string",
             "nullable": true
@@ -793,6 +1099,16 @@
           {
             "name": "corrupt_record",
             "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "batch_id",
+            "type": "biginteger",
             "nullable": true
           },
           {
@@ -816,6 +1132,16 @@
             "nullable": true
           },
           {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
             "name": "ingest_ts",
             "type": "timestamp",
             "nullable": true
@@ -836,12 +1162,27 @@
             "nullable": true
           },
           {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true
+          },
+          {
             "name": "ingest_month",
             "type": "integer",
             "nullable": true
           },
           {
             "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_day",
             "type": "integer",
             "nullable": true
           },
@@ -879,7 +1220,7 @@
         "condition": "batch_id_src_1 = max_batch_id AND (corrupt_record_src_1 IS NULL OR corrupt_record_src_1 = '')"
       },
       {
-        "name": "DeduplicateRecords",
+        "name": "DeduplicateSource",
         "transformation": "Deduplicator",
         "dependent_on": [
           "safeharbor_cinqcare_elig_202604_IngestFilter"
@@ -887,13 +1228,19 @@
         "dedup_by": [
           "source_patient_id_src_1"
         ],
-        "keep": "any"
+        "keep": "first",
+        "order_by": [
+          {
+            "column": "source_patient_id_src_1",
+            "order": "asc"
+          }
+        ]
       },
       {
-        "name": "ParseNamesAndDates",
+        "name": "MembersTransform",
         "transformation": "Mapper",
         "dependent_on": [
-          "DeduplicateRecords"
+          "DeduplicateSource"
         ],
         "derived_fields": [
           {
@@ -908,96 +1255,13 @@
               "separator": " "
             }
           }
-        ],
-        "select_columns": [
-          "source_patient_id_src_1",
-          "empi_src_1",
-          "mbr_fst_nm_src_1",
-          "mbr_lst_nm_src_1",
-          "mbr_midl_init_src_1",
-          "mbr_gdr_cd_src_1",
-          "bth_dt_src_1",
-          "contr_curr_pln_nm_src_1",
-          "contr_nbr_src_1",
-          "contr_nbr_pbp_src_1",
-          "curr_mbi_src_1",
-          "dth_dt_src_1",
-          "record_start_dt_src_1",
-          "mbr_adr_loc_adr1_src_1",
-          "mbr_adr_loc_adr2_src_1",
-          "mbr_adr_loc_cty_src_1",
-          "mbr_adr_loc_st_cd_src_1",
-          "mbr_adr_loc_zip_cd_src_1",
-          "batch_id_src_1",
-          "feed_name_src_1",
-          "parsed_name_title",
-          "parsed_name_first",
-          "parsed_name_middle",
-          "parsed_name_last",
-          "parsed_name_suffix",
-          "parsed_name_nickname"
         ]
       },
       {
-        "name": "ParseAddresses",
-        "transformation": "Mapper",
-        "dependent_on": [
-          "ParseNamesAndDates"
-        ],
-        "derived_fields": [
-          {
-            "function_name": "address_parser",
-            "parameters": {
-              "input_fields": [
-                "mbr_adr_loc_adr1_src_1",
-                "mbr_adr_loc_adr2_src_1",
-                "mbr_adr_loc_cty_src_1",
-                "mbr_adr_loc_st_cd_src_1",
-                "mbr_adr_loc_zip_cd_src_1"
-              ],
-              "address_prefix": "parsed_addr",
-              "separator": ", "
-            }
-          }
-        ],
-        "select_columns": [
-          "source_patient_id_src_1",
-          "empi_src_1",
-          "parsed_name_first",
-          "parsed_name_last",
-          "parsed_name_middle",
-          "mbr_gdr_cd_src_1",
-          "bth_dt_src_1",
-          "contr_curr_pln_nm_src_1",
-          "contr_nbr_src_1",
-          "contr_nbr_pbp_src_1",
-          "curr_mbi_src_1",
-          "dth_dt_src_1",
-          "record_start_dt_src_1",
-          "batch_id_src_1",
-          "feed_name_src_1",
-          "parsed_addr_address_number",
-          "parsed_addr_street_predir",
-          "parsed_addr_street_name",
-          "parsed_addr_street_suffix",
-          "parsed_addr_street_postdir",
-          "parsed_addr_unit_type",
-          "parsed_addr_unit_number",
-          "parsed_addr_city",
-          "parsed_addr_state",
-          "parsed_addr_zip5",
-          "parsed_addr_zip4",
-          "parsed_addr_zip_code",
-          "parsed_addr_line1",
-          "parsed_addr_line2",
-          "parsed_addr_address_type"
-        ]
-      },
-      {
-        "name": "TransformMembers",
+        "name": "MembersExpression",
         "transformation": "Expression",
         "dependent_on": [
-          "ParseAddresses"
+          "MembersTransform"
         ],
         "derived_fields": [
           {
@@ -1033,10 +1297,6 @@
             "expression": "to_timestamp(record_start_dt_src_1 / 1000)"
           },
           {
-            "name": "secure_id",
-            "expression": "empi_src_1"
-          },
-          {
             "name": "feed_name",
             "expression": "feed_name_src_1"
           },
@@ -1046,11 +1306,11 @@
           },
           {
             "name": "created_by",
-            "expression": "'safeharbor_cinqcare_elig_202604'"
+            "expression": "'ENROLLMENT_PIPELINE'"
           },
           {
             "name": "updated_by",
-            "expression": "'safeharbor_cinqcare_elig_202604'"
+            "expression": "'ENROLLMENT_PIPELINE'"
           },
           {
             "name": "batch_id",
@@ -1066,7 +1326,6 @@
           "gender",
           "death_date",
           "record_creation_date",
-          "secure_id",
           "feed_name",
           "source_system",
           "created_by",
@@ -1075,10 +1334,10 @@
         ]
       },
       {
-        "name": "TransformMembersEnrollmentSegments",
+        "name": "MembersEnrollmentSegmentsExpression",
         "transformation": "Expression",
         "dependent_on": [
-          "ParseAddresses"
+          "DeduplicateSource"
         ],
         "derived_fields": [
           {
@@ -1087,7 +1346,7 @@
           },
           {
             "name": "member_payor",
-            "expression": "contr_curr_pln_nm_src_1"
+            "expression": "uuid()"
           },
           {
             "name": "insurance_id",
@@ -1115,11 +1374,11 @@
           },
           {
             "name": "created_by",
-            "expression": "'safeharbor_cinqcare_elig_202604'"
+            "expression": "'ENROLLMENT_PIPELINE'"
           },
           {
             "name": "updated_by",
-            "expression": "'safeharbor_cinqcare_elig_202604'"
+            "expression": "'ENROLLMENT_PIPELINE'"
           },
           {
             "name": "batch_id",
@@ -1141,10 +1400,33 @@
         ]
       },
       {
-        "name": "TransformMembersAddresses",
+        "name": "MembersAddressesTransform",
+        "transformation": "Mapper",
+        "dependent_on": [
+          "DeduplicateSource"
+        ],
+        "derived_fields": [
+          {
+            "function_name": "address_parser",
+            "parameters": {
+              "input_fields": [
+                "mbr_adr_loc_adr1_src_1",
+                "mbr_adr_loc_adr2_src_1",
+                "mbr_adr_loc_cty_src_1",
+                "mbr_adr_loc_st_cd_src_1",
+                "mbr_adr_loc_zip_cd_src_1"
+              ],
+              "address_prefix": "parsed_addr",
+              "separator": ", "
+            }
+          }
+        ]
+      },
+      {
+        "name": "MembersAddressesExpression",
         "transformation": "Expression",
         "dependent_on": [
-          "ParseAddresses"
+          "MembersAddressesTransform"
         ],
         "derived_fields": [
           {
@@ -1161,15 +1443,19 @@
           },
           {
             "name": "city",
-            "expression": "parsed_addr_city"
+            "expression": "mbr_adr_loc_cty_src_1"
           },
           {
             "name": "state",
-            "expression": "parsed_addr_state"
+            "expression": "mbr_adr_loc_st_cd_src_1"
           },
           {
             "name": "zip",
-            "expression": "parsed_addr_zip_code"
+            "expression": "mbr_adr_loc_zip_cd_src_1"
+          },
+          {
+            "name": "county",
+            "expression": "NULL"
           },
           {
             "name": "source_system_id",
@@ -1185,11 +1471,11 @@
           },
           {
             "name": "created_by",
-            "expression": "'safeharbor_cinqcare_elig_202604'"
+            "expression": "'ENROLLMENT_PIPELINE'"
           },
           {
             "name": "updated_by",
-            "expression": "'safeharbor_cinqcare_elig_202604'"
+            "expression": "'ENROLLMENT_PIPELINE'"
           },
           {
             "name": "batch_id",
@@ -1203,6 +1489,7 @@
           "city",
           "state",
           "zip",
+          "county",
           "source_system_id",
           "feed_name",
           "source_system",
@@ -1215,7 +1502,7 @@
         "name": "members_final",
         "transformation": "Expression",
         "dependent_on": [
-          "TransformMembers"
+          "MembersExpression"
         ],
         "rename_columns": {},
         "select_columns": [
@@ -1227,7 +1514,6 @@
           "gender",
           "death_date",
           "record_creation_date",
-          "secure_id",
           "feed_name",
           "source_system",
           "created_by",
@@ -1241,6 +1527,7 @@
           "care_management_program",
           "last_contact",
           "dual_status_code",
+          "secure_id",
           "dnc",
           "guardian_first_name",
           "guardian_last_name",
@@ -1283,6 +1570,10 @@
           },
           {
             "name": "dual_status_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "secure_id",
             "expression": "CAST(NULL AS STRING)"
           },
           {
@@ -1331,7 +1622,7 @@
         "name": "members_enrollment_segments_final",
         "transformation": "Expression",
         "dependent_on": [
-          "TransformMembersEnrollmentSegments"
+          "MembersEnrollmentSegmentsExpression"
         ],
         "rename_columns": {},
         "select_columns": [
@@ -1419,7 +1710,7 @@
         "name": "members_addresses_final",
         "transformation": "Expression",
         "dependent_on": [
-          "TransformMembersAddresses"
+          "MembersAddressesExpression"
         ],
         "rename_columns": {},
         "select_columns": [
@@ -1429,6 +1720,7 @@
           "city",
           "state",
           "zip",
+          "county",
           "source_system_id",
           "feed_name",
           "source_system",
@@ -1437,7 +1729,6 @@
           "batch_id",
           "region",
           "can_contact",
-          "county",
           "county_ssa",
           "county_fips",
           "zip4",
@@ -1455,10 +1746,6 @@
           {
             "name": "can_contact",
             "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "county",
-            "expression": "CAST(NULL AS STRING)"
           },
           {
             "name": "county_ssa",
@@ -1552,12 +1839,12 @@
           "safeharbor_cinqcare_elig_202604",
           "safeharbor_cinqcare_elig_202604_MaxBatchExpr",
           "safeharbor_cinqcare_elig_202604_IngestFilter",
-          "DeduplicateRecords",
-          "ParseNamesAndDates",
-          "ParseAddresses",
-          "TransformMembers",
-          "TransformMembersEnrollmentSegments",
-          "TransformMembersAddresses",
+          "DeduplicateSource",
+          "MembersTransform",
+          "MembersExpression",
+          "MembersEnrollmentSegmentsExpression",
+          "MembersAddressesTransform",
+          "MembersAddressesExpression",
           "members_final",
           "members_enrollment_segments_final",
           "members_addresses_final",
