@@ -1005,7 +1005,7 @@
         "derived_fields": [
           {
             "name": "member_group",
-            "expression": "CAST(NULL AS STRING)"
+            "expression": "'dara'"
           },
           {
             "name": "tin_market",
