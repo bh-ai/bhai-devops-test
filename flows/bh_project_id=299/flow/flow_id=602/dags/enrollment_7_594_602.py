@@ -807,7 +807,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_enrollment_7_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1092/enrollment_7.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1092/enrollment_7.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -979,7 +979,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_cinqcare_member_file_parse_and_load_260619_a289_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1093/silver_raw_cinqcare_member_file_parse_and_load_260619_a289.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1093/silver_raw_cinqcare_member_file_parse_and_load_260619_a289.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
