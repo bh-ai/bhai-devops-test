@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-22T11:51:42.154502Z",
-  "updated_at": "2026-06-22T11:58:55.561104Z",
+  "updated_at": "2026-06-22T12:21:47.780276Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -666,22 +666,7 @@
             "nullable": false
           },
           {
-            "name": "lob",
-            "type": "string",
-            "nullable": false
-          },
-          {
             "name": "member_key",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "member_key",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "member_medicare_nbr",
             "type": "string",
             "nullable": false
           },
@@ -696,16 +681,6 @@
             "nullable": false
           },
           {
-            "name": "member_name",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "member_sex",
-            "type": "string",
-            "nullable": false
-          },
-          {
             "name": "member_sex",
             "type": "string",
             "nullable": false
@@ -716,22 +691,7 @@
             "nullable": false
           },
           {
-            "name": "member_dob",
-            "type": "long",
-            "nullable": false
-          },
-          {
             "name": "member_address_1",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "member_address_1",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "member_city",
             "type": "string",
             "nullable": false
           },
@@ -746,22 +706,7 @@
             "nullable": false
           },
           {
-            "name": "member_state",
-            "type": "string",
-            "nullable": false
-          },
-          {
             "name": "member_zip",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "member_zip",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "member_region",
             "type": "string",
             "nullable": false
           },
@@ -776,22 +721,7 @@
             "nullable": true
           },
           {
-            "name": "member_primary_phone",
-            "type": "string",
-            "nullable": true
-          },
-          {
             "name": "member_home_phone",
-            "type": "string",
-            "nullable": true
-          },
-          {
-            "name": "member_home_phone",
-            "type": "string",
-            "nullable": true
-          },
-          {
-            "name": "member_cell_phone",
             "type": "string",
             "nullable": true
           },
@@ -806,16 +736,6 @@
             "nullable": true
           },
           {
-            "name": "member_language",
-            "type": "string",
-            "nullable": true
-          },
-          {
-            "name": "member_elig_start_dt",
-            "type": "long",
-            "nullable": false
-          },
-          {
             "name": "member_elig_start_dt",
             "type": "long",
             "nullable": false
@@ -826,22 +746,7 @@
             "nullable": true
           },
           {
-            "name": "member_elig_end_dt",
-            "type": "long",
-            "nullable": true
-          },
-          {
             "name": "member_active_ind",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "member_active_ind",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "pcp_irs_nbr",
             "type": "string",
             "nullable": false
           },
@@ -856,22 +761,7 @@
             "nullable": false
           },
           {
-            "name": "pcp_irs_name",
-            "type": "string",
-            "nullable": false
-          },
-          {
             "name": "pcp_npi",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "pcp_npi",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "pcp_prov_key",
             "type": "string",
             "nullable": false
           },
@@ -886,22 +776,7 @@
             "nullable": false
           },
           {
-            "name": "pcp_first_name",
-            "type": "string",
-            "nullable": false
-          },
-          {
             "name": "pcp_last_name",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "pcp_last_name",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "pcp_address1",
             "type": "string",
             "nullable": false
           },
@@ -916,22 +791,7 @@
             "nullable": false
           },
           {
-            "name": "pcp_address2",
-            "type": "string",
-            "nullable": false
-          },
-          {
             "name": "pcp_city",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "pcp_city",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "pcp_state",
             "type": "string",
             "nullable": false
           },
@@ -946,22 +806,7 @@
             "nullable": false
           },
           {
-            "name": "pcp_zip",
-            "type": "string",
-            "nullable": false
-          },
-          {
             "name": "pcp_phone",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "pcp_phone",
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "name": "pcp_fax",
             "type": "string",
             "nullable": false
           },
@@ -976,23 +821,8 @@
             "nullable": true
           },
           {
-            "name": "corrupt_record",
-            "type": "string",
-            "nullable": true
-          },
-          {
             "name": "batch_id",
             "type": "biginteger",
-            "nullable": true
-          },
-          {
-            "name": "batch_id",
-            "type": "biginteger",
-            "nullable": true
-          },
-          {
-            "name": "feed_name",
-            "type": "string",
             "nullable": true
           },
           {
@@ -1006,32 +836,12 @@
             "nullable": true
           },
           {
-            "name": "ingest_ts",
-            "type": "timestamp",
-            "nullable": true
-          },
-          {
-            "name": "ingest_year",
-            "type": "integer",
-            "nullable": true
-          },
-          {
             "name": "ingest_year",
             "type": "integer",
             "nullable": true
           },
           {
             "name": "ingest_month",
-            "type": "integer",
-            "nullable": true
-          },
-          {
-            "name": "ingest_month",
-            "type": "integer",
-            "nullable": true
-          },
-          {
-            "name": "ingest_day",
             "type": "integer",
             "nullable": true
           },
@@ -1064,7 +874,7 @@
         "condition": "batch_id_src_1 = max_batch_id AND (corrupt_record_src_1 IS NULL OR corrupt_record_src_1 = '')"
       },
       {
-        "name": "DedupMemberKey",
+        "name": "DedupByMemberKey",
         "transformation": "Deduplicator",
         "dependent_on": [
           "cinqcare_member_file_8_21_25_afe5s_IngestFilter"
@@ -1072,13 +882,19 @@
         "dedup_by": [
           "member_key_src_1"
         ],
-        "keep": "any"
+        "keep": "first",
+        "order_by": [
+          {
+            "column": "member_key_src_1",
+            "order": "asc"
+          }
+        ]
       },
       {
-        "name": "ParseNameAndAddress",
+        "name": "MembersTransform",
         "transformation": "Mapper",
         "dependent_on": [
-          "DedupMemberKey"
+          "DedupByMemberKey"
         ],
         "derived_fields": [
           {
@@ -1090,74 +906,30 @@
               "name_prefix": "parsed_name",
               "separator": " "
             }
-          },
-          {
-            "function_name": "address_parser",
-            "parameters": {
-              "input_fields": [
-                "member_address_1_src_1",
-                "member_city_src_1",
-                "member_state_src_1",
-                "member_zip_src_1"
-              ],
-              "address_prefix": "parsed_addr",
-              "separator": ", "
-            }
           }
         ],
         "select_columns": [
           "member_key_src_1",
-          "lob_src_1",
-          "member_medicare_nbr_src_1",
           "member_name_src_1",
-          "member_sex_src_1",
-          "member_dob_src_1",
-          "member_address_1_src_1",
-          "member_city_src_1",
-          "member_state_src_1",
-          "member_zip_src_1",
-          "member_region_src_1",
-          "member_primary_phone_src_1",
-          "member_home_phone_src_1",
-          "member_cell_phone_src_1",
-          "member_language_src_1",
-          "member_elig_start_dt_src_1",
-          "member_elig_end_dt_src_1",
-          "member_active_ind_src_1",
-          "pcp_irs_nbr_src_1",
-          "pcp_irs_name_src_1",
-          "pcp_npi_src_1",
-          "pcp_zip_src_1",
-          "batch_id_src_1",
-          "feed_name_src_1",
           "parsed_name_title",
           "parsed_name_first",
           "parsed_name_middle",
           "parsed_name_last",
           "parsed_name_suffix",
           "parsed_name_nickname",
-          "parsed_addr_address_number",
-          "parsed_addr_street_predir",
-          "parsed_addr_street_name",
-          "parsed_addr_street_suffix",
-          "parsed_addr_street_postdir",
-          "parsed_addr_unit_type",
-          "parsed_addr_unit_number",
-          "parsed_addr_city",
-          "parsed_addr_state",
-          "parsed_addr_zip5",
-          "parsed_addr_zip4",
-          "parsed_addr_zip_code",
-          "parsed_addr_line1",
-          "parsed_addr_line2",
-          "parsed_addr_address_type"
+          "member_sex_src_1",
+          "member_dob_src_1",
+          "member_language_src_1",
+          "member_region_src_1",
+          "feed_name_src_1",
+          "batch_id_src_1"
         ]
       },
       {
-        "name": "MembersTransform",
+        "name": "MembersExpression",
         "transformation": "Expression",
         "dependent_on": [
-          "ParseNameAndAddress"
+          "MembersTransform"
         ],
         "derived_fields": [
           {
@@ -1235,10 +1007,10 @@
         ]
       },
       {
-        "name": "MembersEnrollmentSegmentsTransform",
+        "name": "MembersEnrollmentSegmentsExpression",
         "transformation": "Expression",
         "dependent_on": [
-          "ParseNameAndAddress"
+          "DedupByMemberKey"
         ],
         "derived_fields": [
           {
@@ -1247,7 +1019,7 @@
           },
           {
             "name": "member_payor",
-            "expression": "member_medicare_nbr_src_1"
+            "expression": "uuid()"
           },
           {
             "name": "insurance_id",
@@ -1316,12 +1088,20 @@
         ]
       },
       {
-        "name": "MembersPhonesBase",
+        "name": "MembersPhonesPrimary",
         "transformation": "Expression",
         "dependent_on": [
-          "ParseNameAndAddress"
+          "DedupByMemberKey"
         ],
         "derived_fields": [
+          {
+            "name": "phone_type",
+            "expression": "'PRIMARY'"
+          },
+          {
+            "name": "phone_number",
+            "expression": "member_primary_phone_src_1"
+          },
           {
             "name": "source_system_id",
             "expression": "member_key_src_1"
@@ -1348,34 +1128,6 @@
           }
         ],
         "select_columns": [
-          "member_primary_phone_src_1",
-          "member_home_phone_src_1",
-          "member_cell_phone_src_1",
-          "source_system_id",
-          "feed_name",
-          "source_system",
-          "created_by",
-          "updated_by",
-          "batch_id"
-        ]
-      },
-      {
-        "name": "MembersPhonesPrimary",
-        "transformation": "Expression",
-        "dependent_on": [
-          "MembersPhonesBase"
-        ],
-        "derived_fields": [
-          {
-            "name": "phone_type",
-            "expression": "'PRIMARY'"
-          },
-          {
-            "name": "phone_number",
-            "expression": "member_primary_phone_src_1"
-          }
-        ],
-        "select_columns": [
           "phone_type",
           "phone_number",
           "source_system_id",
@@ -1390,7 +1142,7 @@
         "name": "MembersPhonesHome",
         "transformation": "Expression",
         "dependent_on": [
-          "MembersPhonesBase"
+          "DedupByMemberKey"
         ],
         "derived_fields": [
           {
@@ -1400,6 +1152,30 @@
           {
             "name": "phone_number",
             "expression": "member_home_phone_src_1"
+          },
+          {
+            "name": "source_system_id",
+            "expression": "member_key_src_1"
+          },
+          {
+            "name": "feed_name",
+            "expression": "feed_name_src_1"
+          },
+          {
+            "name": "source_system",
+            "expression": "'CINQCARE_MEMBER_FILE_8_21_25'"
+          },
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id_src_1"
           }
         ],
         "select_columns": [
@@ -1417,7 +1193,7 @@
         "name": "MembersPhonesCell",
         "transformation": "Expression",
         "dependent_on": [
-          "MembersPhonesBase"
+          "DedupByMemberKey"
         ],
         "derived_fields": [
           {
@@ -1427,6 +1203,30 @@
           {
             "name": "phone_number",
             "expression": "member_cell_phone_src_1"
+          },
+          {
+            "name": "source_system_id",
+            "expression": "member_key_src_1"
+          },
+          {
+            "name": "feed_name",
+            "expression": "feed_name_src_1"
+          },
+          {
+            "name": "source_system",
+            "expression": "'CINQCARE_MEMBER_FILE_8_21_25'"
+          },
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id_src_1"
           }
         ],
         "select_columns": [
@@ -1442,16 +1242,16 @@
       },
       {
         "name": "MembersPhonesUnion",
-        "transformation": "Union",
+        "transformation": "Set",
         "dependent_on": [
           "MembersPhonesPrimary",
           "MembersPhonesHome",
           "MembersPhonesCell"
         ],
-        "operation_type": "union"
+        "operation_type": "Union All"
       },
       {
-        "name": "MembersPhonesTransform",
+        "name": "MembersPhonesFilter",
         "transformation": "Filter",
         "dependent_on": [
           "MembersPhonesUnion"
@@ -1459,10 +1259,54 @@
         "condition": "phone_number IS NOT NULL"
       },
       {
-        "name": "MembersAddressesTransform",
+        "name": "MembersAddressesMapper",
+        "transformation": "Mapper",
+        "dependent_on": [
+          "DedupByMemberKey"
+        ],
+        "derived_fields": [
+          {
+            "function_name": "address_parser",
+            "parameters": {
+              "input_fields": [
+                "member_address_1_src_1"
+              ],
+              "address_prefix": "parsed_addr",
+              "separator": " "
+            }
+          }
+        ],
+        "select_columns": [
+          "member_key_src_1",
+          "member_address_1_src_1",
+          "parsed_addr_address_number",
+          "parsed_addr_street_predir",
+          "parsed_addr_street_name",
+          "parsed_addr_street_suffix",
+          "parsed_addr_street_postdir",
+          "parsed_addr_unit_type",
+          "parsed_addr_unit_number",
+          "parsed_addr_city",
+          "parsed_addr_state",
+          "parsed_addr_zip5",
+          "parsed_addr_zip4",
+          "parsed_addr_zip_code",
+          "parsed_addr_line1",
+          "parsed_addr_line2",
+          "parsed_addr_address_type",
+          "member_city_src_1",
+          "member_state_src_1",
+          "member_zip_src_1",
+          "member_region_src_1",
+          "feed_name_src_1",
+          "batch_id_src_1"
+        ]
+      },
+      {
+        "name": "MembersAddressesExpression",
         "transformation": "Expression",
         "dependent_on": [
-          "ParseNameAndAddress"
+          "MembersAddressesMapper"
         ],
         "derived_fields": [
           {
@@ -1474,20 +1318,16 @@
             "expression": "parsed_addr_line1"
           },
           {
-            "name": "address2",
-            "expression": "parsed_addr_line2"
-          },
-          {
             "name": "city",
-            "expression": "parsed_addr_city"
+            "expression": "member_city_src_1"
           },
           {
             "name": "state",
-            "expression": "parsed_addr_state"
+            "expression": "member_state_src_1"
           },
           {
             "name": "zip",
-            "expression": "parsed_addr_zip_code"
+            "expression": "member_zip_src_1"
           },
           {
             "name": "region",
@@ -1521,7 +1361,6 @@
         "select_columns": [
           "address_type",
           "address1",
-          "address2",
           "city",
           "state",
           "zip",
@@ -1538,7 +1377,7 @@
         "name": "members_final",
         "transformation": "Expression",
         "dependent_on": [
-          "MembersTransform"
+          "MembersExpression"
         ],
         "rename_columns": {},
         "select_columns": [
@@ -1651,10 +1490,25 @@
         ]
       },
       {
+        "name": "members",
+        "transformation": "Writer",
+        "dependent_on": [
+          "members_final"
+        ],
+        "target": {
+          "$ref": "#/targets/members"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
         "name": "members_enrollment_segments_final",
         "transformation": "Expression",
         "dependent_on": [
-          "MembersEnrollmentSegmentsTransform"
+          "MembersEnrollmentSegmentsExpression"
         ],
         "rename_columns": {},
         "select_columns": [
@@ -1727,10 +1581,25 @@
         ]
       },
       {
+        "name": "members_enrollment_segments",
+        "transformation": "Writer",
+        "dependent_on": [
+          "members_enrollment_segments_final"
+        ],
+        "target": {
+          "$ref": "#/targets/members_enrollment_segments"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
         "name": "members_phones_final",
         "transformation": "Expression",
         "dependent_on": [
-          "MembersPhonesTransform"
+          "MembersPhonesFilter"
         ],
         "rename_columns": {},
         "select_columns": [
@@ -1772,16 +1641,30 @@
         ]
       },
       {
+        "name": "members_phones",
+        "transformation": "Writer",
+        "dependent_on": [
+          "members_phones_final"
+        ],
+        "target": {
+          "$ref": "#/targets/members_phones"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
         "name": "members_addresses_final",
         "transformation": "Expression",
         "dependent_on": [
-          "MembersAddressesTransform"
+          "MembersAddressesExpression"
         ],
         "rename_columns": {},
         "select_columns": [
           "address_type",
           "address1",
-          "address2",
           "city",
           "state",
           "zip",
@@ -1792,6 +1675,7 @@
           "created_by",
           "updated_by",
           "batch_id",
+          "address2",
           "can_contact",
           "county",
           "county_ssa",
@@ -1804,6 +1688,10 @@
           "updated_at"
         ],
         "derived_fields": [
+          {
+            "name": "address2",
+            "expression": "CAST(NULL AS STRING)"
+          },
           {
             "name": "can_contact",
             "expression": "CAST(NULL AS BOOLEAN)"
@@ -1847,51 +1735,6 @@
         ]
       },
       {
-        "name": "members",
-        "transformation": "Writer",
-        "dependent_on": [
-          "members_final"
-        ],
-        "target": {
-          "$ref": "#/targets/members"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "members_enrollment_segments",
-        "transformation": "Writer",
-        "dependent_on": [
-          "members_enrollment_segments_final"
-        ],
-        "target": {
-          "$ref": "#/targets/members_enrollment_segments"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "members_phones",
-        "transformation": "Writer",
-        "dependent_on": [
-          "members_phones_final"
-        ],
-        "target": {
-          "$ref": "#/targets/members_phones"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
         "name": "members_addresses",
         "transformation": "Writer",
         "dependent_on": [
@@ -1919,24 +1762,24 @@
           "cinqcare_member_file_8_21_25_afe5s",
           "cinqcare_member_file_8_21_25_afe5s_MaxBatchExpr",
           "cinqcare_member_file_8_21_25_afe5s_IngestFilter",
-          "DedupMemberKey",
-          "ParseNameAndAddress",
+          "DedupByMemberKey",
           "MembersTransform",
-          "MembersEnrollmentSegmentsTransform",
-          "MembersPhonesBase",
+          "MembersExpression",
+          "MembersEnrollmentSegmentsExpression",
           "MembersPhonesPrimary",
           "MembersPhonesHome",
           "MembersPhonesCell",
           "MembersPhonesUnion",
-          "MembersPhonesTransform",
-          "MembersAddressesTransform",
+          "MembersPhonesFilter",
+          "MembersAddressesMapper",
+          "MembersAddressesExpression",
           "members_final",
-          "members_enrollment_segments_final",
-          "members_phones_final",
-          "members_addresses_final",
           "members",
+          "members_enrollment_segments_final",
           "members_enrollment_segments",
+          "members_phones_final",
           "members_phones",
+          "members_addresses_final",
           "members_addresses"
         ]
       },
