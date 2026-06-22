@@ -126,7 +126,8 @@
                           "cores": 2,
                           "memory_gb": 4,
                           "labels": {
-                            "workload": "spark-driver"
+                            "workload": "spark-driver",
+                            "test-1": "test-value"
                           },
                           "taints": [
                             {
@@ -143,7 +144,8 @@
                           "cores": 2,
                           "memory_gb": 4,
                           "labels": {
-                            "workload": "spark-executor"
+                            "workload": "spark-executor",
+                            "keytest": "kayvalue"
                           },
                           "taints": [
                             {
@@ -181,7 +183,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-06-22 05:33:07.496060+00:00",
+          "last_deployed_at": "2026-06-22 06:04:41.397107+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
