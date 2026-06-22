@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 224,
+        "data": {
+          "flow_pipeline_mapping_id": 224,
+          "flow_id": 608,
+          "pipeline_id": 1103,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 223,
         "data": {
           "flow_pipeline_mapping_id": 223,
@@ -98,7 +110,7 @@
           "flow_parameter_id": 1509,
           "flow_id": 608,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}]",
+          "parameter_value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}, {\"id\": 1103, \"name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\", \"pipeline_name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -314,7 +326,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}]"
+                  "value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}, {\"id\": 1103, \"name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\", \"pipeline_name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\"}]"
                 },
                 {
                   "key": "source_prefix",
@@ -429,10 +441,32 @@
                   "nodeId": "Submit_Job_run_pipelines_enrollment_10"
                 },
                 {
+                  "task_id": "run_pipelines_silver_raw_cinqcare_member_enrollment_load_260622_019f",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "run_pipelines_enrollment_10"
+                  ],
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "silver_raw_cinqcare_member_enrollment_load_260622_019f",
+                  "pipeline_name": "silver_raw_cinqcare_member_enrollment_load_260622_019f",
+                  "pipeline_id": 1103,
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+                  "name": "Submit_Job_2",
+                  "nodeId": "Submit_Job_run_pipelines_silver_raw_cinqcare_member_enrollment_load_260622_019f"
+                },
+                {
                   "task_id": "archive_processed_files",
                   "type": "ArchiveProcessedFiles",
                   "depends_on": [
-                    "run_pipelines_enrollment_10"
+                    "run_pipelines_silver_raw_cinqcare_member_enrollment_load_260622_019f"
                   ],
                   "bucket_name": "my-test-bucket",
                   "cloud_type": "databricks",
@@ -488,7 +522,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-06-22 14:05:06.896625+00:00",
+          "last_deployed_at": "2026-06-22 16:31:22.541030+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
