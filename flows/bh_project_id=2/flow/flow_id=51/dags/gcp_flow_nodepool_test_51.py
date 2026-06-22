@@ -105,11 +105,11 @@ with DAG(
           - name: PIPELINE_JSON_B64
             value: "{pipeline_json_b64}"
         nodeSelector:
-          workload: "bh-d-kcl-usea1-spark-driver"
+          workload: "spark-driver"
         tolerations:
           - key: "dedicated"
             operator: "Equal"
-            value: "bh-d-kcl-usea1-spark-driver"
+            value: "spark-driver"
             effect: "NoSchedule"
       executor:
         cores: 1
@@ -123,11 +123,11 @@ with DAG(
           - name: PIPELINE_JSON_B64
             value: "{pipeline_json_b64}"
         nodeSelector:
-          workload: "bh-d-kcl-usea1-spark-executor"
+          workload: "spark-executor"
         tolerations:
           - key: "dedicated"
             operator: "Equal"
-            value: "bh-d-kcl-usea1-spark-executor"
+            value: "spark-executor"
             effect: "NoSchedule"
     '''
 
