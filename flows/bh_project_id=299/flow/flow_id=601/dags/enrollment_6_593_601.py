@@ -602,9 +602,9 @@ with DAG(
         compute = factory.get_compute(compute_type="databricks")
         payload = (
             {
-                "cluster_name": "test-dbricks-cmp-001",
+                "cluster_name": "New_compute_99",
                 "spark_version": "15.4.x-scala2.12",
-                "node_type_id": "Standard_D4s_v3",
+                "node_type_id": "Standard_D16ds_v5",
                 "num_workers": 0,
                 "autoscale": None,
                 "driver_node_type_id": None,
@@ -618,11 +618,13 @@ with DAG(
                 "azure_attributes": None,
                 "gcp_attributes": None,
                 "single_node": True,
-                "autotermination_minutes": 15,
+                "autotermination_minutes": 30,
                 "enable_elastic_disk": True,
                 "spark_conf": {},
                 "spark_env_vars": {
-                    "SECRET_MANAGER_PROVIDER": "databricks"
+                    "SECRET_MANAGER_PROVIDER": "databricks",
+                    "PIPELINE_EXECUTION_MODE": "parallel",
+                    "PIPELINE_PARALLEL_MAX_WORKERS": "12"
                 },
                 "custom_tags": {},
                 "init_scripts": [
