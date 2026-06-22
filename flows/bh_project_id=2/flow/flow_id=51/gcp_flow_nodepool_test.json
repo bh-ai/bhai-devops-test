@@ -82,26 +82,26 @@
               "tasks": [
                 {
                   "name": "Spark_Engine",
-                  "nodeId": "Spark Engine_1782090287295",
-                  "task_id": "spark_engine_68a4ae348",
+                  "nodeId": "Spark Engine_1782103380502",
+                  "task_id": "spark_engine_b4f463bdc",
                   "output_variables": [
                     {
-                      "id": "spark_engine_Spark Engine_1782090287295_output_1",
+                      "id": "spark_engine_Spark Engine_1782103380502_output_1",
                       "label": "spark_engine_output_1",
                       "xcom_key": "output_1"
                     }
                   ],
                   "node_label_executor": "bh-d-kcl-usea1-spark-executor",
                   "node_label_driver": "bh-d-kcl-usea1-spark-driver",
-                  "driver_cores": 1,
-                  "executor_cores": 1,
-                  "driver_memory": 2,
-                  "executor_memory": 2,
-                  "executor_instances": 1,
                   "pipeline_name": "spark-job-pipeline",
                   "pipeline_id": 6,
                   "bh_project_name": "flow-service-project",
                   "pipeline_key": "spark_job_pipeline",
+                  "driver_cores": 1,
+                  "driver_memory": 2,
+                  "executor_cores": 1,
+                  "executor_memory": 2,
+                  "executor_instances": 1,
                   "spark_version": "3.5.0",
                   "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-80-rc",
                   "spark_event_log_dir": "gs://bh-dev-spark-logs/",
@@ -134,7 +134,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-06-22 01:07:14.604995+00:00",
+          "last_deployed_at": "2026-06-22 02:06:34.259369+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
