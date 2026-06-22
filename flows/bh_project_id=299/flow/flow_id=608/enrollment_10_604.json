@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 224,
+        "data": {
+          "flow_pipeline_mapping_id": 224,
+          "flow_id": 608,
+          "pipeline_id": 1103,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 223,
         "data": {
           "flow_pipeline_mapping_id": 223,
@@ -98,7 +110,7 @@
           "flow_parameter_id": 1509,
           "flow_id": 608,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}]",
+          "parameter_value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}, {\"id\": 1103, \"name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\", \"pipeline_name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -126,7 +138,7 @@
           "flow_parameter_id": 1506,
           "flow_id": 608,
           "parameter_name": "files",
-          "parameter_value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Centene GA Risk/CinqCare Member File 8.21.25.csv\", \"base_name\": \"CinqCare Member File 8.21.25.csv\", \"source_name\": \"cinqcare_member_file_8_21_25\", \"relative_key\": \"CinqCare Member File 8.21.25.csv\", \"size_bytes\": 210060}]",
+          "parameter_value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Centene GA Risk/CinqCare Member File 8.21.25-r.csv\", \"base_name\": \"CinqCare Member File 8.21.25-r.csv\", \"source_name\": \"cinqcare_member_file_8_21_25\", \"relative_key\": \"CinqCare Member File 8.21.25-r.csv\", \"size_bytes\": 210060}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -306,7 +318,7 @@
                 },
                 {
                   "key": "files",
-                  "value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Centene GA Risk/CinqCare Member File 8.21.25.csv\", \"base_name\": \"CinqCare Member File 8.21.25.csv\", \"source_name\": \"cinqcare_member_file_8_21_25\", \"relative_key\": \"CinqCare Member File 8.21.25.csv\", \"size_bytes\": 210060}]"
+                  "value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Centene GA Risk/CinqCare Member File 8.21.25-r.csv\", \"base_name\": \"CinqCare Member File 8.21.25-r.csv\", \"source_name\": \"cinqcare_member_file_8_21_25\", \"relative_key\": \"CinqCare Member File 8.21.25-r.csv\", \"size_bytes\": 210060}]"
                 },
                 {
                   "key": "parallelization_factor",
@@ -314,7 +326,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}]"
+                  "value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}, {\"id\": 1103, \"name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\", \"pipeline_name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\"}]"
                 },
                 {
                   "key": "source_prefix",
@@ -485,6 +497,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -509,7 +522,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-06-22 16:31:22.541030+00:00",
+          "last_deployed_at": "2026-06-22 16:52:12.127315+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
