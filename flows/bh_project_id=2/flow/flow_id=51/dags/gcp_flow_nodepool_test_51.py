@@ -106,6 +106,7 @@ with DAG(
             value: "{pipeline_json_b64}"
         nodeSelector:
           workload: "spark-driver"
+          test-1: "test-value"
         tolerations:
           - key: "dedicated"
             operator: "Equal"
@@ -124,6 +125,7 @@ with DAG(
             value: "{pipeline_json_b64}"
         nodeSelector:
           workload: "spark-executor"
+          keytest: "kayvalue"
         tolerations:
           - key: "dedicated"
             operator: "Equal"
