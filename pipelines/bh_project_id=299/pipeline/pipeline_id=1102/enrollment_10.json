@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-22T14:03:58.394327Z",
-  "updated_at": "2026-06-22T16:58:24.512133Z",
+  "updated_at": "2026-06-22T17:08:20.461135Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -593,7 +593,7 @@
       "atomic_commit_enabled": true,
       "group_id": 604,
       "expected_group_members": 1,
-      "group_run_id": "enrollment_10_20260622T165824Z"
+      "group_run_id": "enrollment_10_20260622T170820Z"
     }
   },
   "pipeline_type": "design",
