@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-22T06:41:40.510826Z",
-  "updated_at": "2026-06-22T06:42:32.814714Z",
+  "updated_at": "2026-06-22T07:06:42.342803Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -23,7 +23,7 @@
     "parameters": [
       {
         "key": "safeharbor_cinqcare_elig_202604_n",
-        "value": "bhargs/1-Enrollment/1-Enrollment/optum/safeharbor_CINQCare_Elig_202604-n.csv"
+        "value": "bhargs/1-Enrollment/1-Enrollment/optum/safeharbor_CINQCare_Elig_2026040.csv"
       }
     ],
     "connections": {
@@ -185,6 +185,10 @@
             "type": "string"
           },
           {
+            "name": "corrupt_record",
+            "type": "string"
+          },
+          {
             "name": "mbr_adr_loc_st_cd",
             "type": "string"
           },
@@ -206,10 +210,6 @@
           },
           {
             "name": "assigned_tin",
-            "type": "string"
-          },
-          {
-            "name": "corrupt_record",
             "type": "string"
           }
         ],
@@ -384,49 +384,25 @@
             "is_required": true
           },
           {
-            "name": "mbr_adr_loc_st_cd",
-            "type": "string",
-            "nullable": false,
-            "is_required": true
-          },
-          {
-            "name": "mbr_adr_loc_zip_cd",
-            "type": "string",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "column21",
-            "type": "string",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "mbr_do_not_cntc_flg",
-            "type": "string",
-            "nullable": false,
-            "is_required": true
-          },
-          {
-            "name": "assigned_provider_npi",
-            "type": "string",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "assigned_tin",
-            "type": "string",
-            "nullable": false,
-            "is_required": true
-          },
-          {
             "name": "corrupt_record",
             "type": "string",
             "nullable": true,
             "is_required": false
           },
           {
+            "name": "mbr_adr_loc_st_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
             "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "mbr_adr_loc_zip_cd",
             "type": "string",
             "nullable": true,
             "is_required": false
@@ -438,10 +414,22 @@
             "is_required": false
           },
           {
+            "name": "column21",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
             "name": "ingest_ts",
             "type": "timestamp",
             "nullable": true,
             "is_required": false
+          },
+          {
+            "name": "mbr_do_not_cntc_flg",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
           },
           {
             "name": "ingest_year",
@@ -450,10 +438,22 @@
             "is_required": false
           },
           {
+            "name": "assigned_provider_npi",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
             "name": "ingest_month",
             "type": "integer",
             "nullable": true,
             "is_required": false
+          },
+          {
+            "name": "assigned_tin",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
           },
           {
             "name": "ingest_day",
@@ -533,7 +533,7 @@
       "atomic_commit_enabled": true,
       "group_id": 601,
       "expected_group_members": 1,
-      "group_run_id": "optum_3_20260622T064232Z"
+      "group_run_id": "optum_3_20260622T070641Z"
     }
   },
   "pipeline_type": "design",
