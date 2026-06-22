@@ -62,11 +62,11 @@ with DAG(
         print(f"Warning: Could not read pipeline JSON from {full_json_path}: {e}")
         pipeline_json_b64 = ""
 
-    spark_app_yaml_spark_engine_68a4ae348 = f'''
+    spark_app_yaml_spark_engine_b4f463bdc = f'''
     apiVersion: "sparkoperator.k8s.io/v1beta2"
     kind: SparkApplication
     metadata:
-      name: "spark-app-spark-engine-68a4ae348"
+      name: "spark-app-spark-engine-b4f463bdc"
       namespace: "spark-operator"
     spec:
       type: Python
@@ -131,10 +131,10 @@ with DAG(
             effect: "NoSchedule"
     '''
 
-    spark_engine_68a4ae348 = SparkKubernetesOperator(
-        task_id='spark_engine_68a4ae348',
+    spark_engine_b4f463bdc = SparkKubernetesOperator(
+        task_id='spark_engine_b4f463bdc',
         namespace="spark-operator",
-        application_file=spark_app_yaml_spark_engine_68a4ae348,
+        application_file=spark_app_yaml_spark_engine_b4f463bdc,
         kubernetes_conn_id="kubernetes_default",
         do_xcom_push=True,
     )
@@ -150,5 +150,5 @@ with DAG(
         on_failure_callback=common_task.failure_callback,
     )
 
-    start_flow_task >> spark_engine_68a4ae348
-    spark_engine_68a4ae348 >> end_flow_task
+    start_flow_task >> spark_engine_b4f463bdc
+    spark_engine_b4f463bdc >> end_flow_task
