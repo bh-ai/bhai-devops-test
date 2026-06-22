@@ -109,7 +109,54 @@
                   "driver_memory_overhead": "1g",
                   "spark_event_log_compress": true,
                   "type": "SparkEngine",
-                  "depends_on": []
+                  "depends_on": [],
+                  "compute_config": {
+                    "compute_config_id": 2,
+                    "compute_config_name": "gcp-gke-nodepool-config",
+                    "compute_type": "KUBERNETES",
+                    "bh_env_id": 3,
+                    "compute_config": {
+                      "cloud_type": "gcp",
+                      "cluster_name": "bh-d-kcl-usea1-primary-5ne",
+                      "namespace": "spark-operator",
+                      "node_pools": [
+                        {
+                          "name": "bh-d-kcl-usea1-spark-driver",
+                          "machine_type": "e2-standard-4",
+                          "cores": 2,
+                          "memory_gb": 4,
+                          "labels": {
+                            "workload": "spark-driver"
+                          },
+                          "taints": [
+                            {
+                              "key": "dedicated",
+                              "value": "spark-driver",
+                              "effect": "NoSchedule"
+                            }
+                          ],
+                          "pod_labels": {}
+                        },
+                        {
+                          "name": "bh-d-kcl-usea1-spark-executor",
+                          "machine_type": "e2-standard-4",
+                          "cores": 2,
+                          "memory_gb": 4,
+                          "labels": {
+                            "workload": "spark-executor"
+                          },
+                          "taints": [
+                            {
+                              "key": "dedicated",
+                              "value": "spark-executor",
+                              "effect": "NoSchedule"
+                            }
+                          ],
+                          "pod_labels": {}
+                        }
+                      ]
+                    }
+                  }
                 }
               ],
               "bh_project_id": 2,
@@ -134,7 +181,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-06-22 05:20:45.964617+00:00",
+          "last_deployed_at": "2026-06-22 05:33:07.496060+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
