@@ -1,0 +1,145 @@
+{
+  "created_at": "2026-06-21T07:31:41.043226Z",
+  "updated_at": "2026-06-21T07:31:41.043226Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 1,
+  "flow_id": 51,
+  "flow_name": "gcp-flow-nodepool-test",
+  "flow_key": "gcp_flow_nodepool_test",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "status": "active",
+  "bh_project_name": "flow-service-project",
+  "bh_project_id": 2,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 51
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 51,
+        "data": {
+          "flow_id": 51,
+          "flow_name": "gcp-flow-nodepool-test",
+          "flow_key": "gcp_flow_nodepool_test",
+          "bh_project_id": 2,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 47,
+        "data": {
+          "flow_definition_id": 47,
+          "flow_id": 51,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "gcp-flow-nodepool-test",
+              "flow_name": "gcp-flow-nodepool-test",
+              "flow_id": 51,
+              "flow_type": "INGESTION",
+              "flow_key": "gcp_flow_nodepool_test",
+              "description": "Flow for gcp-flow-nodepool-test",
+              "version": "1.0.0",
+              "project_id": 2,
+              "project_name": "flow-service-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 1,
+              "bh_environment_id": 3,
+              "bh_environment_name": "gcp-env",
+              "parameters": [],
+              "tasks": [
+                {
+                  "name": "Spark_Engine",
+                  "nodeId": "Spark Engine_1782090287295",
+                  "task_id": "spark_engine_68a4ae348",
+                  "output_variables": [
+                    {
+                      "id": "spark_engine_Spark Engine_1782090287295_output_1",
+                      "label": "spark_engine_output_1",
+                      "xcom_key": "output_1"
+                    }
+                  ],
+                  "node_label_executor": "bh-d-kcl-usea1-spark-executor",
+                  "node_label_driver": "bh-d-kcl-usea1-spark-driver",
+                  "driver_cores": 1,
+                  "executor_cores": 1,
+                  "driver_memory": 2,
+                  "executor_memory": 2,
+                  "executor_instances": 1,
+                  "pipeline_name": "spark-job-pipeline",
+                  "pipeline_id": 6,
+                  "bh_project_name": "flow-service-project",
+                  "pipeline_key": "spark_job_pipeline",
+                  "spark_version": "3.5.0",
+                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-80-rc",
+                  "spark_event_log_dir": "gs://bh-dev-spark-logs/",
+                  "executor_memory_overhead": "1g",
+                  "driver_memory_overhead": "1g",
+                  "spark_event_log_compress": true,
+                  "type": "SparkEngine",
+                  "depends_on": []
+                }
+              ],
+              "bh_project_id": 2,
+              "cloud_provider": "gcp",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 47,
+        "data": {
+          "flow_deployment_id": 47,
+          "flow_id": 51,
+          "bh_env_id": 3,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
