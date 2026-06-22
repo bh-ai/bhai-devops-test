@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 222,
+        "data": {
+          "flow_pipeline_mapping_id": 222,
+          "flow_id": 607,
+          "pipeline_id": 1101,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 221,
         "data": {
           "flow_pipeline_mapping_id": 221,
@@ -98,7 +110,7 @@
           "flow_parameter_id": 1496,
           "flow_id": 607,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1100, \"name\": \"enrollment_9\", \"pipeline_name\": \"enrollment_9\"}]",
+          "parameter_value": "[{\"id\": 1100, \"name\": \"enrollment_9\", \"pipeline_name\": \"enrollment_9\"}, {\"id\": 1101, \"name\": \"silver_raw_cinqcare_member_enrollment_load_260622_092d\", \"pipeline_name\": \"silver_raw_cinqcare_member_enrollment_load_260622_092d\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -314,7 +326,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1100, \"name\": \"enrollment_9\", \"pipeline_name\": \"enrollment_9\"}]"
+                  "value": "[{\"id\": 1100, \"name\": \"enrollment_9\", \"pipeline_name\": \"enrollment_9\"}, {\"id\": 1101, \"name\": \"silver_raw_cinqcare_member_enrollment_load_260622_092d\", \"pipeline_name\": \"silver_raw_cinqcare_member_enrollment_load_260622_092d\"}]"
                 },
                 {
                   "key": "source_prefix",
@@ -485,6 +497,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -509,7 +522,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-06-22 10:57:09.649082+00:00",
+          "last_deployed_at": "2026-06-22 12:00:15.040996+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
