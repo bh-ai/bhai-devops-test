@@ -53,18 +53,6 @@
       },
       {
         "model": "FlowPipelineMapping",
-        "pk": 224,
-        "data": {
-          "flow_pipeline_mapping_id": 224,
-          "flow_id": 608,
-          "pipeline_id": 1103,
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowPipelineMapping",
         "pk": 223,
         "data": {
           "flow_pipeline_mapping_id": 223,
@@ -110,7 +98,7 @@
           "flow_parameter_id": 1509,
           "flow_id": 608,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}, {\"id\": 1103, \"name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\", \"pipeline_name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\"}]",
+          "parameter_value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -326,7 +314,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}, {\"id\": 1103, \"name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\", \"pipeline_name\": \"silver_raw_cinqcare_member_enrollment_load_260622_019f\"}]"
+                  "value": "[{\"id\": 1102, \"name\": \"enrollment_10\", \"pipeline_name\": \"enrollment_10\"}]"
                 },
                 {
                   "key": "source_prefix",
@@ -497,7 +485,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
