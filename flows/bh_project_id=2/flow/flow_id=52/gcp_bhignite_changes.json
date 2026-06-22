@@ -1,0 +1,198 @@
+{
+  "created_at": "2026-06-22T06:10:58.400501Z",
+  "updated_at": "2026-06-22T06:10:58.400501Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 1,
+  "flow_id": 52,
+  "flow_name": "gcp-bhignite-changes",
+  "flow_key": "gcp_bhignite_changes",
+  "recipient_email": {},
+  "notes": "",
+  "tags": {
+    "tagList": []
+  },
+  "status": "active",
+  "bh_project_name": "flow-service-project",
+  "bh_project_id": 2,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 52
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 52,
+        "data": {
+          "flow_id": 52,
+          "flow_name": "gcp-bhignite-changes",
+          "flow_key": "gcp_bhignite_changes",
+          "bh_project_id": 2,
+          "recipient_email": {},
+          "notes": "",
+          "tags": {
+            "tagList": []
+          },
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 48,
+        "data": {
+          "flow_definition_id": 48,
+          "flow_id": 52,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "gcp-bhignite-changes",
+              "flow_name": "gcp-bhignite-changes",
+              "flow_id": 52,
+              "flow_type": "INGESTION",
+              "flow_key": "gcp_bhignite_changes",
+              "description": "Flow for gcp-bhignite-changes",
+              "version": "1.0.0",
+              "project_id": 2,
+              "project_name": "flow-service-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 1,
+              "bh_environment_id": 3,
+              "bh_environment_name": "gcp-env",
+              "parameters": [],
+              "tasks": [
+                {
+                  "name": "BH_Ignite",
+                  "nodeId": "BH Ignite_1782108663180",
+                  "task_id": "bh_ignite_a2843aa31",
+                  "output_variables": [
+                    {
+                      "id": "bh_ignite_BH Ignite_1782108663180_output_1",
+                      "label": "bh_ignite_output_1",
+                      "xcom_key": "output_1"
+                    }
+                  ],
+                  "node_label_executor": "bh-d-kcl-usea1-spark-driver",
+                  "node_label_driver": "bh-d-kcl-usea1-spark-driver",
+                  "pipeline_name": "spark-job-pipeline",
+                  "pipeline_id": 6,
+                  "bh_project_name": "flow-service-project",
+                  "pipeline_key": "spark_job_pipeline",
+                  "driver_cores": 1,
+                  "driver_memory": 2,
+                  "executor_cores": 1,
+                  "executor_memory": 2,
+                  "executor_instances": 1,
+                  "spark_version": "3.5.0",
+                  "spark_image": "bhdwestus3acr01.azurecr.io/bh-transformation-utils-gluten:1.0.0-80-rc",
+                  "arrow_max_records_per_batch": 10000,
+                  "off_heap_size": "2g",
+                  "spark_event_log_dir": "gs://bh-dev-spark-logs/",
+                  "executor_memory_overhead": "1g",
+                  "driver_memory_overhead": "1g",
+                  "spark_event_log_compress": true,
+                  "velox_glog_severity_level": 0,
+                  "velox_glog_verbose_level": 1,
+                  "type": "BHIgnite",
+                  "depends_on": [],
+                  "compute_config": {
+                    "compute_config_id": 2,
+                    "compute_config_name": "gcp-gke-nodepool-config",
+                    "compute_type": "KUBERNETES",
+                    "bh_env_id": 3,
+                    "compute_config": {
+                      "cloud_type": "gcp",
+                      "cluster_name": "bh-d-kcl-usea1-primary-5ne",
+                      "namespace": "spark-operator",
+                      "node_pools": [
+                        {
+                          "name": "bh-d-kcl-usea1-spark-driver",
+                          "machine_type": "e2-standard-4",
+                          "cores": 2,
+                          "memory_gb": 4,
+                          "labels": {
+                            "workload": "spark-driver",
+                            "test-1": "test-value"
+                          },
+                          "taints": [
+                            {
+                              "key": "dedicated",
+                              "value": "spark-driver",
+                              "effect": "NoSchedule"
+                            }
+                          ],
+                          "pod_labels": {}
+                        },
+                        {
+                          "name": "bh-d-kcl-usea1-spark-executor",
+                          "machine_type": "e2-standard-4",
+                          "cores": 2,
+                          "memory_gb": 4,
+                          "labels": {
+                            "workload": "spark-executor",
+                            "keytest": "kayvalue"
+                          },
+                          "taints": [
+                            {
+                              "key": "dedicated",
+                              "value": "spark-executor",
+                              "effect": "NoSchedule"
+                            }
+                          ],
+                          "pod_labels": {}
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "bh_project_id": 2,
+              "cloud_provider": "gcp",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 48,
+        "data": {
+          "flow_deployment_id": 48,
+          "flow_id": 52,
+          "bh_env_id": 3,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
