@@ -350,7 +350,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_sv_local_2_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1113/sv_local_2.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1113/sv_local_2.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -529,7 +529,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_enrollment_fidelis_downstate_v4_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=975/enrollment_fidelis_downstate_v4.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=975/enrollment_fidelis_downstate_v4.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
