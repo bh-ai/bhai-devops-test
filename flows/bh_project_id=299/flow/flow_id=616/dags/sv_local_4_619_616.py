@@ -65,7 +65,7 @@ with DAG(
             {
                 "source_name": "safeharbor_cinqdownstate_member_roster_03_05_2026_1",
                 "prefix": "bhargs/1-Enrollment/1-Enrollment/fedelisny/Batch",
-                "filename_regex": "safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026 (1).xlsx",
+                "filename_regex": "safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx",
                 "ignore_subfolders": True,
                 "is_required": True,
                 "min_bytes": 10,
@@ -332,7 +332,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_sv_local_4_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1114/sv_local_4.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1114/sv_local_4.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -511,7 +511,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_enrollment_fidelis_downstate_v4_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=975/enrollment_fidelis_downstate_v4.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=975/enrollment_fidelis_downstate_v4.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
