@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-03T09:10:51.722050Z",
-  "updated_at": "2026-06-11T13:26:37.849537Z",
+  "updated_at": "2026-06-25T06:10:52.320133Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -300,7 +300,7 @@
         "derived_fields": [
           {
             "name": "feed_name",
-            "expression": "'enrollment_fidelis_downstate_v4'"
+            "expression": "'sv_local_4'"
           },
           {
             "name": "ingest_ts",
@@ -687,9 +687,9 @@
     "description": "Cloned from File to DB Ingestion V2",
     "batch_control": {
       "enabled": true,
-      "feed_name": "enrollment_fidelis_downstate_v4",
+      "feed_name": "sv_local_4",
       "business_date": "2026-06-11",
-      "delivery_id": "enrollment_fidelis_downstate_v4_2026-06-11",
+      "delivery_id": "sv_local_4_2026-06-11",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
