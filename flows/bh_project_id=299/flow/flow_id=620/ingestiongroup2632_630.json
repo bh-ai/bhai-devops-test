@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-26T12:02:41.373187Z",
-  "updated_at": "2026-06-26T12:02:41.373187Z",
+  "updated_at": "2026-06-26T12:03:06.200191Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -10,7 +10,7 @@
   "flow_name": "ingestiongroup2632_630",
   "flow_key": "ingestiongroup2632_630",
   "recipient_email": {},
-  "notes": "ingestiongroup2632",
+  "notes": null,
   "tags": null,
   "status": "active",
   "bh_project_name": "flow-test-project",
@@ -36,7 +36,7 @@
           "flow_key": "ingestiongroup2632_630",
           "bh_project_id": 299,
           "recipient_email": {},
-          "notes": "ingestiongroup2632",
+          "notes": null,
           "tags": null,
           "status": "active",
           "alert_settings": {
@@ -502,7 +502,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -526,8 +525,11 @@
           "bh_airflow_id": null,
           "flow_version_id": null,
           "schema_id": null,
-          "cron_expression": null,
-          "last_deployed_at": null,
+          "cron_expression": {
+            "is_scheduled": true,
+            "cron_expression": "0 9 * * *"
+          },
+          "last_deployed_at": "2026-06-26 12:03:04.959729+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
