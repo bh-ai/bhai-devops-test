@@ -53,18 +53,6 @@
       },
       {
         "model": "FlowPipelineMapping",
-        "pk": 238,
-        "data": {
-          "flow_pipeline_mapping_id": 238,
-          "flow_id": 617,
-          "pipeline_id": 1116,
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowPipelineMapping",
         "pk": 237,
         "data": {
           "flow_pipeline_mapping_id": 237,
@@ -110,7 +98,7 @@
           "flow_parameter_id": 1608,
           "flow_id": 617,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1115, \"name\": \"sv_local_5\", \"pipeline_name\": \"sv_local_5\"}, {\"id\": 1116, \"name\": \"silver_raw_sv_local_5_member_enrollment_load_260626_7bc6\", \"pipeline_name\": \"silver_raw_sv_local_5_member_enrollment_load_260626_7bc6\"}]",
+          "parameter_value": "[{\"id\": 1115, \"name\": \"sv_local_5\", \"pipeline_name\": \"sv_local_5\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -326,7 +314,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1115, \"name\": \"sv_local_5\", \"pipeline_name\": \"sv_local_5\"}, {\"id\": 1116, \"name\": \"silver_raw_sv_local_5_member_enrollment_load_260626_7bc6\", \"pipeline_name\": \"silver_raw_sv_local_5_member_enrollment_load_260626_7bc6\"}]"
+                  "value": "[{\"id\": 1115, \"name\": \"sv_local_5\", \"pipeline_name\": \"sv_local_5\"}]"
                 },
                 {
                   "key": "source_prefix",
@@ -502,7 +490,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
