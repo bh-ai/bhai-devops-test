@@ -332,7 +332,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_fidelis_ny_ds_va_26june2026_627_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1120/fidelis_ny_ds_va_26june2026_627.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1120/fidelis_ny_ds_va_26june2026_627.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -511,7 +511,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_fidelis_ny_downstate_dedupe_to_members_load_260626_dedc_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1121/silver_raw_fidelis_ny_downstate_dedupe_to_members_load_260626_dedc.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1121/silver_raw_fidelis_ny_downstate_dedupe_to_members_load_260626_dedc.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
