@@ -1,0 +1,1135 @@
+{
+  "created_at": "2026-06-26T11:56:20.856426Z",
+  "updated_at": "2026-06-26T12:02:15.152196Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 1123,
+  "pipeline_name": "silver_raw_cinqcare_elig_to_members_orders_load_260626_ba9c",
+  "pipeline_key": "silver_raw_cinqcare_elig_to_members_orders_load_260626_ba9c",
+  "bh_project_id": 299,
+  "notes": "",
+  "tags": {
+    "data_domain_id": 270,
+    "data_domain_name": "Enrollments",
+    "source_count": 1,
+    "target_count": 3
+  },
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": null,
+  "bh_github_username": null,
+  "pipeline_json": {
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "name": "silver_raw_cinqcare_elig_to_members_orders_load_260626_ba9c",
+    "description": "Requirement Pipeline",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "mode": "ENGINE",
+    "parameters": [],
+    "connections": {
+      "databricks-azure_cinqdev": {
+        "connection_config_id": 185,
+        "name": "databricks-azure_cinqdev",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure"
+      }
+    },
+    "sources": {
+      "safeharbor_cinqcare_elig_202604_n_pwwx1": {
+        "data_src_id": 2290,
+        "name": "safeharbor_cinqcare_elig_202604_n_pwwx1",
+        "source_type": "Relational",
+        "table_name": "safeharbor_cinqcare_elig_202604_n_pwwx1",
+        "connection": {
+          "$ref": "#/connections/databricks-azure_cinqdev"
+        },
+        "fields": [
+          "sbscr_nbr",
+          "source_patient_id",
+          "empi",
+          "mbr_lst_nm",
+          "mbr_midl_init",
+          "mbr_fst_nm",
+          "mbr_gdr_cd",
+          "bth_dt",
+          "contr_curr_pln_nm",
+          "contr_nbr",
+          "contr_pbp",
+          "contr_nbr_pbp",
+          "curr_mbi",
+          "dth_dt",
+          "record_start_dt",
+          "record_end_dt",
+          "mbr_adr_loc_adr1",
+          "mbr_adr_loc_adr2",
+          "mbr_adr_loc_cty",
+          "mbr_adr_loc_st_cd",
+          "mbr_adr_loc_zip_cd",
+          "column21",
+          "mbr_do_not_cntc_flg",
+          "assigned_provider_npi",
+          "assigned_tin",
+          "corrupt_record",
+          "batch_id",
+          "feed_name",
+          "ingest_ts",
+          "ingest_year",
+          "ingest_month",
+          "ingest_day"
+        ],
+        "schema": [
+          {
+            "name": "sbscr_nbr",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "source_patient_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "empi",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "mbr_lst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_midl_init",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "mbr_fst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_gdr_cd",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "bth_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "contr_curr_pln_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_nbr",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_pbp",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "contr_nbr_pbp",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "curr_mbi",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "dth_dt",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "record_start_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "record_end_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_adr1",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_adr2",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "mbr_adr_loc_cty",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_st_cd",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_zip_cd",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "column21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "mbr_do_not_cntc_flg",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "assigned_provider_npi",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "assigned_tin",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "batch_id",
+            "type": "biginteger",
+            "nullable": true
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true
+          }
+        ],
+        "db_schema": "default"
+      }
+    },
+    "targets": {
+      "customer_orders_test": {
+        "data_src_id": 2255,
+        "name": "customer_orders_test",
+        "target_type": "Relational",
+        "table_name": "customer_orders_test",
+        "load_mode": "merge",
+        "connection": {
+          "$ref": "#/connections/databricks-azure_cinqdev"
+        },
+        "schema": "small_test",
+        "merge_keys": [
+          "customer_id",
+          "order_id"
+        ],
+        "process_deletes": true,
+        "scd_config": {
+          "scd_type_1_columns": []
+        },
+        "delete_config": {
+          "delete_type": "infer",
+          "delete_action": "soft_delete"
+        }
+      },
+      "customer_orders": {
+        "data_src_id": 2254,
+        "name": "customer_orders",
+        "target_type": "Relational",
+        "table_name": "customer_orders",
+        "load_mode": "merge",
+        "connection": {
+          "$ref": "#/connections/databricks-azure_cinqdev"
+        },
+        "schema": "small_test",
+        "merge_keys": [
+          "customer_id",
+          "order_id"
+        ],
+        "process_deletes": true,
+        "scd_config": {
+          "scd_type_1_columns": []
+        },
+        "delete_config": {
+          "delete_type": "infer",
+          "delete_action": "soft_delete"
+        }
+      },
+      "members": {
+        "data_src_id": 2115,
+        "name": "members",
+        "target_type": "Relational",
+        "table_name": "members",
+        "load_mode": "merge",
+        "connection": {
+          "$ref": "#/connections/databricks-azure_cinqdev"
+        },
+        "schema": "silverraw_enrollment",
+        "merge_keys": [
+          "source_system_id",
+          "source_system"
+        ],
+        "process_deletes": true,
+        "scd_config": {
+          "scd_type_1_columns": []
+        },
+        "delete_config": {
+          "delete_type": "infer",
+          "delete_action": "soft_delete"
+        }
+      }
+    },
+    "transformations": [
+      {
+        "name": "safeharbor_cinqcare_elig_202604_n_pwwx1",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/safeharbor_cinqcare_elig_202604_n_pwwx1"
+        },
+        "rename_columns": {
+          "sbscr_nbr": "sbscr_nbr_src_1",
+          "source_patient_id": "source_patient_id_src_1",
+          "empi": "empi_src_1",
+          "mbr_lst_nm": "mbr_lst_nm_src_1",
+          "mbr_midl_init": "mbr_midl_init_src_1",
+          "mbr_fst_nm": "mbr_fst_nm_src_1",
+          "mbr_gdr_cd": "mbr_gdr_cd_src_1",
+          "bth_dt": "bth_dt_src_1",
+          "contr_curr_pln_nm": "contr_curr_pln_nm_src_1",
+          "contr_nbr": "contr_nbr_src_1",
+          "contr_pbp": "contr_pbp_src_1",
+          "contr_nbr_pbp": "contr_nbr_pbp_src_1",
+          "curr_mbi": "curr_mbi_src_1",
+          "dth_dt": "dth_dt_src_1",
+          "record_start_dt": "record_start_dt_src_1",
+          "record_end_dt": "record_end_dt_src_1",
+          "mbr_adr_loc_adr1": "mbr_adr_loc_adr1_src_1",
+          "mbr_adr_loc_adr2": "mbr_adr_loc_adr2_src_1",
+          "mbr_adr_loc_cty": "mbr_adr_loc_cty_src_1",
+          "mbr_adr_loc_st_cd": "mbr_adr_loc_st_cd_src_1",
+          "mbr_adr_loc_zip_cd": "mbr_adr_loc_zip_cd_src_1",
+          "column21": "column21_src_1",
+          "mbr_do_not_cntc_flg": "mbr_do_not_cntc_flg_src_1",
+          "assigned_provider_npi": "assigned_provider_npi_src_1",
+          "assigned_tin": "assigned_tin_src_1",
+          "corrupt_record": "corrupt_record_src_1",
+          "batch_id": "batch_id_src_1",
+          "feed_name": "feed_name_src_1",
+          "ingest_ts": "ingest_ts_src_1",
+          "ingest_year": "ingest_year_src_1",
+          "ingest_month": "ingest_month_src_1",
+          "ingest_day": "ingest_day_src_1"
+        },
+        "read_options": {},
+        "schema": [
+          {
+            "name": "sbscr_nbr",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "source_patient_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "empi",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "mbr_lst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_midl_init",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "mbr_fst_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_gdr_cd",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "bth_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "contr_curr_pln_nm",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_nbr",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "contr_pbp",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "contr_nbr_pbp",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "curr_mbi",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "dth_dt",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "record_start_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "record_end_dt",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_adr1",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_adr2",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "mbr_adr_loc_cty",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_st_cd",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "mbr_adr_loc_zip_cd",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "column21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "mbr_do_not_cntc_flg",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "assigned_provider_npi",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "assigned_tin",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "batch_id",
+            "type": "biginteger",
+            "nullable": true
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true
+          }
+        ]
+      },
+      {
+        "name": "safeharbor_cinqcare_elig_202604_n_pwwx1_MaxBatchExpr",
+        "transformation": "Expression",
+        "dependent_on": [
+          "safeharbor_cinqcare_elig_202604_n_pwwx1"
+        ],
+        "derived_fields": [
+          {
+            "name": "max_batch_id",
+            "expression": "max(batch_id_src_1) OVER ()"
+          }
+        ]
+      },
+      {
+        "name": "safeharbor_cinqcare_elig_202604_n_pwwx1_IngestFilter",
+        "transformation": "Filter",
+        "dependent_on": [
+          "safeharbor_cinqcare_elig_202604_n_pwwx1_MaxBatchExpr"
+        ],
+        "condition": "batch_id_src_1 = max_batch_id AND (corrupt_record_src_1 IS NULL OR corrupt_record_src_1 = '')"
+      },
+      {
+        "name": "DeduplicateBySourcePatientId",
+        "transformation": "Deduplicator",
+        "dependent_on": [
+          "safeharbor_cinqcare_elig_202604_n_pwwx1_IngestFilter"
+        ],
+        "dedup_by": [
+          "source_patient_id_src_1"
+        ],
+        "keep": "first",
+        "order_by": [
+          {
+            "column": "source_patient_id_src_1",
+            "order": "asc"
+          }
+        ]
+      },
+      {
+        "name": "PrepareCustomerOrdersTestFields",
+        "transformation": "Expression",
+        "dependent_on": [
+          "DeduplicateBySourcePatientId"
+        ],
+        "derived_fields": [
+          {
+            "name": "customer_id",
+            "expression": "source_patient_id_src_1"
+          },
+          {
+            "name": "order_id",
+            "expression": "source_patient_id_src_1"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "feed_name",
+            "expression": "feed_name_src_1"
+          },
+          {
+            "name": "source_system",
+            "expression": "'SAFEHARBOR_CINQCARE_ELIG_202604_N'"
+          },
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          }
+        ],
+        "select_columns": [
+          "customer_id",
+          "order_id",
+          "batch_id",
+          "feed_name",
+          "source_system",
+          "created_by",
+          "updated_by"
+        ]
+      },
+      {
+        "name": "PrepareCustomerOrdersFields",
+        "transformation": "Expression",
+        "dependent_on": [
+          "DeduplicateBySourcePatientId"
+        ],
+        "derived_fields": [
+          {
+            "name": "customer_id",
+            "expression": "source_patient_id_src_1"
+          },
+          {
+            "name": "order_id",
+            "expression": "source_patient_id_src_1"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "feed_name",
+            "expression": "feed_name_src_1"
+          },
+          {
+            "name": "source_system",
+            "expression": "'SAFEHARBOR_CINQCARE_ELIG_202604_N'"
+          },
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          }
+        ],
+        "select_columns": [
+          "customer_id",
+          "order_id",
+          "batch_id",
+          "feed_name",
+          "source_system",
+          "created_by",
+          "updated_by"
+        ]
+      },
+      {
+        "name": "ParseMemberNames",
+        "transformation": "Mapper",
+        "dependent_on": [
+          "DeduplicateBySourcePatientId"
+        ],
+        "derived_fields": [
+          {
+            "function_name": "name_parser",
+            "parameters": {
+              "input_fields": [
+                "mbr_fst_nm_src_1"
+              ],
+              "name_prefix": "first",
+              "separator": " "
+            }
+          },
+          {
+            "function_name": "name_parser",
+            "parameters": {
+              "input_fields": [
+                "mbr_lst_nm_src_1"
+              ],
+              "name_prefix": "last",
+              "separator": " "
+            }
+          },
+          {
+            "function_name": "name_parser",
+            "parameters": {
+              "input_fields": [
+                "mbr_midl_init_src_1"
+              ],
+              "name_prefix": "middle",
+              "separator": " "
+            }
+          }
+        ],
+        "select_columns": [
+          "source_patient_id_src_1",
+          "empi_src_1",
+          "mbr_gdr_cd_src_1",
+          "bth_dt_src_1",
+          "contr_curr_pln_nm_src_1",
+          "dth_dt_src_1",
+          "record_start_dt_src_1",
+          "mbr_adr_loc_st_cd_src_1",
+          "mbr_do_not_cntc_flg_src_1",
+          "batch_id_src_1",
+          "feed_name_src_1",
+          "first_first",
+          "last_last",
+          "middle_middle"
+        ]
+      },
+      {
+        "name": "PrepareMembersFields",
+        "transformation": "Expression",
+        "dependent_on": [
+          "ParseMemberNames"
+        ],
+        "derived_fields": [
+          {
+            "name": "source_system_id",
+            "expression": "source_patient_id_src_1"
+          },
+          {
+            "name": "first_name",
+            "expression": "first_first"
+          },
+          {
+            "name": "last_name",
+            "expression": "last_last"
+          },
+          {
+            "name": "middle_name",
+            "expression": "middle_middle"
+          },
+          {
+            "name": "date_of_birth",
+            "expression": "to_date(to_timestamp(bth_dt_src_1 / 1000))"
+          },
+          {
+            "name": "gender",
+            "expression": "mbr_gdr_cd_src_1"
+          },
+          {
+            "name": "location",
+            "expression": "mbr_adr_loc_st_cd_src_1"
+          },
+          {
+            "name": "care_management_program",
+            "expression": "contr_curr_pln_nm_src_1"
+          },
+          {
+            "name": "death_date",
+            "expression": "to_date(to_timestamp(dth_dt_src_1 / 1000))"
+          },
+          {
+            "name": "record_creation_date",
+            "expression": "to_timestamp(record_start_dt_src_1 / 1000)"
+          },
+          {
+            "name": "secure_id",
+            "expression": "empi_src_1"
+          },
+          {
+            "name": "dnc",
+            "expression": "CASE WHEN mbr_do_not_cntc_flg_src_1 IN ('Y', '1') THEN true WHEN mbr_do_not_cntc_flg_src_1 IN ('N', '0') THEN false ELSE NULL END"
+          },
+          {
+            "name": "feed_name",
+            "expression": "feed_name_src_1"
+          },
+          {
+            "name": "source_system",
+            "expression": "'SAFEHARBOR_CINQCARE_ELIG_202604_N'"
+          },
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id_src_1"
+          }
+        ],
+        "select_columns": [
+          "source_system_id",
+          "first_name",
+          "last_name",
+          "middle_name",
+          "date_of_birth",
+          "gender",
+          "location",
+          "care_management_program",
+          "death_date",
+          "record_creation_date",
+          "secure_id",
+          "dnc",
+          "feed_name",
+          "source_system",
+          "created_by",
+          "updated_by",
+          "batch_id"
+        ]
+      },
+      {
+        "name": "customer_orders_test_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "PrepareCustomerOrdersTestFields"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "customer_id",
+          "order_id",
+          "batch_id",
+          "feed_name",
+          "source_system",
+          "created_by",
+          "updated_by",
+          "customer_name",
+          "city",
+          "order_date",
+          "product",
+          "status",
+          "record_creation_date",
+          "record_hash",
+          "created_at",
+          "updated_at"
+        ],
+        "derived_fields": [
+          {
+            "name": "customer_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "city",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "order_date",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "product",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "status",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "record_creation_date",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          }
+        ]
+      },
+      {
+        "name": "customer_orders_test",
+        "transformation": "Writer",
+        "dependent_on": [
+          "customer_orders_test_final"
+        ],
+        "target": {
+          "$ref": "#/targets/customer_orders_test"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "customer_orders_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "PrepareCustomerOrdersFields"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "customer_id",
+          "order_id",
+          "batch_id",
+          "feed_name",
+          "source_system",
+          "created_by",
+          "updated_by",
+          "customer_name",
+          "city",
+          "order_date",
+          "product",
+          "status",
+          "record_creation_date",
+          "record_hash",
+          "created_at",
+          "updated_at"
+        ],
+        "derived_fields": [
+          {
+            "name": "customer_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "city",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "order_date",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "product",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "status",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "record_creation_date",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          }
+        ]
+      },
+      {
+        "name": "customer_orders",
+        "transformation": "Writer",
+        "dependent_on": [
+          "customer_orders_final"
+        ],
+        "target": {
+          "$ref": "#/targets/customer_orders"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "members_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "PrepareMembersFields"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "source_system_id",
+          "first_name",
+          "last_name",
+          "middle_name",
+          "date_of_birth",
+          "gender",
+          "location",
+          "care_management_program",
+          "death_date",
+          "record_creation_date",
+          "secure_id",
+          "dnc",
+          "feed_name",
+          "source_system",
+          "created_by",
+          "updated_by",
+          "batch_id",
+          "suffix",
+          "race",
+          "ethnicity",
+          "language",
+          "last_contact",
+          "dual_status_code",
+          "guardian_first_name",
+          "guardian_last_name",
+          "guardian_phone_number",
+          "guardian_email",
+          "is_active",
+          "record_hash",
+          "source_system_id_type",
+          "created_at",
+          "updated_at"
+        ],
+        "derived_fields": [
+          {
+            "name": "suffix",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "race",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "ethnicity",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "language",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "last_contact",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "dual_status_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "guardian_first_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "guardian_last_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "guardian_phone_number",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "guardian_email",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "source_system_id_type",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          }
+        ]
+      },
+      {
+        "name": "members",
+        "transformation": "Writer",
+        "dependent_on": [
+          "members_final"
+        ],
+        "target": {
+          "$ref": "#/targets/members"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      }
+    ],
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "ingestiongroup2632",
+      "business_date": "2026-06-26",
+      "stages": [
+        "silver_raw"
+      ],
+      "stage_to_transformations": {
+        "silver_raw": [
+          "safeharbor_cinqcare_elig_202604_n_pwwx1",
+          "safeharbor_cinqcare_elig_202604_n_pwwx1_MaxBatchExpr",
+          "safeharbor_cinqcare_elig_202604_n_pwwx1_IngestFilter",
+          "DeduplicateBySourcePatientId",
+          "PrepareCustomerOrdersTestFields",
+          "PrepareCustomerOrdersFields",
+          "ParseMemberNames",
+          "PrepareMembersFields",
+          "customer_orders_test_final",
+          "customer_orders_test",
+          "customer_orders_final",
+          "customer_orders",
+          "members_final",
+          "members"
+        ]
+      },
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "seed_stage_rows": true,
+      "delivery_id": "ingestiongroup2632_2026-06-26",
+      "storage": {
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        },
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        }
+      }
+    }
+  },
+  "pipeline_type": "requirement",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
