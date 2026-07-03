@@ -285,7 +285,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_jobs_sla_testing_1_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1159/sla_testing_1.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1159/sla_testing_1.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -459,7 +459,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_jobs_silver_raw_cinqcare_elig_to_members_load_260703_2795_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1160/silver_raw_cinqcare_elig_to_members_load_260703_2795.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1160/silver_raw_cinqcare_elig_to_members_load_260703_2795.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
