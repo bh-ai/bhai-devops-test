@@ -17,7 +17,7 @@ default_args = {
 with DAG(
     dag_id='ingestiongroup2632_630_620',
     default_args=default_args,
-    schedule='0 9 * * *',
+    schedule='*/30 * * * *',
     catchup=False,
     tags=['dev']
 ) as dag:
@@ -332,7 +332,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_ingestiongroup2632_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1122/ingestiongroup2632.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1122/ingestiongroup2632.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -511,7 +511,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_cinqcare_elig_to_members_orders_load_260626_ba9c_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1123/silver_raw_cinqcare_elig_to_members_orders_load_260626_ba9c.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1123/silver_raw_cinqcare_elig_to_members_orders_load_260626_ba9c.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
