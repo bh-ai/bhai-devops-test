@@ -1,6 +1,6 @@
 {
   "created_at": "2026-06-26T11:54:19.416375Z",
-  "updated_at": "2026-06-26T12:02:10.648166Z",
+  "updated_at": "2026-07-03T07:12:34.597818Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -498,8 +498,8 @@
     "batch_control": {
       "enabled": true,
       "feed_name": "ingestiongroup2632",
-      "business_date": "2026-06-26",
-      "delivery_id": "ingestiongroup2632_2026-06-26",
+      "business_date": "2026-07-03",
+      "delivery_id": "ingestiongroup2632_2026-07-03",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
@@ -533,9 +533,10 @@
       "atomic_commit_enabled": true,
       "group_id": 630,
       "expected_group_members": 1,
-      "group_run_id": "ingestiongroup2632_20260626T120210Z"
+      "group_run_id": "ingestiongroup2632_20260703T071234Z"
     }
   },
+  "draft_pipeline_json": null,
   "pipeline_type": "design",
   "engine_type": "pyspark",
   "total_test_scenario": null,
