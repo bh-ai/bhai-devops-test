@@ -275,7 +275,7 @@
               "version": "1.0.0",
               "project_id": 299,
               "project_name": "flow-test-project",
-              "cron_expression": "0 9 * * *",
+              "cron_expression": "*/30 * * * *",
               "tenant_id": 220,
               "flow_tags": [
                 {
@@ -502,6 +502,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
