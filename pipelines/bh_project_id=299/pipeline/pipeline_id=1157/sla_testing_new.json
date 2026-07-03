@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-03T10:43:25.423004Z",
-  "updated_at": "2026-07-03T14:11:32.151560Z",
+  "updated_at": "2026-07-03T14:13:09.496359Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -533,7 +533,7 @@
       "atomic_commit_enabled": true,
       "group_id": 665,
       "expected_group_members": 1,
-      "group_run_id": "sla_testing_new_20260703T141131Z"
+      "group_run_id": "sla_testing_new_20260703T141308Z"
     }
   },
   "draft_pipeline_json": null,
