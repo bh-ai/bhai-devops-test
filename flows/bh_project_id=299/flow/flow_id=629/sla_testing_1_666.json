@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-03T11:43:59.743856Z",
-  "updated_at": "2026-07-03T11:43:59.743856Z",
+  "updated_at": "2026-07-03T11:44:21.863287Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -10,7 +10,7 @@
   "flow_name": "sla_testing_1_666",
   "flow_key": "sla_testing_1_666",
   "recipient_email": {},
-  "notes": "test SLA feature",
+  "notes": null,
   "tags": null,
   "status": "active",
   "bh_project_name": "flow-test-project",
@@ -36,7 +36,7 @@
           "flow_key": "sla_testing_1_666",
           "bh_project_id": 299,
           "recipient_email": {},
-          "notes": "test SLA feature",
+          "notes": null,
           "tags": null,
           "status": "active",
           "alert_settings": {
@@ -350,7 +350,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -374,8 +373,11 @@
           "bh_airflow_id": null,
           "flow_version_id": null,
           "schema_id": null,
-          "cron_expression": null,
-          "last_deployed_at": null,
+          "cron_expression": {
+            "is_scheduled": true,
+            "cron_expression": "*/15 * * * *"
+          },
+          "last_deployed_at": "2026-07-03 11:44:20.806546+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
