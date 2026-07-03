@@ -19,8 +19,8 @@
   },
   "status": "active",
   "pipeline_version_id": null,
-  "bh_project_name": null,
-  "bh_github_username": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-varadha-git",
   "pipeline_json": {
     "$schema": "https://json-schema.org/draft-07/schema#",
     "name": "silver_raw_cinqcare_elig_to_members_orders_load_260626_ba9c",
@@ -1124,6 +1124,7 @@
       }
     }
   },
+  "draft_pipeline_json": null,
   "pipeline_type": "requirement",
   "engine_type": "pyspark",
   "total_test_scenario": null,
