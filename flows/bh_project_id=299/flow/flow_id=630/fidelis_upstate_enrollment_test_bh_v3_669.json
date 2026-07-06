@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-06T08:26:44.326010Z",
-  "updated_at": "2026-07-06T08:26:44.326010Z",
+  "updated_at": "2026-07-06T08:27:13.133524Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -10,7 +10,7 @@
   "flow_name": "fidelis_upstate_enrollment_test_bh_v3_669",
   "flow_key": "fidelis_upstate_enrollment_test_bh_v3_669",
   "recipient_email": {},
-  "notes": "testing",
+  "notes": null,
   "tags": null,
   "status": "active",
   "bh_project_name": "flow-test-project",
@@ -36,7 +36,7 @@
           "flow_key": "fidelis_upstate_enrollment_test_bh_v3_669",
           "bh_project_id": 299,
           "recipient_email": {},
-          "notes": "testing",
+          "notes": null,
           "tags": null,
           "status": "active",
           "alert_settings": {
@@ -502,7 +502,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -527,7 +526,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-07-06 08:27:12.031403+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
