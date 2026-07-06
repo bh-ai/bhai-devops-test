@@ -2061,7 +2061,8 @@
           "mode": "merge",
           "createDisposition": "CREATE_IF_NEEDED",
           "writeMethod": "direct"
-        }
+        },
+        "post_sql": "UPDATE cinqdev.silverraw_enrollment.members_enrollment_segments t\nSET enrollment_end_date = last_day(add_months(\n        (SELECT MAX(enrollment_start_date)\n         FROM cinqdev.silverraw_enrollment.members_enrollment_segments s WHERE source_system='fidelis_ny_us'), \n        -1))\nWHERE enrollment_end_date IS NULL\n  AND is_active = false;"
       },
       {
         "name": "member_provider",
