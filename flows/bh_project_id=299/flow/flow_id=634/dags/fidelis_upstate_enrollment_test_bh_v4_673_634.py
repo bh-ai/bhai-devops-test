@@ -332,7 +332,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_fidelis_upstate_enrollment_test_bh_v4_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1166/fidelis_upstate_enrollment_test_bh_v4.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1166/fidelis_upstate_enrollment_test_bh_v4.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -511,7 +511,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_fidelis_ny_dedupe_to_members_load_260707_5b73_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1172/silver_raw_fidelis_ny_dedupe_to_members_load_260707_5b73.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1172/silver_raw_fidelis_ny_dedupe_to_members_load_260707_5b73.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
