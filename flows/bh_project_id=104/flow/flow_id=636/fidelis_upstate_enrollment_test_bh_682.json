@@ -1,0 +1,556 @@
+{
+  "created_at": "2026-07-08T18:14:00.931289Z",
+  "updated_at": "2026-07-08T18:14:00.931289Z",
+  "created_by": "dhanushpathi@bighammer.ai",
+  "updated_by": "dhanushpathi@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 113,
+  "flow_id": 636,
+  "flow_name": "fidelis_upstate_enrollment_test_bh_682",
+  "flow_key": "fidelis_upstate_enrollment_test_bh_682",
+  "recipient_email": {},
+  "notes": "testing",
+  "tags": null,
+  "status": "active",
+  "bh_project_name": "bighammer",
+  "bh_project_id": 104,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 636
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 636,
+        "data": {
+          "flow_id": 636,
+          "flow_name": "fidelis_upstate_enrollment_test_bh_682",
+          "flow_key": "fidelis_upstate_enrollment_test_bh_682",
+          "bh_project_id": 104,
+          "recipient_email": {},
+          "notes": "testing",
+          "tags": null,
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
+        "pk": 280,
+        "data": {
+          "flow_pipeline_mapping_id": 280,
+          "flow_id": 636,
+          "pipeline_id": 1177,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
+        "pk": 279,
+        "data": {
+          "flow_pipeline_mapping_id": 279,
+          "flow_id": 636,
+          "pipeline_id": 1176,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1832,
+        "data": {
+          "flow_parameter_id": 1832,
+          "flow_id": 636,
+          "parameter_name": "sources",
+          "parameter_value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch\", \"filename_regex\": \"safeharbor_CINQDOWNSTATE_Member_Roster_.*.xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1839,
+        "data": {
+          "flow_parameter_id": 1839,
+          "flow_id": 636,
+          "parameter_name": "source_prefix",
+          "parameter_value": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1837,
+        "data": {
+          "flow_parameter_id": 1837,
+          "flow_id": 636,
+          "parameter_name": "pipelines",
+          "parameter_value": "[{\"id\": 1176, \"name\": \"fidelis_upstate_enrollment_test_bh\", \"pipeline_name\": \"fidelis_upstate_enrollment_test_bh\"}, {\"id\": 1177, \"name\": \"silver_raw_fidelis_ny_bh_dedupe_to_members_load_260708_6e56\", \"pipeline_name\": \"silver_raw_fidelis_ny_bh_dedupe_to_members_load_260708_6e56\"}]",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1829,
+        "data": {
+          "flow_parameter_id": 1829,
+          "flow_id": 636,
+          "parameter_name": "parallelization_factor",
+          "parameter_value": 1,
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1834,
+        "data": {
+          "flow_parameter_id": 1834,
+          "flow_id": 636,
+          "parameter_name": "files",
+          "parameter_value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"base_name\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"relative_key\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"size_bytes\": 12694666}]",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1833,
+        "data": {
+          "flow_parameter_id": 1833,
+          "flow_id": 636,
+          "parameter_name": "fail_on_invalid",
+          "parameter_value": true,
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1828,
+        "data": {
+          "flow_parameter_id": 1828,
+          "flow_id": 636,
+          "parameter_name": "execute_in_parallel",
+          "parameter_value": false,
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1835,
+        "data": {
+          "flow_parameter_id": 1835,
+          "flow_id": 636,
+          "parameter_name": "delete_source",
+          "parameter_value": true,
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1831,
+        "data": {
+          "flow_parameter_id": 1831,
+          "flow_id": 636,
+          "parameter_name": "compute_type",
+          "parameter_value": "DATABRICKS_CLUSTER",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1830,
+        "data": {
+          "flow_parameter_id": 1830,
+          "flow_id": 636,
+          "parameter_name": "cloud_type",
+          "parameter_value": "databricks",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1838,
+        "data": {
+          "flow_parameter_id": 1838,
+          "flow_id": 636,
+          "parameter_name": "bucket_name",
+          "parameter_value": "my-test-bucket",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1840,
+        "data": {
+          "flow_parameter_id": 1840,
+          "flow_id": 636,
+          "parameter_name": "archive_prefix",
+          "parameter_value": "Archive/bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1836,
+        "data": {
+          "flow_parameter_id": 1836,
+          "flow_id": 636,
+          "parameter_name": "allow_empty",
+          "parameter_value": true,
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 636,
+        "data": {
+          "flow_definition_id": 636,
+          "flow_id": 636,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "https://json-schema.org/draft-07/schema#",
+              "name": "fidelis_upstate_enrollment_test_bh_682",
+              "flow_name": "fidelis_upstate_enrollment_test_bh_682",
+              "flow_id": 636,
+              "flow_key": "fidelis_upstate_enrollment_test_bh_682",
+              "flow_type": "INGESTION",
+              "description": "testing",
+              "version": "1.0.0",
+              "project_id": 104,
+              "project_name": "bighammer",
+              "cron_expression": null,
+              "tenant_id": 113,
+              "flow_tags": [
+                {
+                  "key": "environment",
+                  "value": "dev"
+                }
+              ],
+              "parameters": [
+                {
+                  "key": "allow_empty",
+                  "value": true
+                },
+                {
+                  "key": "archive_prefix",
+                  "value": "Archive/bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch"
+                },
+                {
+                  "key": "bucket_name",
+                  "value": "my-test-bucket"
+                },
+                {
+                  "key": "cloud_type",
+                  "value": "databricks"
+                },
+                {
+                  "key": "compute_type",
+                  "value": "DATABRICKS_CLUSTER"
+                },
+                {
+                  "key": "delete_source",
+                  "value": true
+                },
+                {
+                  "key": "execute_in_parallel",
+                  "value": false
+                },
+                {
+                  "key": "fail_on_invalid",
+                  "value": true
+                },
+                {
+                  "key": "files",
+                  "value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"base_name\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"relative_key\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"size_bytes\": 12694666}]"
+                },
+                {
+                  "key": "parallelization_factor",
+                  "value": 1
+                },
+                {
+                  "key": "pipelines",
+                  "value": "[{\"id\": 1176, \"name\": \"fidelis_upstate_enrollment_test_bh\", \"pipeline_name\": \"fidelis_upstate_enrollment_test_bh\"}, {\"id\": 1177, \"name\": \"silver_raw_fidelis_ny_bh_dedupe_to_members_load_260708_6e56\", \"pipeline_name\": \"silver_raw_fidelis_ny_bh_dedupe_to_members_load_260708_6e56\"}]"
+                },
+                {
+                  "key": "source_prefix",
+                  "value": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch"
+                },
+                {
+                  "key": "sources",
+                  "value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch\", \"filename_regex\": \"safeharbor_CINQDOWNSTATE_Member_Roster_.*.xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]"
+                }
+              ],
+              "tasks": [
+                {
+                  "task_id": "validate_inbound_files",
+                  "type": "ValidateInboundFiles",
+                  "depends_on": [],
+                  "bucket_name": "my-test-bucket",
+                  "source_prefix": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-blobstoragedbenv",
+                  "fail_on_invalid": true,
+                  "sources": [
+                    {
+                      "source_name": "safeharbor_cinqdownstate_member_roster_03_05_2026",
+                      "prefix": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch",
+                      "filename_regex": "safeharbor_CINQDOWNSTATE_Member_Roster_.*.xlsx",
+                      "ignore_subfolders": true,
+                      "is_required": true,
+                      "min_bytes": 10,
+                      "min_files": 1
+                    }
+                  ],
+                  "feed_name": "fidelis_upstate_enrollment_test_bh",
+                  "name": "Validate",
+                  "nodeId": "validate_validate_inbound_files"
+                },
+                {
+                  "task_id": "create_compute",
+                  "type": "CreateCompute",
+                  "depends_on": [
+                    "validate_inbound_files"
+                  ],
+                  "cluster_name": "single-node-cluster",
+                  "compute_config": {
+                    "compute_config_id": 159,
+                    "compute_config_name": "single-node-cluster",
+                    "compute_type": "DATABRICKS_CLUSTER",
+                    "bh_env_id": 287,
+                    "compute_config": {
+                      "cluster_name": "single-node-cluster",
+                      "spark_version": "15.4.x-scala2.12",
+                      "node_type_id": "Standard_D16ds_v5",
+                      "num_workers": 0,
+                      "autoscale": null,
+                      "driver_node_type_id": null,
+                      "runtime_engine": null,
+                      "data_security_mode": "SINGLE_USER",
+                      "single_user_name": "sathish@bighammer.ai",
+                      "policy_id": null,
+                      "apply_policy_default_values": true,
+                      "idempotency_token": null,
+                      "aws_attributes": null,
+                      "azure_attributes": null,
+                      "gcp_attributes": null,
+                      "single_node": false,
+                      "autotermination_minutes": 15,
+                      "pool_enabled": true,
+                      "pool_max_size": 2,
+                      "pool_max_concurrent_leases": 2,
+                      "pool_lease_ttl_minutes": 30,
+                      "pool_heartbeat_interval_seconds": 120,
+                      "pool_starting_timeout_minutes": 30,
+                      "pool_acquire_wait_seconds": 300,
+                      "enable_elastic_disk": true,
+                      "spark_conf": {},
+                      "spark_env_vars": {
+                        "SECRET_MANAGER_PROVIDER": "databricks",
+                        "PIPELINE_EXECUTION_MODE": "parallel",
+                        "PIPELINE_PARALLEL_MAX_WORKERS": "12"
+                      },
+                      "custom_tags": {},
+                      "cluster_log_conf": null,
+                      "init_scripts": [
+                        "/Workspace/Shared/bh-dev-utils/scripts/bh_databricks_grpc_server.sh"
+                      ],
+                      "libraries": [],
+                      "databricks_region": null,
+                      "bh_tags": []
+                    }
+                  },
+                  "cloud_type": "databricks",
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "airflow_connection_id": "databricks_default",
+                  "output_variables": [
+                    {
+                      "id": "compute_id",
+                      "label": "Cluster / job identifier",
+                      "xcom_key": "return_value"
+                    }
+                  ],
+                  "name": "Create_Compute",
+                  "nodeId": "create_compute_create_compute",
+                  "compute_config_id": 159,
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120
+                },
+                {
+                  "task_id": "run_pipelines_fidelis_upstate_enrollment_test_bh",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "create_compute"
+                  ],
+                  "bh_project_name": "bighammer",
+                  "pipeline_key": "fidelis_upstate_enrollment_test_bh",
+                  "pipeline_name": "fidelis_upstate_enrollment_test_bh",
+                  "pipeline_id": 1176,
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+                  "name": "Submit_Job",
+                  "nodeId": "Submit_Job_run_pipelines_fidelis_upstate_enrollment_test_bh",
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
+                },
+                {
+                  "task_id": "run_pipelines_silver_raw_fidelis_ny_bh_dedupe_to_members_load_260708_6e56",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "run_pipelines_fidelis_upstate_enrollment_test_bh"
+                  ],
+                  "bh_project_name": "bighammer",
+                  "pipeline_key": "silver_raw_fidelis_ny_bh_dedupe_to_members_load_260708_6e56",
+                  "pipeline_name": "silver_raw_fidelis_ny_bh_dedupe_to_members_load_260708_6e56",
+                  "pipeline_id": 1177,
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+                  "name": "Submit_Job_2",
+                  "nodeId": "Submit_Job_run_pipelines_silver_raw_fidelis_ny_bh_dedupe_to_members_load_260708_6e56",
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": true
+                },
+                {
+                  "task_id": "archive_processed_files",
+                  "type": "ArchiveProcessedFiles",
+                  "depends_on": [
+                    "run_pipelines_silver_raw_fidelis_ny_bh_dedupe_to_members_load_260708_6e56"
+                  ],
+                  "bucket_name": "my-test-bucket",
+                  "cloud_type": "databricks",
+                  "archive_prefix": "Archive/bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch",
+                  "files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "airflow_connection_id": "databricks_default",
+                  "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-blobstoragedbenv",
+                  "delete_source": true,
+                  "allow_empty": true,
+                  "name": "Archive",
+                  "nodeId": "archive_archive_processed_files"
+                },
+                {
+                  "task_id": "delete_compute",
+                  "type": "DeleteCompute",
+                  "depends_on": [
+                    "archive_processed_files"
+                  ],
+                  "cloud_type": "databricks",
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "airflow_connection_id": "databricks_default",
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "name": "Delete_Compute",
+                  "nodeId": "delete_compute_delete_compute",
+                  "pool_enabled": true
+                }
+              ],
+              "bh_environment_id": 287,
+              "template_parameters": [],
+              "bh_project_id": 104,
+              "bh_environment_name": "bh_dhanu_databricks",
+              "cloud_provider": "databricks",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net",
+              "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-dhanushpathi-databricks-keycloak-287-v1-secrets",
+              "ingestion_group_id": 682
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 636,
+        "data": {
+          "flow_deployment_id": 636,
+          "flow_id": 636,
+          "bh_env_id": 287,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
