@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-08T18:14:00.931289Z",
-  "updated_at": "2026-07-08T18:14:00.931289Z",
+  "updated_at": "2026-07-08T18:14:42.994757Z",
   "created_by": "dhanushpathi@bighammer.ai",
   "updated_by": "dhanushpathi@bighammer.ai",
   "is_deleted": false,
@@ -10,7 +10,7 @@
   "flow_name": "fidelis_upstate_enrollment_test_bh_682",
   "flow_key": "fidelis_upstate_enrollment_test_bh_682",
   "recipient_email": {},
-  "notes": "testing",
+  "notes": null,
   "tags": null,
   "status": "active",
   "bh_project_name": "bighammer",
@@ -36,7 +36,7 @@
           "flow_key": "fidelis_upstate_enrollment_test_bh_682",
           "bh_project_id": 104,
           "recipient_email": {},
-          "notes": "testing",
+          "notes": null,
           "tags": null,
           "status": "active",
           "alert_settings": {
@@ -519,7 +519,6 @@
                 }
               ],
               "bh_environment_id": 287,
-              "template_parameters": [],
               "bh_project_id": 104,
               "bh_environment_name": "bh_dhanu_databricks",
               "cloud_provider": "databricks",
@@ -545,7 +544,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-07-08 18:14:41.549491+00:00",
           "tenant_id": 113,
           "is_deleted": false,
           "deleted_by": null
