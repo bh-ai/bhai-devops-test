@@ -155,10 +155,12 @@ with DAG(
                 },
                 "spark_env_vars": {
                     "SECRET_MANAGER_PROVIDER": "databricks",
-                    "PIPELINE_EXECUTION_MODE": "parallel"
+                    "PIPELINE_EXECUTION_MODE": "parallel",
+                    "PIPELINE_PARALLEL_MAX_WORKERS": "4"
                 },
                 "custom_tags": {},
                 "init_scripts": [
+                    "/Workspace/Shared/dev-utils/scripts/bh_databricks_grpc_server.sh",
                     "/Workspace/Shared/dev-utils/scripts/install-plan-listener.sh"
                 ],
                 "libraries": [],
@@ -399,7 +401,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_employees_1_v31_680_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1174/employees_1_v31_680.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1174/employees_1_v31_680.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ],
