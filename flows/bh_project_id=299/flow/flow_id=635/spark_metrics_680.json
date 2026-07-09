@@ -392,11 +392,14 @@
                       "spark_conf": {},
                       "spark_env_vars": {
                         "SECRET_MANAGER_PROVIDER": "databricks",
-                        "PIPELINE_EXECUTION_MODE": "parallel"
+                        "PIPELINE_EXECUTION_MODE": "parallel",
+                        "PIPELINE_PARALLEL_MAX_WORKERS": "4"
                       },
                       "custom_tags": {},
                       "cluster_log_conf": null,
-                      "init_scripts": [],
+                      "init_scripts": [
+                        "/Workspace/Shared/dev-utils/scripts/bh_databricks_grpc_server.sh"
+                      ],
                       "libraries": [],
                       "databricks_region": null,
                       "bh_tags": [],
@@ -486,6 +489,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -514,7 +518,7 @@
             "is_scheduled": true,
             "cron_expression": "0 0 1 * *"
           },
-          "last_deployed_at": "2026-07-09 07:05:56.328142+00:00",
+          "last_deployed_at": "2026-07-09 07:19:11.703129+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
