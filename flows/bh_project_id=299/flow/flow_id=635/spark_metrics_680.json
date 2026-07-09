@@ -65,6 +65,34 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 1825,
+        "data": {
+          "flow_parameter_id": 1825,
+          "flow_id": 635,
+          "parameter_name": "bucket_name",
+          "parameter_value": "my-test-bucket",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1823,
+        "data": {
+          "flow_parameter_id": 1823,
+          "flow_id": 635,
+          "parameter_name": "allow_empty",
+          "parameter_value": true,
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 1819,
         "data": {
           "flow_parameter_id": 1819,
@@ -79,12 +107,12 @@
       },
       {
         "model": "FlowParameter",
-        "pk": 1826,
+        "pk": 1827,
         "data": {
-          "flow_parameter_id": 1826,
+          "flow_parameter_id": 1827,
           "flow_id": 635,
-          "parameter_name": "source_prefix",
-          "parameter_value": "local",
+          "parameter_name": "archive_prefix",
+          "parameter_value": "Archive/local",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -107,54 +135,12 @@
       },
       {
         "model": "FlowParameter",
-        "pk": 1816,
-        "data": {
-          "flow_parameter_id": 1816,
-          "flow_id": 635,
-          "parameter_name": "parallelization_factor",
-          "parameter_value": 1,
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
         "pk": 1821,
         "data": {
           "flow_parameter_id": 1821,
           "flow_id": 635,
           "parameter_name": "files",
           "parameter_value": "[{\"key\": \"local/employees_1_v31.csv\", \"base_name\": \"employees_1_v31.csv\", \"source_name\": \"employees_1_v31\", \"relative_key\": \"employees_1_v31.csv\", \"size_bytes\": 541976}]",
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
-        "pk": 1820,
-        "data": {
-          "flow_parameter_id": 1820,
-          "flow_id": 635,
-          "parameter_name": "fail_on_invalid",
-          "parameter_value": true,
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
-        "pk": 1815,
-        "data": {
-          "flow_parameter_id": 1815,
-          "flow_id": 635,
-          "parameter_name": "execute_in_parallel",
-          "parameter_value": false,
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -191,6 +177,20 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 1820,
+        "data": {
+          "flow_parameter_id": 1820,
+          "flow_id": 635,
+          "parameter_name": "fail_on_invalid",
+          "parameter_value": true,
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 1817,
         "data": {
           "flow_parameter_id": 1817,
@@ -205,12 +205,12 @@
       },
       {
         "model": "FlowParameter",
-        "pk": 1825,
+        "pk": 1816,
         "data": {
-          "flow_parameter_id": 1825,
+          "flow_parameter_id": 1816,
           "flow_id": 635,
-          "parameter_name": "bucket_name",
-          "parameter_value": "my-test-bucket",
+          "parameter_name": "parallelization_factor",
+          "parameter_value": 1,
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -219,12 +219,12 @@
       },
       {
         "model": "FlowParameter",
-        "pk": 1827,
+        "pk": 1815,
         "data": {
-          "flow_parameter_id": 1827,
+          "flow_parameter_id": 1815,
           "flow_id": 635,
-          "parameter_name": "archive_prefix",
-          "parameter_value": "Archive/local",
+          "parameter_name": "execute_in_parallel",
+          "parameter_value": false,
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -233,12 +233,12 @@
       },
       {
         "model": "FlowParameter",
-        "pk": 1823,
+        "pk": 1826,
         "data": {
-          "flow_parameter_id": 1823,
+          "flow_parameter_id": 1826,
           "flow_id": 635,
-          "parameter_name": "allow_empty",
-          "parameter_value": true,
+          "parameter_name": "source_prefix",
+          "parameter_value": "local",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -273,20 +273,24 @@
               ],
               "parameters": [
                 {
-                  "key": "allow_empty",
-                  "value": true
+                  "key": "source_prefix",
+                  "value": "local"
                 },
                 {
-                  "key": "archive_prefix",
-                  "value": "Archive/local"
+                  "key": "execute_in_parallel",
+                  "value": false
                 },
                 {
-                  "key": "bucket_name",
-                  "value": "my-test-bucket"
+                  "key": "parallelization_factor",
+                  "value": 1
                 },
                 {
                   "key": "cloud_type",
                   "value": "databricks"
+                },
+                {
+                  "key": "fail_on_invalid",
+                  "value": true
                 },
                 {
                   "key": "compute_type",
@@ -297,32 +301,28 @@
                   "value": true
                 },
                 {
-                  "key": "execute_in_parallel",
-                  "value": false
-                },
-                {
-                  "key": "fail_on_invalid",
-                  "value": true
-                },
-                {
                   "key": "files",
                   "value": "[{\"key\": \"local/employees_1_v31.csv\", \"base_name\": \"employees_1_v31.csv\", \"source_name\": \"employees_1_v31\", \"relative_key\": \"employees_1_v31.csv\", \"size_bytes\": 541976}]"
-                },
-                {
-                  "key": "parallelization_factor",
-                  "value": 1
                 },
                 {
                   "key": "pipelines",
                   "value": "[{\"id\": 1174, \"name\": \"employees_1_v31_680\", \"pipeline_name\": \"employees_1_v31_680\"}]"
                 },
                 {
-                  "key": "source_prefix",
-                  "value": "local"
+                  "key": "archive_prefix",
+                  "value": "Archive/local"
                 },
                 {
                   "key": "sources",
                   "value": "[{\"source_name\": \"employees_1_v31\", \"prefix\": \"local\", \"filename_regex\": \"employees_1_v31.csv\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]"
+                },
+                {
+                  "key": "allow_empty",
+                  "value": true
+                },
+                {
+                  "key": "bucket_name",
+                  "value": "my-test-bucket"
                 }
               ],
               "tasks": [
@@ -501,7 +501,7 @@
             "is_scheduled": true,
             "cron_expression": "0 0 1 * *"
           },
-          "last_deployed_at": "2026-07-08 16:44:48.823458+00:00",
+          "last_deployed_at": "2026-07-09 03:31:29.151952+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
