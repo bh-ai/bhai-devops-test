@@ -65,6 +65,20 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 1825,
+        "data": {
+          "flow_parameter_id": 1825,
+          "flow_id": 635,
+          "parameter_name": "bucket_name",
+          "parameter_value": "my-test-bucket",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 1823,
         "data": {
           "flow_parameter_id": 1823,
@@ -197,20 +211,6 @@
           "flow_id": 635,
           "parameter_name": "parallelization_factor",
           "parameter_value": 1,
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
-        "pk": 1825,
-        "data": {
-          "flow_parameter_id": 1825,
-          "flow_id": 635,
-          "parameter_name": "bucket_name",
-          "parameter_value": "my-test-bucket",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -472,7 +472,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
