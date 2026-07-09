@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-08T16:40:40.437316Z",
-  "updated_at": "2026-07-08T16:43:42.530525Z",
+  "updated_at": "2026-07-09T03:30:36.716838Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -318,8 +318,8 @@
     "batch_control": {
       "enabled": true,
       "feed_name": "spark_metrics",
-      "business_date": "2026-07-08",
-      "delivery_id": "employees_1_v31_2026-07-08",
+      "business_date": "2026-07-09",
+      "delivery_id": "employees_1_v31_2026-07-09",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
