@@ -65,20 +65,6 @@
       },
       {
         "model": "FlowParameter",
-        "pk": 1825,
-        "data": {
-          "flow_parameter_id": 1825,
-          "flow_id": 635,
-          "parameter_name": "bucket_name",
-          "parameter_value": "my-test-bucket",
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
         "pk": 1823,
         "data": {
           "flow_parameter_id": 1823,
@@ -219,6 +205,20 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 1825,
+        "data": {
+          "flow_parameter_id": 1825,
+          "flow_id": 635,
+          "parameter_name": "bucket_name",
+          "parameter_value": "my-test-bucket",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 1815,
         "data": {
           "flow_parameter_id": 1815,
@@ -281,6 +281,10 @@
                   "value": false
                 },
                 {
+                  "key": "bucket_name",
+                  "value": "my-test-bucket"
+                },
+                {
                   "key": "parallelization_factor",
                   "value": 1
                 },
@@ -319,10 +323,6 @@
                 {
                   "key": "allow_empty",
                   "value": true
-                },
-                {
-                  "key": "bucket_name",
-                  "value": "my-test-bucket"
                 }
               ],
               "tasks": [
@@ -501,7 +501,7 @@
             "is_scheduled": true,
             "cron_expression": "0 0 1 * *"
           },
-          "last_deployed_at": "2026-07-09 04:13:08.890550+00:00",
+          "last_deployed_at": "2026-07-09 05:42:18.409674+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
