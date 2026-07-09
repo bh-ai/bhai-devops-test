@@ -79,6 +79,20 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 1826,
+        "data": {
+          "flow_parameter_id": 1826,
+          "flow_id": 635,
+          "parameter_name": "source_prefix",
+          "parameter_value": "local",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 1825,
         "data": {
           "flow_parameter_id": 1825,
@@ -99,6 +113,20 @@
           "flow_id": 635,
           "parameter_name": "pipelines",
           "parameter_value": "[{\"id\": 1174, \"name\": \"employees_1_v31_680\", \"pipeline_name\": \"employees_1_v31_680\"}]",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1823,
+        "data": {
+          "flow_parameter_id": 1823,
+          "flow_id": 635,
+          "parameter_name": "allow_empty",
+          "parameter_value": true,
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -135,82 +163,12 @@
       },
       {
         "model": "FlowParameter",
-        "pk": 1815,
-        "data": {
-          "flow_parameter_id": 1815,
-          "flow_id": 635,
-          "parameter_name": "execute_in_parallel",
-          "parameter_value": false,
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
-        "pk": 1826,
-        "data": {
-          "flow_parameter_id": 1826,
-          "flow_id": 635,
-          "parameter_name": "source_prefix",
-          "parameter_value": "local",
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
-        "pk": 1818,
-        "data": {
-          "flow_parameter_id": 1818,
-          "flow_id": 635,
-          "parameter_name": "compute_type",
-          "parameter_value": "DATABRICKS_CLUSTER",
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
-        "pk": 1823,
-        "data": {
-          "flow_parameter_id": 1823,
-          "flow_id": 635,
-          "parameter_name": "allow_empty",
-          "parameter_value": true,
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
         "pk": 1820,
         "data": {
           "flow_parameter_id": 1820,
           "flow_id": 635,
           "parameter_name": "fail_on_invalid",
           "parameter_value": true,
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
-        "pk": 1817,
-        "data": {
-          "flow_parameter_id": 1817,
-          "flow_id": 635,
-          "parameter_name": "cloud_type",
-          "parameter_value": "databricks",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -233,12 +191,54 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 1818,
+        "data": {
+          "flow_parameter_id": 1818,
+          "flow_id": 635,
+          "parameter_name": "compute_type",
+          "parameter_value": "DATABRICKS_CLUSTER",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1817,
+        "data": {
+          "flow_parameter_id": 1817,
+          "flow_id": 635,
+          "parameter_name": "cloud_type",
+          "parameter_value": "databricks",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 1816,
         "data": {
           "flow_parameter_id": 1816,
           "flow_id": 635,
           "parameter_name": "parallelization_factor",
           "parameter_value": 1,
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 1815,
+        "data": {
+          "flow_parameter_id": 1815,
+          "flow_id": 635,
+          "parameter_name": "execute_in_parallel",
+          "parameter_value": false,
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -357,17 +357,17 @@
                   "depends_on": [
                     "validate_inbound_files"
                   ],
-                  "cluster_name": "test-dbricks-cmp-001",
+                  "cluster_name": "databricks_spark_cluster",
                   "compute_config": {
-                    "compute_config_id": 145,
-                    "compute_config_name": "test-dbricks-cmp-001",
+                    "compute_config_id": 160,
+                    "compute_config_name": "databricks_spark_cluster",
                     "compute_type": "DATABRICKS_CLUSTER",
                     "bh_env_id": 331,
                     "compute_config": {
-                      "cluster_name": "flow_service_databricks_AK_Local_0303_V1",
+                      "cluster_name": "spark_metrics_compute",
                       "spark_version": "15.4.x-scala2.12",
                       "node_type_id": "Standard_D4s_v3",
-                      "num_workers": 0,
+                      "num_workers": 2,
                       "autoscale": null,
                       "driver_node_type_id": null,
                       "runtime_engine": null,
@@ -379,23 +379,37 @@
                       "aws_attributes": null,
                       "azure_attributes": null,
                       "gcp_attributes": null,
-                      "single_node": true,
+                      "single_node": false,
                       "autotermination_minutes": 15,
+                      "pool_enabled": false,
+                      "pool_max_size": 2,
+                      "pool_max_concurrent_leases": 1,
+                      "pool_lease_ttl_minutes": 30,
+                      "pool_heartbeat_interval_seconds": 120,
+                      "pool_starting_timeout_minutes": 30,
+                      "pool_acquire_wait_seconds": 300,
                       "enable_elastic_disk": true,
                       "spark_conf": {},
                       "spark_env_vars": {
                         "SECRET_MANAGER_PROVIDER": "databricks",
-                        "PIPELINE_EXECUTION_MODE": "parallel",
-                        "PIPELINE_PARALLEL_MAX_WORKERS": "12"
+                        "PIPELINE_EXECUTION_MODE": "parallel"
                       },
                       "custom_tags": {},
                       "cluster_log_conf": null,
-                      "init_scripts": [
-                        "/Workspace/Shared/dev-utils/scripts/bh_test_databricks_grpc_server_codeartifact.sh"
-                      ],
+                      "init_scripts": [],
                       "libraries": [],
-                      "databricks_region": "us-west-1",
-                      "bh_tags": []
+                      "databricks_region": null,
+                      "bh_tags": [],
+                      "spark_custom_listener": {
+                        "enabled": true,
+                        "output_base": "abfss://my-test-bucket@bhnprddwestus3rgbd5e.dfs.core.windows.net/spark-metrics",
+                        "openlineage_enabled": true,
+                        "adaptive_enabled": true,
+                        "analyze_on_cluster": true,
+                        "python_executable": "/databricks/python3/bin/python3",
+                        "init_script": "/Workspace/Shared/dev-utils/scripts/install-plan-listener.sh",
+                        "blob_secrets_scope": "bh_secret_scope_verato"
+                      }
                     }
                   },
                   "cloud_type": "databricks",
@@ -410,7 +424,7 @@
                   ],
                   "name": "Create_Compute",
                   "nodeId": "create_compute_create_compute",
-                  "compute_config_id": 145,
+                  "compute_config_id": 160,
                   "pool_enabled": false
                 },
                 {
@@ -472,6 +486,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -500,7 +515,7 @@
             "is_scheduled": true,
             "cron_expression": "0 0 1 * *"
           },
-          "last_deployed_at": "2026-07-09 06:35:12.477051+00:00",
+          "last_deployed_at": "2026-07-09 07:05:56.328142+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
