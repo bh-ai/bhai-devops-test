@@ -79,6 +79,20 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 1819,
+        "data": {
+          "flow_parameter_id": 1819,
+          "flow_id": 635,
+          "parameter_name": "sources",
+          "parameter_value": "[{\"source_name\": \"employees_1_v31\", \"prefix\": \"local\", \"filename_regex\": \"employees_1_v31.csv\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 1827,
         "data": {
           "flow_parameter_id": 1827,
@@ -169,20 +183,6 @@
           "flow_id": 635,
           "parameter_name": "cloud_type",
           "parameter_value": "databricks",
-          "parameter_type": "USER",
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowParameter",
-        "pk": 1819,
-        "data": {
-          "flow_parameter_id": 1819,
-          "flow_id": 635,
-          "parameter_name": "sources",
-          "parameter_value": "[{\"source_name\": \"employees_1_v31\", \"prefix\": \"local\", \"filename_regex\": \"employees_1_v31.csv\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
