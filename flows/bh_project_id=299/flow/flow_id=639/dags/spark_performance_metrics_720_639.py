@@ -408,7 +408,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_employees_1_v31_720_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1200/employees_1_v31_720.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1200/employees_1_v31_720.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ],
