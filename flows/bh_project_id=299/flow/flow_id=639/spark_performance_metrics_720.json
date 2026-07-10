@@ -404,14 +404,14 @@
                       "databricks_region": null,
                       "bh_tags": [],
                       "spark_custom_listener": {
-                        "enabled": true,
+                        "enabled": false,
                         "output_base": "abfss://my-test-bucket@bhnprddwestus3rgbd5e.dfs.core.windows.net/spark-metrics",
                         "openlineage_enabled": true,
                         "adaptive_enabled": true,
                         "analyze_on_cluster": true,
                         "python_executable": "/databricks/python3/bin/python3",
                         "init_script": "/Workspace/Shared/dev-utils/scripts/install-plan-listener.sh",
-                        "blob_secrets_scope": "bh_secret_scope_verato"
+                        "blob_secrets_scope": "bh-dev-test-key-scope"
                       }
                     }
                   },
@@ -489,6 +489,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
