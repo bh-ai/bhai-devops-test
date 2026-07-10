@@ -341,7 +341,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_ingestiongroup107107_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1207/ingestiongroup107107.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1207/ingestiongroup107107.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -527,7 +527,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_member_data_parsing_and_mapping_260710_6f84_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1208/silver_raw_member_data_parsing_and_mapping_260710_6f84.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1208/silver_raw_member_data_parsing_and_mapping_260710_6f84.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
