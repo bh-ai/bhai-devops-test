@@ -404,7 +404,7 @@
                       "databricks_region": null,
                       "bh_tags": [],
                       "spark_custom_listener": {
-                        "enabled": false,
+                        "enabled": true,
                         "output_base": "abfss://my-test-bucket@bhnprddwestus3rgbd5e.dfs.core.windows.net/spark-metrics",
                         "openlineage_enabled": true,
                         "adaptive_enabled": true,
@@ -489,6 +489,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -514,7 +515,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-07-09 12:07:34.818281+00:00",
+          "last_deployed_at": "2026-07-10 11:19:16.800278+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
