@@ -146,7 +146,15 @@ with DAG(
                 "pool_starting_timeout_minutes": 30,
                 "pool_acquire_wait_seconds": 300,
                 "enable_elastic_disk": True,
-                "spark_conf": {},
+                "spark_conf": {
+                    "spark.sql.queryExecutionListeners": "ai.bighammer.spark.listener.SQLAndMetricsCaptureListener",
+                    "spark.costanalyzer.outputDir": "abfss://my-test-bucket@bhnprddwestus3rgbd5e.dfs.core.windows.net/spark-metrics/639/spark_performance_metrics_720/",
+                    "spark.flow.id": "639",
+                    "spark.openlineage.metrics.enabled": "True",
+                    "spark.sql.adaptive.enabled": "True",
+                    "spark.costanalyzer.analyzeOnCluster": "True",
+                    "spark.costanalyzer.pythonExecutable": "/databricks/python3/bin/python3"
+                },
                 "spark_env_vars": {
                     "SECRET_MANAGER_PROVIDER": "databricks",
                     "PIPELINE_EXECUTION_MODE": "parallel",
@@ -154,13 +162,14 @@ with DAG(
                 },
                 "custom_tags": {},
                 "init_scripts": [
-                    "/Workspace/Shared/dev-utils/scripts/bh_databricks_grpc_server.sh"
+                    "/Workspace/Shared/dev-utils/scripts/bh_databricks_grpc_server.sh",
+                    "/Workspace/Shared/dev-utils/scripts/install-plan-listener.sh"
                 ],
                 "libraries": [],
                 "databricks_region": None,
                 "bh_tags": [],
                 "spark_custom_listener": {
-                    "enabled": False,
+                    "enabled": True,
                     "output_base": "abfss://my-test-bucket@bhnprddwestus3rgbd5e.dfs.core.windows.net/spark-metrics",
                     "openlineage_enabled": True,
                     "adaptive_enabled": True,
@@ -171,6 +180,26 @@ with DAG(
                 }
             }
         )
+
+        _blob_secrets_scope = "bh-dev-test-key-scope"
+        from airflow_plugins.tools.bh_tools.spark_metrics_storage import (
+            ensure_abfss_spark_oauth_secrets,
+            resolve_abfss_spark_hadoop_conf,
+        )
+        ensure_abfss_spark_oauth_secrets(
+            workspace_url=workspace_url,
+            token=token,
+            secrets_scope=_blob_secrets_scope,
+        )
+        abfss_hadoop_conf = resolve_abfss_spark_hadoop_conf(
+            secrets_scope=_blob_secrets_scope,
+            workspace_url=workspace_url,
+            token=token,
+        )
+        _spark_conf = payload.get("spark_conf") or {}
+        _spark_conf.update(abfss_hadoop_conf)
+        payload["spark_conf"] = _spark_conf
+        context["ti"].xcom_push(key="abfss_hadoop_conf", value=abfss_hadoop_conf)
 
         cluster_id = compute.create_compute(
             payload,
@@ -318,6 +347,24 @@ with DAG(
         except Exception as _e:
             logger.warning("Could not resolve cluster size for %s: %s", compute_id, _e)
 
+        _blob_secrets_scope = params.get("blob_secrets_scope")
+        metrics_output_dir = str(params.get("metrics_output_dir") or "").strip()
+        if _blob_secrets_scope or metrics_output_dir.startswith("abfss://"):
+            job_config = dict(job_config)
+            spark_conf = dict(job_config.get("spark_conf") or {})
+            abfss_hadoop_conf = context["ti"].xcom_pull(
+                task_ids=params.get("compute_task_id") or "create_compute",
+                key="abfss_hadoop_conf",
+            )
+            if not isinstance(abfss_hadoop_conf, dict) or not abfss_hadoop_conf:
+                compute_task_id = params.get("compute_task_id") or "create_compute"
+                raise ValueError(
+                    f"Missing abfss_hadoop_conf XCom from task '{compute_task_id}'. "
+                    "create_compute must push abfss_hadoop_conf before submit."
+                )
+            spark_conf.update(abfss_hadoop_conf)
+            job_config["spark_conf"] = spark_conf
+
         result = compute.execute_job(compute_id, job_config, run_async=False)
 
         run_id = result.get("run_id")
@@ -342,6 +389,9 @@ with DAG(
         if result.get("status") == "FAILED":
             raise RuntimeError(result.get("error", "Job submission failed"))
 
+        if result.get("status") == "SUCCESS":
+            from airflow_plugins.tools.bh_tools.spark_metrics_analyze import push_submit_application_id_xcom
+            push_submit_application_id_xcom(context, params, compute_id)
 
         if params.get("feed_name") or params.get("feed_id"):
             from airflow_plugins.dag_task_definitions.feed_control_callbacks import (
@@ -358,10 +408,14 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_employees_1_v31_720_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1200/employees_1_v31_720.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1200/employees_1_v31_720.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
-            ]
+            ],
+            "spark_conf": {
+                "spark.pipeline.id": "1200",
+                "spark.pipeline.name": "employees_1_v31_720"
+            }
         },
         "ingestion_group_id": 720,
         "flow_id": 639,
@@ -370,6 +424,9 @@ with DAG(
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
         "pipeline_name": "employees_1_v31_720",
+        "metrics_output_dir": "abfss://my-test-bucket@bhnprddwestus3rgbd5e.dfs.core.windows.net/spark-metrics/639/spark_performance_metrics_720/",
+        "blob_secrets_scope": "bh-dev-test-key-scope",
+        "metrics_storage_secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
         "compute_xcom_key": "return_value",
         "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
         "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}"
@@ -667,6 +724,46 @@ with DAG(
 
 
     from airflow.operators.python import PythonOperator
+    from airflow_plugins.tools.bh_tools.spark_metrics_analyze import (
+        analyze_and_publish_performance_insights,
+    )
+
+    def _analyze_spark_metrics(**context):
+        params = context.get("params") or {}
+        if not str(params.get("metrics_output_dir") or "").strip():
+            from airflow.exceptions import AirflowSkipException
+            raise AirflowSkipException(
+                "Skipping AnalyzeSparkMetrics: metrics_output_dir is not configured "
+                "(listener not enabled on upstream SubmitJob)"
+            )
+        analyze_and_publish_performance_insights(context)
+
+    _analyze_params = {
+        "metrics_output_dir": "abfss://my-test-bucket@bhnprddwestus3rgbd5e.dfs.core.windows.net/spark-metrics/639/spark_performance_metrics_720/",
+        "metrics_storage_secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "keycloak_secret_name": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v1-secrets",
+        "cloud_provider": "databricks",
+        "airflow_connection_id": "databricks_default",
+        "submit_task_id": "run_pipelines_employees_1_v31_720",
+        "pipeline_id": 1200,
+        "pipeline_name": "employees_1_v31_720",
+        "project_id": 299,
+        "bh_project_id": 299,
+        "project_name": "flow-test-project",
+        "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v1-secrets"
+    }
+    analyze_spark_metrics = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='analyze_spark_metrics',
+        python_callable=_analyze_spark_metrics,
+        params=_analyze_params,
+        on_success_callback=common_task.success_callback,
+        on_failure_callback=common_task.failure_callback,
+    )
+
+
+
+    from airflow.operators.python import PythonOperator
     end_flow_task = PythonOperator(
         task_id='end_flow_task',
         pre_execute=common_task.pre_execute_callback,
@@ -680,5 +777,7 @@ with DAG(
     create_compute >> run_pipelines_employees_1_v31_720
     run_pipelines_employees_1_v31_720 >> archive_processed_files
     archive_processed_files >> delete_compute
+    analyze_spark_metrics >> delete_compute
     create_compute >> delete_compute
+    run_pipelines_employees_1_v31_720 >> analyze_spark_metrics
     delete_compute >> end_flow_task
