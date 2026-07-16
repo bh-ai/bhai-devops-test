@@ -1,0 +1,96 @@
+{
+  "created_at": "2026-07-16T08:39:49.901003Z",
+  "updated_at": "2026-07-16T08:43:54.053118Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 1288,
+  "pipeline_name": "silver_raw_safeharbor_to_members_dedupe_load_260716_3dcf",
+  "pipeline_key": "silver_raw_safeharbor_to_members_dedupe_load_260716_3dcf",
+  "bh_project_id": 299,
+  "notes": "",
+  "tags": {
+    "data_domain_id": 270,
+    "data_domain_name": "Enrollments",
+    "source_count": 1,
+    "target_count": 8
+  },
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": null,
+  "bh_github_username": null,
+  "pipeline_json": {
+    "data_domain_id": 270,
+    "data_domain_name": "Enrollments",
+    "ingestion_group_id": 760,
+    "source_rows": [
+      {
+        "data_src_id": 2592,
+        "ingest_object_id": null,
+        "label": "test_safeharbor_CINQDOWNSTATE_ivwo0 \u00b7 default.test_safeharbor_CINQDOWNSTATE"
+      }
+    ],
+    "target_rows": [
+      {
+        "data_src_id": 2278,
+        "label": "member_risk \u00b7 silverraw_enrollment.member_risk"
+      },
+      {
+        "data_src_id": 2277,
+        "label": "member_provider \u00b7 silverraw_enrollment.member_provider"
+      },
+      {
+        "data_src_id": 2275,
+        "label": "member_practice \u00b7 silverraw_enrollment.member_practice"
+      },
+      {
+        "data_src_id": 2115,
+        "label": "members \u00b7 silverraw_enrollment.members"
+      },
+      {
+        "data_src_id": 2031,
+        "label": "members_enrollment_segments \u00b7 silverraw_enrollment.members_enrollment_segments"
+      },
+      {
+        "data_src_id": 2032,
+        "label": "members_phones \u00b7 silverraw_enrollment.members_phones"
+      },
+      {
+        "data_src_id": 2029,
+        "label": "members_emails \u00b7 silverraw_enrollment.members_emails"
+      },
+      {
+        "data_src_id": 2028,
+        "label": "members_addresses \u00b7 silverraw_enrollment.members_addresses"
+      }
+    ],
+    "batch_control": {
+      "enabled": true,
+      "stages": [
+        "silver_raw"
+      ],
+      "feed_name": "ingestiongroup1607c",
+      "storage": {
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        },
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        }
+      }
+    }
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": "requirement",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
