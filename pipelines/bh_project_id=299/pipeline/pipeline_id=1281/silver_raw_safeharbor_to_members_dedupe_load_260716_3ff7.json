@@ -19,8 +19,8 @@
   },
   "status": "active",
   "pipeline_version_id": null,
-  "bh_project_name": null,
-  "bh_github_username": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-varadha-git",
   "pipeline_json": {
     "data_domain_id": 270,
     "data_domain_name": "Enrollments",
