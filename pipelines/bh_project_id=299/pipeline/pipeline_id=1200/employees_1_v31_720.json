@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-09T12:01:00.112140Z",
-  "updated_at": "2026-07-13T11:11:20.765152Z",
+  "updated_at": "2026-07-16T13:16:33.851513Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -107,40 +107,6 @@
           "unescapedQuoteHandling": "STOP_AT_DELIMITER",
           "mode": "PERMISSIVE"
         },
-        "schema": [
-          {
-            "name": "employee_id",
-            "type": "string"
-          },
-          {
-            "name": "first_name",
-            "type": "string"
-          },
-          {
-            "name": "last_name",
-            "type": "string"
-          },
-          {
-            "name": "phone_number",
-            "type": "string"
-          },
-          {
-            "name": "department",
-            "type": "string"
-          },
-          {
-            "name": "title",
-            "type": "string"
-          },
-          {
-            "name": "salary",
-            "type": "long"
-          },
-          {
-            "name": "corrupt_record",
-            "type": "string"
-          }
-        ],
         "dependent_on": []
       },
       {
@@ -179,6 +145,10 @@
             "expression": "current_timestamp()"
           },
           {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
             "name": "batch_id",
             "expression": "batch_id"
           }
@@ -193,7 +163,8 @@
         "schema_version": "v1",
         "rescued_column": "_rescued_data",
         "raw_record_column": "_raw_record",
-        "detect_only": true,
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
         "version": "1.0.0",
         "engine_type": "pyspark",
         "expected_schema": [
@@ -282,6 +253,23 @@
             "is_required": false
           }
         ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
         "dataset_id": "employees_1_v31",
         "drift_policy": {
           "new_column": "rescue",
@@ -318,8 +306,8 @@
     "batch_control": {
       "enabled": true,
       "feed_name": "spark_performance_metrics",
-      "business_date": "2026-07-13",
-      "delivery_id": "employees_1_v31_2026-07-13",
+      "business_date": "2026-07-16",
+      "delivery_id": "employees_1_v31_2026-07-16",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
