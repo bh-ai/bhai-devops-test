@@ -181,20 +181,31 @@ with DAG(
             }
         )
 
-        _blob_secrets_scope = "bh-dev-test-key-scope"
         from airflow_plugins.tools.bh_tools.spark_metrics_storage import (
             ensure_abfss_spark_oauth_secrets,
             resolve_abfss_spark_hadoop_conf,
+            resolve_abfss_secrets_scope,
+        )
+        _secrets_scope = resolve_abfss_secrets_scope(
+            secrets_scope="bh-dev-test-key-scope",
+            metrics_storage_secret_name="bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+            secret_name=None,
         )
         ensure_abfss_spark_oauth_secrets(
             workspace_url=workspace_url,
             token=token,
-            secrets_scope=_blob_secrets_scope,
+            secrets_scope=_secrets_scope,
         )
+        _metrics_output_dir = str(
+            (payload.get("spark_conf") or {}).get("spark.costanalyzer.outputDir") or ""
+        ).strip()
         abfss_hadoop_conf = resolve_abfss_spark_hadoop_conf(
-            secrets_scope=_blob_secrets_scope,
+            secrets_scope=_secrets_scope,
             workspace_url=workspace_url,
             token=token,
+            abfss_uri=_metrics_output_dir or None,
+            metrics_storage_secret_name="bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+            secret_name=None,
         )
         _spark_conf = payload.get("spark_conf") or {}
         _spark_conf.update(abfss_hadoop_conf)
@@ -414,7 +425,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_employees_1_v31_720_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1200/employees_1_v31_720.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1200/employees_1_v31_720.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ],
