@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-17T08:34:22.489831Z",
-  "updated_at": "2026-07-17T08:34:22.489831Z",
+  "updated_at": "2026-07-17T08:34:54.189487Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -10,7 +10,7 @@
   "flow_name": "enrollment_uhc_v1_769",
   "flow_key": "enrollment_uhc_v1_769",
   "recipient_email": {},
-  "notes": "testing",
+  "notes": null,
   "tags": null,
   "status": "active",
   "bh_project_name": "flow-test-project",
@@ -36,7 +36,7 @@
           "flow_key": "enrollment_uhc_v1_769",
           "bh_project_id": 299,
           "recipient_email": {},
-          "notes": "testing",
+          "notes": null,
           "tags": null,
           "status": "active",
           "alert_settings": {
@@ -529,7 +529,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -555,7 +554,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-07-17 08:34:52.982299+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
