@@ -120,7 +120,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_enrollment_uhc_v1_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1314/enrollment_uhc_v1.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1314/enrollment_uhc_v1.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -160,7 +160,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_uhc_roster_to_members_load_260717_f1dc_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1315/silver_raw_uhc_roster_to_members_load_260717_f1dc.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1315/silver_raw_uhc_roster_to_members_load_260717_f1dc.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
