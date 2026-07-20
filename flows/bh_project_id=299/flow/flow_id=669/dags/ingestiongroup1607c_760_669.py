@@ -78,8 +78,8 @@ with DAG(
         "require_feed_control_policy": True,
         "control_catalog": None,
         "control_schema": None,
-        "feed_name": "ingestiongroup1607c",
-        "feed_id": "ingestiongroup1607c"
+        "feed_name": "<<feed_name>>",
+        "feed_id": "feed_name"
     }
     validate_inbound_files = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
@@ -181,20 +181,31 @@ with DAG(
             }
         )
 
-        _blob_secrets_scope = "bh-dev-test-key-scope"
         from airflow_plugins.tools.bh_tools.spark_metrics_storage import (
             ensure_abfss_spark_oauth_secrets,
             resolve_abfss_spark_hadoop_conf,
+            resolve_abfss_secrets_scope,
+        )
+        _secrets_scope = resolve_abfss_secrets_scope(
+            secrets_scope="bh-dev-test-key-scope",
+            metrics_storage_secret_name="bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+            secret_name=None,
         )
         ensure_abfss_spark_oauth_secrets(
             workspace_url=workspace_url,
             token=token,
-            secrets_scope=_blob_secrets_scope,
+            secrets_scope=_secrets_scope,
         )
+        _metrics_output_dir = str(
+            (payload.get("spark_conf") or {}).get("spark.costanalyzer.outputDir") or ""
+        ).strip()
         abfss_hadoop_conf = resolve_abfss_spark_hadoop_conf(
-            secrets_scope=_blob_secrets_scope,
+            secrets_scope=_secrets_scope,
             workspace_url=workspace_url,
             token=token,
+            abfss_uri=_metrics_output_dir or None,
+            metrics_storage_secret_name="bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+            secret_name=None,
         )
         _spark_conf = payload.get("spark_conf") or {}
         _spark_conf.update(abfss_hadoop_conf)
@@ -414,7 +425,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_ingestiongroup1607c_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1286/ingestiongroup1607c.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1286/ingestiongroup1607c.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ],
@@ -426,7 +437,7 @@ with DAG(
         "ingestion_group_id": 760,
         "flow_id": 669,
         "pipeline_id": 1286,
-        "feed_name": "ingestiongroup1607c",
+        "feed_name": "<<feed_name>>",
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
         "pipeline_name": "ingestiongroup1607c",
@@ -639,7 +650,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260716_3dcf_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1288/silver_raw_safeharbor_to_members_dedupe_load_260716_3dcf.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1288/silver_raw_safeharbor_to_members_dedupe_load_260716_3dcf.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ],
@@ -651,7 +662,7 @@ with DAG(
         "ingestion_group_id": 760,
         "flow_id": 669,
         "pipeline_id": 1288,
-        "feed_name": "ingestiongroup1607c",
+        "feed_name": "<<feed_name>>",
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
         "pipeline_name": "silver_raw_safeharbor_to_members_dedupe_load_260716_3dcf",
