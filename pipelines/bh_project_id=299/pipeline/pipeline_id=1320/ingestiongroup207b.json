@@ -1,0 +1,574 @@
+{
+  "created_at": "2026-07-20T07:44:39.362342Z",
+  "updated_at": "2026-07-20T07:50:31.449099Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 1320,
+  "pipeline_name": "ingestiongroup207b",
+  "pipeline_key": "ingestiongroup207b",
+  "bh_project_id": 299,
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-varadha-git",
+  "pipeline_json": {
+    "name": "ingestiongroup207b",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "parameters": [
+      {
+        "key": "safeharbor_cinqdownstate_member_roster_03_05_2026",
+        "value": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx"
+      }
+    ],
+    "connections": {
+      "landing_test_safeharbor_cinqdownstate_file_connection_obj1886": {
+        "name": "landing_test_safeharbor_cinqdownstate_file_connection_obj1886",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_test_safeharbor_cinqdownstate_db_connection_obj1886": {
+        "name": "bronze_test_safeharbor_cinqdownstate_db_connection_obj1886",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      }
+    },
+    "sources": {
+      "landing_source_test_safeharbor_cinqdownstate_obj1886": {
+        "name": "landing_source_test_safeharbor_cinqdownstate_obj1886",
+        "source_type": "File",
+        "file_name": "${safeharbor_cinqdownstate_member_roster_03_05_2026}",
+        "connection": {
+          "$ref": "#/connections/landing_test_safeharbor_cinqdownstate_file_connection_obj1886"
+        },
+        "data_src_id": 2629
+      }
+    },
+    "targets": {
+      "bronze_target_test_safeharbor_cinqdownstate_obj1886": {
+        "name": "bronze_target_test_safeharbor_cinqdownstate_obj1886",
+        "target_type": "Relational",
+        "table_name": "test_safeharbor_CINQDOWNSTATE",
+        "connection": {
+          "$ref": "#/connections/bronze_test_safeharbor_cinqdownstate_db_connection_obj1886"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 2630
+      }
+    },
+    "transformations": [
+      {
+        "name": "landing_read_test_safeharbor_cinqdownstate_obj1886",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_test_safeharbor_cinqdownstate_obj1886"
+        },
+        "file_type": "Excel",
+        "read_options": {
+          "fetch_size": 10000,
+          "inferSchema": false,
+          "sheetName": "Sheet1",
+          "sheet_name": "Sheet1",
+          "useHeader": true,
+          "timestampFormat": "yyyy-MM-dd HH:mm:ss",
+          "lineSep": "\r\n",
+          "treatEmptyValuesAsNulls": true,
+          "addColorColumns": false,
+          "maxRowsInMemory": 20,
+          "excerptSize": 10,
+          "mode": "PERMISSIVE",
+          "columnNameOfCorruptRecord": "corrupt_record"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj1886",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_test_safeharbor_cinqdownstate_obj1886"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'ingestiongroup207b'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          },
+          {
+            "name": "file_date",
+            "expression": "to_date(regexp_extract(element_at(split(input_file_name(), '/'), -1), '([0-9]{2}_[0-9]{2}_[0-9]{4})\\\\.xlsx$', 1), 'MM_dd_yyyy')"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj1886",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj1886"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "vbp_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "medicaid_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "product",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_first_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_last_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_dob",
+            "type": "timestamp",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_age",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_sex",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_language",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "member_race",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "member_address_line_1",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_address_line_2",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "member_city",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_state",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_zip_code",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_phone_number",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_email",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "guardian_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "guardian_phone_number",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "guardian_email",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "tin",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "group_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "provider_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "provider_npi",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "provider_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "ep_assignment_flag",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "last_awv_date",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "in_care_management_with_fidelis",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "harp_eligible",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "health_homes_enrolled",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "health_home_status",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "health_home_start_date",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "health_homes_plus_eligible",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "high_need_status",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "pcp_assignment_type",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_status",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "primary_coverage_not_with_fidelis",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "primary_coverage_payor",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "recertification_start_date",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "recertification_end_date",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "coverage_end_date",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "recertification_source",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "enrollment_date",
+            "type": "timestamp",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "file_date",
+            "type": "date",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "file_date",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "test_safeharbor_cinqdownstate",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_test_safeharbor_cinqdownstate_obj1886",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj1886"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_test_safeharbor_cinqdownstate_obj1886"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      }
+    ],
+    "description": "Cloned from File to DB Ingestion V2",
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "ingestiongroup207b",
+      "business_date": "2026-07-20",
+      "delivery_id": "ingestiongroup207b_2026-07-20",
+      "batch_id": 1,
+      "use_existing_batch_id": false,
+      "validate_existing_batch": true,
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "input_registry_processed_on_stage": "bronze",
+      "seed_stage_rows": true,
+      "stages": [
+        "bronze"
+      ],
+      "storage": {
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        },
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        }
+      },
+      "stage_to_transformations": {
+        "bronze": [
+          "landing_read_test_safeharbor_cinqdownstate_obj1886",
+          "add_lineage_metadata_obj1886",
+          "schema_drift_guard_obj1886",
+          "bronze_write_test_safeharbor_cinqdownstate_obj1886"
+        ]
+      },
+      "error_threshold_pct": 50.0,
+      "run_scope": "GROUP",
+      "atomic_commit_enabled": true,
+      "group_id": 775,
+      "expected_group_members": 1,
+      "group_run_id": "ingestiongroup207b_20260720T075031Z"
+    }
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": "design",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
