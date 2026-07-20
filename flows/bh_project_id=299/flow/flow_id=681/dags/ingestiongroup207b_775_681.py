@@ -342,7 +342,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_ingestiongroup207b_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1320/ingestiongroup207b.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1320/ingestiongroup207b.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -531,7 +531,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260720_9ebb_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1321/silver_raw_safeharbor_to_members_dedupe_load_260720_9ebb.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1321/silver_raw_safeharbor_to_members_dedupe_load_260720_9ebb.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
