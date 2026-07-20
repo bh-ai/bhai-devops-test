@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-16T08:38:53.639711Z",
-  "updated_at": "2026-07-16T08:43:49.541631Z",
+  "updated_at": "2026-07-20T06:58:04.211787Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -491,6 +491,7 @@
         "drift_policy": {
           "new_column": "rescue",
           "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
           "type_mismatch_required": "quarantine_record",
           "type_mismatch_optional": "rescue"
         }
@@ -523,8 +524,8 @@
     "batch_control": {
       "enabled": true,
       "feed_name": "ingestiongroup1607c",
-      "business_date": "2026-07-16",
-      "delivery_id": "ingestiongroup1607c_2026-07-16",
+      "business_date": "2026-07-20",
+      "delivery_id": "ingestiongroup1607c_2026-07-20",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
@@ -558,7 +559,7 @@
       "atomic_commit_enabled": true,
       "group_id": 760,
       "expected_group_members": 1,
-      "group_run_id": "ingestiongroup1607c_20260716T084349Z"
+      "group_run_id": "ingestiongroup1607c_20260720T065803Z"
     }
   },
   "draft_pipeline_json": null,
