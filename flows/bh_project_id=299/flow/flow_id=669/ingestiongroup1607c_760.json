@@ -359,7 +359,7 @@
                       "min_files": 1
                     }
                   ],
-                  "feed_name": "ingestiongroup1607c",
+                  "feed_name": "<<feed_name>>",
                   "name": "Validate",
                   "nodeId": "validate_validate_inbound_files"
                 },
@@ -524,6 +524,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
