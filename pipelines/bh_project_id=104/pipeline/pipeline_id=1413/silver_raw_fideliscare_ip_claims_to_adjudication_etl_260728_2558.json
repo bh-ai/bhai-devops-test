@@ -1,0 +1,6736 @@
+{
+  "created_at": "2026-07-28T11:30:21.922186Z",
+  "updated_at": "2026-07-28T11:38:31.558031Z",
+  "created_by": "dhanushpathi@bighammer.ai",
+  "updated_by": "dhanushpathi@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 113,
+  "pipeline_id": 1413,
+  "pipeline_name": "silver_raw_fideliscare_ip_claims_to_adjudication_etl_260728_2558",
+  "pipeline_key": "silver_raw_fideliscare_ip_claims_to_adjudication_etl_260728_2558",
+  "bh_project_id": 104,
+  "notes": "",
+  "tags": {
+    "data_domain_id": 261,
+    "data_domain_name": "Claims",
+    "source_count": 2,
+    "target_count": 10
+  },
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": "bighammer",
+  "bh_github_username": "bh-dhanushpathi-git",
+  "pipeline_json": {
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "name": "silver_raw_fideliscare_ip_claims_to_adjudication_etl_260728_2558",
+    "description": "Requirement Pipeline",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "mode": "ENGINE",
+    "parameters": [],
+    "connections": {
+      "databricks_d__db_env_cinqdev": {
+        "connection_config_id": 140,
+        "name": "databricks_d__db_env_cinqdev",
+        "connection_config_name": "databricks_d__db_env",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "cinqdev",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksddbenv"
+      }
+    },
+    "sources": {
+      "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331": {
+        "data_src_id": 2744,
+        "name": "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331",
+        "source_type": "Relational",
+        "table_name": "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331",
+        "connection": {
+          "$ref": "#/connections/databricks_d__db_env_cinqdev"
+        },
+        "fields": [
+          "claim_id",
+          "type_of_bill",
+          "facility_id",
+          "facility_npi",
+          "admission_date",
+          "discharge_date",
+          "actual_length_of_stay",
+          "covered_length_of_stay",
+          "type_of_admission",
+          "source_of_admission",
+          "patient_status",
+          "condition_codes",
+          "value_codes",
+          "value_code_amounts",
+          "member_id",
+          "patient_dob",
+          "patient_gender",
+          "patient_zip_code",
+          "birth_weight",
+          "line_of_business",
+          "product",
+          "blue_card_identifier",
+          "total_charge",
+          "allowed_amount",
+          "member_responsibility",
+          "plan_paid",
+          "icd_version",
+          "admission_diagnosis",
+          "principal_diagnosis_code",
+          "other_diagnosis_1",
+          "other_diagnosis_2",
+          "other_diagnosis_3",
+          "other_diagnosis_4",
+          "other_diagnosis_5",
+          "other_diagnosis_6",
+          "other_diagnosis_7",
+          "other_diagnosis_8",
+          "other_diagnosis_9",
+          "other_diagnosis_10",
+          "other_diagnosis_11",
+          "other_diagnosis_12",
+          "other_diagnosis_13",
+          "other_diagnosis_14",
+          "other_diagnosis_15",
+          "other_diagnosis_16",
+          "other_diagnosis_17",
+          "other_diagnosis_18",
+          "other_diagnosis_19",
+          "other_diagnosis_20",
+          "other_diagnosis_21",
+          "other_diagnosis_22",
+          "other_diagnosis_23",
+          "other_diagnosis_24",
+          "other_diagnosis_25",
+          "other_diagnosis_26",
+          "other_diagnosis_27",
+          "other_diagnosis_28",
+          "other_diagnosis_29",
+          "other_diagnosis_30",
+          "pdx_poa",
+          "poa_1",
+          "poa_2",
+          "poa_3",
+          "poa_4",
+          "poa_5",
+          "poa_6",
+          "poa_7",
+          "poa_8",
+          "poa_9",
+          "poa_10",
+          "poa_11",
+          "poa_12",
+          "poa_13",
+          "poa_14",
+          "poa_15",
+          "poa_16",
+          "poa_17",
+          "poa_18",
+          "poa_19",
+          "poa_20",
+          "poa_21",
+          "poa_22",
+          "poa_23",
+          "poa_24",
+          "poa_25",
+          "poa_26",
+          "poa_27",
+          "poa_28",
+          "poa_29",
+          "poa_30",
+          "principal_procedure",
+          "other_procedure_1",
+          "other_procedure_2",
+          "other_procedure_3",
+          "other_procedure_4",
+          "other_procedure_5",
+          "other_procedure_6",
+          "other_procedure_7",
+          "other_procedure_8",
+          "other_procedure_9",
+          "other_procedure_10",
+          "principal_procedure_date",
+          "other_procedure_date_1",
+          "other_procedure_date_2",
+          "other_procedure_date_3",
+          "other_procedure_date_4",
+          "other_procedure_date_5",
+          "other_procedure_date_6",
+          "other_procedure_date_7",
+          "other_procedure_date_8",
+          "other_procedure_date_9",
+          "other_procedure_date_10",
+          "physician_number_type",
+          "attending_physician",
+          "operating_physician",
+          "other_physician_a",
+          "other_physician_b",
+          "payment_methodology",
+          "payment_drg",
+          "payment_drg_type",
+          "payment_drg_version",
+          "payment_soi",
+          "payment_drg_weight",
+          "outlier_payment_amount",
+          "source_system",
+          "primary_payer",
+          "adjustment_claim_indicator",
+          "adjusted_claim_id",
+          "employer_id",
+          "paid_date",
+          "posted_date",
+          "claim_status",
+          "denial_reason",
+          "member_pcp_id",
+          "member_pcp_id_npi",
+          "facility_name",
+          "billing_provider",
+          "ppa_ind",
+          "ppr_ind",
+          "computed_apr_drg",
+          "submitted_apr_drg",
+          "corrupt_record",
+          "batch_id",
+          "feed_name",
+          "ingest_ts",
+          "ingest_year",
+          "ingest_month",
+          "ingest_day"
+        ],
+        "schema": [
+          {
+            "name": "claim_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "type_of_bill",
+            "type": "integer",
+            "nullable": false
+          },
+          {
+            "name": "facility_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "facility_npi",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "admission_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "discharge_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "actual_length_of_stay",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "covered_length_of_stay",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "type_of_admission",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "source_of_admission",
+            "type": "integer",
+            "nullable": false
+          },
+          {
+            "name": "patient_status",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "condition_codes",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "value_codes",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "value_code_amounts",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "member_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "patient_dob",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "patient_gender",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "patient_zip_code",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "birth_weight",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "line_of_business",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "product",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "blue_card_identifier",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "total_charge",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "allowed_amount",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "member_responsibility",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "plan_paid",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "icd_version",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "admission_diagnosis",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "principal_diagnosis_code",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "other_diagnosis_1",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_2",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_3",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_4",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_5",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_6",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_7",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_8",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_9",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_10",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_11",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_12",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_13",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_14",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_15",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_16",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_17",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_18",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_19",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_20",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_22",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_23",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_24",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_25",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_26",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_27",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_28",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_29",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_30",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "pdx_poa",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_1",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_2",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_3",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_4",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_5",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_6",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_7",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_8",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_9",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_10",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_11",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_12",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_13",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_14",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_15",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_16",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_17",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_18",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_19",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_20",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_22",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_23",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_24",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_25",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_26",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_27",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_28",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_29",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_30",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "principal_procedure",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_1",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_2",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_3",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_4",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_5",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_6",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_7",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_8",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_9",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_10",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "principal_procedure_date",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_1",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_2",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_3",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_4",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_5",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_6",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_7",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_8",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_9",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_10",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "physician_number_type",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "attending_physician",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "operating_physician",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "other_physician_a",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "other_physician_b",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "payment_methodology",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "payment_drg",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "payment_drg_type",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "payment_drg_version",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "payment_soi",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "payment_drg_weight",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "outlier_payment_amount",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "source_system",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "primary_payer",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "adjustment_claim_indicator",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "adjusted_claim_id",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "employer_id",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "paid_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "posted_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "claim_status",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "denial_reason",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "member_pcp_id",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "member_pcp_id_npi",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "facility_name",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "billing_provider",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "ppa_ind",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "ppr_ind",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "computed_apr_drg",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "submitted_apr_drg",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "batch_id",
+            "type": "biginteger",
+            "nullable": true
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true
+          }
+        ],
+        "db_schema": "cinqdev"
+      },
+      "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331": {
+        "data_src_id": 2746,
+        "name": "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331",
+        "source_type": "Relational",
+        "table_name": "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331",
+        "connection": {
+          "$ref": "#/connections/databricks_d__db_env_cinqdev"
+        },
+        "fields": [
+          "claim_id",
+          "claim_line",
+          "revenue_code",
+          "service_date",
+          "billed_units",
+          "line_charge",
+          "allowed_amount",
+          "member_responsibility",
+          "plan_paid",
+          "covered_units",
+          "corrupt_record",
+          "batch_id",
+          "feed_name",
+          "ingest_ts",
+          "ingest_year",
+          "ingest_month",
+          "ingest_day"
+        ],
+        "schema": [
+          {
+            "name": "claim_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "claim_line",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "revenue_code",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "service_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "billed_units",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "line_charge",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "allowed_amount",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "member_responsibility",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "plan_paid",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "covered_units",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "batch_id",
+            "type": "biginteger",
+            "nullable": true
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true
+          }
+        ],
+        "db_schema": "cinqdev"
+      }
+    },
+    "targets": {
+      "claim_adjudication": {
+        "data_src_id": 1057,
+        "name": "claim_adjudication",
+        "target_type": "Relational",
+        "table_name": "claim_adjudication",
+        "load_mode": "merge",
+        "connection": {
+          "$ref": "#/connections/databricks_d__db_env_cinqdev"
+        },
+        "schema": "silverraw_claims",
+        "merge_keys": [
+          "source_system",
+          "source_claim_id",
+          "adjudication_category_code"
+        ],
+        "process_deletes": true,
+        "scd_config": {
+          "scd_type_1_columns": []
+        },
+        "delete_config": {
+          "delete_type": "infer",
+          "delete_action": "soft_delete"
+        },
+        "fields": [
+          {
+            "name": "batch_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "record_hash",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "is_deleted",
+            "type": "Boolean",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_at",
+            "type": "Timestamp",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "updated_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "updated_at",
+            "type": "Timestamp",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_system",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "is_active",
+            "type": "Boolean",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_claim_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "adjudication_type",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "adjudication_category_code",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "adjudication_category_system",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "adjudication_reason_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "adjudication_reason_system",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "amount",
+            "type": "Decimal",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "currency",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "value",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          }
+        ]
+      },
+      "claim_diagnosis": {
+        "data_src_id": 1056,
+        "name": "claim_diagnosis",
+        "target_type": "Relational",
+        "table_name": "claim_diagnosis",
+        "load_mode": "merge",
+        "connection": {
+          "$ref": "#/connections/databricks_d__db_env_cinqdev"
+        },
+        "schema": "silverraw_claims",
+        "merge_keys": [
+          "source_system",
+          "source_claim_id",
+          "diagnosis_sequence"
+        ],
+        "process_deletes": true,
+        "scd_config": {
+          "scd_type_1_columns": []
+        },
+        "delete_config": {
+          "delete_type": "infer",
+          "delete_action": "soft_delete"
+        },
+        "fields": [
+          {
+            "name": "batch_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "record_hash",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_at",
+            "type": "Timestamp",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "updated_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "updated_at",
+            "type": "Timestamp",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_system",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "is_active",
+            "type": "Boolean",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_claim_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "source_diagnosis_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_diagnosis_code_system",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "diagnosis_sequence",
+            "type": "Integer",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "diagnosis_type",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "poa_flag",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          }
+        ]
+      },
+      "patient": {
+        "data_src_id": 761,
+        "name": "patient",
+        "target_type": "Relational",
+        "table_name": "patient",
+        "load_mode": "merge",
+        "connection": {
+          "$ref": "#/connections/databricks_d__db_env_cinqdev"
+        },
+        "schema": "silverraw_claims",
+        "merge_keys": [
+          "source_system",
+          "source_member_id"
+        ],
+        "process_deletes": true,
+        "scd_config": {
+          "scd_type_1_columns": []
+        },
+        "delete_config": {
+          "delete_type": "infer",
+          "delete_action": "soft_delete"
+        },
+        "fields": [
+          {
+            "name": "batch_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "record_hash",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_at",
+            "type": "Timestamp",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "updated_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "updated_at",
+            "type": "Timestamp",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "is_active",
+            "type": "Boolean",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_system",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "source_member_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "mbi_id",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "hicn",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "first_name",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "middle_name",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "last_name",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "date_of_birth",
+            "type": "Date",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "deceased_date",
+            "type": "Date",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "death_indicator",
+            "type": "Boolean",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "gender",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "race_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "ethnicity_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "address_line1",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "address_line2",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "city",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "state",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "zip_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "country",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "address_line3",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "address_line4",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "address_line5",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "address_line6",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "county_fips_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "state_fips_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "zip5",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "zip4",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "mdcr_status_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "dual_status_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "original_entitlement_reason_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "entitlement_buyin_indicator",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "part_a_enrollment_begin_date",
+            "type": "Date",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "part_b_enrollment_begin_date",
+            "type": "Date",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "bene_rng_bgn_dt",
+            "type": "Date",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "bene_rng_end_dt",
+            "type": "Date",
+            "nullable": true,
+            "is_pk": false
+          }
+        ]
+      },
+      "claim_procedure": {
+        "data_src_id": 758,
+        "name": "claim_procedure",
+        "target_type": "Relational",
+        "table_name": "claim_procedure",
+        "load_mode": "merge",
+        "connection": {
+          "$ref": "#/connections/databricks_d__db_env_cinqdev"
+        },
+        "schema": "silverraw_claims",
+        "merge_keys": [
+          "source_system",
+          "source_claim_id",
+          "line_number",
+          "procedure_sequence"
+        ],
+        "process_deletes": true,
+        "scd_config": {
+          "scd_type_1_columns": []
+        },
+        "delete_config": {
+          "delete_type": "infer",
+          "delete_action": "soft_delete"
+        },
+        "fields": [
+          {
+            "name": "batch_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "record_hash",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_at",
+            "type": "Timestamp",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "updated_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "updated_at",
+            "type": "Timestamp",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_system",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "is_active",
+            "type": "Boolean",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_claim_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "line_number",
+            "type": "Integer",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "procedure_sequence",
+            "type": "Integer",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "source_procedure_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_procedure_code_system",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "procedure_type",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "procedure_date",
+            "type": "Date",
+            "nullable": true,
+            "is_pk": false
+          }
+        ]
+      },
+      "claim_provider": {
+        "data_src_id": 757,
+        "name": "claim_provider",
+        "target_type": "Relational",
+        "table_name": "claim_provider",
+        "load_mode": "merge",
+        "connection": {
+          "$ref": "#/connections/databricks_d__db_env_cinqdev"
+        },
+        "schema": "silverraw_claims",
+        "merge_keys": [
+          "source_system",
+          "source_claim_id",
+          "line_number",
+          "provider_role_code",
+          "provider_identifier_value"
+        ],
+        "process_deletes": true,
+        "scd_config": {
+          "scd_type_1_columns": []
+        },
+        "delete_config": {
+          "delete_type": "infer",
+          "delete_action": "soft_delete"
+        },
+        "fields": [
+          {
+            "name": "batch_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "record_hash",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_at",
+            "type": "Timestamp",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "updated_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "updated_at",
+            "type": "Timestamp",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_system",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "is_active",
+            "type": "Boolean",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_claim_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "line_number",
+            "type": "Integer",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "provider_role_code",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "provider_role_system",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "provider_identifier_system",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "provider_identifier_value",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "npi",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "tin",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          }
+        ]
+      },
+      "claim_line_adjudication": {
+        "data_src_id": 756,
+        "name": "claim_line_adjudication",
+        "target_type": "Relational",
+        "table_name": "claim_line_adjudication",
+        "load_mode": "merge",
+        "connection": {
+          "$ref": "#/connections/databricks_d__db_env_cinqdev"
+        },
+        "schema": "silverraw_claims",
+        "merge_keys": [
+          "source_system",
+          "source_claim_id",
+          "line_number",
+          "adjudication_category_bb_code"
+        ],
+        "process_deletes": true,
+        "scd_config": {
+          "scd_type_1_columns": []
+        },
+        "delete_config": {
+          "delete_type": "infer",
+          "delete_action": "soft_delete"
+        },
+        "fields": [
+          {
+            "name": "batch_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "record_hash",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "created_at",
+            "type": "Timestamp",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "updated_by",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "updated_at",
+            "type": "Timestamp",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_system",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "is_active",
+            "type": "Boolean",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "source_claim_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "line_number",
+            "type": "Integer",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "adjudication_type",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "adjudication_category_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "adjudication_category_bb_code",
+            "type": "String",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "adjudication_category_system",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "adjudication_reason_code",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "adjudication_reason_system",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "amount",
+            "type": "Decimal",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "currency",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          },
+          {
+            "name": "value",
+            "type": "String",
+            "nullable": true,
+            "is_pk": false
+          }
+        ]
+      }
+    },
+    "transformations": [
+      {
+        "name": "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331"
+        },
+        "rename_columns": {
+          "claim_id": "claim_id_src_1",
+          "type_of_bill": "type_of_bill_src_1",
+          "facility_id": "facility_id_src_1",
+          "facility_npi": "facility_npi_src_1",
+          "admission_date": "admission_date_src_1",
+          "discharge_date": "discharge_date_src_1",
+          "actual_length_of_stay": "actual_length_of_stay_src_1",
+          "covered_length_of_stay": "covered_length_of_stay_src_1",
+          "type_of_admission": "type_of_admission_src_1",
+          "source_of_admission": "source_of_admission_src_1",
+          "patient_status": "patient_status_src_1",
+          "condition_codes": "condition_codes_src_1",
+          "value_codes": "value_codes_src_1",
+          "value_code_amounts": "value_code_amounts_src_1",
+          "member_id": "member_id_src_1",
+          "patient_dob": "patient_dob_src_1",
+          "patient_gender": "patient_gender_src_1",
+          "patient_zip_code": "patient_zip_code_src_1",
+          "birth_weight": "birth_weight_src_1",
+          "line_of_business": "line_of_business_src_1",
+          "product": "product_src_1",
+          "blue_card_identifier": "blue_card_identifier_src_1",
+          "total_charge": "total_charge_src_1",
+          "allowed_amount": "allowed_amount_src_1",
+          "member_responsibility": "member_responsibility_src_1",
+          "plan_paid": "plan_paid_src_1",
+          "icd_version": "icd_version_src_1",
+          "admission_diagnosis": "admission_diagnosis_src_1",
+          "principal_diagnosis_code": "principal_diagnosis_code_src_1",
+          "other_diagnosis_1": "other_diagnosis_1_src_1",
+          "other_diagnosis_2": "other_diagnosis_2_src_1",
+          "other_diagnosis_3": "other_diagnosis_3_src_1",
+          "other_diagnosis_4": "other_diagnosis_4_src_1",
+          "other_diagnosis_5": "other_diagnosis_5_src_1",
+          "other_diagnosis_6": "other_diagnosis_6_src_1",
+          "other_diagnosis_7": "other_diagnosis_7_src_1",
+          "other_diagnosis_8": "other_diagnosis_8_src_1",
+          "other_diagnosis_9": "other_diagnosis_9_src_1",
+          "other_diagnosis_10": "other_diagnosis_10_src_1",
+          "other_diagnosis_11": "other_diagnosis_11_src_1",
+          "other_diagnosis_12": "other_diagnosis_12_src_1",
+          "other_diagnosis_13": "other_diagnosis_13_src_1",
+          "other_diagnosis_14": "other_diagnosis_14_src_1",
+          "other_diagnosis_15": "other_diagnosis_15_src_1",
+          "other_diagnosis_16": "other_diagnosis_16_src_1",
+          "other_diagnosis_17": "other_diagnosis_17_src_1",
+          "other_diagnosis_18": "other_diagnosis_18_src_1",
+          "other_diagnosis_19": "other_diagnosis_19_src_1",
+          "other_diagnosis_20": "other_diagnosis_20_src_1",
+          "other_diagnosis_21": "other_diagnosis_21_src_1",
+          "other_diagnosis_22": "other_diagnosis_22_src_1",
+          "other_diagnosis_23": "other_diagnosis_23_src_1",
+          "other_diagnosis_24": "other_diagnosis_24_src_1",
+          "other_diagnosis_25": "other_diagnosis_25_src_1",
+          "other_diagnosis_26": "other_diagnosis_26_src_1",
+          "other_diagnosis_27": "other_diagnosis_27_src_1",
+          "other_diagnosis_28": "other_diagnosis_28_src_1",
+          "other_diagnosis_29": "other_diagnosis_29_src_1",
+          "other_diagnosis_30": "other_diagnosis_30_src_1",
+          "pdx_poa": "pdx_poa_src_1",
+          "poa_1": "poa_1_src_1",
+          "poa_2": "poa_2_src_1",
+          "poa_3": "poa_3_src_1",
+          "poa_4": "poa_4_src_1",
+          "poa_5": "poa_5_src_1",
+          "poa_6": "poa_6_src_1",
+          "poa_7": "poa_7_src_1",
+          "poa_8": "poa_8_src_1",
+          "poa_9": "poa_9_src_1",
+          "poa_10": "poa_10_src_1",
+          "poa_11": "poa_11_src_1",
+          "poa_12": "poa_12_src_1",
+          "poa_13": "poa_13_src_1",
+          "poa_14": "poa_14_src_1",
+          "poa_15": "poa_15_src_1",
+          "poa_16": "poa_16_src_1",
+          "poa_17": "poa_17_src_1",
+          "poa_18": "poa_18_src_1",
+          "poa_19": "poa_19_src_1",
+          "poa_20": "poa_20_src_1",
+          "poa_21": "poa_21_src_1",
+          "poa_22": "poa_22_src_1",
+          "poa_23": "poa_23_src_1",
+          "poa_24": "poa_24_src_1",
+          "poa_25": "poa_25_src_1",
+          "poa_26": "poa_26_src_1",
+          "poa_27": "poa_27_src_1",
+          "poa_28": "poa_28_src_1",
+          "poa_29": "poa_29_src_1",
+          "poa_30": "poa_30_src_1",
+          "principal_procedure": "principal_procedure_src_1",
+          "other_procedure_1": "other_procedure_1_src_1",
+          "other_procedure_2": "other_procedure_2_src_1",
+          "other_procedure_3": "other_procedure_3_src_1",
+          "other_procedure_4": "other_procedure_4_src_1",
+          "other_procedure_5": "other_procedure_5_src_1",
+          "other_procedure_6": "other_procedure_6_src_1",
+          "other_procedure_7": "other_procedure_7_src_1",
+          "other_procedure_8": "other_procedure_8_src_1",
+          "other_procedure_9": "other_procedure_9_src_1",
+          "other_procedure_10": "other_procedure_10_src_1",
+          "principal_procedure_date": "principal_procedure_date_src_1",
+          "other_procedure_date_1": "other_procedure_date_1_src_1",
+          "other_procedure_date_2": "other_procedure_date_2_src_1",
+          "other_procedure_date_3": "other_procedure_date_3_src_1",
+          "other_procedure_date_4": "other_procedure_date_4_src_1",
+          "other_procedure_date_5": "other_procedure_date_5_src_1",
+          "other_procedure_date_6": "other_procedure_date_6_src_1",
+          "other_procedure_date_7": "other_procedure_date_7_src_1",
+          "other_procedure_date_8": "other_procedure_date_8_src_1",
+          "other_procedure_date_9": "other_procedure_date_9_src_1",
+          "other_procedure_date_10": "other_procedure_date_10_src_1",
+          "physician_number_type": "physician_number_type_src_1",
+          "attending_physician": "attending_physician_src_1",
+          "operating_physician": "operating_physician_src_1",
+          "other_physician_a": "other_physician_a_src_1",
+          "other_physician_b": "other_physician_b_src_1",
+          "payment_methodology": "payment_methodology_src_1",
+          "payment_drg": "payment_drg_src_1",
+          "payment_drg_type": "payment_drg_type_src_1",
+          "payment_drg_version": "payment_drg_version_src_1",
+          "payment_soi": "payment_soi_src_1",
+          "payment_drg_weight": "payment_drg_weight_src_1",
+          "outlier_payment_amount": "outlier_payment_amount_src_1",
+          "source_system": "source_system_src_1",
+          "primary_payer": "primary_payer_src_1",
+          "adjustment_claim_indicator": "adjustment_claim_indicator_src_1",
+          "adjusted_claim_id": "adjusted_claim_id_src_1",
+          "employer_id": "employer_id_src_1",
+          "paid_date": "paid_date_src_1",
+          "posted_date": "posted_date_src_1",
+          "claim_status": "claim_status_src_1",
+          "denial_reason": "denial_reason_src_1",
+          "member_pcp_id": "member_pcp_id_src_1",
+          "member_pcp_id_npi": "member_pcp_id_npi_src_1",
+          "facility_name": "facility_name_src_1",
+          "billing_provider": "billing_provider_src_1",
+          "ppa_ind": "ppa_ind_src_1",
+          "ppr_ind": "ppr_ind_src_1",
+          "computed_apr_drg": "computed_apr_drg_src_1",
+          "submitted_apr_drg": "submitted_apr_drg_src_1",
+          "corrupt_record": "corrupt_record_src_1",
+          "batch_id": "batch_id_src_1",
+          "feed_name": "feed_name_src_1",
+          "ingest_ts": "ingest_ts_src_1",
+          "ingest_year": "ingest_year_src_1",
+          "ingest_month": "ingest_month_src_1",
+          "ingest_day": "ingest_day_src_1"
+        },
+        "schema": [
+          {
+            "name": "claim_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "type_of_bill",
+            "type": "integer",
+            "nullable": false
+          },
+          {
+            "name": "facility_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "facility_npi",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "admission_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "discharge_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "actual_length_of_stay",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "covered_length_of_stay",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "type_of_admission",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "source_of_admission",
+            "type": "integer",
+            "nullable": false
+          },
+          {
+            "name": "patient_status",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "condition_codes",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "value_codes",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "value_code_amounts",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "member_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "patient_dob",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "patient_gender",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "patient_zip_code",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "birth_weight",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "line_of_business",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "product",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "blue_card_identifier",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "total_charge",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "allowed_amount",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "member_responsibility",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "plan_paid",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "icd_version",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "admission_diagnosis",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "principal_diagnosis_code",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "other_diagnosis_1",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_2",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_3",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_4",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_5",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_6",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_7",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_8",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_9",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_10",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_11",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_12",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_13",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_14",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_15",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_16",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_17",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_18",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_19",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_20",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_22",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_23",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_24",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_25",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_26",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_27",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_28",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_29",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_diagnosis_30",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "pdx_poa",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_1",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_2",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_3",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_4",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_5",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_6",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_7",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_8",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_9",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_10",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_11",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_12",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_13",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_14",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_15",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_16",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_17",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_18",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_19",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_20",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_21",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_22",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_23",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_24",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_25",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_26",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_27",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_28",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_29",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "poa_30",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "principal_procedure",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_1",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_2",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_3",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_4",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_5",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_6",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_7",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_8",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_9",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_10",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "principal_procedure_date",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_1",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_2",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_3",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_4",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_5",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_6",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_7",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_8",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_9",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "other_procedure_date_10",
+            "type": "long",
+            "nullable": true
+          },
+          {
+            "name": "physician_number_type",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "attending_physician",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "operating_physician",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "other_physician_a",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "other_physician_b",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "payment_methodology",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "payment_drg",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "payment_drg_type",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "payment_drg_version",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "payment_soi",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "payment_drg_weight",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "outlier_payment_amount",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "source_system",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "primary_payer",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "adjustment_claim_indicator",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "adjusted_claim_id",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "employer_id",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "paid_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "posted_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "claim_status",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "denial_reason",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "member_pcp_id",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "member_pcp_id_npi",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "facility_name",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "billing_provider",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "ppa_ind",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "ppr_ind",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "computed_apr_drg",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "submitted_apr_drg",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "batch_id",
+            "type": "biginteger",
+            "nullable": true
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true
+          }
+        ],
+        "read_options": {}
+      },
+      {
+        "name": "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331"
+        },
+        "rename_columns": {
+          "claim_id": "claim_id_src_2",
+          "claim_line": "claim_line_src_2",
+          "revenue_code": "revenue_code_src_2",
+          "service_date": "service_date_src_2",
+          "billed_units": "billed_units_src_2",
+          "line_charge": "line_charge_src_2",
+          "allowed_amount": "allowed_amount_src_2",
+          "member_responsibility": "member_responsibility_src_2",
+          "plan_paid": "plan_paid_src_2",
+          "covered_units": "covered_units_src_2",
+          "corrupt_record": "corrupt_record_src_2",
+          "batch_id": "batch_id_src_2",
+          "feed_name": "feed_name_src_2",
+          "ingest_ts": "ingest_ts_src_2",
+          "ingest_year": "ingest_year_src_2",
+          "ingest_month": "ingest_month_src_2",
+          "ingest_day": "ingest_day_src_2"
+        },
+        "schema": [
+          {
+            "name": "claim_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "claim_line",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "revenue_code",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "service_date",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "billed_units",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "line_charge",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "allowed_amount",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "member_responsibility",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "plan_paid",
+            "type": "double",
+            "nullable": false
+          },
+          {
+            "name": "covered_units",
+            "type": "long",
+            "nullable": false
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "batch_id",
+            "type": "biginteger",
+            "nullable": true
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true
+          }
+        ],
+        "read_options": {}
+      },
+      {
+        "name": "claim_adjudication",
+        "transformation": "Writer",
+        "dependent_on": [
+          "claim_adjudication_final"
+        ],
+        "target": {
+          "$ref": "#/targets/claim_adjudication"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "claim_diagnosis",
+        "transformation": "Writer",
+        "dependent_on": [
+          "claim_diagnosis_final"
+        ],
+        "target": {
+          "$ref": "#/targets/claim_diagnosis"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "patient",
+        "transformation": "Writer",
+        "dependent_on": [
+          "patient_final"
+        ],
+        "target": {
+          "$ref": "#/targets/patient"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "claim_procedure",
+        "transformation": "Writer",
+        "dependent_on": [
+          "claim_procedure_final"
+        ],
+        "target": {
+          "$ref": "#/targets/claim_procedure"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "claim_provider",
+        "transformation": "Writer",
+        "dependent_on": [
+          "claim_provider_final"
+        ],
+        "target": {
+          "$ref": "#/targets/claim_provider"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "claim_line_adjudication",
+        "transformation": "Writer",
+        "dependent_on": [
+          "claim_line_adjudication_final"
+        ],
+        "target": {
+          "$ref": "#/targets/claim_line_adjudication"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "claim_adjudication_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "claim_adjudication_rename"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "adjudication_category_code",
+          "adjudication_category_system",
+          "adjudication_reason_code",
+          "amount",
+          "currency",
+          "record_hash",
+          "is_deleted",
+          "created_at",
+          "updated_at",
+          "is_active",
+          "adjudication_type",
+          "adjudication_reason_system",
+          "value"
+        ],
+        "derived_fields": [
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "is_deleted",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "adjudication_type",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "adjudication_reason_system",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "value",
+            "expression": "CAST(NULL AS STRING)"
+          }
+        ]
+      },
+      {
+        "name": "claim_diagnosis_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "claim_diagnosis_rename"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "source_diagnosis_code",
+          "source_diagnosis_code_system",
+          "diagnosis_sequence",
+          "diagnosis_type",
+          "poa_flag",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active"
+        ],
+        "derived_fields": [
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          }
+        ]
+      },
+      {
+        "name": "patient_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "patient_rename"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_member_id",
+          "mbi_id",
+          "date_of_birth",
+          "gender",
+          "zip_code",
+          "zip5",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active",
+          "hicn",
+          "first_name",
+          "middle_name",
+          "last_name",
+          "deceased_date",
+          "death_indicator",
+          "race_code",
+          "ethnicity_code",
+          "address_line1",
+          "address_line2",
+          "city",
+          "state",
+          "country",
+          "address_line3",
+          "address_line4",
+          "address_line5",
+          "address_line6",
+          "county_fips_code",
+          "state_fips_code",
+          "zip4",
+          "mdcr_status_code",
+          "dual_status_code",
+          "original_entitlement_reason_code",
+          "entitlement_buyin_indicator",
+          "part_a_enrollment_begin_date",
+          "part_b_enrollment_begin_date",
+          "bene_rng_bgn_dt",
+          "bene_rng_end_dt"
+        ],
+        "derived_fields": [
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "hicn",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "first_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "middle_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "last_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "deceased_date",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "death_indicator",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "race_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "ethnicity_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line1",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line2",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "city",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "state",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "country",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line3",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line4",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line5",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line6",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "county_fips_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "state_fips_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "zip4",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "mdcr_status_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "dual_status_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "original_entitlement_reason_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "entitlement_buyin_indicator",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "part_a_enrollment_begin_date",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "part_b_enrollment_begin_date",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "bene_rng_bgn_dt",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "bene_rng_end_dt",
+            "expression": "CAST(NULL AS DATE)"
+          }
+        ]
+      },
+      {
+        "name": "claim_procedure_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "claim_procedure_rename"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "line_number",
+          "procedure_sequence",
+          "source_procedure_code",
+          "source_procedure_code_system",
+          "procedure_type",
+          "procedure_date",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active"
+        ],
+        "derived_fields": [
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          }
+        ]
+      },
+      {
+        "name": "claim_provider_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "claim_provider_rename"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "line_number",
+          "provider_role_code",
+          "provider_role_system",
+          "provider_identifier_system",
+          "provider_identifier_value",
+          "npi",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active",
+          "tin"
+        ],
+        "derived_fields": [
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "tin",
+            "expression": "CAST(NULL AS STRING)"
+          }
+        ]
+      },
+      {
+        "name": "claim_line_adjudication_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "claim_line_adjudication_rename"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "line_number",
+          "adjudication_category_bb_code",
+          "adjudication_category_system",
+          "amount",
+          "currency",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active",
+          "adjudication_type",
+          "adjudication_category_code",
+          "adjudication_reason_code",
+          "adjudication_reason_system",
+          "value"
+        ],
+        "derived_fields": [
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "adjudication_type",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "adjudication_category_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "adjudication_reason_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "adjudication_reason_system",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "value",
+            "expression": "CAST(NULL AS STRING)"
+          }
+        ]
+      },
+      {
+        "name": "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331_MaxBatchExpr",
+        "transformation": "Expression",
+        "dependent_on": [
+          "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331"
+        ],
+        "derived_fields": [
+          {
+            "name": "max_batch_id",
+            "expression": "max(batch_id_src_1) OVER ()"
+          }
+        ]
+      },
+      {
+        "name": "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331_IngestFilter",
+        "transformation": "Filter",
+        "dependent_on": [
+          "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331_MaxBatchExpr"
+        ],
+        "condition": "batch_id_src_1 = max_batch_id AND (corrupt_record_src_1 IS NULL OR corrupt_record_src_1 = '')"
+      },
+      {
+        "name": "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331_MaxBatchExpr",
+        "transformation": "Expression",
+        "dependent_on": [
+          "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331"
+        ],
+        "derived_fields": [
+          {
+            "name": "max_batch_id",
+            "expression": "max(batch_id_src_2) OVER ()"
+          }
+        ]
+      },
+      {
+        "name": "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331_IngestFilter",
+        "transformation": "Filter",
+        "dependent_on": [
+          "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331_MaxBatchExpr"
+        ],
+        "condition": "batch_id_src_2 = max_batch_id AND (corrupt_record_src_2 IS NULL OR corrupt_record_src_2 = '')"
+      },
+      {
+        "name": "dedup_header",
+        "transformation": "Deduplicator",
+        "dependent_on": [
+          "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331_IngestFilter"
+        ],
+        "dedup_by": [
+          "claim_id_src_1"
+        ],
+        "keep": "first",
+        "order_by": [
+          {
+            "column": "source_system_src_1",
+            "order": "asc"
+          },
+          {
+            "column": "claim_id_src_1",
+            "order": "asc"
+          }
+        ]
+      },
+      {
+        "name": "dedup_line",
+        "transformation": "Deduplicator",
+        "dependent_on": [
+          "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331_IngestFilter"
+        ],
+        "dedup_by": [
+          "claim_id_src_2",
+          "claim_line_src_2"
+        ],
+        "keep": "first",
+        "order_by": [
+          {
+            "column": "claim_id_src_2",
+            "order": "asc"
+          }
+        ]
+      },
+      {
+        "name": "join_header_line",
+        "transformation": "Joiner",
+        "dependent_on": [
+          "dedup_header",
+          "dedup_line"
+        ],
+        "conditions": [
+          {
+            "join_input": "dedup_line",
+            "join_condition": "dedup_header.claim_id_src_1 = dedup_line.claim_id_src_2",
+            "join_type": "inner"
+          }
+        ],
+        "driving_input": "dedup_header"
+      },
+      {
+        "name": "unpivot_diagnosis_1",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "1"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'principal'"
+          }
+        ],
+        "rename_columns": {
+          "principal_diagnosis_code_src_1": "source_diagnosis_code",
+          "pdx_poa_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_2",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "2"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_1_src_1": "source_diagnosis_code",
+          "poa_1_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_3",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "3"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_2_src_1": "source_diagnosis_code",
+          "poa_2_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_4",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "4"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_3_src_1": "source_diagnosis_code",
+          "poa_3_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_5",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "5"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_4_src_1": "source_diagnosis_code",
+          "poa_4_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_6",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "6"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_5_src_1": "source_diagnosis_code",
+          "poa_5_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_7",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "7"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_6_src_1": "source_diagnosis_code",
+          "poa_6_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_8",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "8"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_7_src_1": "source_diagnosis_code",
+          "poa_7_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_9",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "9"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_8_src_1": "source_diagnosis_code",
+          "poa_8_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_10",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "10"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_9_src_1": "source_diagnosis_code",
+          "poa_9_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_11",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "11"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_10_src_1": "source_diagnosis_code",
+          "poa_10_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_12",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "12"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_11_src_1": "source_diagnosis_code",
+          "poa_11_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_13",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "13"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_12_src_1": "source_diagnosis_code",
+          "poa_12_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_14",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "14"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_13_src_1": "source_diagnosis_code",
+          "poa_13_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_15",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "15"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_14_src_1": "source_diagnosis_code",
+          "poa_14_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_16",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "16"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_15_src_1": "source_diagnosis_code",
+          "poa_15_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_17",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "17"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_16_src_1": "source_diagnosis_code",
+          "poa_16_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_18",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "18"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_17_src_1": "source_diagnosis_code",
+          "poa_17_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_19",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "19"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_18_src_1": "source_diagnosis_code",
+          "poa_18_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_20",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "20"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_19_src_1": "source_diagnosis_code",
+          "poa_19_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_21",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "21"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_20_src_1": "source_diagnosis_code",
+          "poa_20_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_22",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "22"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_21_src_1": "source_diagnosis_code",
+          "poa_21_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_23",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "23"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_22_src_1": "source_diagnosis_code",
+          "poa_22_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_24",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "24"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_23_src_1": "source_diagnosis_code",
+          "poa_23_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_25",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "25"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_24_src_1": "source_diagnosis_code",
+          "poa_24_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_26",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "26"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_25_src_1": "source_diagnosis_code",
+          "poa_25_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_27",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "27"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_26_src_1": "source_diagnosis_code",
+          "poa_26_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_28",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "28"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_27_src_1": "source_diagnosis_code",
+          "poa_27_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_29",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "29"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_28_src_1": "source_diagnosis_code",
+          "poa_28_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_30",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "30"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_29_src_1": "source_diagnosis_code",
+          "poa_29_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "unpivot_diagnosis_31",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "diagnosis_sequence",
+          "source_diagnosis_code",
+          "poa_flag",
+          "diagnosis_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "31"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_diagnosis_30_src_1": "source_diagnosis_code",
+          "poa_30_src_1": "poa_flag"
+        }
+      },
+      {
+        "name": "union_diagnosis",
+        "transformation": "Set",
+        "dependent_on": [
+          "unpivot_diagnosis_1",
+          "unpivot_diagnosis_2",
+          "unpivot_diagnosis_3",
+          "unpivot_diagnosis_4",
+          "unpivot_diagnosis_5",
+          "unpivot_diagnosis_6",
+          "unpivot_diagnosis_7",
+          "unpivot_diagnosis_8",
+          "unpivot_diagnosis_9",
+          "unpivot_diagnosis_10",
+          "unpivot_diagnosis_11",
+          "unpivot_diagnosis_12",
+          "unpivot_diagnosis_13",
+          "unpivot_diagnosis_14",
+          "unpivot_diagnosis_15",
+          "unpivot_diagnosis_16",
+          "unpivot_diagnosis_17",
+          "unpivot_diagnosis_18",
+          "unpivot_diagnosis_19",
+          "unpivot_diagnosis_20",
+          "unpivot_diagnosis_21",
+          "unpivot_diagnosis_22",
+          "unpivot_diagnosis_23",
+          "unpivot_diagnosis_24",
+          "unpivot_diagnosis_25",
+          "unpivot_diagnosis_26",
+          "unpivot_diagnosis_27",
+          "unpivot_diagnosis_28",
+          "unpivot_diagnosis_29",
+          "unpivot_diagnosis_30",
+          "unpivot_diagnosis_31"
+        ],
+        "operation_type": "Union All"
+      },
+      {
+        "name": "filter_diagnosis_notnull",
+        "transformation": "Filter",
+        "dependent_on": [
+          "union_diagnosis"
+        ],
+        "condition": "source_diagnosis_code IS NOT NULL"
+      },
+      {
+        "name": "unpivot_procedure_1",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "1"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'primary'"
+          }
+        ],
+        "rename_columns": {
+          "principal_procedure_src_1": "source_procedure_code",
+          "principal_procedure_date_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_2",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "2"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_1_src_1": "source_procedure_code",
+          "other_procedure_date_1_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_3",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "3"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_2_src_1": "source_procedure_code",
+          "other_procedure_date_2_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_4",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "4"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_3_src_1": "source_procedure_code",
+          "other_procedure_date_3_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_5",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "5"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_4_src_1": "source_procedure_code",
+          "other_procedure_date_4_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_6",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "6"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_5_src_1": "source_procedure_code",
+          "other_procedure_date_5_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_7",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "7"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_6_src_1": "source_procedure_code",
+          "other_procedure_date_6_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_8",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "8"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_7_src_1": "source_procedure_code",
+          "other_procedure_date_7_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_9",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "9"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_8_src_1": "source_procedure_code",
+          "other_procedure_date_8_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_10",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "10"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_9_src_1": "source_procedure_code",
+          "other_procedure_date_9_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "unpivot_procedure_11",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "icd_version_src_1",
+          "procedure_sequence",
+          "source_procedure_code",
+          "procedure_date_epoch",
+          "procedure_type"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "icd_version_src_1",
+            "expression": "icd_version_src_1"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "11"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "'secondary'"
+          }
+        ],
+        "rename_columns": {
+          "other_procedure_10_src_1": "source_procedure_code",
+          "other_procedure_date_10_src_1": "procedure_date_epoch"
+        }
+      },
+      {
+        "name": "union_procedure",
+        "transformation": "Set",
+        "dependent_on": [
+          "unpivot_procedure_1",
+          "unpivot_procedure_2",
+          "unpivot_procedure_3",
+          "unpivot_procedure_4",
+          "unpivot_procedure_5",
+          "unpivot_procedure_6",
+          "unpivot_procedure_7",
+          "unpivot_procedure_8",
+          "unpivot_procedure_9",
+          "unpivot_procedure_10",
+          "unpivot_procedure_11"
+        ],
+        "operation_type": "Union All"
+      },
+      {
+        "name": "filter_procedure_notnull",
+        "transformation": "Filter",
+        "dependent_on": [
+          "union_procedure"
+        ],
+        "condition": "source_procedure_code IS NOT NULL"
+      },
+      {
+        "name": "unpivot_provider_facility",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "physician_number_type_src_1",
+          "provider_role_code",
+          "provider_identifier_value",
+          "npi"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "physician_number_type_src_1",
+            "expression": "physician_number_type_src_1"
+          },
+          {
+            "name": "provider_role_code",
+            "expression": "'FACILITY'"
+          }
+        ],
+        "rename_columns": {
+          "facility_npi_src_1": "npi"
+        }
+      },
+      {
+        "name": "unpivot_provider_attending",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "physician_number_type_src_1",
+          "provider_role_code",
+          "provider_identifier_value",
+          "npi"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "physician_number_type_src_1",
+            "expression": "physician_number_type_src_1"
+          },
+          {
+            "name": "provider_role_code",
+            "expression": "'ATTENDING'"
+          }
+        ],
+        "rename_columns": {
+          "attending_physician_src_1": "npi"
+        }
+      },
+      {
+        "name": "unpivot_provider_operating",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "physician_number_type_src_1",
+          "provider_role_code",
+          "provider_identifier_value",
+          "npi"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "physician_number_type_src_1",
+            "expression": "physician_number_type_src_1"
+          },
+          {
+            "name": "provider_role_code",
+            "expression": "'OPERATING'"
+          }
+        ],
+        "rename_columns": {
+          "operating_physician_src_1": "npi"
+        }
+      },
+      {
+        "name": "unpivot_provider_rendering",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "physician_number_type_src_1",
+          "provider_role_code",
+          "provider_identifier_value",
+          "npi"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "physician_number_type_src_1",
+            "expression": "physician_number_type_src_1"
+          },
+          {
+            "name": "provider_role_code",
+            "expression": "'RENDERING'"
+          }
+        ],
+        "rename_columns": {
+          "other_physician_a_src_1": "npi"
+        }
+      },
+      {
+        "name": "unpivot_provider_referring",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "physician_number_type_src_1",
+          "provider_role_code",
+          "provider_identifier_value",
+          "npi"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "physician_number_type_src_1",
+            "expression": "physician_number_type_src_1"
+          },
+          {
+            "name": "provider_role_code",
+            "expression": "'REFERRING'"
+          }
+        ],
+        "rename_columns": {
+          "other_physician_b_src_1": "npi"
+        }
+      },
+      {
+        "name": "union_provider",
+        "transformation": "Set",
+        "dependent_on": [
+          "unpivot_provider_facility",
+          "unpivot_provider_attending",
+          "unpivot_provider_operating",
+          "unpivot_provider_rendering",
+          "unpivot_provider_referring"
+        ],
+        "operation_type": "Union All"
+      },
+      {
+        "name": "filter_provider_notnull",
+        "transformation": "Filter",
+        "dependent_on": [
+          "union_provider"
+        ],
+        "condition": "provider_identifier_value IS NOT NULL"
+      },
+      {
+        "name": "unpivot_adjudication_header_submitted",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "denial_reason_src_1",
+          "adjudication_category_code",
+          "amount"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "denial_reason_src_1",
+            "expression": "denial_reason_src_1"
+          },
+          {
+            "name": "adjudication_category_code",
+            "expression": "'submitted'"
+          }
+        ],
+        "rename_columns": {
+          "total_charge_src_1": "amount"
+        }
+      },
+      {
+        "name": "unpivot_adjudication_header_allowed",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "denial_reason_src_1",
+          "adjudication_category_code",
+          "amount"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "denial_reason_src_1",
+            "expression": "denial_reason_src_1"
+          },
+          {
+            "name": "adjudication_category_code",
+            "expression": "'allowed'"
+          }
+        ],
+        "rename_columns": {
+          "allowed_amount_src_1": "amount"
+        }
+      },
+      {
+        "name": "unpivot_adjudication_header_benefit",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "denial_reason_src_1",
+          "adjudication_category_code",
+          "amount"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "denial_reason_src_1",
+            "expression": "denial_reason_src_1"
+          },
+          {
+            "name": "adjudication_category_code",
+            "expression": "'benefit'"
+          }
+        ],
+        "rename_columns": {
+          "plan_paid_src_1": "amount"
+        }
+      },
+      {
+        "name": "unpivot_adjudication_header_copay",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "claim_id_src_1",
+          "batch_id_src_1",
+          "denial_reason_src_1",
+          "adjudication_category_code",
+          "amount"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_1",
+            "expression": "claim_id_src_1"
+          },
+          {
+            "name": "batch_id_src_1",
+            "expression": "batch_id_src_1"
+          },
+          {
+            "name": "denial_reason_src_1",
+            "expression": "denial_reason_src_1"
+          },
+          {
+            "name": "adjudication_category_code",
+            "expression": "'copay'"
+          }
+        ],
+        "rename_columns": {
+          "member_responsibility_src_1": "amount"
+        }
+      },
+      {
+        "name": "union_adjudication_header",
+        "transformation": "Set",
+        "dependent_on": [
+          "unpivot_adjudication_header_submitted",
+          "unpivot_adjudication_header_allowed",
+          "unpivot_adjudication_header_benefit",
+          "unpivot_adjudication_header_copay"
+        ],
+        "operation_type": "Union All"
+      },
+      {
+        "name": "unpivot_adjudication_line_submitted",
+        "transformation": "Expression",
+        "dependent_on": [
+          "join_header_line"
+        ],
+        "select_columns": [
+          "claim_id_src_2",
+          "batch_id_src_2",
+          "claim_line_src_2",
+          "adjudication_category_bb_code",
+          "amount"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_2",
+            "expression": "claim_id_src_2"
+          },
+          {
+            "name": "batch_id_src_2",
+            "expression": "batch_id_src_2"
+          },
+          {
+            "name": "claim_line_src_2",
+            "expression": "claim_line_src_2"
+          },
+          {
+            "name": "adjudication_category_bb_code",
+            "expression": "'submitted'"
+          }
+        ],
+        "rename_columns": {
+          "line_charge_src_2": "amount"
+        }
+      },
+      {
+        "name": "unpivot_adjudication_line_allowed",
+        "transformation": "Expression",
+        "dependent_on": [
+          "join_header_line"
+        ],
+        "select_columns": [
+          "claim_id_src_2",
+          "batch_id_src_2",
+          "claim_line_src_2",
+          "adjudication_category_bb_code",
+          "amount"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_2",
+            "expression": "claim_id_src_2"
+          },
+          {
+            "name": "batch_id_src_2",
+            "expression": "batch_id_src_2"
+          },
+          {
+            "name": "claim_line_src_2",
+            "expression": "claim_line_src_2"
+          },
+          {
+            "name": "adjudication_category_bb_code",
+            "expression": "'allowed'"
+          }
+        ],
+        "rename_columns": {
+          "allowed_amount_src_2": "amount"
+        }
+      },
+      {
+        "name": "unpivot_adjudication_line_benefit",
+        "transformation": "Expression",
+        "dependent_on": [
+          "join_header_line"
+        ],
+        "select_columns": [
+          "claim_id_src_2",
+          "batch_id_src_2",
+          "claim_line_src_2",
+          "adjudication_category_bb_code",
+          "amount"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_2",
+            "expression": "claim_id_src_2"
+          },
+          {
+            "name": "batch_id_src_2",
+            "expression": "batch_id_src_2"
+          },
+          {
+            "name": "claim_line_src_2",
+            "expression": "claim_line_src_2"
+          },
+          {
+            "name": "adjudication_category_bb_code",
+            "expression": "'benefit'"
+          }
+        ],
+        "rename_columns": {
+          "plan_paid_src_2": "amount"
+        }
+      },
+      {
+        "name": "unpivot_adjudication_line_copay",
+        "transformation": "Expression",
+        "dependent_on": [
+          "join_header_line"
+        ],
+        "select_columns": [
+          "claim_id_src_2",
+          "batch_id_src_2",
+          "claim_line_src_2",
+          "adjudication_category_bb_code",
+          "amount"
+        ],
+        "derived_fields": [
+          {
+            "name": "claim_id_src_2",
+            "expression": "claim_id_src_2"
+          },
+          {
+            "name": "batch_id_src_2",
+            "expression": "batch_id_src_2"
+          },
+          {
+            "name": "claim_line_src_2",
+            "expression": "claim_line_src_2"
+          },
+          {
+            "name": "adjudication_category_bb_code",
+            "expression": "'copay'"
+          }
+        ],
+        "rename_columns": {
+          "member_responsibility_src_2": "amount"
+        }
+      },
+      {
+        "name": "union_adjudication_line",
+        "transformation": "Set",
+        "dependent_on": [
+          "unpivot_adjudication_line_submitted",
+          "unpivot_adjudication_line_allowed",
+          "unpivot_adjudication_line_benefit",
+          "unpivot_adjudication_line_copay"
+        ],
+        "operation_type": "Union All"
+      },
+      {
+        "name": "claim_diagnosis_rename",
+        "transformation": "Expression",
+        "dependent_on": [
+          "filter_diagnosis_notnull"
+        ],
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "source_diagnosis_code",
+          "source_diagnosis_code_system",
+          "diagnosis_sequence",
+          "diagnosis_type",
+          "poa_flag",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active"
+        ],
+        "rename_columns": {
+          "batch_id_src_1": "batch_id",
+          "claim_id_src_1": "source_claim_id"
+        },
+        "derived_fields": [
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "source_system",
+            "expression": "'SAFEHARBOR_FIDELISCARE_PROD_IPCLAIMLINE_FULL_CINQDOWNSTATE_20230101_20260331'"
+          },
+          {
+            "name": "source_diagnosis_code",
+            "expression": "source_diagnosis_code"
+          },
+          {
+            "name": "source_diagnosis_code_system",
+            "expression": "CASE WHEN icd_version_src_1 = 9 THEN 'ICD-9-CM' WHEN icd_version_src_1 = 10 THEN 'ICD-10-CM' END"
+          },
+          {
+            "name": "diagnosis_sequence",
+            "expression": "CAST(diagnosis_sequence AS INT)"
+          },
+          {
+            "name": "diagnosis_type",
+            "expression": "diagnosis_type"
+          },
+          {
+            "name": "poa_flag",
+            "expression": "poa_flag"
+          },
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          }
+        ]
+      },
+      {
+        "name": "patient_rename",
+        "transformation": "Expression",
+        "dependent_on": [
+          "dedup_header"
+        ],
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_member_id",
+          "mbi_id",
+          "date_of_birth",
+          "gender",
+          "zip_code",
+          "zip5",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active",
+          "hicn",
+          "first_name",
+          "middle_name",
+          "last_name",
+          "deceased_date",
+          "death_indicator",
+          "race_code",
+          "ethnicity_code",
+          "address_line1",
+          "address_line2",
+          "city",
+          "state",
+          "country",
+          "address_line3",
+          "address_line4",
+          "address_line5",
+          "address_line6",
+          "county_fips_code",
+          "state_fips_code",
+          "zip4",
+          "mdcr_status_code",
+          "dual_status_code",
+          "original_entitlement_reason_code",
+          "entitlement_buyin_indicator",
+          "part_a_enrollment_begin_date",
+          "part_b_enrollment_begin_date",
+          "bene_rng_bgn_dt",
+          "bene_rng_end_dt"
+        ],
+        "rename_columns": {
+          "batch_id_src_1": "batch_id",
+          "member_id_src_1": "mbi_id",
+          "patient_gender_src_1": "gender"
+        },
+        "derived_fields": [
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "source_system",
+            "expression": "'SAFEHARBOR_FIDELISCARE_PROD_IPCLAIMLINE_FULL_CINQDOWNSTATE_20230101_20260331'"
+          },
+          {
+            "name": "date_of_birth",
+            "expression": "to_date(to_timestamp(patient_dob_src_1 / 1000))"
+          },
+          {
+            "name": "zip_code",
+            "expression": "LPAD(CAST(patient_zip_code_src_1 AS STRING), 5, '0')"
+          },
+          {
+            "name": "zip5",
+            "expression": "LPAD(CAST(patient_zip_code_src_1 AS STRING), 5, '0')"
+          },
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "hicn",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "first_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "middle_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "last_name",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "deceased_date",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "death_indicator",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "race_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "ethnicity_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line1",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line2",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "city",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "state",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "country",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line3",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line4",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line5",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "address_line6",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "county_fips_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "state_fips_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "zip4",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "mdcr_status_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "dual_status_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "original_entitlement_reason_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "entitlement_buyin_indicator",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "part_a_enrollment_begin_date",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "part_b_enrollment_begin_date",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "bene_rng_bgn_dt",
+            "expression": "CAST(NULL AS DATE)"
+          },
+          {
+            "name": "bene_rng_end_dt",
+            "expression": "CAST(NULL AS DATE)"
+          }
+        ]
+      },
+      {
+        "name": "claim_procedure_rename",
+        "transformation": "Expression",
+        "dependent_on": [
+          "filter_procedure_notnull"
+        ],
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "line_number",
+          "procedure_sequence",
+          "source_procedure_code",
+          "source_procedure_code_system",
+          "procedure_type",
+          "procedure_date",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active"
+        ],
+        "rename_columns": {
+          "batch_id_src_1": "batch_id",
+          "claim_id_src_1": "source_claim_id"
+        },
+        "derived_fields": [
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "source_system",
+            "expression": "'SAFEHARBOR_FIDELISCARE_PROD_IPCLAIMLINE_FULL_CINQDOWNSTATE_20230101_20260331'"
+          },
+          {
+            "name": "line_number",
+            "expression": "0"
+          },
+          {
+            "name": "procedure_sequence",
+            "expression": "CAST(procedure_sequence AS INT)"
+          },
+          {
+            "name": "source_procedure_code",
+            "expression": "source_procedure_code"
+          },
+          {
+            "name": "source_procedure_code_system",
+            "expression": "CASE WHEN icd_version_src_1 = 9 THEN 'ICD-9-PCS' WHEN icd_version_src_1 = 10 THEN 'ICD-10-PCS' END"
+          },
+          {
+            "name": "procedure_type",
+            "expression": "procedure_type"
+          },
+          {
+            "name": "procedure_date",
+            "expression": "to_date(to_timestamp(procedure_date_epoch / 1000))"
+          },
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          }
+        ]
+      },
+      {
+        "name": "claim_provider_rename",
+        "transformation": "Expression",
+        "dependent_on": [
+          "filter_provider_notnull"
+        ],
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "line_number",
+          "provider_role_code",
+          "provider_role_system",
+          "provider_identifier_system",
+          "provider_identifier_value",
+          "npi",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active",
+          "tin"
+        ],
+        "rename_columns": {
+          "batch_id_src_1": "batch_id",
+          "claim_id_src_1": "source_claim_id",
+          "physician_number_type_src_1": "provider_role_system"
+        },
+        "derived_fields": [
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "source_system",
+            "expression": "'SAFEHARBOR_FIDELISCARE_PROD_IPCLAIMLINE_FULL_CINQDOWNSTATE_20230101_20260331'"
+          },
+          {
+            "name": "line_number",
+            "expression": "0"
+          },
+          {
+            "name": "provider_role_code",
+            "expression": "provider_role_code"
+          },
+          {
+            "name": "provider_identifier_system",
+            "expression": "'NPI'"
+          },
+          {
+            "name": "provider_identifier_value",
+            "expression": "provider_identifier_value"
+          },
+          {
+            "name": "npi",
+            "expression": "npi"
+          },
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "tin",
+            "expression": "CAST(NULL AS STRING)"
+          }
+        ]
+      },
+      {
+        "name": "claim_adjudication_rename",
+        "transformation": "Expression",
+        "dependent_on": [
+          "union_adjudication_header"
+        ],
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "adjudication_category_code",
+          "adjudication_category_system",
+          "adjudication_reason_code",
+          "amount",
+          "currency",
+          "record_hash",
+          "is_deleted",
+          "created_at",
+          "updated_at",
+          "is_active",
+          "adjudication_type",
+          "adjudication_reason_system",
+          "value"
+        ],
+        "rename_columns": {
+          "batch_id_src_1": "batch_id",
+          "claim_id_src_1": "source_claim_id",
+          "denial_reason_src_1": "adjudication_reason_code"
+        },
+        "derived_fields": [
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "source_system",
+            "expression": "'SAFEHARBOR_FIDELISCARE_PROD_IPCLAIMLINE_FULL_CINQDOWNSTATE_20230101_20260331'"
+          },
+          {
+            "name": "adjudication_category_code",
+            "expression": "adjudication_category_code"
+          },
+          {
+            "name": "adjudication_category_system",
+            "expression": "'http://terminology.hl7.org/CodeSystem/adjudication'"
+          },
+          {
+            "name": "amount",
+            "expression": "CAST(amount AS DECIMAL(18,2))"
+          },
+          {
+            "name": "currency",
+            "expression": "'USD'"
+          },
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "is_deleted",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "adjudication_type",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "adjudication_reason_system",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "value",
+            "expression": "CAST(NULL AS STRING)"
+          }
+        ]
+      },
+      {
+        "name": "claim_line_adjudication_rename",
+        "transformation": "Expression",
+        "dependent_on": [
+          "union_adjudication_line"
+        ],
+        "select_columns": [
+          "batch_id",
+          "created_by",
+          "updated_by",
+          "source_system",
+          "source_claim_id",
+          "line_number",
+          "adjudication_category_bb_code",
+          "adjudication_category_system",
+          "amount",
+          "currency",
+          "record_hash",
+          "created_at",
+          "updated_at",
+          "is_active",
+          "adjudication_type",
+          "adjudication_category_code",
+          "adjudication_reason_code",
+          "adjudication_reason_system",
+          "value"
+        ],
+        "rename_columns": {
+          "batch_id_src_2": "batch_id",
+          "claim_id_src_2": "source_claim_id"
+        },
+        "derived_fields": [
+          {
+            "name": "created_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "updated_by",
+            "expression": "'ENROLLMENT_PIPELINE'"
+          },
+          {
+            "name": "source_system",
+            "expression": "'SAFEHARBOR_FIDELISCARE_PROD_IPCLAIMLINE_FULL_CINQDOWNSTATE_20230101_20260331'"
+          },
+          {
+            "name": "line_number",
+            "expression": "CAST(claim_line_src_2 AS INT)"
+          },
+          {
+            "name": "adjudication_category_bb_code",
+            "expression": "adjudication_category_bb_code"
+          },
+          {
+            "name": "adjudication_category_system",
+            "expression": "'https://bluebutton.cms.gov/resources/codesystem/adjudication'"
+          },
+          {
+            "name": "amount",
+            "expression": "CAST(amount AS DECIMAL(18,2))"
+          },
+          {
+            "name": "currency",
+            "expression": "'USD'"
+          },
+          {
+            "name": "record_hash",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "created_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "updated_at",
+            "expression": "CAST(NULL AS TIMESTAMP)"
+          },
+          {
+            "name": "is_active",
+            "expression": "CAST(NULL AS BOOLEAN)"
+          },
+          {
+            "name": "adjudication_type",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "adjudication_category_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "adjudication_reason_code",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "adjudication_reason_system",
+            "expression": "CAST(NULL AS STRING)"
+          },
+          {
+            "name": "value",
+            "expression": "CAST(NULL AS STRING)"
+          }
+        ]
+      }
+    ],
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "brdtestingestion",
+      "stages": [
+        "silver_raw"
+      ],
+      "stage_to_transformations": {
+        "silver_raw": [
+          "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331",
+          "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331_MaxBatchExpr",
+          "safeharbor_fideliscare_prod_ipclaimheader_full_cinqdownstate_20230101_20260331_IngestFilter",
+          "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331",
+          "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331_MaxBatchExpr",
+          "safeharbor_fideliscare_prod_ipclaimline_full_cinqdownstate_20230101_20260331_IngestFilter",
+          "dedup_header",
+          "dedup_line",
+          "join_header_line",
+          "unpivot_diagnosis_1",
+          "unpivot_diagnosis_2",
+          "unpivot_diagnosis_3",
+          "unpivot_diagnosis_4",
+          "unpivot_diagnosis_5",
+          "unpivot_diagnosis_6",
+          "unpivot_diagnosis_7",
+          "unpivot_diagnosis_8",
+          "unpivot_diagnosis_9",
+          "unpivot_diagnosis_10",
+          "unpivot_diagnosis_11",
+          "unpivot_diagnosis_12",
+          "unpivot_diagnosis_13",
+          "unpivot_diagnosis_14",
+          "unpivot_diagnosis_15",
+          "unpivot_diagnosis_16",
+          "unpivot_diagnosis_17",
+          "unpivot_diagnosis_18",
+          "unpivot_diagnosis_19",
+          "unpivot_diagnosis_20",
+          "unpivot_diagnosis_21",
+          "unpivot_diagnosis_22",
+          "unpivot_diagnosis_23",
+          "unpivot_diagnosis_24",
+          "unpivot_diagnosis_25",
+          "unpivot_diagnosis_26",
+          "unpivot_diagnosis_27",
+          "unpivot_diagnosis_28",
+          "unpivot_diagnosis_29",
+          "unpivot_diagnosis_30",
+          "unpivot_diagnosis_31",
+          "union_diagnosis",
+          "filter_diagnosis_notnull",
+          "unpivot_procedure_1",
+          "unpivot_procedure_2",
+          "unpivot_procedure_3",
+          "unpivot_procedure_4",
+          "unpivot_procedure_5",
+          "unpivot_procedure_6",
+          "unpivot_procedure_7",
+          "unpivot_procedure_8",
+          "unpivot_procedure_9",
+          "unpivot_procedure_10",
+          "unpivot_procedure_11",
+          "union_procedure",
+          "filter_procedure_notnull",
+          "unpivot_provider_facility",
+          "unpivot_provider_attending",
+          "unpivot_provider_operating",
+          "unpivot_provider_rendering",
+          "unpivot_provider_referring",
+          "union_provider",
+          "filter_provider_notnull",
+          "unpivot_adjudication_header_submitted",
+          "unpivot_adjudication_header_allowed",
+          "unpivot_adjudication_header_benefit",
+          "unpivot_adjudication_header_copay",
+          "union_adjudication_header",
+          "unpivot_adjudication_line_submitted",
+          "unpivot_adjudication_line_allowed",
+          "unpivot_adjudication_line_benefit",
+          "unpivot_adjudication_line_copay",
+          "union_adjudication_line",
+          "claim_diagnosis_rename",
+          "patient_rename",
+          "claim_procedure_rename",
+          "claim_provider_rename",
+          "claim_adjudication_rename",
+          "claim_line_adjudication_rename",
+          "claim_adjudication_final",
+          "claim_adjudication",
+          "claim_diagnosis_final",
+          "claim_diagnosis",
+          "patient_final",
+          "patient",
+          "claim_procedure_final",
+          "claim_procedure",
+          "claim_provider_final",
+          "claim_provider",
+          "claim_line_adjudication_final",
+          "claim_line_adjudication"
+        ]
+      },
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "seed_stage_rows": true,
+      "storage": {
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        },
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        }
+      }
+    },
+    "target_prep": {
+      "claim_diagnosis": "claim_diagnosis_rename",
+      "patient": "patient_rename",
+      "claim_procedure": "claim_procedure_rename",
+      "claim_provider": "claim_provider_rename",
+      "claim_adjudication": "claim_adjudication_rename",
+      "claim_line_adjudication": "claim_line_adjudication_rename"
+    }
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": "requirement",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
