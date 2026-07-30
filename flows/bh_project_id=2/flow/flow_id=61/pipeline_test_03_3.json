@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-30T13:12:23.930030Z",
-  "updated_at": "2026-07-30T14:28:31.517009Z",
+  "updated_at": "2026-07-30T16:55:54.841616Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -206,7 +206,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-07-30 14:34:09.479069+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
