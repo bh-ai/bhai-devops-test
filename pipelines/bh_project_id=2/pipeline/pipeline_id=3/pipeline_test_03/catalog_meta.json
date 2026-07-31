@@ -1,0 +1,7 @@
+{
+  "pipeline_id": 3,
+  "pipeline_name": "pipeline-test-03",
+  "engine_type": "spark_plain",
+  "target_format": "spark-plain",
+  "stage_index": {}
+}
