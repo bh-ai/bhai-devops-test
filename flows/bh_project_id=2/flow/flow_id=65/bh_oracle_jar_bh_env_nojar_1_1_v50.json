@@ -1,0 +1,211 @@
+{
+  "created_at": "2026-08-03T13:08:38.675610Z",
+  "updated_at": "2026-08-04T02:00:25.108411Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 1,
+  "flow_id": 65,
+  "flow_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+  "flow_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+  "recipient_email": {},
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "bh_project_name": "flow-service-project",
+  "bh_project_id": 2,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 65
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 65,
+        "data": {
+          "flow_id": 65,
+          "flow_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+          "flow_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+          "bh_project_id": 2,
+          "recipient_email": {},
+          "notes": null,
+          "tags": null,
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
+        "pk": 19,
+        "data": {
+          "flow_pipeline_mapping_id": 19,
+          "flow_id": 65,
+          "pipeline_id": 52,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 61,
+        "data": {
+          "flow_definition_id": 61,
+          "flow_id": 65,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+              "flow_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+              "flow_id": 65,
+              "flow_type": "INGESTION",
+              "flow_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+              "description": "Flow for bh_oracle_jar_bh_env_nojar_1_1_v50",
+              "version": "1.0.0",
+              "project_id": 2,
+              "project_name": "flow-service-project",
+              "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 1,
+              "bh_environment_id": 2,
+              "bh_environment_name": "dbricks-westus",
+              "parameters": [],
+              "tasks": [
+                {
+                  "task_id": "create_compute",
+                  "type": "CreateCompute",
+                  "depends_on": [],
+                  "name": "Create Compute",
+                  "compute_config_id": 1,
+                  "compute_config": {
+                    "emr_version": "emr-7.6.0",
+                    "custom_image_uri": null,
+                    "instance_type": "c5.2xlarge",
+                    "master_instance_type": "c5.2xlarge",
+                    "core_instance_type": "c5.2xlarge",
+                    "worker_count": 1,
+                    "idle_timeout_seconds": 300,
+                    "aws_logs_uri": "aws-logs-058264070106-us-east-1/elasticmapreduce",
+                    "ec2_subnet_id": "subnet-0cc0f9fe2344fd4f8",
+                    "emr_master_security_group": "sg-0462af0578a5ac0e5",
+                    "emr_slave_security_group": "sg-0f3ff6e836efa0ca5",
+                    "service_access_security_group": "sg-0f3ff6e836efa0ca5",
+                    "job_flow_role": "EMR_EC2_DefaultRole",
+                    "service_role": "EMR_DefaultRole",
+                    "additional_master_security_groups": [],
+                    "additional_slave_security_groups": [],
+                    "ec2_key_name": "bh-d-key-pair",
+                    "applications": [
+                      "Spark",
+                      "Hive"
+                    ],
+                    "aws_cloud_connection": null,
+                    "region": "us-east-1",
+                    "existing_cluster_id": null,
+                    "emr_deployment_type": "EMR_ON_EC2",
+                    "auto_scaling_role": "EMR_AutoScaling_DefaultRole",
+                    "bh_tags": [],
+                    "cluster_name": "emr-cluster"
+                  },
+                  "cloud_type": "aws",
+                  "compute_type": "EMR",
+                  "cluster_name": "emr-cluster",
+                  "airflow_connection_id": "aws_default"
+                },
+                {
+                  "task_id": "submit_bh_oracle_jar_bh_env_nojar_1_1_v50",
+                  "type": "SubmitJobPySpark",
+                  "depends_on": [
+                    "create_compute"
+                  ],
+                  "name": "Submit bh_oracle_jar_bh_env_nojar_1_1_v50",
+                  "pipeline_id": 52,
+                  "pipeline_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+                  "s3_script_uri": "s3://bh-utils/bh-ui-aws-project/pipelines/bh_project_id=3/pipeline/pyspark/pipeline_id=41/bh_postgres_join_kafka/main.py",
+                  "output_variables": [
+                    {
+                      "id": "submit_job_py_spark_SubmitJobPySpark_submit_bh_oracle_jar_bh_env_nojar_1_1_v50_1785809780449_output_1",
+                      "label": "submit_job_py_spark_output_1",
+                      "xcom_key": "output_1"
+                    }
+                  ],
+                  "bh_project_name": "flow-service-project",
+                  "pipeline_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+                  "s3_jars_uri": "s3://bh-utils/jars/postgresql-42.7.12.jar",
+                  "s3_connections_uri": "s3://bh-utils/bh-ui-aws-project/pipelines/bh_project_id=3/pipeline/pyspark/pipeline_id=41/bh_postgres_join_kafka/connections.yml",
+                  "cloud_type": "",
+                  "aws_logs_uri": "s3://aws-logs-058264070106-us-east-1/elasticmapreduce/",
+                  "s3_env_uri": "s3://bh-utils/boto3_deps.zip",
+                  "compute_type": ""
+                },
+                {
+                  "task_id": "delete_compute",
+                  "type": "DeleteCompute",
+                  "depends_on": [
+                    "submit_bh_oracle_jar_bh_env_nojar_1_1_v50"
+                  ],
+                  "name": "Delete Compute",
+                  "compute_config_id": 1,
+                  "compute_bindings": [
+                    {
+                      "source_task_id": "create_compute",
+                      "source_output_id": "default_output"
+                    }
+                  ],
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "default_output"
+                  },
+                  "compute_type": "EMR",
+                  "cloud_type": "aws"
+                }
+              ],
+              "bh_project_id": 2,
+              "cloud_provider": "databricks",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net",
+              "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-2-v1-secrets"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 61,
+        "data": {
+          "flow_deployment_id": 61,
+          "flow_id": 65,
+          "bh_env_id": 2,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
