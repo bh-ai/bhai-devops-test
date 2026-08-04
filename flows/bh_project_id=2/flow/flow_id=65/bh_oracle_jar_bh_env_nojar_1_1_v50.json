@@ -137,7 +137,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-08-04 03:34:37.634302+00:00",
+          "last_deployed_at": "2026-08-04 04:04:52.173237+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
