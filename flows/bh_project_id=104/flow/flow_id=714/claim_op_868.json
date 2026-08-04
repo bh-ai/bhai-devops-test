@@ -1,0 +1,365 @@
+{
+  "created_at": "2026-08-04T04:55:20.206195Z",
+  "updated_at": "2026-08-04T04:55:36.924965Z",
+  "created_by": "dhanushpathi@bighammer.ai",
+  "updated_by": "dhanushpathi@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 113,
+  "flow_id": 714,
+  "flow_name": "claim_op_868",
+  "flow_key": "claim_op_868",
+  "recipient_email": {},
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "bh_project_name": "bighammer",
+  "bh_project_id": 104,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 714
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 714,
+        "data": {
+          "flow_id": 714,
+          "flow_name": "claim_op_868",
+          "flow_key": "claim_op_868",
+          "bh_project_id": 104,
+          "recipient_email": {},
+          "notes": null,
+          "tags": null,
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
+        "pk": 373,
+        "data": {
+          "flow_pipeline_mapping_id": 373,
+          "flow_id": 714,
+          "pipeline_id": 1489,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
+        "pk": 372,
+        "data": {
+          "flow_pipeline_mapping_id": 372,
+          "flow_id": 714,
+          "pipeline_id": 1488,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2573,
+        "data": {
+          "flow_parameter_id": 2573,
+          "flow_id": 714,
+          "parameter_name": "task_id_to_watch",
+          "parameter_value": "run_job",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2572,
+        "data": {
+          "flow_parameter_id": 2572,
+          "flow_id": 714,
+          "parameter_name": "suffix",
+          "parameter_value": ".json",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2571,
+        "data": {
+          "flow_parameter_id": 2571,
+          "flow_id": 714,
+          "parameter_name": "prefix",
+          "parameter_value": "logs/",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2570,
+        "data": {
+          "flow_parameter_id": 2570,
+          "flow_id": 714,
+          "parameter_name": "parallelization_factor",
+          "parameter_value": 1,
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2569,
+        "data": {
+          "flow_parameter_id": 2569,
+          "flow_id": 714,
+          "parameter_name": "execute_in_parallel",
+          "parameter_value": false,
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2575,
+        "data": {
+          "flow_parameter_id": 2575,
+          "flow_id": 714,
+          "parameter_name": "compute_type",
+          "parameter_value": "AZURE_FUNCTION",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2574,
+        "data": {
+          "flow_parameter_id": 2574,
+          "flow_id": 714,
+          "parameter_name": "cloud_type",
+          "parameter_value": "databricks",
+          "parameter_type": "USER",
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 714,
+        "data": {
+          "flow_definition_id": 714,
+          "flow_id": 714,
+          "flow_json": {
+            "flowJson": {
+              "$schema": "https://json-schema.org/draft-07/schema#",
+              "name": "claim_op_868",
+              "flow_name": "claim_op_868",
+              "flow_id": 714,
+              "flow_key": "claim_op_868",
+              "flow_type": "INGESTION",
+              "description": "desc",
+              "version": "1.0.0",
+              "project_id": 104,
+              "project_name": "bighammer",
+              "cron_expression": null,
+              "tenant_id": 113,
+              "flow_tags": [
+                {
+                  "key": "drn",
+                  "value": "12346"
+                },
+                {
+                  "key": "environment",
+                  "value": "dev"
+                }
+              ],
+              "parameters": [
+                {
+                  "key": "cloud_type",
+                  "value": "databricks"
+                },
+                {
+                  "key": "compute_type",
+                  "value": "AZURE_FUNCTION"
+                },
+                {
+                  "key": "execute_in_parallel",
+                  "value": false
+                },
+                {
+                  "key": "parallelization_factor",
+                  "value": 1
+                },
+                {
+                  "key": "prefix",
+                  "value": "logs/"
+                },
+                {
+                  "key": "suffix",
+                  "value": ".json"
+                },
+                {
+                  "key": "task_id_to_watch",
+                  "value": "run_job"
+                }
+              ],
+              "tasks": [
+                {
+                  "task_id": "Create Compute",
+                  "type": "CreateCompute",
+                  "depends_on": [],
+                  "cluster_name": "pre-ingest-anal",
+                  "compute_config": {
+                    "compute_config_id": 114,
+                    "compute_config_name": "pre-ingest-anal",
+                    "compute_type": "AZURE_FUNCTION",
+                    "bh_env_id": 287,
+                    "compute_config": {
+                      "function_app_name": "bhai-catalog-api-svrlss",
+                      "function_name": "PreIngestRun",
+                      "resource_group": "bh-nprd-d-westus3-rg",
+                      "region": "westus3",
+                      "function_key": null,
+                      "function_url": "https://bhai-catalog-api-svrlss.azurewebsites.net/api/PreIngestRun?code=ocjq2olTCaBnDIP5GdoFTvjdY26x5oSOHX-viZqsN5xjAzFuNyAOQw=="
+                    }
+                  },
+                  "cloud_type": "databricks",
+                  "compute_type": "AZURE_FUNCTION",
+                  "airflow_connection_id": "databricks_default",
+                  "output_variables": [
+                    {
+                      "id": "compute_id",
+                      "label": "Cluster / job identifier",
+                      "xcom_key": "return_value"
+                    }
+                  ],
+                  "name": "Create_Compute",
+                  "nodeId": "create_compute_Create Compute",
+                  "compute_config_id": 114,
+                  "pool_enabled": false
+                },
+                {
+                  "task_id": "Run Jobs_claim_op",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "Create Compute"
+                  ],
+                  "bh_project_name": "bighammer",
+                  "pipeline_key": "claim_op",
+                  "pipeline_name": "claim_op",
+                  "pipeline_id": 1488,
+                  "compute_binding": {
+                    "source_task_id": "Create Compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "AZURE_FUNCTION",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "name": "Submit_Job",
+                  "nodeId": "Submit_Job_Run Jobs_claim_op",
+                  "pool_enabled": false
+                },
+                {
+                  "task_id": "Run Jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "Run Jobs_claim_op"
+                  ],
+                  "bh_project_name": "bighammer",
+                  "pipeline_key": "silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46",
+                  "pipeline_name": "silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46",
+                  "pipeline_id": 1489,
+                  "compute_binding": {
+                    "source_task_id": "Create Compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "AZURE_FUNCTION",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "name": "Submit_Job_2",
+                  "nodeId": "Submit_Job_Run Jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46",
+                  "pool_enabled": false
+                },
+                {
+                  "task_id": "Delete Compute",
+                  "type": "DeleteCompute",
+                  "depends_on": [
+                    "Run Jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46"
+                  ],
+                  "cloud_type": "databricks",
+                  "compute_type": "AZURE_FUNCTION",
+                  "airflow_connection_id": "databricks_default",
+                  "compute_binding": {
+                    "source_task_id": "Create Compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "name": "Delete_Compute",
+                  "nodeId": "delete_compute_Delete Compute",
+                  "pool_enabled": false
+                }
+              ],
+              "bh_environment_id": 287,
+              "bh_project_id": 104,
+              "bh_environment_name": "bh_dhanu_databricks",
+              "cloud_provider": "databricks",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net",
+              "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-dhanushpathi-databricks-keycloak-287-v1-secrets",
+              "ingestion_group_id": 868
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 714,
+        "data": {
+          "flow_deployment_id": 714,
+          "flow_id": 714,
+          "bh_env_id": 287,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": null,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
