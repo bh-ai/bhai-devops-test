@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 378,
+        "data": {
+          "flow_pipeline_mapping_id": 378,
+          "flow_id": 715,
+          "pipeline_id": 1510,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 375,
         "data": {
           "flow_pipeline_mapping_id": 375,
@@ -152,7 +164,7 @@
           "flow_parameter_id": 2601,
           "flow_id": 715,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}]",
+          "parameter_value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -368,7 +380,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}]"
+                  "value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}]"
                 },
                 {
                   "key": "prefix",
@@ -557,10 +569,35 @@
                   "pool_release_lease": false
                 },
                 {
-                  "task_id": "run_pipelines_claims_silver_ods_fidelis_upstate_ip",
+                  "task_id": "run_pipelines_silver_raw_fideliscare_claims_join_transform_260717_af62",
                   "type": "SubmitJob",
                   "depends_on": [
                     "run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4"
+                  ],
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "silver_raw_fideliscare_claims_join_transform_260717_af62",
+                  "pipeline_name": "silver_raw_fideliscare_claims_join_transform_260717_af62",
+                  "pipeline_id": 1511,
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+                  "name": "Submit_Job_3",
+                  "nodeId": "Submit_Job_run_pipelines_silver_raw_fideliscare_claims_join_transform_260717_af62",
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
+                },
+                {
+                  "task_id": "run_pipelines_claims_silver_ods_fidelis_upstate_ip",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "run_pipelines_silver_raw_fideliscare_claims_join_transform_260717_af62"
                   ],
                   "bh_project_name": "flow-test-project",
                   "pipeline_key": "claims_silver_ods_fidelis_upstate_ip",
@@ -575,7 +612,7 @@
                   "airflow_connection_id": "databricks_default",
                   "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
                   "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
-                  "name": "Submit_Job_3",
+                  "name": "Submit_Job_4",
                   "nodeId": "Submit_Job_run_pipelines_claims_silver_ods_fidelis_upstate_ip",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
