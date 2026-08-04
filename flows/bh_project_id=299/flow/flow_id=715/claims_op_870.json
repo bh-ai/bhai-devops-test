@@ -105,12 +105,54 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 2596,
+        "data": {
+          "flow_parameter_id": 2596,
+          "flow_id": 715,
+          "parameter_name": "sources",
+          "parameter_value": "[{\"source_name\": \"safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331\", \"prefix\": \"bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP\", \"filename_regex\": \"safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE_20230101_20260331.txt\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}, {\"source_name\": \"safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331\", \"prefix\": \"bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP\", \"filename_regex\": \"safeharbor_FidelisCare_Prod_OPClaimLine_FULL_CINQDOWNSTATE_20230101_20260331.txt\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2603,
+        "data": {
+          "flow_parameter_id": 2603,
+          "flow_id": 715,
+          "parameter_name": "source_prefix",
+          "parameter_value": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 2578,
         "data": {
           "flow_parameter_id": 2578,
           "flow_id": 715,
           "parameter_name": "prefix",
           "parameter_value": "logs/",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2601,
+        "data": {
+          "flow_parameter_id": 2601,
+          "flow_id": 715,
+          "parameter_name": "pipelines",
+          "parameter_value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -133,6 +175,34 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 2598,
+        "data": {
+          "flow_parameter_id": 2598,
+          "flow_id": 715,
+          "parameter_name": "files",
+          "parameter_value": "[{\"key\": \"bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP/safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE_20230101_20260331.txt\", \"base_name\": \"safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE_20230101_20260331.txt\", \"source_name\": \"safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331\", \"relative_key\": \"safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE_20230101_20260331.txt\", \"size_bytes\": 559433469}, {\"key\": \"bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP/safeharbor_FidelisCare_Prod_OPClaimLine_FULL_CINQDOWNSTATE_20230101_20260331.txt\", \"base_name\": \"safeharbor_FidelisCare_Prod_OPClaimLine_FULL_CINQDOWNSTATE_20230101_20260331.txt\", \"source_name\": \"safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331\", \"relative_key\": \"safeharbor_FidelisCare_Prod_OPClaimLine_FULL_CINQDOWNSTATE_20230101_20260331.txt\", \"size_bytes\": 309382796}]",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2597,
+        "data": {
+          "flow_parameter_id": 2597,
+          "flow_id": 715,
+          "parameter_name": "fail_on_invalid",
+          "parameter_value": true,
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 2576,
         "data": {
           "flow_parameter_id": 2576,
@@ -147,12 +217,26 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 2599,
+        "data": {
+          "flow_parameter_id": 2599,
+          "flow_id": 715,
+          "parameter_name": "delete_source",
+          "parameter_value": true,
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 2582,
         "data": {
           "flow_parameter_id": 2582,
           "flow_id": 715,
           "parameter_name": "compute_type",
-          "parameter_value": "AZURE_FUNCTION",
+          "parameter_value": "DATABRICKS_CLUSTER",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -167,6 +251,48 @@
           "flow_id": 715,
           "parameter_name": "cloud_type",
           "parameter_value": "databricks",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2602,
+        "data": {
+          "flow_parameter_id": 2602,
+          "flow_id": 715,
+          "parameter_name": "bucket_name",
+          "parameter_value": "my-test-bucket",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2604,
+        "data": {
+          "flow_parameter_id": 2604,
+          "flow_id": 715,
+          "parameter_name": "archive_prefix",
+          "parameter_value": "Archive/bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 2600,
+        "data": {
+          "flow_parameter_id": 2600,
+          "flow_id": 715,
+          "parameter_name": "allow_empty",
+          "parameter_value": true,
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -218,7 +344,7 @@
                 },
                 {
                   "key": "compute_type",
-                  "value": "AZURE_FUNCTION"
+                  "value": "DATABRICKS_CLUSTER"
                 },
                 {
                   "key": "delete_source",
@@ -428,13 +554,38 @@
                   "nodeId": "Submit_Job_run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
+                },
+                {
+                  "task_id": "run_pipelines_claims_silver_ods_fidelis_upstate_ip",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4"
+                  ],
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "claims_silver_ods_fidelis_upstate_ip",
+                  "pipeline_name": "claims_silver_ods_fidelis_upstate_IP",
+                  "pipeline_id": 1510,
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+                  "name": "Submit_Job_3",
+                  "nodeId": "Submit_Job_run_pipelines_claims_silver_ods_fidelis_upstate_ip",
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
                   "pool_release_lease": true
                 },
                 {
                   "task_id": "archive_processed_files",
                   "type": "ArchiveProcessedFiles",
                   "depends_on": [
-                    "run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4"
+                    "run_pipelines_claims_silver_ods_fidelis_upstate_ip"
                   ],
                   "bucket_name": "my-test-bucket",
                   "cloud_type": "databricks",
