@@ -1,0 +1,148 @@
+{
+  "created_at": "2026-08-03T13:08:38.675610Z",
+  "updated_at": "2026-08-05T03:22:48.943285Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 1,
+  "flow_id": 65,
+  "flow_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+  "flow_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+  "recipient_email": {},
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "bh_project_name": "flow-service-project",
+  "bh_project_id": 2,
+  "alert_settings": {
+    "on_job_start": false,
+    "on_job_failure": false,
+    "on_job_success": false,
+    "long_running": false
+  },
+  "_graph": {
+    "root": {
+      "model": "Flow",
+      "pk": 65
+    },
+    "nodes": [
+      {
+        "model": "Flow",
+        "pk": 65,
+        "data": {
+          "flow_id": 65,
+          "flow_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+          "flow_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+          "bh_project_id": 2,
+          "recipient_email": {},
+          "notes": null,
+          "tags": null,
+          "status": "active",
+          "alert_settings": {
+            "on_job_start": false,
+            "on_job_failure": false,
+            "on_job_success": false,
+            "long_running": false
+          },
+          "bh_bundle_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
+        "pk": 19,
+        "data": {
+          "flow_pipeline_mapping_id": 19,
+          "flow_id": 65,
+          "pipeline_id": 52,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDefinition",
+        "pk": 61,
+        "data": {
+          "flow_definition_id": 61,
+          "flow_id": 65,
+          "flow_json": {
+            "flowJson": {
+              "flow_id": 65,
+              "flow_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+              "flow_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+              "bh_project_id": 2,
+              "bh_project_name": "flow-service-project",
+              "process_template_name": "PySpark EMR Execution Flow v2",
+              "stages": [
+                {
+                  "id": "stage_1",
+                  "name": "Create Compute",
+                  "task_type": "CreateCompute",
+                  "properties": {
+                    "compute_config_id": 1
+                  }
+                },
+                {
+                  "id": "stage_2",
+                  "name": "Submit bh_oracle_jar_bh_env_nojar_1_1_v50",
+                  "task_type": "SubmitJobPySpark",
+                  "properties": {
+                    "pipeline_id": 52,
+                    "pipeline_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+                    "s3_script_uri": "s3://pyspark/bh_oracle_jar_bh_env_nojar_1_1_v50/main.py"
+                  }
+                },
+                {
+                  "id": "stage_3",
+                  "name": "Delete Compute",
+                  "task_type": "DeleteCompute",
+                  "properties": {
+                    "compute_config_id": 1
+                  }
+                }
+              ],
+              "parameters": [],
+              "name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+              "tenant_id": 1,
+              "flow_type": "INGESTION",
+              "version": "1.0.0",
+              "project_id": 2,
+              "project_name": "flow-service-project",
+              "cron_expression": null,
+              "bh_environment_id": 2,
+              "bh_environment_name": "dbricks-westus",
+              "cloud_provider": "databricks",
+              "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net",
+              "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-2-v1-secrets"
+            }
+          },
+          "schema_id": null,
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowDeployment",
+        "pk": 61,
+        "data": {
+          "flow_deployment_id": 61,
+          "flow_id": 65,
+          "bh_env_id": 2,
+          "bh_airflow_id": null,
+          "flow_version_id": null,
+          "schema_id": null,
+          "cron_expression": null,
+          "last_deployed_at": "2026-08-04 16:04:11.904812+00:00",
+          "tenant_id": 1,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  }
+}
