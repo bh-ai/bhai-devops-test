@@ -71,50 +71,113 @@
           "flow_id": 65,
           "flow_json": {
             "flowJson": {
-              "flow_id": 65,
-              "flow_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
-              "flow_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
-              "bh_project_id": 2,
-              "bh_project_name": "flow-service-project",
-              "process_template_name": "PySpark EMR Execution Flow v2",
-              "stages": [
-                {
-                  "id": "stage_1",
-                  "name": "Create Compute",
-                  "task_type": "CreateCompute",
-                  "properties": {
-                    "compute_config_id": 1
-                  }
-                },
-                {
-                  "id": "stage_2",
-                  "name": "Submit bh_oracle_jar_bh_env_nojar_1_1_v50",
-                  "task_type": "SubmitJobPySpark",
-                  "properties": {
-                    "pipeline_id": 52,
-                    "pipeline_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
-                    "s3_script_uri": "s3://pyspark/bh_oracle_jar_bh_env_nojar_1_1_v50/main.py"
-                  }
-                },
-                {
-                  "id": "stage_3",
-                  "name": "Delete Compute",
-                  "task_type": "DeleteCompute",
-                  "properties": {
-                    "compute_config_id": 1
-                  }
-                }
-              ],
-              "parameters": [],
+              "$schema": "http://json-schema.org/draft-07/schema#",
               "name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
-              "tenant_id": 1,
+              "flow_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+              "flow_id": 65,
               "flow_type": "INGESTION",
+              "flow_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+              "description": "Flow for bh_oracle_jar_bh_env_nojar_1_1_v50",
               "version": "1.0.0",
               "project_id": 2,
               "project_name": "flow-service-project",
               "cron_expression": null,
+              "flow_tags": [],
+              "tenant_id": 1,
               "bh_environment_id": 2,
               "bh_environment_name": "dbricks-westus",
+              "parameters": [],
+              "tasks": [
+                {
+                  "task_id": "create_compute",
+                  "type": "CreateCompute",
+                  "depends_on": [],
+                  "name": "Create Compute",
+                  "compute_config_id": 1,
+                  "compute_config": {
+                    "emr_version": "emr-7.6.0",
+                    "custom_image_uri": null,
+                    "instance_type": "c5.2xlarge",
+                    "master_instance_type": "c5.2xlarge",
+                    "core_instance_type": "c5.2xlarge",
+                    "worker_count": 1,
+                    "idle_timeout_seconds": 300,
+                    "aws_logs_uri": "aws-logs-058264070106-us-east-1/elasticmapreduce",
+                    "ec2_subnet_id": "subnet-0cc0f9fe2344fd4f8",
+                    "emr_master_security_group": "sg-0462af0578a5ac0e5",
+                    "emr_slave_security_group": "sg-0f3ff6e836efa0ca5",
+                    "service_access_security_group": "sg-0f3ff6e836efa0ca5",
+                    "job_flow_role": "EMR_EC2_DefaultRole",
+                    "service_role": "EMR_DefaultRole",
+                    "additional_master_security_groups": [],
+                    "additional_slave_security_groups": [],
+                    "ec2_key_name": "bh-d-key-pair",
+                    "applications": [
+                      "Spark",
+                      "Hive"
+                    ],
+                    "aws_cloud_connection": null,
+                    "region": "us-east-1",
+                    "existing_cluster_id": null,
+                    "emr_deployment_type": "EMR_ON_EC2",
+                    "auto_scaling_role": "EMR_AutoScaling_DefaultRole",
+                    "bh_tags": [],
+                    "cluster_name": "emr-cluster01"
+                  },
+                  "cloud_type": "aws",
+                  "compute_type": "EMR",
+                  "cluster_name": "emr-cluster01",
+                  "airflow_connection_id": "aws_default"
+                },
+                {
+                  "task_id": "submit_bh_oracle_jar_bh_env_nojar_1_1_v50",
+                  "type": "SubmitJobPySpark",
+                  "depends_on": [
+                    "create_compute"
+                  ],
+                  "name": "Submit bh_oracle_jar_bh_env_nojar_1_1_v50",
+                  "pipeline_id": 52,
+                  "pipeline_name": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+                  "s3_script_uri": "s3://pyspark/bh_oracle_jar_bh_env_nojar_1_1_v50/main.py",
+                  "output_variables": [
+                    {
+                      "id": "submit_job_py_spark_SubmitJobPySpark_submit_bh_oracle_jar_bh_env_nojar_1_1_v50_1785900193569_output_1",
+                      "label": "submit_job_py_spark_output_1",
+                      "xcom_key": "output_1"
+                    }
+                  ],
+                  "bh_project_name": "flow-service-project",
+                  "pipeline_key": "bh_oracle_jar_bh_env_nojar_1_1_v50",
+                  "s3_connections_uri": "s3://bh-utils/bh-ui-aws-project/pipelines/bh_project_id=3/pipeline/pyspark/pipeline_id=41/bh_postgres_join_kafka/connections.yml",
+                  "s3_env_uri": "s3://bh-utils/boto3_deps.zip",
+                  "s3_jars_uri": "s3://bh-utils/jars/postgresql-42.7.12.jar",
+                  "aws_logs_uri": "s3://aws-logs-058264070106-us-east-1/elasticmapreduce/",
+                  "compute_type": "EMR",
+                  "cloud_type": "aws"
+                },
+                {
+                  "task_id": "delete_compute",
+                  "type": "DeleteCompute",
+                  "depends_on": [
+                    "submit_bh_oracle_jar_bh_env_nojar_1_1_v50"
+                  ],
+                  "name": "Delete Compute",
+                  "compute_config_id": 1,
+                  "compute_bindings": [
+                    {
+                      "source_task_id": "create_compute",
+                      "source_output_id": "default_output"
+                    }
+                  ],
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "default_output"
+                  },
+                  "compute_type": "EMR",
+                  "cloud_type": "aws"
+                }
+              ],
+              "bh_project_id": 2,
               "cloud_provider": "databricks",
               "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net",
               "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-2-v1-secrets"
@@ -137,7 +200,7 @@
           "flow_version_id": null,
           "schema_id": null,
           "cron_expression": null,
-          "last_deployed_at": "2026-08-04 16:04:11.904812+00:00",
+          "last_deployed_at": "2026-08-05 03:23:34.558343+00:00",
           "tenant_id": 1,
           "is_deleted": false,
           "deleted_by": null
