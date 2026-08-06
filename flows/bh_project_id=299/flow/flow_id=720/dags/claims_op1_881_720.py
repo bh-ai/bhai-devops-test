@@ -62,7 +62,7 @@ with DAG(
         "max_files": None,
         "quarantine_prefix": "bhargs/3-Claims/3-Claims/Fidelis/upstate/op_test/rejected",
         "fail_on_invalid": True,
-        "use_valid_files_manifest": False,
+        "use_valid_files_manifest": True,
         "runtime_params_base_path": "/Workspace/Shared/runtime_params",
         "sources": [
             {
