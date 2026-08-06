@@ -384,7 +384,7 @@
                     }
                   ],
                   "feed_name": "claims_op1",
-                  "use_valid_files_manifest": false,
+                  "use_valid_files_manifest": true,
                   "runtime_params_base_path": "/Workspace/Shared/runtime_params",
                   "name": "Validate",
                   "nodeId": "validate_validate_inbound_files"
