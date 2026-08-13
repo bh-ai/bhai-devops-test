@@ -59,8 +59,8 @@
           "flow_id": 714,
           "pipeline_id": 1599,
           "tenant_id": 113,
-          "is_deleted": false,
-          "deleted_by": null
+          "is_deleted": true,
+          "deleted_by": "dhanushpathi@bighammer.ai"
         }
       },
       {
@@ -373,15 +373,15 @@
                   "pool_release_lease": false
                 },
                 {
-                  "task_id": "Run Jobs_fidelis_op_line_806",
+                  "task_id": "Run Jobs_claims_silver_ods_fidelis_upstate_ip_new",
                   "type": "SubmitJob",
                   "depends_on": [
                     "Run Jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46"
                   ],
                   "bh_project_name": "bighammer",
-                  "pipeline_key": "fidelis_op_line_806",
-                  "pipeline_name": "fidelis_op_line_806",
-                  "pipeline_id": 1599,
+                  "pipeline_key": "claims_silver_ods_fidelis_upstate_ip_new",
+                  "pipeline_name": "claims_silver_ods_fidelis_upstate_IP_NEW",
+                  "pipeline_id": 1602,
                   "compute_binding": {
                     "source_task_id": "Create Compute",
                     "source_output_id": "compute_id"
@@ -390,7 +390,7 @@
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "name": "Submit_Job_3",
-                  "nodeId": "Submit_Job_Run Jobs_fidelis_op_line_806",
+                  "nodeId": "Submit_Job_Run Jobs_claims_silver_ods_fidelis_upstate_ip_new",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
                   "pool_release_lease": true
@@ -399,7 +399,7 @@
                   "task_id": "Delete Compute",
                   "type": "DeleteCompute",
                   "depends_on": [
-                    "Run Jobs_fidelis_op_line_806"
+                    "Run Jobs_claims_silver_ods_fidelis_upstate_ip_new"
                   ],
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
@@ -414,7 +414,6 @@
                 }
               ],
               "bh_environment_id": 287,
-              "template_parameters": [],
               "bh_project_id": 104,
               "bh_environment_name": "bh_dhanu_databricks",
               "cloud_provider": "databricks",
