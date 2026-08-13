@@ -329,6 +329,7 @@
                 }
               ],
               "bh_environment_id": 287,
+              "template_parameters": [],
               "bh_project_id": 104,
               "bh_environment_name": "bh_dhanu_databricks",
               "cloud_provider": "databricks",
