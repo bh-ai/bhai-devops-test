@@ -1,6 +1,6 @@
 {
   "created_at": "2026-08-03T19:49:15.254891Z",
-  "updated_at": "2026-08-13T12:24:17.319132Z",
+  "updated_at": "2026-08-13T12:38:56.530379Z",
   "created_by": "dhanushpathi@bighammer.ai",
   "updated_by": "dhanushpathi@bighammer.ai",
   "is_deleted": false,
@@ -1183,7 +1183,7 @@
       "atomic_commit_enabled": true,
       "group_id": 868,
       "expected_group_members": 2,
-      "group_run_id": "claim_op_20260813T122416Z"
+      "group_run_id": "claim_op_20260813T123855Z"
     }
   },
   "draft_pipeline_json": null,
