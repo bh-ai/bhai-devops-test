@@ -106,7 +106,7 @@
           "flow_parameter_id": 2963,
           "flow_id": 715,
           "parameter_name": "use_valid_files_manifest",
-          "parameter_value": false,
+          "parameter_value": true,
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -448,7 +448,7 @@
                 },
                 {
                   "key": "use_valid_files_manifest",
-                  "value": false
+                  "value": true
                 }
               ],
               "tasks": [
@@ -483,7 +483,7 @@
                     }
                   ],
                   "feed_name": "claims_op",
-                  "use_valid_files_manifest": true,
+                  "use_valid_files_manifest": false,
                   "runtime_params_base_path": "/Workspace/Shared/runtime_params",
                   "name": "Validate",
                   "nodeId": "validate_validate_inbound_files"
