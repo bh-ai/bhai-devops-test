@@ -311,10 +311,31 @@
                   "pool_enabled": false
                 },
                 {
+                  "task_id": "Run Jobs_claims_silver_ods_fidelis_upstate_ip_new",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "Run Jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46"
+                  ],
+                  "bh_project_name": "bighammer",
+                  "pipeline_key": "claims_silver_ods_fidelis_upstate_ip_new",
+                  "pipeline_name": "claims_silver_ods_fidelis_upstate_IP_NEW",
+                  "pipeline_id": 1602,
+                  "compute_binding": {
+                    "source_task_id": "Create Compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "AZURE_FUNCTION",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "name": "Submit_Job_3",
+                  "nodeId": "Submit_Job_Run Jobs_claims_silver_ods_fidelis_upstate_ip_new",
+                  "pool_enabled": false
+                },
+                {
                   "task_id": "Delete Compute",
                   "type": "DeleteCompute",
                   "depends_on": [
-                    "Run Jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46"
+                    "Run Jobs_claims_silver_ods_fidelis_upstate_ip_new"
                   ],
                   "cloud_type": "databricks",
                   "compute_type": "AZURE_FUNCTION",
