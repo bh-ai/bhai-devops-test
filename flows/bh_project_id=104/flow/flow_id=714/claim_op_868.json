@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 451,
+        "data": {
+          "flow_pipeline_mapping_id": 451,
+          "flow_id": 714,
+          "pipeline_id": 1599,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 450,
         "data": {
           "flow_pipeline_mapping_id": 450,
@@ -402,6 +414,7 @@
                 }
               ],
               "bh_environment_id": 287,
+              "template_parameters": [],
               "bh_project_id": 104,
               "bh_environment_name": "bh_dhanu_databricks",
               "cloud_provider": "databricks",
