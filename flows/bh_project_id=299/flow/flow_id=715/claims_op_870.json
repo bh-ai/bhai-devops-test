@@ -101,6 +101,20 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 2963,
+        "data": {
+          "flow_parameter_id": 2963,
+          "flow_id": 715,
+          "parameter_name": "use_valid_files_manifest",
+          "parameter_value": false,
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 2580,
         "data": {
           "flow_parameter_id": 2580,
@@ -157,6 +171,20 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 2964,
+        "data": {
+          "flow_parameter_id": 2964,
+          "flow_id": 715,
+          "parameter_name": "runtime_params_base_path",
+          "parameter_value": "/Workspace/Shared/runtime_params",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 2578,
         "data": {
           "flow_parameter_id": 2578,
@@ -176,7 +204,7 @@
           "flow_parameter_id": 2601,
           "flow_id": 715,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}, {\"id\": 1511, \"name\": \"silver_raw_fideliscare_claims_join_transform_260717_af62\", \"pipeline_name\": \"silver_raw_fideliscare_claims_join_transform_260717_af62\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}]",
+          "parameter_value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}, {\"id\": 1511, \"name\": \"silver_raw_fideliscare_claims_join_transform_260717_af62\", \"pipeline_name\": \"silver_raw_fideliscare_claims_join_transform_260717_af62\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -392,7 +420,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}, {\"id\": 1511, \"name\": \"silver_raw_fideliscare_claims_join_transform_260717_af62\", \"pipeline_name\": \"silver_raw_fideliscare_claims_join_transform_260717_af62\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}]"
+                  "value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}, {\"id\": 1511, \"name\": \"silver_raw_fideliscare_claims_join_transform_260717_af62\", \"pipeline_name\": \"silver_raw_fideliscare_claims_join_transform_260717_af62\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}]"
                 },
                 {
                   "key": "prefix",
@@ -455,7 +483,7 @@
                     }
                   ],
                   "feed_name": "claims_op",
-                  "use_valid_files_manifest": false,
+                  "use_valid_files_manifest": true,
                   "runtime_params_base_path": "/Workspace/Shared/runtime_params",
                   "name": "Validate",
                   "nodeId": "validate_validate_inbound_files"
