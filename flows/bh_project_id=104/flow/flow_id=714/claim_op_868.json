@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 450,
+        "data": {
+          "flow_pipeline_mapping_id": 450,
+          "flow_id": 714,
+          "pipeline_id": 1602,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 373,
         "data": {
           "flow_pipeline_mapping_id": 373,
@@ -238,23 +250,56 @@
                   "task_id": "Create Compute",
                   "type": "CreateCompute",
                   "depends_on": [],
-                  "cluster_name": "pre-ingest-anal",
+                  "cluster_name": "single-node-cluster",
                   "compute_config": {
-                    "compute_config_id": 114,
-                    "compute_config_name": "pre-ingest-anal",
-                    "compute_type": "AZURE_FUNCTION",
+                    "compute_config_id": 159,
+                    "compute_config_name": "single-node-cluster",
+                    "compute_type": "DATABRICKS_CLUSTER",
                     "bh_env_id": 287,
                     "compute_config": {
-                      "function_app_name": "bhai-catalog-api-svrlss",
-                      "function_name": "PreIngestRun",
-                      "resource_group": "bh-nprd-d-westus3-rg",
-                      "region": "westus3",
-                      "function_key": null,
-                      "function_url": "https://bhai-catalog-api-svrlss.azurewebsites.net/api/PreIngestRun?code=ocjq2olTCaBnDIP5GdoFTvjdY26x5oSOHX-viZqsN5xjAzFuNyAOQw=="
+                      "cluster_name": "single-node-cluster",
+                      "spark_version": "15.4.x-scala2.12",
+                      "node_type_id": "Standard_D16ds_v5",
+                      "num_workers": 0,
+                      "autoscale": null,
+                      "driver_node_type_id": null,
+                      "runtime_engine": null,
+                      "data_security_mode": "SINGLE_USER",
+                      "single_user_name": "sathish@bighammer.ai",
+                      "policy_id": null,
+                      "apply_policy_default_values": true,
+                      "idempotency_token": null,
+                      "aws_attributes": null,
+                      "azure_attributes": null,
+                      "gcp_attributes": null,
+                      "single_node": false,
+                      "autotermination_minutes": 15,
+                      "pool_enabled": true,
+                      "pool_max_size": 2,
+                      "pool_max_concurrent_leases": 2,
+                      "pool_lease_ttl_minutes": 30,
+                      "pool_heartbeat_interval_seconds": 120,
+                      "pool_starting_timeout_minutes": 30,
+                      "pool_acquire_wait_seconds": 300,
+                      "enable_elastic_disk": true,
+                      "spark_conf": {},
+                      "spark_env_vars": {
+                        "SECRET_MANAGER_PROVIDER": "databricks",
+                        "PIPELINE_EXECUTION_MODE": "parallel",
+                        "PIPELINE_PARALLEL_MAX_WORKERS": "12"
+                      },
+                      "custom_tags": {},
+                      "cluster_log_conf": null,
+                      "init_scripts": [
+                        "/Workspace/Shared/bh-dev-utils/scripts/bh_databricks_grpc_server.sh"
+                      ],
+                      "libraries": [],
+                      "databricks_region": null,
+                      "bh_tags": []
                     }
                   },
                   "cloud_type": "databricks",
-                  "compute_type": "AZURE_FUNCTION",
+                  "compute_type": "DATABRICKS_CLUSTER",
                   "airflow_connection_id": "databricks_default",
                   "output_variables": [
                     {
@@ -265,8 +310,9 @@
                   ],
                   "name": "Create_Compute",
                   "nodeId": "create_compute_Create Compute",
-                  "compute_config_id": 114,
-                  "pool_enabled": false
+                  "compute_config_id": 159,
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120
                 },
                 {
                   "task_id": "Run Jobs_claim_op",
@@ -282,12 +328,14 @@
                     "source_task_id": "Create Compute",
                     "source_output_id": "compute_id"
                   },
-                  "compute_type": "AZURE_FUNCTION",
+                  "compute_type": "DATABRICKS_CLUSTER",
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "name": "Submit_Job",
                   "nodeId": "Submit_Job_Run Jobs_claim_op",
-                  "pool_enabled": false
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
                 },
                 {
                   "task_id": "Run Jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46",
@@ -303,12 +351,14 @@
                     "source_task_id": "Create Compute",
                     "source_output_id": "compute_id"
                   },
-                  "compute_type": "AZURE_FUNCTION",
+                  "compute_type": "DATABRICKS_CLUSTER",
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "name": "Submit_Job_2",
                   "nodeId": "Submit_Job_Run Jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46",
-                  "pool_enabled": false
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
                 },
                 {
                   "task_id": "Run Jobs_claims_silver_ods_fidelis_upstate_ip_new",
@@ -324,12 +374,14 @@
                     "source_task_id": "Create Compute",
                     "source_output_id": "compute_id"
                   },
-                  "compute_type": "AZURE_FUNCTION",
+                  "compute_type": "DATABRICKS_CLUSTER",
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "name": "Submit_Job_3",
                   "nodeId": "Submit_Job_Run Jobs_claims_silver_ods_fidelis_upstate_ip_new",
-                  "pool_enabled": false
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": true
                 },
                 {
                   "task_id": "Delete Compute",
@@ -338,7 +390,7 @@
                     "Run Jobs_claims_silver_ods_fidelis_upstate_ip_new"
                   ],
                   "cloud_type": "databricks",
-                  "compute_type": "AZURE_FUNCTION",
+                  "compute_type": "DATABRICKS_CLUSTER",
                   "airflow_connection_id": "databricks_default",
                   "compute_binding": {
                     "source_task_id": "Create Compute",
@@ -346,7 +398,7 @@
                   },
                   "name": "Delete_Compute",
                   "nodeId": "delete_compute_Delete Compute",
-                  "pool_enabled": false
+                  "pool_enabled": true
                 }
               ],
               "bh_environment_id": 287,
