@@ -59,8 +59,8 @@
           "flow_id": 714,
           "pipeline_id": 1602,
           "tenant_id": 113,
-          "is_deleted": false,
-          "deleted_by": null
+          "is_deleted": true,
+          "deleted_by": "dhanushpathi@bighammer.ai"
         }
       },
       {
@@ -164,7 +164,7 @@
           "flow_parameter_id": 2575,
           "flow_id": 714,
           "parameter_name": "compute_type",
-          "parameter_value": "AZURE_FUNCTION",
+          "parameter_value": "DATABRICKS_CLUSTER",
           "parameter_type": "USER",
           "tenant_id": 113,
           "is_deleted": false,
@@ -222,7 +222,7 @@
                 },
                 {
                   "key": "compute_type",
-                  "value": "AZURE_FUNCTION"
+                  "value": "DATABRICKS_CLUSTER"
                 },
                 {
                   "key": "execute_in_parallel",
@@ -361,15 +361,15 @@
                   "pool_release_lease": false
                 },
                 {
-                  "task_id": "Run Jobs_claims_silver_ods_fidelis_upstate_ip_new",
+                  "task_id": "Run Jobs_fidelis_op_line_806",
                   "type": "SubmitJob",
                   "depends_on": [
                     "Run Jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46"
                   ],
                   "bh_project_name": "bighammer",
-                  "pipeline_key": "claims_silver_ods_fidelis_upstate_ip_new",
-                  "pipeline_name": "claims_silver_ods_fidelis_upstate_IP_NEW",
-                  "pipeline_id": 1602,
+                  "pipeline_key": "fidelis_op_line_806",
+                  "pipeline_name": "fidelis_op_line_806",
+                  "pipeline_id": 1599,
                   "compute_binding": {
                     "source_task_id": "Create Compute",
                     "source_output_id": "compute_id"
@@ -378,7 +378,7 @@
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "name": "Submit_Job_3",
-                  "nodeId": "Submit_Job_Run Jobs_claims_silver_ods_fidelis_upstate_ip_new",
+                  "nodeId": "Submit_Job_Run Jobs_fidelis_op_line_806",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
                   "pool_release_lease": true
@@ -387,7 +387,7 @@
                   "task_id": "Delete Compute",
                   "type": "DeleteCompute",
                   "depends_on": [
-                    "Run Jobs_claims_silver_ods_fidelis_upstate_ip_new"
+                    "Run Jobs_fidelis_op_line_806"
                   ],
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
