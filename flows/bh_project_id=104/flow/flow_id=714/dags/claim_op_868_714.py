@@ -144,20 +144,20 @@ with DAG(
         "compute_task_id": "create_compute",
         "job_config": {
             "job_type": "spark_python",
-            "name": "{{ dag.dag_id }}_run_jobs_claims_silver_ods_fidelis_upstate_ip_new_{{ ts_nodash }}",
+            "name": "{{ dag.dag_id }}_run_jobs_fidelis_op_line_806_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=104/pipeline/pipeline_id=1602/claims_silver_ods_fidelis_upstate_ip_new.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=104/pipeline/pipeline_id=1599/fidelis_op_line_806.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
         },
         "ingestion_group_id": 868,
         "flow_id": 714,
-        "pipeline_id": "1602",
-        "pipeline_name": "claims_silver_ods_fidelis_upstate_IP_NEW",
+        "pipeline_id": "1599",
+        "pipeline_name": "fidelis_op_line_806",
         "airflow_connection_id": "databricks_default",
-        "pipeline_key": "claims_silver_ods_fidelis_upstate_ip_new",
+        "pipeline_key": "fidelis_op_line_806",
         "bh_project_id": 104,
         "project_id": 104,
         "project_name": "bighammer",
@@ -166,9 +166,9 @@ with DAG(
         "pool_heartbeat_interval_seconds": 120,
         "pool_release_lease": True
     }
-    run_jobs_claims_silver_ods_fidelis_upstate_ip_new = PythonOperator(
+    run_jobs_fidelis_op_line_806 = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
-        task_id='run_jobs_claims_silver_ods_fidelis_upstate_ip_new',
+        task_id='run_jobs_fidelis_op_line_806',
         python_callable=submit_job_to_cluster,
         params=_submit_params,
         on_success_callback=feed_control_callbacks.submit_job_success_callback,
@@ -207,8 +207,8 @@ with DAG(
     create_compute >> run_jobs_claim_op
     run_jobs_claim_op >> run_jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46
     create_compute >> run_jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46
-    run_jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46 >> run_jobs_claims_silver_ods_fidelis_upstate_ip_new
-    create_compute >> run_jobs_claims_silver_ods_fidelis_upstate_ip_new
-    run_jobs_claims_silver_ods_fidelis_upstate_ip_new >> delete_compute
+    run_jobs_silver_raw_fideliscare_op_claims_to_pharmacy_etl_260803_fd46 >> run_jobs_fidelis_op_line_806
+    create_compute >> run_jobs_fidelis_op_line_806
+    run_jobs_fidelis_op_line_806 >> delete_compute
     create_compute >> delete_compute
     delete_compute >> end_flow_task
