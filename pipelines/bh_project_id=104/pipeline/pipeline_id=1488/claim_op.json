@@ -1,6 +1,6 @@
 {
   "created_at": "2026-08-03T19:49:15.254891Z",
-  "updated_at": "2026-08-13T12:55:43.972356Z",
+  "updated_at": "2026-08-19T12:29:34.072808Z",
   "created_by": "dhanushpathi@bighammer.ai",
   "updated_by": "dhanushpathi@bighammer.ai",
   "is_deleted": false,
@@ -1144,8 +1144,8 @@
     "batch_control": {
       "enabled": true,
       "feed_name": "claim_op",
-      "business_date": "2026-08-13",
-      "delivery_id": "claim_op_2026-08-13",
+      "business_date": "2026-08-19",
+      "delivery_id": "claim_op_2026-08-19",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
@@ -1183,7 +1183,7 @@
       "atomic_commit_enabled": true,
       "group_id": 868,
       "expected_group_members": 2,
-      "group_run_id": "claim_op_20260813T125542Z"
+      "group_run_id": "claim_op_20260819T122932Z"
     }
   },
   "draft_pipeline_json": null,
