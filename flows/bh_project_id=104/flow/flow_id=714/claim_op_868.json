@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 453,
+        "data": {
+          "flow_pipeline_mapping_id": 453,
+          "flow_id": 714,
+          "pipeline_id": 1069,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 452,
         "data": {
           "flow_pipeline_mapping_id": 452,
@@ -405,13 +417,36 @@
                   "nodeId": "Submit_Job_Run Jobs_cinqcare_member_file_8_21_25_582",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
+                },
+                {
+                  "task_id": "Run Jobs_pharmacy_silver_ods",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "Run Jobs_cinqcare_member_file_8_21_25_582"
+                  ],
+                  "bh_project_name": "bighammer",
+                  "pipeline_key": "pharmacy_silver_ods",
+                  "pipeline_name": "pharmacy_silver_ods",
+                  "pipeline_id": 1626,
+                  "compute_binding": {
+                    "source_task_id": "Create Compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "name": "Submit_Job_4",
+                  "nodeId": "Submit_Job_Run Jobs_pharmacy_silver_ods",
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
                   "pool_release_lease": true
                 },
                 {
                   "task_id": "Delete Compute",
                   "type": "DeleteCompute",
                   "depends_on": [
-                    "Run Jobs_cinqcare_member_file_8_21_25_582"
+                    "Run Jobs_pharmacy_silver_ods"
                   ],
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
