@@ -1,0 +1,1198 @@
+{
+  "created_at": "2026-08-20T07:52:12.827705Z",
+  "updated_at": "2026-08-20T07:57:39.376697Z",
+  "created_by": "dhanushpathi@bighammer.ai",
+  "updated_by": "dhanushpathi@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 113,
+  "pipeline_id": 1629,
+  "pipeline_name": "claim_op1",
+  "pipeline_key": "claim_op1",
+  "bh_project_id": 104,
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": "bighammer",
+  "bh_github_username": "bh-dhanushpathi-git",
+  "pipeline_json": {
+    "name": "claim_op1",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "parameters": [
+      {
+        "key": "safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331",
+        "value": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP/safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE_20230101_20260331.txt"
+      },
+      {
+        "key": "safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331",
+        "value": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP/safeharbor_FidelisCare_Prod_OPClaimLine_FULL_CINQDOWNSTATE_20230101_20260331.txt"
+      }
+    ],
+    "connections": {
+      "landing_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_file_connection_obj2329": {
+        "name": "landing_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_file_connection_obj2329",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-blobstoragedbenv",
+        "connection_config_id": 141
+      },
+      "bronze_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_db_connection_obj2329": {
+        "name": "bronze_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_db_connection_obj2329",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "cinqdev",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksddbenv",
+        "connection_config_id": 140
+      },
+      "landing_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_file_connection_obj2330": {
+        "name": "landing_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_file_connection_obj2330",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-blobstoragedbenv",
+        "connection_config_id": 141
+      },
+      "bronze_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_db_connection_obj2330": {
+        "name": "bronze_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_db_connection_obj2330",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "cinqdev",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksddbenv",
+        "connection_config_id": 140
+      }
+    },
+    "sources": {
+      "landing_source_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329": {
+        "name": "landing_source_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329",
+        "source_type": "File",
+        "file_name": "${safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331}",
+        "connection": {
+          "$ref": "#/connections/landing_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_file_connection_obj2329"
+        },
+        "data_src_id": 2972
+      },
+      "landing_source_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330": {
+        "name": "landing_source_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330",
+        "source_type": "File",
+        "file_name": "${safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331}",
+        "connection": {
+          "$ref": "#/connections/landing_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_file_connection_obj2330"
+        },
+        "data_src_id": 2974
+      }
+    },
+    "targets": {
+      "bronze_target_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329": {
+        "name": "bronze_target_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329",
+        "target_type": "Relational",
+        "table_name": "safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331",
+        "connection": {
+          "$ref": "#/connections/bronze_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_db_connection_obj2329"
+        },
+        "load_mode": "append",
+        "schema": "cinqdev",
+        "data_src_id": 2973
+      },
+      "bronze_target_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330": {
+        "name": "bronze_target_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330",
+        "target_type": "Relational",
+        "table_name": "safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331",
+        "connection": {
+          "$ref": "#/connections/bronze_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_db_connection_obj2330"
+        },
+        "load_mode": "append",
+        "schema": "cinqdev",
+        "data_src_id": 2975
+      }
+    },
+    "transformations": [
+      {
+        "name": "landing_read_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329"
+        },
+        "file_type": "CSV",
+        "read_options": {
+          "fetch_size": 10000,
+          "sep": "|",
+          "encoding": "UTF-8",
+          "header": true,
+          "inferSchema": false,
+          "multiLine": false,
+          "quote": "\"",
+          "escape": "\\",
+          "comment": "",
+          "preferDate": true,
+          "enforceSchema": true,
+          "ignoreLeadingWhiteSpace": false,
+          "ignoreTrailingWhiteSpace": false,
+          "nullValue": "",
+          "nanValue": "NaN",
+          "positiveInf": "Inf",
+          "negativeInf": "-Inf",
+          "dateFormat": "yyyy-MM-dd",
+          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
+          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
+          "maxColumns": 20480,
+          "maxCharsPerColumn": -1,
+          "columnNameOfCorruptRecord": "corrupt_record",
+          "samplingRatio": 1.0,
+          "emptyValue": "",
+          "locale": "en-US",
+          "lineSep": "\r\n",
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
+          "mode": "PERMISSIVE"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2329",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'claim_op1'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2329",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2329"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "claim_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "type_of_bill",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "facility_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "facility_npi",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "first_date_of_service",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "last_date_of_service",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "type_of_visit",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "source_of_visit",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "patient_status",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "condition_codes",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "value_codes",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "value_code_amounts",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "member_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "patient_dob",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "patient_gender",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "patient_zip_code",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "line_of_business",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "product",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "blue_card_identifier",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "total_charge",
+            "type": "double",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "allowed_amount",
+            "type": "double",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_responsibility",
+            "type": "double",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "plan_paid",
+            "type": "double",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "icd_version",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "reason_for_visit",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "principal_diagnosis_code",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "other_diagnosis_1",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_2",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_3",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_4",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_5",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_6",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_7",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_8",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_9",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_10",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_11",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_12",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_13",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_14",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_15",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_16",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_17",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_18",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_19",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_20",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_21",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_22",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_23",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_24",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_25",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_26",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_27",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_28",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_29",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "other_diagnosis_30",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "physician_number_type",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "attending_physician",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "operating_physician",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "other_physician_a",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "other_physician_b",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "source_system",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "primary_payer",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "adjustment_claim_indicator",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "adjusted_claim_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "employer_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "paid_date",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "posted_date",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "claim_status",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "denial_reason",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "member_pcp_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "member_pcp_id_npi",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "servicing_facility_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "servicing_facility_category",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "billing_provider",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "ppv_ind",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2329"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      },
+      {
+        "name": "landing_read_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330"
+        },
+        "file_type": "CSV",
+        "read_options": {
+          "fetch_size": 10000,
+          "sep": "|",
+          "encoding": "UTF-8",
+          "header": true,
+          "inferSchema": false,
+          "multiLine": false,
+          "quote": "\"",
+          "escape": "\\",
+          "comment": "",
+          "preferDate": true,
+          "enforceSchema": true,
+          "ignoreLeadingWhiteSpace": false,
+          "ignoreTrailingWhiteSpace": false,
+          "nullValue": "",
+          "nanValue": "NaN",
+          "positiveInf": "Inf",
+          "negativeInf": "-Inf",
+          "dateFormat": "yyyy-MM-dd",
+          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
+          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
+          "maxColumns": 20480,
+          "maxCharsPerColumn": -1,
+          "columnNameOfCorruptRecord": "corrupt_record",
+          "samplingRatio": 1.0,
+          "emptyValue": "",
+          "locale": "en-US",
+          "lineSep": "\r\n",
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
+          "mode": "PERMISSIVE"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2330",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'claim_op1'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2330",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2330"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "claim_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "claim_line",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "revenue_code",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "procedure_code",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "modifier_1",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "modifier_2",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "modifier_3",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "modifier_4",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "service_date",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "billed_units",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "line_charge",
+            "type": "double",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "allowed_amount",
+            "type": "double",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_responsibility",
+            "type": "double",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "plan_paid",
+            "type": "double",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "payment_methodology",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "eapg",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "eapg_version",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "eapg_weight",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "eapg_payment_weight",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "packaging_flag",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "msp_flag",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "rad_flag",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "bilateral_discounting_flag",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "terminated_procedure_flag",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "line_item_unassigned_flag",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "ppd_flag",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "ssp_consolidation_flag",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "csp_consolidation_flag",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "apc",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "apc_version",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "apc_payment_weight",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "covered_units",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2330"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      }
+    ],
+    "description": "Cloned from File to DB Ingestion V2",
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "claim_op1",
+      "business_date": "2026-08-20",
+      "delivery_id": "claim_op1_2026-08-20",
+      "batch_id": 1,
+      "use_existing_batch_id": false,
+      "validate_existing_batch": true,
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "input_registry_processed_on_stage": "bronze",
+      "seed_stage_rows": true,
+      "stages": [
+        "bronze"
+      ],
+      "storage": {
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        },
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        }
+      },
+      "stage_to_transformations": {
+        "bronze": [
+          "landing_read_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329",
+          "add_lineage_metadata_obj2329",
+          "schema_drift_guard_obj2329",
+          "bronze_write_safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2329",
+          "landing_read_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330",
+          "add_lineage_metadata_obj2330",
+          "schema_drift_guard_obj2330",
+          "bronze_write_safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_obj2330"
+        ]
+      },
+      "error_threshold_pct": 50.0,
+      "run_scope": "GROUP",
+      "atomic_commit_enabled": true,
+      "group_id": 933,
+      "expected_group_members": 2,
+      "group_run_id": "claim_op1_20260820T075739Z"
+    }
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": "design",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
