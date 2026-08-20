@@ -1,0 +1,109 @@
+{
+  "created_at": "2026-08-20T07:53:44.340276Z",
+  "updated_at": "2026-08-20T07:57:43.875410Z",
+  "created_by": "dhanushpathi@bighammer.ai",
+  "updated_by": "dhanushpathi@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 113,
+  "pipeline_id": 1630,
+  "pipeline_name": "silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac",
+  "pipeline_key": "silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac",
+  "bh_project_id": 104,
+  "notes": "",
+  "tags": {
+    "data_domain_id": 261,
+    "data_domain_name": "Claims",
+    "source_count": 2,
+    "target_count": 10
+  },
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": null,
+  "bh_github_username": null,
+  "pipeline_json": {
+    "data_domain_id": 261,
+    "data_domain_name": "Claims",
+    "ingestion_group_id": 933,
+    "source_rows": [
+      {
+        "data_src_id": 2975,
+        "ingest_object_id": null,
+        "label": "safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331_r3yq3 \u00b7 cinqdev.safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331"
+      },
+      {
+        "data_src_id": 2973,
+        "ingest_object_id": null,
+        "label": "safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_y0rri \u00b7 cinqdev.safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331"
+      }
+    ],
+    "target_rows": [
+      {
+        "data_src_id": 1057,
+        "label": "claim_adjudication \u00b7 silverraw_claims.claim_adjudication"
+      },
+      {
+        "data_src_id": 1056,
+        "label": "claim_diagnosis \u00b7 silverraw_claims.claim_diagnosis"
+      },
+      {
+        "data_src_id": 763,
+        "label": "pharmacy_claim_line \u00b7 silverraw_claims.pharmacy_claim_line"
+      },
+      {
+        "data_src_id": 762,
+        "label": "pharmacy_claim_header \u00b7 silverraw_claims.pharmacy_claim_header"
+      },
+      {
+        "data_src_id": 761,
+        "label": "patient \u00b7 silverraw_claims.patient"
+      },
+      {
+        "data_src_id": 760,
+        "label": "pharmacy_claim_adjudication \u00b7 silverraw_claims.pharmacy_claim_adjudication"
+      },
+      {
+        "data_src_id": 759,
+        "label": "pharmacy_claim_line_adjudication \u00b7 silverraw_claims.pharmacy_claim_line_adjudication"
+      },
+      {
+        "data_src_id": 758,
+        "label": "claim_procedure \u00b7 silverraw_claims.claim_procedure"
+      },
+      {
+        "data_src_id": 757,
+        "label": "claim_provider \u00b7 silverraw_claims.claim_provider"
+      },
+      {
+        "data_src_id": 756,
+        "label": "claim_line_adjudication \u00b7 silverraw_claims.claim_line_adjudication"
+      }
+    ],
+    "batch_control": {
+      "enabled": true,
+      "stages": [
+        "silver_raw"
+      ],
+      "feed_name": "claim_op1",
+      "storage": {
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        },
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        }
+      }
+    }
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": "requirement",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
