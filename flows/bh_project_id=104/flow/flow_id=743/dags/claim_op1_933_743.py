@@ -126,11 +126,49 @@ with DAG(
         "compute_xcom_key": "return_value",
         "pool_enabled": True,
         "pool_heartbeat_interval_seconds": 120,
-        "pool_release_lease": True
+        "pool_release_lease": False
     }
     run_jobs_silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
         task_id='run_jobs_silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=feed_control_callbacks.submit_job_success_callback,
+        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.compute_pool.databricks_tasks import submit_job_to_cluster
+
+    _submit_params = {
+        "compute_task_id": "create_compute",
+        "job_config": {
+            "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_run_jobs_cinqcare_member_file_8_21_25_582_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=104/pipeline/pipeline_id=1069/cinqcare_member_file_8_21_25_582.json",
+                "databricks",
+                "/Workspace/Shared/dev-utils/schemas"
+            ]
+        },
+        "ingestion_group_id": 933,
+        "flow_id": 743,
+        "pipeline_id": "1069",
+        "pipeline_name": "CinqCare Member File 8_21_25_582",
+        "airflow_connection_id": "databricks_default",
+        "pipeline_key": "cinqcare_member_file_8_21_25_582",
+        "bh_project_id": 104,
+        "project_id": 104,
+        "project_name": "bighammer",
+        "compute_xcom_key": "return_value",
+        "pool_enabled": True,
+        "pool_heartbeat_interval_seconds": 120,
+        "pool_release_lease": True
+    }
+    run_jobs_cinqcare_member_file_8_21_25_582 = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='run_jobs_cinqcare_member_file_8_21_25_582',
         python_callable=submit_job_to_cluster,
         params=_submit_params,
         on_success_callback=feed_control_callbacks.submit_job_success_callback,
@@ -169,6 +207,8 @@ with DAG(
     create_compute >> run_jobs_claim_op1
     run_jobs_claim_op1 >> run_jobs_silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac
     create_compute >> run_jobs_silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac
-    run_jobs_silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac >> delete_compute
+    run_jobs_silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac >> run_jobs_cinqcare_member_file_8_21_25_582
+    create_compute >> run_jobs_cinqcare_member_file_8_21_25_582
+    run_jobs_cinqcare_member_file_8_21_25_582 >> delete_compute
     create_compute >> delete_compute
     delete_compute >> end_flow_task
