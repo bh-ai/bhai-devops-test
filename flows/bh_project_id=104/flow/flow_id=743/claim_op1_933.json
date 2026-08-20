@@ -346,13 +346,36 @@
                   "nodeId": "Submit_Job_Run Jobs_silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
+                },
+                {
+                  "task_id": "Run Jobs_cinqcare_member_file_8_21_25_582",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "Run Jobs_silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac"
+                  ],
+                  "bh_project_name": "bighammer",
+                  "pipeline_key": "cinqcare_member_file_8_21_25_582",
+                  "pipeline_name": "CinqCare Member File 8_21_25_582",
+                  "pipeline_id": 1069,
+                  "compute_binding": {
+                    "source_task_id": "Create Compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "name": "Submit_Job_3",
+                  "nodeId": "Submit_Job_Run Jobs_cinqcare_member_file_8_21_25_582",
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
                   "pool_release_lease": true
                 },
                 {
                   "task_id": "Delete Compute",
                   "type": "DeleteCompute",
                   "depends_on": [
-                    "Run Jobs_silver_raw_fideliscare_claims_to_pharmacy_etl_260820_b2ac"
+                    "Run Jobs_cinqcare_member_file_8_21_25_582"
                   ],
                   "cloud_type": "databricks",
                   "compute_type": "DATABRICKS_CLUSTER",
