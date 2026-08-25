@@ -68,7 +68,7 @@ with DAG(
             {
                 "source_name": "safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331",
                 "prefix": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP",
-                "filename_regex": "safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE_20230101_20260331.txt",
+                "filename_regex": "safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE_20230101_202603312.txt",
                 "ignore_subfolders": True,
                 "is_required": True,
                 "min_bytes": 10,
@@ -77,7 +77,7 @@ with DAG(
             {
                 "source_name": "safeharbor_fideliscare_prod_opclaimline_full_cinqdownstate_20230101_20260331",
                 "prefix": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP",
-                "filename_regex": "safeharbor_FidelisCare_Prod_OPClaimLine_FULL_CINQDOWNSTATE_20230101_20260331.txt",
+                "filename_regex": "safeharbor_FidelisCare_Prod_OPClaimLine_FULL_CINQDOWNSTATE_20230101_202603312.txt",
                 "ignore_subfolders": True,
                 "is_required": True,
                 "min_bytes": 10,
