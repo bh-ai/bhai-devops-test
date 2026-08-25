@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 463,
+        "data": {
+          "flow_pipeline_mapping_id": 463,
+          "flow_id": 744,
+          "pipeline_id": 1672,
+          "tenant_id": 113,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 462,
         "data": {
           "flow_pipeline_mapping_id": 462,
@@ -150,7 +162,7 @@
           "flow_parameter_id": 2996,
           "flow_id": 744,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1669, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1670, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260825_9c54\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260825_9c54\"}, {\"id\": 1671, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}]",
+          "parameter_value": "[{\"id\": 1669, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1670, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260825_9c54\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260825_9c54\"}, {\"id\": 1672, \"name\": \"pharmacy_silver_ods_113_20260825075519\", \"pipeline_name\": \"pharmacy_silver_ods_113_20260825075519\"}]",
           "parameter_type": "USER",
           "tenant_id": 113,
           "is_deleted": false,
@@ -366,7 +378,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1669, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1670, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260825_9c54\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260825_9c54\"}, {\"id\": 1671, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}]"
+                  "value": "[{\"id\": 1669, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1670, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260825_9c54\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260825_9c54\"}, {\"id\": 1672, \"name\": \"pharmacy_silver_ods_113_20260825075519\", \"pipeline_name\": \"pharmacy_silver_ods_113_20260825075519\"}]"
                 },
                 {
                   "key": "runtime_params_base_path",
@@ -565,13 +577,38 @@
                   "nodeId": "Submit_Job_run_pipelines_pharmacy_silver_ods_113_20260825075519",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
+                },
+                {
+                  "task_id": "run_pipelines_pharmacy_silver_ods_113_20260825080258",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "run_pipelines_pharmacy_silver_ods_113_20260825075519"
+                  ],
+                  "bh_project_name": "bighammer",
+                  "pipeline_key": "pharmacy_silver_ods_113_20260825080258",
+                  "pipeline_name": "pharmacy_silver_ods_113_20260825080258",
+                  "pipeline_id": 1673,
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+                  "name": "Submit_Job_4",
+                  "nodeId": "Submit_Job_run_pipelines_pharmacy_silver_ods_113_20260825080258",
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
                   "pool_release_lease": true
                 },
                 {
                   "task_id": "archive_processed_files",
                   "type": "ArchiveProcessedFiles",
                   "depends_on": [
-                    "run_pipelines_pharmacy_silver_ods_113_20260825075519"
+                    "run_pipelines_pharmacy_silver_ods_113_20260825080258"
                   ],
                   "bucket_name": "my-test-bucket",
                   "cloud_type": "databricks",
