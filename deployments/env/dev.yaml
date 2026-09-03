@@ -1,0 +1,5 @@
+main:
+  sla:
+    feeds:
+      - ingestiongroup1008b
+      - ingestiongroup1607a

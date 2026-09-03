@@ -1,0 +1,65 @@
+# GitHub Action: Sync feed config env files to Azure Blob Storage
+#
+# Configure GitHub Environments (Settings > Environments) with secrets AZURE_STORAGE_ACCOUNT_KEY,
+# AZURE_STORAGE_ACCOUNT_NAME, AZURE_STORAGE_CONTAINER and optional variable AZURE_DAG_PREFIX per environment.
+# Manual runs: choose target environment; push to main uses the <github-environment-name> environment.
+# Replace <github-environment-name> with the name of the GitHub environment you want to use.
+#
+name: Sync feed config env files to Azure Blob Storage
+
+on:
+
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: 'GitHub Environment to use (loads env secrets/vars)'
+        required: true
+        type: string
+        default: <github-environment-name>
+
+env:
+  AZURE_STORAGE_ACCOUNT_NAME: ${{ vars.AZURE_STORAGE_ACCOUNT_NAME || 'bhdevstoacct01' }}
+  AZURE_STORAGE_CONTAINER: ${{ vars.AZURE_STORAGE_CONTAINER || 'bh-airflow' }}
+  AZURE_DAG_PREFIX: ${{ vars.AZURE_DAG_PREFIX || 'dags' }}
+
+jobs:
+  sync-feed-config-env:
+    name: Sync feed config env files
+    runs-on: ubuntu-latest
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.target_environment }}
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      - name: Sync feed config env files to Azure Blob
+        env:
+          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+        run: |
+          if [ -z "${{ env.AZURE_STORAGE_ACCOUNT_NAME }}" ] || [ -z "${{ env.AZURE_STORAGE_CONTAINER }}" ]; then
+            echo "Set AZURE_STORAGE_ACCOUNT_NAME and AZURE_STORAGE_CONTAINER (env or repo variables)."
+            exit 1
+          fi
+          if [ -z "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" ]; then
+            echo "Add GitHub secret AZURE_STORAGE_ACCOUNT_KEY"
+            exit 1
+          fi
+          if [ -d "deployments/env" ] && [ "$(ls -A deployments/env 2>/dev/null)" ]; then
+            dest="${{ env.AZURE_DAG_PREFIX }}/feed_config/env"
+            az storage blob upload-batch \
+              --account-name "${{ env.AZURE_STORAGE_ACCOUNT_NAME }}" \
+              --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+              --destination "${{ env.AZURE_STORAGE_CONTAINER }}" \
+              --source deployments/env \
+              --destination-path "$dest" \
+              --overwrite
+            echo "Synced feed config env files to ${{ env.AZURE_STORAGE_ACCOUNT_NAME }}/${{ env.AZURE_STORAGE_CONTAINER }}/$dest"
+          else
+            echo "No feed config env files to sync."
+          fi
