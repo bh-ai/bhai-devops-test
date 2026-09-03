@@ -1,0 +1,4 @@
+main:
+  sla:
+    feeds:
+      - ingestiongroup1008b
