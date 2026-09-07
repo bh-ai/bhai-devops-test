@@ -1,0 +1,1094 @@
+{
+  "created_at": "2026-09-07T10:10:23.328481Z",
+  "updated_at": "2026-09-07T10:23:00.301454Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 1705,
+  "pipeline_name": "ingestion-group-arch2",
+  "pipeline_key": "ingestion_group_arch2",
+  "bh_project_id": 299,
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-sathish-git",
+  "pipeline_json": {
+    "name": "ingestion-group-arch2",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "parameters": [
+      {
+        "key": "safeharbor_p_d0284_algc26_rp_d260313_t1532354",
+        "value": "bhargs/1-Enrollment/1-Enrollment/D0284/test/safeharbor_P.D0284.ALGC26.RP.D260313.T1532354.xlsx"
+      },
+      {
+        "key": "safeharbor_p_d0284_algc26_rp_d260313_t1532354_1",
+        "value": "bhargs/1-Enrollment/1-Enrollment/D0284/test/safeharbor_P.D0284.ALGC26.RP.D260313.T1532354.xlsx"
+      }
+    ],
+    "connections": {
+      "landing_safeharbor_p_d0284_algc26_rp_d260313_t1532354_file_connection_obj2353": {
+        "name": "landing_safeharbor_p_d0284_algc26_rp_d260313_t1532354_file_connection_obj2353",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_safeharbor_p_d0284_algc26_rp_d260313_t1532354_db_connection_obj2353": {
+        "name": "bronze_safeharbor_p_d0284_algc26_rp_d260313_t1532354_db_connection_obj2353",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      },
+      "landing_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_file_connection_obj2354": {
+        "name": "landing_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_file_connection_obj2354",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_db_connection_obj2354": {
+        "name": "bronze_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_db_connection_obj2354",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      }
+    },
+    "sources": {
+      "landing_source_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353": {
+        "name": "landing_source_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353",
+        "source_type": "File",
+        "file_name": "${safeharbor_p_d0284_algc26_rp_d260313_t1532354}",
+        "connection": {
+          "$ref": "#/connections/landing_safeharbor_p_d0284_algc26_rp_d260313_t1532354_file_connection_obj2353"
+        },
+        "data_src_id": 3023
+      },
+      "landing_source_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354": {
+        "name": "landing_source_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354",
+        "source_type": "File",
+        "file_name": "${safeharbor_p_d0284_algc26_rp_d260313_t1532354_1}",
+        "connection": {
+          "$ref": "#/connections/landing_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_file_connection_obj2354"
+        },
+        "data_src_id": 3025
+      }
+    },
+    "targets": {
+      "bronze_target_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353": {
+        "name": "bronze_target_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353",
+        "target_type": "Relational",
+        "table_name": "safeharbor_p_d0284_algc26_rp_d260313_t1532354",
+        "connection": {
+          "$ref": "#/connections/bronze_safeharbor_p_d0284_algc26_rp_d260313_t1532354_db_connection_obj2353"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 3024
+      },
+      "bronze_target_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354": {
+        "name": "bronze_target_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354",
+        "target_type": "Relational",
+        "table_name": "safeharbor_p_d0284_algc26_rp_d260313_t1532354_1",
+        "connection": {
+          "$ref": "#/connections/bronze_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_db_connection_obj2354"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 3026
+      }
+    },
+    "transformations": [
+      {
+        "name": "landing_read_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353"
+        },
+        "file_type": "Excel",
+        "read_options": {
+          "fetch_size": 10000,
+          "inferSchema": true,
+          "sheetName": "Sheet1_Deidentified",
+          "sheet_name": "Sheet1_Deidentified",
+          "useHeader": true,
+          "timestampFormat": "yyyy-MM-dd HH:mm:ss",
+          "lineSep": "\r\n",
+          "treatEmptyValuesAsNulls": true,
+          "addColorColumns": false,
+          "maxRowsInMemory": 20,
+          "excerptSize": 10,
+          "mode": "PERMISSIVE",
+          "columnNameOfCorruptRecord": "corrupt_record"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2353",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'ingestiongrouparch2'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2353",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2353"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "beneficiary_mbi_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_alignment_effective_start_date",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_alignment_effective_termination_date",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "beneficiary_first_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_last_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_line_1_address",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_line_2_address",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "beneficiary_line_3_address",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "beneficiary_line_4_address",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "beneficiary_line_5_address",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "beneficiary_line_6_address",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "beneficiary_city",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_usps_state_code",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_zip_5",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_zip_4",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_gender",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "race_ethnicity",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_date_of_birth",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_age",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_date_of_death",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "beneficiary_eligibility_alignment_year_1",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_eligibility_alignment_year_2",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_part_d_coverage_alignment_year_1",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_part_d_coverage_alignment_year_2",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "newly_aligned_beneficiary_flag",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "prospective_plus_alignment",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "claim_based_alignment_indicator",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "voluntary_alignment_type",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "mobility_impairment_indicator",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "frailty_indicator",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "medium_risk_with_unplanned_admissions_indicator",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "high_risk_score_indicator",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "skilled_nursing",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "home_health_services",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "safeharbor_p_d0284_algc26_rp_d260313_t1532354",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2353"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      },
+      {
+        "name": "landing_read_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354"
+        },
+        "file_type": "Excel",
+        "read_options": {
+          "fetch_size": 10000,
+          "inferSchema": true,
+          "sheetName": "Sheet2_Deidentified",
+          "sheet_name": "Sheet2_Deidentified",
+          "useHeader": true,
+          "timestampFormat": "yyyy-MM-dd HH:mm:ss",
+          "lineSep": "\r\n",
+          "treatEmptyValuesAsNulls": true,
+          "addColorColumns": false,
+          "maxRowsInMemory": 20,
+          "excerptSize": 10,
+          "mode": "PERMISSIVE",
+          "columnNameOfCorruptRecord": "corrupt_record"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2354",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'ingestiongrouparch2'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2354",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2354"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "beneficiary_mbi",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "beneficiary_date_of_birth",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_01_01_00_00_00_medical_data_sharing_preference",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_01_01_00_00_00_administrative_suppression",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_01_01_00_00_00_part_d_prescription_indicator",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_01_01_00_00_00_supp_insurance",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_01_01_00_00_00_alignment_status",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_02_01_00_00_00_medical_data_sharing_preference",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_02_01_00_00_00_administrative_suppression",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_02_01_00_00_00_part_d_prescription_indicator",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_02_01_00_00_00_supp_insurance",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_02_01_00_00_00_alignment_status",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_03_01_00_00_00_medical_data_sharing_preference",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_03_01_00_00_00_administrative_suppression",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_03_01_00_00_00_part_d_prescription_indicator",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_03_01_00_00_00_supp_insurance",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_03_01_00_00_00_alignment_status",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "2026_04_01_00_00_00_medical_data_sharing_preference",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_04_01_00_00_00_administrative_suppression",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_04_01_00_00_00_part_d_prescription_indicator",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_04_01_00_00_00_supp_insurance",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_04_01_00_00_00_alignment_status",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_05_01_00_00_00_medical_data_sharing_preference",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_05_01_00_00_00_administrative_suppression",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_05_01_00_00_00_part_d_prescription_indicator",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_05_01_00_00_00_supp_insurance",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_05_01_00_00_00_alignment_status",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_06_01_00_00_00_medical_data_sharing_preference",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_06_01_00_00_00_administrative_suppression",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_06_01_00_00_00_part_d_prescription_indicator",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_06_01_00_00_00_supp_insurance",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_06_01_00_00_00_alignment_status",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_07_01_00_00_00_medical_data_sharing_preference",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_07_01_00_00_00_administrative_suppression",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_07_01_00_00_00_part_d_prescription_indicator",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_07_01_00_00_00_supp_insurance",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_07_01_00_00_00_alignment_status",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_08_01_00_00_00_medical_data_sharing_preference",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_08_01_00_00_00_administrative_suppression",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_08_01_00_00_00_part_d_prescription_indicator",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_08_01_00_00_00_supp_insurance",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_08_01_00_00_00_alignment_status",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_09_01_00_00_00_medical_data_sharing_preference",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_09_01_00_00_00_administrative_suppression",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_09_01_00_00_00_part_d_prescription_indicator",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_09_01_00_00_00_supp_insurance",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_09_01_00_00_00_alignment_status",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_10_01_00_00_00_medical_data_sharing_preference",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_10_01_00_00_00_administrative_suppression",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_10_01_00_00_00_part_d_prescription_indicator",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_10_01_00_00_00_supp_insurance",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_10_01_00_00_00_alignment_status",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_11_01_00_00_00_medical_data_sharing_preference",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_11_01_00_00_00_administrative_suppression",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_11_01_00_00_00_part_d_prescription_indicator",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_11_01_00_00_00_supp_insurance",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_11_01_00_00_00_alignment_status",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_12_01_00_00_00_medical_data_sharing_preference",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_12_01_00_00_00_administrative_suppression",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_12_01_00_00_00_part_d_prescription_indicator",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_12_01_00_00_00_supp_insurance",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "2026_12_01_00_00_00_alignment_status",
+            "type": "double",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "safeharbor_p_d0284_algc26_rp_d260313_t1532354_1",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2354"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      }
+    ],
+    "description": "Cloned from File to DB Ingestion V2",
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "ingestiongrouparch2",
+      "business_date": "2026-09-07",
+      "delivery_id": "ingestiongrouparch2_2026-09-07",
+      "batch_id": 1,
+      "use_existing_batch_id": false,
+      "validate_existing_batch": true,
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "input_registry_processed_on_stage": "bronze",
+      "seed_stage_rows": true,
+      "stages": [
+        "bronze"
+      ],
+      "storage": {
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        },
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        }
+      },
+      "stage_to_transformations": {
+        "bronze": [
+          "landing_read_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353",
+          "add_lineage_metadata_obj2353",
+          "schema_drift_guard_obj2353",
+          "bronze_write_safeharbor_p_d0284_algc26_rp_d260313_t1532354_obj2353",
+          "landing_read_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354",
+          "add_lineage_metadata_obj2354",
+          "schema_drift_guard_obj2354",
+          "bronze_write_safeharbor_p_d0284_algc26_rp_d260313_t1532354_1_obj2354"
+        ]
+      },
+      "error_threshold_pct": 50.0,
+      "run_scope": "GROUP",
+      "atomic_commit_enabled": true,
+      "group_id": 955,
+      "expected_group_members": 2,
+      "group_run_id": "ingestiongrouparch2_20260907T102259Z"
+    }
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": "design",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
