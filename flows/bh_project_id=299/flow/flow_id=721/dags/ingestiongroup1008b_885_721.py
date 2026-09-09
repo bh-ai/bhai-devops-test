@@ -17,7 +17,7 @@ default_args = {
 with DAG(
     dag_id='ingestiongroup1008b_885_721',
     default_args=default_args,
-    schedule='0 9 * * *',
+    schedule='0 * * * *',
     catchup=False,
     tags=['dev']
 ) as dag:
@@ -68,7 +68,7 @@ with DAG(
             {
                 "source_name": "safeharbor_cinqdownstate_member_roster_03_05_2026",
                 "prefix": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch",
-                "filename_regex": "safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx",
+                "filename_regex": "^safeharbor_CINQDOWNSTATE_Member_Roster_[0-9]{2}_[0-9]{2}_[0-9]{4}[.]xlsx",
                 "ignore_subfolders": True,
                 "is_required": True,
                 "min_bytes": 10,
@@ -122,7 +122,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_ingestiongroup1008b_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1524/ingestiongroup1008b.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1524/ingestiongroup1008b.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -134,6 +134,8 @@ with DAG(
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
         "pipeline_name": "ingestiongroup1008b",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
         "airflow_connection_id": "databricks_default",
         "pipeline_key": "ingestiongroup1008b",
         "bh_project_id": 299,
@@ -166,7 +168,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1525/silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1525/silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -178,6 +180,8 @@ with DAG(
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
         "pipeline_name": "silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
         "airflow_connection_id": "databricks_default",
         "pipeline_key": "silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d",
         "bh_project_id": 299,
@@ -189,11 +193,57 @@ with DAG(
         "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
         "pool_enabled": True,
         "pool_heartbeat_interval_seconds": 120,
-        "pool_release_lease": True
+        "pool_release_lease": False
     }
     run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
         task_id='run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=feed_control_callbacks.submit_job_success_callback,
+        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.compute_pool.databricks_tasks import submit_job_to_cluster
+
+    _submit_params = {
+        "compute_task_id": "create_compute",
+        "job_config": {
+            "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_run_pipelines_enrollment_silver_ods_identity_load_source_system_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1707/enrollment_silver_ods_identity_load_source_system.json",
+                "databricks",
+                "/Workspace/Shared/dev-utils/schemas"
+            ]
+        },
+        "ingestion_group_id": 885,
+        "flow_id": 721,
+        "pipeline_id": "1707",
+        "feed_name": "ingestiongroup1008b",
+        "validate_inbound_task_id": "validate_inbound_files",
+        "facts_source": "databricks",
+        "pipeline_name": "enrollment_silver_ods_identity_load_source_system",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
+        "airflow_connection_id": "databricks_default",
+        "pipeline_key": "enrollment_silver_ods_identity_load_source_system",
+        "bh_project_id": 299,
+        "project_id": 299,
+        "project_name": "flow-test-project",
+        "compute_xcom_key": "return_value",
+        "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
+        "pool_enabled": True,
+        "pool_heartbeat_interval_seconds": 120,
+        "pool_release_lease": True
+    }
+    run_pipelines_enrollment_silver_ods_identity_load_source_system = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='run_pipelines_enrollment_silver_ods_identity_load_source_system',
         python_callable=submit_job_to_cluster,
         params=_submit_params,
         on_success_callback=feed_control_callbacks.submit_job_success_callback,
@@ -341,6 +391,11 @@ with DAG(
                 if source_key:
                     files_to_archive.append(source_key)
 
+        # Multi-sheet Excel files yield one input entry per sheet, all
+        # pointing at the same source key — dedupe or delete_source
+        # would fail archiving the same file twice.
+        files_to_archive = list(dict.fromkeys(files_to_archive))
+
         if not files_to_archive:
             objects_with_metadata = []
             if hasattr(storage, "list_objects_with_metadata"):
@@ -456,7 +511,9 @@ with DAG(
     create_compute >> run_pipelines_ingestiongroup1008b
     run_pipelines_ingestiongroup1008b >> run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d
     create_compute >> run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d
-    run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d >> archive_processed_files
+    run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d >> run_pipelines_enrollment_silver_ods_identity_load_source_system
+    create_compute >> run_pipelines_enrollment_silver_ods_identity_load_source_system
+    run_pipelines_enrollment_silver_ods_identity_load_source_system >> archive_processed_files
     archive_processed_files >> delete_compute
     create_compute >> delete_compute
     delete_compute >> end_flow_task
