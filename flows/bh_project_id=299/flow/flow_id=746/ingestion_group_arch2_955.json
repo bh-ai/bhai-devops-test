@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 470,
+        "data": {
+          "flow_pipeline_mapping_id": 470,
+          "flow_id": 746,
+          "pipeline_id": 1707,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 467,
         "data": {
           "flow_pipeline_mapping_id": 467,
@@ -126,7 +138,7 @@
           "flow_parameter_id": 3026,
           "flow_id": 746,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1705, \"name\": \"ingestion_group_arch2\", \"pipeline_name\": \"ingestion-group-arch2\"}]",
+          "parameter_value": "[{\"id\": 1705, \"name\": \"ingestion_group_arch2\", \"pipeline_name\": \"ingestion-group-arch2\"}, {\"id\": 1707, \"name\": \"enrollment_silver_ods_identity_load_source_system\", \"pipeline_name\": \"enrollment_silver_ods_identity_load_source_system\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -342,7 +354,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1705, \"name\": \"ingestion_group_arch2\", \"pipeline_name\": \"ingestion-group-arch2\"}]"
+                  "value": "[{\"id\": 1705, \"name\": \"ingestion_group_arch2\", \"pipeline_name\": \"ingestion-group-arch2\"}, {\"id\": 1707, \"name\": \"enrollment_silver_ods_identity_load_source_system\", \"pipeline_name\": \"enrollment_silver_ods_identity_load_source_system\"}]"
                 },
                 {
                   "key": "runtime_params_base_path",
@@ -501,13 +513,38 @@
                   "nodeId": "Submit_Job_run_pipelines_ingestion_group_arch2",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
+                },
+                {
+                  "task_id": "run_pipelines_enrollment_silver_ods_identity_load_source_system",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "run_pipelines_ingestion_group_arch2"
+                  ],
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "enrollment_silver_ods_identity_load_source_system",
+                  "pipeline_name": "enrollment_silver_ods_identity_load_source_system",
+                  "pipeline_id": 1707,
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+                  "name": "Submit_Job_2",
+                  "nodeId": "Submit_Job_run_pipelines_enrollment_silver_ods_identity_load_source_system",
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
                   "pool_release_lease": true
                 },
                 {
                   "task_id": "archive_processed_files",
                   "type": "ArchiveProcessedFiles",
                   "depends_on": [
-                    "run_pipelines_ingestion_group_arch2"
+                    "run_pipelines_enrollment_silver_ods_identity_load_source_system"
                   ],
                   "bucket_name": "my-test-bucket",
                   "cloud_type": "databricks",
@@ -539,6 +576,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
@@ -567,7 +605,7 @@
             "is_scheduled": true,
             "cron_expression": "*/15 * * * *"
           },
-          "last_deployed_at": null,
+          "last_deployed_at": "2026-09-07 10:24:05.192334+00:00",
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
