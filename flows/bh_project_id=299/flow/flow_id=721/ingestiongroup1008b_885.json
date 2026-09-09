@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 471,
+        "data": {
+          "flow_pipeline_mapping_id": 471,
+          "flow_id": 721,
+          "pipeline_id": 1707,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 386,
         "data": {
           "flow_pipeline_mapping_id": 386,
@@ -96,7 +108,7 @@
           "flow_parameter_id": 2650,
           "flow_id": 721,
           "parameter_name": "sources",
-          "parameter_value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch\", \"filename_regex\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]",
+          "parameter_value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch\", \"filename_regex\": \"^safeharbor_CINQDOWNSTATE_Member_Roster_[0-9]{2}_[0-9]{2}_[0-9]{4}[.]xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -138,7 +150,7 @@
           "flow_parameter_id": 2655,
           "flow_id": 721,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1524, \"name\": \"ingestiongroup1008b\", \"pipeline_name\": \"ingestiongroup1008b\"}, {\"id\": 1525, \"name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\", \"pipeline_name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\"}]",
+          "parameter_value": "[{\"id\": 1524, \"name\": \"ingestiongroup1008b\", \"pipeline_name\": \"ingestiongroup1008b\"}, {\"id\": 1525, \"name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\", \"pipeline_name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\"}, {\"id\": 1707, \"name\": \"enrollment_silver_ods_identity_load_source_system\", \"pipeline_name\": \"enrollment_silver_ods_identity_load_source_system\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -166,7 +178,7 @@
           "flow_parameter_id": 2652,
           "flow_id": 721,
           "parameter_name": "files",
-          "parameter_value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"base_name\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"relative_key\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"size_bytes\": 12694666}]",
+          "parameter_value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/test/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"base_name\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"relative_key\": \"test/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"size_bytes\": 12694666}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -303,7 +315,7 @@
               "version": "1.0.0",
               "project_id": 299,
               "project_name": "flow-test-project",
-              "cron_expression": "0 9 * * *",
+              "cron_expression": "0 * * * *",
               "tenant_id": 220,
               "flow_tags": [
                 {
@@ -346,7 +358,7 @@
                 },
                 {
                   "key": "files",
-                  "value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"base_name\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"relative_key\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"size_bytes\": 12694666}]"
+                  "value": "[{\"key\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/test/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"base_name\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"relative_key\": \"test/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"size_bytes\": 12694666}]"
                 },
                 {
                   "key": "parallelization_factor",
@@ -354,7 +366,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1524, \"name\": \"ingestiongroup1008b\", \"pipeline_name\": \"ingestiongroup1008b\"}, {\"id\": 1525, \"name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\", \"pipeline_name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\"}]"
+                  "value": "[{\"id\": 1524, \"name\": \"ingestiongroup1008b\", \"pipeline_name\": \"ingestiongroup1008b\"}, {\"id\": 1525, \"name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\", \"pipeline_name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\"}, {\"id\": 1707, \"name\": \"enrollment_silver_ods_identity_load_source_system\", \"pipeline_name\": \"enrollment_silver_ods_identity_load_source_system\"}]"
                 },
                 {
                   "key": "runtime_params_base_path",
@@ -366,7 +378,7 @@
                 },
                 {
                   "key": "sources",
-                  "value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch\", \"filename_regex\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]"
+                  "value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch\", \"filename_regex\": \"^safeharbor_CINQDOWNSTATE_Member_Roster_[0-9]{2}_[0-9]{2}_[0-9]{4}[.]xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]"
                 },
                 {
                   "key": "use_valid_files_manifest",
@@ -388,7 +400,7 @@
                     {
                       "source_name": "safeharbor_cinqdownstate_member_roster_03_05_2026",
                       "prefix": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch",
-                      "filename_regex": "safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx",
+                      "filename_regex": "^safeharbor_CINQDOWNSTATE_Member_Roster_[0-9]{2}_[0-9]{2}_[0-9]{4}[.]xlsx",
                       "ignore_subfolders": true,
                       "is_required": true,
                       "min_bytes": 10,
@@ -529,13 +541,38 @@
                   "nodeId": "Submit_Job_run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
+                  "pool_release_lease": false
+                },
+                {
+                  "task_id": "run_pipelines_enrollment_silver_ods_identity_load_source_system",
+                  "type": "SubmitJob",
+                  "depends_on": [
+                    "run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d"
+                  ],
+                  "bh_project_name": "flow-test-project",
+                  "pipeline_key": "enrollment_silver_ods_identity_load_source_system",
+                  "pipeline_name": "enrollment_silver_ods_identity_load_source_system",
+                  "pipeline_id": 1707,
+                  "compute_binding": {
+                    "source_task_id": "create_compute",
+                    "source_output_id": "compute_id"
+                  },
+                  "compute_type": "DATABRICKS_CLUSTER",
+                  "cloud_type": "databricks",
+                  "airflow_connection_id": "databricks_default",
+                  "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+                  "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+                  "name": "Submit_Job_3",
+                  "nodeId": "Submit_Job_run_pipelines_enrollment_silver_ods_identity_load_source_system",
+                  "pool_enabled": true,
+                  "pool_heartbeat_interval_seconds": 120,
                   "pool_release_lease": true
                 },
                 {
                   "task_id": "archive_processed_files",
                   "type": "ArchiveProcessedFiles",
                   "depends_on": [
-                    "run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d"
+                    "run_pipelines_enrollment_silver_ods_identity_load_source_system"
                   ],
                   "bucket_name": "my-test-bucket",
                   "cloud_type": "databricks",
@@ -567,6 +604,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
