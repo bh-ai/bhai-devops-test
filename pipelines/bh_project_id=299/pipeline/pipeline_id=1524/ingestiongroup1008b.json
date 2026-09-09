@@ -1,6 +1,6 @@
 {
   "created_at": "2026-08-10T05:11:51.141855Z",
-  "updated_at": "2026-08-10T05:17:29.786431Z",
+  "updated_at": "2026-09-09T08:01:48.879364Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -15,7 +15,7 @@
   "status": "active",
   "pipeline_version_id": null,
   "bh_project_name": "flow-test-project",
-  "bh_github_username": "bh-varadha-git",
+  "bh_github_username": "bh-sathish-git",
   "pipeline_json": {
     "name": "ingestiongroup1008b",
     "version": "1.0.0",
@@ -23,7 +23,7 @@
     "parameters": [
       {
         "key": "safeharbor_cinqdownstate_member_roster_03_05_2026",
-        "value": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx"
+        "value": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/test/safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx"
       }
     ],
     "connections": {
@@ -39,7 +39,7 @@
         "name": "bronze_test_safeharbor_cinqdownstate_db_connection_obj2196",
         "connection_type": "DatabricksDeltaLake",
         "catalog": "cinqdev",
-        "schema": "bronze_testing",
+        "schema": "bronze_enrollment",
         "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
         "connection_config_id": 185
       }
@@ -64,7 +64,7 @@
           "$ref": "#/connections/bronze_test_safeharbor_cinqdownstate_db_connection_obj2196"
         },
         "load_mode": "append",
-        "schema": "bronze_testing",
+        "schema": "bronze_enrollment",
         "data_src_id": 2846
       }
     },
@@ -524,8 +524,8 @@
     "batch_control": {
       "enabled": true,
       "feed_name": "ingestiongroup1008b",
-      "business_date": "2026-08-10",
-      "delivery_id": "ingestiongroup1008b_2026-08-10",
+      "business_date": "2026-09-09",
+      "delivery_id": "ingestiongroup1008b_2026-09-09",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
@@ -559,7 +559,7 @@
       "atomic_commit_enabled": true,
       "group_id": 885,
       "expected_group_members": 1,
-      "group_run_id": "ingestiongroup1008b_20260810T051729Z"
+      "group_run_id": "ingestiongroup1008b_20260909T080147Z"
     }
   },
   "draft_pipeline_json": null,
