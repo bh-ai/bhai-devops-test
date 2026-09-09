@@ -1,0 +1,2206 @@
+{
+  "created_at": "2026-09-09T07:55:05.502322Z",
+  "updated_at": "2026-09-09T07:55:58.126785Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 1707,
+  "pipeline_name": "enrollment_silver_ods_identity_load_source_system",
+  "pipeline_key": "enrollment_silver_ods_identity_load_source_system",
+  "bh_project_id": 299,
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": null,
+  "bh_github_username": null,
+  "pipeline_json": {
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "name": "enrollment_silver_ods_identity_load_source_system",
+    "description": "Silver raw enrollment -> silver ODS. Merge anchor our_id (+ natural key). link_id carried in record_hash and backfilled (not a match key). member: merge on our_id; children: our_id + natural key (effective tables include start_date). is_active in hash so soft-deletes land as UPDATEs. VARIANT: source_system is part of every table's merge key (per-source rows).",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "mode": "ENGINE",
+    "parameters": [
+      {
+        "key": "catalog",
+        "value": "cinqdev"
+      },
+      {
+        "key": "batch_id",
+        "value": ""
+      },
+      {
+        "key": "raw_schema",
+        "value": "silverraw_enrollment"
+      },
+      {
+        "key": "ods_schema",
+        "value": "silverods_enrollment"
+      }
+    ],
+    "connections": {
+      "databricks_raw": {
+        "name": "databricks_raw",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "${catalog}",
+        "schema": "${raw_schema}",
+        "secret_name": "cinq-scope/-azureunity-cinqdevdatabricksdev"
+      },
+      "databricks_ods": {
+        "name": "databricks_ods",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "${catalog}",
+        "schema": "${ods_schema}",
+        "secret_name": "cinq-scope/-azureunity-cinqdevdatabricksdev"
+      }
+    },
+    "sources": {
+      "raw_member": {
+        "name": "raw_member",
+        "source_type": "Relational",
+        "table_name": "member",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_addresses": {
+        "name": "raw_member_addresses",
+        "source_type": "Relational",
+        "table_name": "member_addresses",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_emails": {
+        "name": "raw_member_emails",
+        "source_type": "Relational",
+        "table_name": "member_emails",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_phones": {
+        "name": "raw_member_phones",
+        "source_type": "Relational",
+        "table_name": "member_phones",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_enrollment_segments": {
+        "name": "raw_member_enrollment_segments",
+        "source_type": "Relational",
+        "table_name": "member_enrollment_segments",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_provider": {
+        "name": "raw_member_provider",
+        "source_type": "Relational",
+        "table_name": "member_provider",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_practice": {
+        "name": "raw_member_practice",
+        "source_type": "Relational",
+        "table_name": "member_practice",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_risk": {
+        "name": "raw_member_risk",
+        "source_type": "Relational",
+        "table_name": "member_risk",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_aco_dualeligibility": {
+        "name": "raw_member_aco_dualeligibility",
+        "source_type": "Relational",
+        "table_name": "member_aco_dualeligibility",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_insurance": {
+        "name": "raw_member_insurance",
+        "source_type": "Relational",
+        "table_name": "member_insurance",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      },
+      "raw_member_source_system_id": {
+        "name": "raw_member_source_system_id",
+        "source_type": "Relational",
+        "table_name": "member_source_system_id",
+        "connection": {
+          "$ref": "#/connections/databricks_raw"
+        }
+      }
+    },
+    "targets": {
+      "ods_member_insert": {
+        "name": "ods_member_insert",
+        "target_type": "Relational",
+        "table_name": "member",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_update": {
+        "name": "ods_member_update",
+        "target_type": "Relational",
+        "table_name": "member",
+        "load_mode": "merge",
+        "merge_keys": [
+          "our_id",
+          "source_system"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "first_name",
+            "last_name",
+            "middle_name",
+            "suffix",
+            "date_of_birth",
+            "gender",
+            "race",
+            "ethnicity",
+            "language",
+            "location",
+            "care_management_program",
+            "last_contact",
+            "dual_status_code",
+            "death_date",
+            "secure_id",
+            "dnc",
+            "guardian_first_name",
+            "guardian_last_name",
+            "guardian_phone_number",
+            "guardian_email",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_addresses_insert": {
+        "name": "ods_member_addresses_insert",
+        "target_type": "Relational",
+        "table_name": "member_addresses",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_addresses_update": {
+        "name": "ods_member_addresses_update",
+        "target_type": "Relational",
+        "table_name": "member_addresses",
+        "load_mode": "merge",
+        "merge_keys": [
+          "address_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "address_type",
+            "address1",
+            "address2",
+            "city",
+            "state",
+            "zip",
+            "region",
+            "can_contact",
+            "county",
+            "county_ssa",
+            "county_fips",
+            "zip4",
+            "is_zip4",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_emails_insert": {
+        "name": "ods_member_emails_insert",
+        "target_type": "Relational",
+        "table_name": "member_emails",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_emails_update": {
+        "name": "ods_member_emails_update",
+        "target_type": "Relational",
+        "table_name": "member_emails",
+        "load_mode": "merge",
+        "merge_keys": [
+          "email_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "email_type",
+            "email_address",
+            "can_contact",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_phones_insert": {
+        "name": "ods_member_phones_insert",
+        "target_type": "Relational",
+        "table_name": "member_phones",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_phones_update": {
+        "name": "ods_member_phones_update",
+        "target_type": "Relational",
+        "table_name": "member_phones",
+        "load_mode": "merge",
+        "merge_keys": [
+          "phone_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "phone_type",
+            "phone_number",
+            "country_code",
+            "can_contact",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_enrollment_segments_insert": {
+        "name": "ods_member_enrollment_segments_insert",
+        "target_type": "Relational",
+        "table_name": "member_enrollment_segments",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_enrollment_segments_update": {
+        "name": "ods_member_enrollment_segments_update",
+        "target_type": "Relational",
+        "table_name": "member_enrollment_segments",
+        "load_mode": "merge",
+        "merge_keys": [
+          "enrollment_segment_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "member_plan",
+            "add_reason",
+            "control_number",
+            "control_number_pbp",
+            "lob",
+            "enrollment_end_date",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_provider_insert": {
+        "name": "ods_member_provider_insert",
+        "target_type": "Relational",
+        "table_name": "member_provider",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_provider_update": {
+        "name": "ods_member_provider_update",
+        "target_type": "Relational",
+        "table_name": "member_provider",
+        "load_mode": "merge",
+        "merge_keys": [
+          "provider_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "pcp_name",
+            "pcp_npi",
+            "pay_to_zip",
+            "lob",
+            "provider_end_date",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_practice_insert": {
+        "name": "ods_member_practice_insert",
+        "target_type": "Relational",
+        "table_name": "member_practice",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_practice_update": {
+        "name": "ods_member_practice_update",
+        "target_type": "Relational",
+        "table_name": "member_practice",
+        "load_mode": "merge",
+        "merge_keys": [
+          "practice_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "member_group",
+            "tin",
+            "ccn",
+            "ccn_type",
+            "tin_market",
+            "tin_submarket",
+            "pay_to_zip",
+            "lob",
+            "practice_end_date",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_risk_insert": {
+        "name": "ods_member_risk_insert",
+        "target_type": "Relational",
+        "table_name": "member_risk",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_risk_update": {
+        "name": "ods_member_risk_update",
+        "target_type": "Relational",
+        "table_name": "member_risk",
+        "load_mode": "merge",
+        "merge_keys": [
+          "risk_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "riskscore_source",
+            "riskscore_filedate",
+            "riskscore_yrmo",
+            "riskscore_raw",
+            "riskscore_norm",
+            "county_name",
+            "benchmark_year",
+            "benchmark_type",
+            "benchmark_period",
+            "county_rate",
+            "county_rate_fallback_flag",
+            "bmark_mmo",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_aco_dualeligibility_insert": {
+        "name": "ods_member_aco_dualeligibility_insert",
+        "target_type": "Relational",
+        "table_name": "member_aco_dualeligibility",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_aco_dualeligibility_update": {
+        "name": "ods_member_aco_dualeligibility_update",
+        "target_type": "Relational",
+        "table_name": "member_aco_dualeligibility",
+        "load_mode": "merge",
+        "merge_keys": [
+          "aco_dualeligibility_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "mbi_cclf8_flag",
+            "bene_dual_stus_cd",
+            "bene_dual_stus_cd_desc_short",
+            "bene_dual_stus_cd_desc_long",
+            "bene_dual_stus_cd_benefit_type",
+            "bene_dual_stus_cd_category",
+            "bene_mdcr_stus_cd",
+            "bene_mdcr_stus",
+            "bene_psn_yrs_dual",
+            "bene_low_inc_subs",
+            "bene_psn_yrs_low_inc_dual",
+            "bene_person_yrs",
+            "partd_months",
+            "long_term_institutionalized",
+            "adi_natrank",
+            "esrd_flag",
+            "aged_flag",
+            "disabled_flag",
+            "aged_or_disabled_flag",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_insurance_insert": {
+        "name": "ods_member_insurance_insert",
+        "target_type": "Relational",
+        "table_name": "member_insurance",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_insurance_update": {
+        "name": "ods_member_insurance_update",
+        "target_type": "Relational",
+        "table_name": "member_insurance",
+        "load_mode": "merge",
+        "merge_keys": [
+          "insurance_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "insurance_id",
+            "insurance_type",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      },
+      "ods_member_source_system_id_insert": {
+        "name": "ods_member_source_system_id_insert",
+        "target_type": "Relational",
+        "table_name": "member_source_system_id",
+        "load_mode": "append",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false
+      },
+      "ods_member_source_system_id_update": {
+        "name": "ods_member_source_system_id_update",
+        "target_type": "Relational",
+        "table_name": "member_source_system_id",
+        "load_mode": "merge",
+        "merge_keys": [
+          "source_system_record_id"
+        ],
+        "when_matched": "update",
+        "when_not_matched": "skip",
+        "connection": {
+          "$ref": "#/connections/databricks_ods"
+        },
+        "process_deletes": false,
+        "scd_config": {
+          "scd_type_1_columns": [
+            "link_id",
+            "source_id_value",
+            "source_id_type",
+            "is_active"
+          ],
+          "scd_type_2_columns": [],
+          "tracking_columns": {
+            "is_active": "is_active",
+            "record_hash": "record_hash"
+          }
+        }
+      }
+    },
+    "transformations": [
+      {
+        "name": "read_raw_member",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member"
+        },
+        "sql_override": "SELECT * FROM read_raw_member WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- CDC: merge on (our_id, source_system); link_id in hash -> backfilled; insert/update only\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.first_name, r.last_name, r.middle_name, r.suffix, r.date_of_birth, r.gender, r.race, r.ethnicity, r.language, r.location, r.care_management_program, r.last_contact, r.dual_status_code, r.death_date, r.secure_id, r.dnc, r.guardian_first_name, r.guardian_last_name, r.guardian_phone_number, r.guardian_email,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.first_name as string)), ''),\n      coalesce(trim(cast(r.last_name as string)), ''),\n      coalesce(trim(cast(r.middle_name as string)), ''),\n      coalesce(trim(cast(r.suffix as string)), ''),\n      coalesce(trim(cast(r.date_of_birth as string)), ''),\n      coalesce(trim(cast(r.gender as string)), ''),\n      coalesce(trim(cast(r.race as string)), ''),\n      coalesce(trim(cast(r.ethnicity as string)), ''),\n      coalesce(trim(cast(r.language as string)), ''),\n      coalesce(trim(cast(r.location as string)), ''),\n      coalesce(trim(cast(r.care_management_program as string)), ''),\n      coalesce(trim(cast(r.last_contact as string)), ''),\n      coalesce(trim(cast(r.dual_status_code as string)), ''),\n      coalesce(trim(cast(r.death_date as string)), ''),\n      coalesce(trim(cast(r.secure_id as string)), ''),\n      coalesce(trim(cast(r.dnc as string)), ''),\n      coalesce(trim(cast(r.guardian_first_name as string)), ''),\n      coalesce(trim(cast(r.guardian_last_name as string)), ''),\n      coalesce(trim(cast(r.guardian_phone_number as string)), ''),\n      coalesce(trim(cast(r.guardian_email as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id, r.record_creation_date\n  FROM ${catalog}.${raw_schema}.member r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.first_name, e.last_name, e.middle_name, e.suffix, e.date_of_birth, e.gender, e.race, e.ethnicity, e.language, e.location, e.care_management_program, e.last_contact, e.dual_status_code, e.death_date, e.secure_id, e.dnc, e.guardian_first_name, e.guardian_last_name, e.guardian_phone_number, e.guardian_email,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    coalesce(o.record_creation_date, e.record_creation_date, current_timestamp()) AS record_creation_date,\n    o.our_id AS previous_our_id,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    CASE\n      WHEN o.our_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member o\n  ) o ON o.our_id = e.our_id AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'",
+          "result_updates": "SELECT * FROM (-- CDC: merge on (our_id, source_system); link_id in hash -> backfilled; insert/update only\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.first_name, r.last_name, r.middle_name, r.suffix, r.date_of_birth, r.gender, r.race, r.ethnicity, r.language, r.location, r.care_management_program, r.last_contact, r.dual_status_code, r.death_date, r.secure_id, r.dnc, r.guardian_first_name, r.guardian_last_name, r.guardian_phone_number, r.guardian_email,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.first_name as string)), ''),\n      coalesce(trim(cast(r.last_name as string)), ''),\n      coalesce(trim(cast(r.middle_name as string)), ''),\n      coalesce(trim(cast(r.suffix as string)), ''),\n      coalesce(trim(cast(r.date_of_birth as string)), ''),\n      coalesce(trim(cast(r.gender as string)), ''),\n      coalesce(trim(cast(r.race as string)), ''),\n      coalesce(trim(cast(r.ethnicity as string)), ''),\n      coalesce(trim(cast(r.language as string)), ''),\n      coalesce(trim(cast(r.location as string)), ''),\n      coalesce(trim(cast(r.care_management_program as string)), ''),\n      coalesce(trim(cast(r.last_contact as string)), ''),\n      coalesce(trim(cast(r.dual_status_code as string)), ''),\n      coalesce(trim(cast(r.death_date as string)), ''),\n      coalesce(trim(cast(r.secure_id as string)), ''),\n      coalesce(trim(cast(r.dnc as string)), ''),\n      coalesce(trim(cast(r.guardian_first_name as string)), ''),\n      coalesce(trim(cast(r.guardian_last_name as string)), ''),\n      coalesce(trim(cast(r.guardian_phone_number as string)), ''),\n      coalesce(trim(cast(r.guardian_email as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id, r.record_creation_date\n  FROM ${catalog}.${raw_schema}.member r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.first_name, e.last_name, e.middle_name, e.suffix, e.date_of_birth, e.gender, e.race, e.ethnicity, e.language, e.location, e.care_management_program, e.last_contact, e.dual_status_code, e.death_date, e.secure_id, e.dnc, e.guardian_first_name, e.guardian_last_name, e.guardian_phone_number, e.guardian_email,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    coalesce(o.record_creation_date, e.record_creation_date, current_timestamp()) AS record_creation_date,\n    o.our_id AS previous_our_id,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    CASE\n      WHEN o.our_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member o\n  ) o ON o.our_id = e.our_id AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'"
+        }
+      },
+      {
+        "name": "member_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member"
+        ],
+        "select_columns": [
+          "our_id",
+          "link_id",
+          "first_name",
+          "last_name",
+          "middle_name",
+          "suffix",
+          "date_of_birth",
+          "gender",
+          "race",
+          "ethnicity",
+          "language",
+          "location",
+          "care_management_program",
+          "last_contact",
+          "dual_status_code",
+          "death_date",
+          "record_creation_date",
+          "secure_id",
+          "dnc",
+          "guardian_first_name",
+          "guardian_last_name",
+          "guardian_phone_number",
+          "guardian_email",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id",
+          "previous_our_id"
+        ],
+        "input_selection": {
+          "enrich_member": [
+            "enrich_member_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member"
+        ],
+        "select_columns": [
+          "our_id",
+          "link_id",
+          "first_name",
+          "last_name",
+          "middle_name",
+          "suffix",
+          "date_of_birth",
+          "gender",
+          "race",
+          "ethnicity",
+          "language",
+          "location",
+          "care_management_program",
+          "last_contact",
+          "dual_status_code",
+          "death_date",
+          "record_creation_date",
+          "secure_id",
+          "dnc",
+          "guardian_first_name",
+          "guardian_last_name",
+          "guardian_phone_number",
+          "guardian_email",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id",
+          "previous_our_id"
+        ],
+        "input_selection": {
+          "enrich_member": [
+            "enrich_member_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_update_final",
+          "write_member_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_addresses",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_addresses"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_addresses WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_addresses",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_addresses",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, address_type, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.address_type, r.address1, r.address2, r.city, r.state, r.zip, r.region, r.can_contact, r.county, r.county_ssa, r.county_fips, r.zip4, r.is_zip4,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.address_type as string)), ''),\n      coalesce(trim(cast(r.address1 as string)), ''),\n      coalesce(trim(cast(r.address2 as string)), ''),\n      coalesce(trim(cast(r.city as string)), ''),\n      coalesce(trim(cast(r.state as string)), ''),\n      coalesce(trim(cast(r.zip as string)), ''),\n      coalesce(trim(cast(r.region as string)), ''),\n      coalesce(trim(cast(r.can_contact as string)), ''),\n      coalesce(trim(cast(r.county as string)), ''),\n      coalesce(trim(cast(r.county_ssa as string)), ''),\n      coalesce(trim(cast(r.county_fips as string)), ''),\n      coalesce(trim(cast(r.zip4 as string)), ''),\n      coalesce(trim(cast(r.is_zip4 as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_addresses r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.address_type, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.address_type, e.address1, e.address2, e.city, e.state, e.zip, e.region, e.can_contact, e.county, e.county_ssa, e.county_fips, e.zip4, e.is_zip4,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.address_record_id, uuid()) AS address_record_id,\n    CASE\n      WHEN o.address_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.address_type, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_addresses o\n  ) o ON o.our_id = e.our_id AND o.address_type <=> e.address_type AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, address_type, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.address_type, r.address1, r.address2, r.city, r.state, r.zip, r.region, r.can_contact, r.county, r.county_ssa, r.county_fips, r.zip4, r.is_zip4,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.address_type as string)), ''),\n      coalesce(trim(cast(r.address1 as string)), ''),\n      coalesce(trim(cast(r.address2 as string)), ''),\n      coalesce(trim(cast(r.city as string)), ''),\n      coalesce(trim(cast(r.state as string)), ''),\n      coalesce(trim(cast(r.zip as string)), ''),\n      coalesce(trim(cast(r.region as string)), ''),\n      coalesce(trim(cast(r.can_contact as string)), ''),\n      coalesce(trim(cast(r.county as string)), ''),\n      coalesce(trim(cast(r.county_ssa as string)), ''),\n      coalesce(trim(cast(r.county_fips as string)), ''),\n      coalesce(trim(cast(r.zip4 as string)), ''),\n      coalesce(trim(cast(r.is_zip4 as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_addresses r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.address_type, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.address_type, e.address1, e.address2, e.city, e.state, e.zip, e.region, e.can_contact, e.county, e.county_ssa, e.county_fips, e.zip4, e.is_zip4,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.address_record_id, uuid()) AS address_record_id,\n    CASE\n      WHEN o.address_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.address_type, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_addresses o\n  ) o ON o.our_id = e.our_id AND o.address_type <=> e.address_type AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'"
+        }
+      },
+      {
+        "name": "member_addresses_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_addresses"
+        ],
+        "select_columns": [
+          "address_record_id",
+          "our_id",
+          "link_id",
+          "address_type",
+          "address1",
+          "address2",
+          "city",
+          "state",
+          "zip",
+          "region",
+          "can_contact",
+          "county",
+          "county_ssa",
+          "county_fips",
+          "zip4",
+          "is_zip4",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_addresses": [
+            "enrich_member_addresses_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_addresses_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_addresses_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_addresses_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_addresses_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_addresses"
+        ],
+        "select_columns": [
+          "address_record_id",
+          "our_id",
+          "link_id",
+          "address_type",
+          "address1",
+          "address2",
+          "city",
+          "state",
+          "zip",
+          "region",
+          "can_contact",
+          "county",
+          "county_ssa",
+          "county_fips",
+          "zip4",
+          "is_zip4",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_addresses": [
+            "enrich_member_addresses_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_addresses_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_addresses_update_final",
+          "write_member_addresses_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_addresses_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_emails",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_emails"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_emails WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_emails",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_emails",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, email_type, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.email_type, r.email_address, r.can_contact,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.email_type as string)), ''),\n      coalesce(trim(cast(r.email_address as string)), ''),\n      coalesce(trim(cast(r.can_contact as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_emails r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.email_type, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.email_type, e.email_address, e.can_contact,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.email_record_id, uuid()) AS email_record_id,\n    CASE\n      WHEN o.email_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.email_type, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_emails o\n  ) o ON o.our_id = e.our_id AND o.email_type <=> e.email_type AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, email_type, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.email_type, r.email_address, r.can_contact,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.email_type as string)), ''),\n      coalesce(trim(cast(r.email_address as string)), ''),\n      coalesce(trim(cast(r.can_contact as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_emails r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.email_type, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.email_type, e.email_address, e.can_contact,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.email_record_id, uuid()) AS email_record_id,\n    CASE\n      WHEN o.email_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.email_type, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_emails o\n  ) o ON o.our_id = e.our_id AND o.email_type <=> e.email_type AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'"
+        }
+      },
+      {
+        "name": "member_emails_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_emails"
+        ],
+        "select_columns": [
+          "email_record_id",
+          "our_id",
+          "link_id",
+          "email_type",
+          "email_address",
+          "can_contact",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_emails": [
+            "enrich_member_emails_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_emails_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_emails_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_emails_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_emails_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_emails"
+        ],
+        "select_columns": [
+          "email_record_id",
+          "our_id",
+          "link_id",
+          "email_type",
+          "email_address",
+          "can_contact",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_emails": [
+            "enrich_member_emails_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_emails_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_emails_update_final",
+          "write_member_emails_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_emails_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_phones",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_phones"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_phones WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_phones",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_phones",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, phone_type, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.phone_type, r.phone_number, r.country_code, r.can_contact,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.phone_type as string)), ''),\n      coalesce(trim(cast(r.phone_number as string)), ''),\n      coalesce(trim(cast(r.country_code as string)), ''),\n      coalesce(trim(cast(r.can_contact as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_phones r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.phone_type, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.phone_type, e.phone_number, e.country_code, e.can_contact,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.phone_record_id, uuid()) AS phone_record_id,\n    CASE\n      WHEN o.phone_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.phone_type, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_phones o\n  ) o ON o.our_id = e.our_id AND o.phone_type <=> e.phone_type AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, phone_type, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.phone_type, r.phone_number, r.country_code, r.can_contact,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.phone_type as string)), ''),\n      coalesce(trim(cast(r.phone_number as string)), ''),\n      coalesce(trim(cast(r.country_code as string)), ''),\n      coalesce(trim(cast(r.can_contact as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_phones r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.phone_type, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.phone_type, e.phone_number, e.country_code, e.can_contact,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.phone_record_id, uuid()) AS phone_record_id,\n    CASE\n      WHEN o.phone_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.phone_type, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_phones o\n  ) o ON o.our_id = e.our_id AND o.phone_type <=> e.phone_type AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'"
+        }
+      },
+      {
+        "name": "member_phones_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_phones"
+        ],
+        "select_columns": [
+          "phone_record_id",
+          "our_id",
+          "link_id",
+          "phone_type",
+          "phone_number",
+          "country_code",
+          "can_contact",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_phones": [
+            "enrich_member_phones_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_phones_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_phones_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_phones_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_phones_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_phones"
+        ],
+        "select_columns": [
+          "phone_record_id",
+          "our_id",
+          "link_id",
+          "phone_type",
+          "phone_number",
+          "country_code",
+          "can_contact",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_phones": [
+            "enrich_member_phones_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_phones_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_phones_update_final",
+          "write_member_phones_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_phones_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_enrollment_segments",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_enrollment_segments"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_enrollment_segments WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_enrollment_segments",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_enrollment_segments",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, member_plan, member_payor, enrollment_start_date, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.member_plan, r.add_reason, r.control_number, r.control_number_pbp, r.lob, r.enrollment_start_date, r.enrollment_end_date,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.member_plan as string)), ''),\n      coalesce(trim(cast(r.add_reason as string)), ''),\n      coalesce(trim(cast(r.control_number as string)), ''),\n      coalesce(trim(cast(r.control_number_pbp as string)), ''),\n      coalesce(trim(cast(r.lob as string)), ''),\n      coalesce(trim(cast(r.enrollment_end_date as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_enrollment_segments r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.member_plan, e.member_payor, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.member_plan, e.add_reason, e.control_number, e.control_number_pbp, e.lob, CASE WHEN o.enrollment_segment_record_id IS NULL THEN e.enrollment_start_date ELSE o.enrollment_start_date END AS enrollment_start_date, e.enrollment_end_date,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.enrollment_segment_record_id, uuid()) AS enrollment_segment_record_id,\n    CASE\n      WHEN o.enrollment_segment_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.member_plan, o.member_payor, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_enrollment_segments o WHERE o.is_active = true\n  ) o ON o.our_id = e.our_id AND o.member_plan <=> e.member_plan AND o.member_payor <=> e.member_payor AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'\nQUALIFY ROW_NUMBER() OVER (PARTITION BY our_id, member_plan, member_payor, enrollment_start_date, source_system ORDER BY record_hash) = 1",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, member_plan, member_payor, enrollment_start_date, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.member_plan, r.add_reason, r.control_number, r.control_number_pbp, r.lob, r.enrollment_start_date, r.enrollment_end_date,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.member_plan as string)), ''),\n      coalesce(trim(cast(r.add_reason as string)), ''),\n      coalesce(trim(cast(r.control_number as string)), ''),\n      coalesce(trim(cast(r.control_number_pbp as string)), ''),\n      coalesce(trim(cast(r.lob as string)), ''),\n      coalesce(trim(cast(r.enrollment_end_date as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_enrollment_segments r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.member_plan, e.member_payor, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.member_plan, e.add_reason, e.control_number, e.control_number_pbp, e.lob, CASE WHEN o.enrollment_segment_record_id IS NULL THEN e.enrollment_start_date ELSE o.enrollment_start_date END AS enrollment_start_date, e.enrollment_end_date,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.enrollment_segment_record_id, uuid()) AS enrollment_segment_record_id,\n    CASE\n      WHEN o.enrollment_segment_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.member_plan, o.member_payor, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_enrollment_segments o WHERE o.is_active = true\n  ) o ON o.our_id = e.our_id AND o.member_plan <=> e.member_plan AND o.member_payor <=> e.member_payor AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'\nQUALIFY ROW_NUMBER() OVER (PARTITION BY our_id, member_plan, member_payor, enrollment_start_date, source_system ORDER BY record_hash) = 1"
+        }
+      },
+      {
+        "name": "member_enrollment_segments_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_enrollment_segments"
+        ],
+        "select_columns": [
+          "enrollment_segment_record_id",
+          "our_id",
+          "link_id",
+          "member_plan",
+          "add_reason",
+          "control_number",
+          "control_number_pbp",
+          "lob",
+          "enrollment_start_date",
+          "enrollment_end_date",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_enrollment_segments": [
+            "enrich_member_enrollment_segments_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_enrollment_segments_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_enrollment_segments_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_enrollment_segments_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_enrollment_segments_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_enrollment_segments"
+        ],
+        "select_columns": [
+          "enrollment_segment_record_id",
+          "our_id",
+          "link_id",
+          "member_plan",
+          "add_reason",
+          "control_number",
+          "control_number_pbp",
+          "lob",
+          "enrollment_start_date",
+          "enrollment_end_date",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_enrollment_segments": [
+            "enrich_member_enrollment_segments_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_enrollment_segments_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_enrollment_segments_update_final",
+          "write_member_enrollment_segments_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_enrollment_segments_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_provider",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_provider"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_provider WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_provider",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_provider",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, pcp_npi, provider_start_date, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.pcp_name, r.pcp_npi, r.pay_to_zip, r.lob, r.provider_start_date, r.provider_end_date,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.pcp_name as string)), ''),\n      coalesce(trim(cast(r.pcp_npi as string)), ''),\n      coalesce(trim(cast(r.pay_to_zip as string)), ''),\n      coalesce(trim(cast(r.lob as string)), ''),\n      coalesce(trim(cast(r.provider_end_date as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_provider r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.pcp_npi, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.pcp_name, e.pcp_npi, e.pay_to_zip, e.lob, CASE WHEN o.provider_record_id IS NULL THEN e.provider_start_date ELSE o.provider_start_date END AS provider_start_date, e.provider_end_date,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.provider_record_id, uuid()) AS provider_record_id,\n    CASE\n      WHEN o.provider_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.pcp_npi, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_provider o WHERE o.is_active = true\n  ) o ON o.our_id = e.our_id AND o.pcp_npi <=> e.pcp_npi AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'\nQUALIFY ROW_NUMBER() OVER (PARTITION BY our_id, pcp_npi, provider_start_date, source_system ORDER BY record_hash) = 1",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, pcp_npi, provider_start_date, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.pcp_name, r.pcp_npi, r.pay_to_zip, r.lob, r.provider_start_date, r.provider_end_date,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.pcp_name as string)), ''),\n      coalesce(trim(cast(r.pcp_npi as string)), ''),\n      coalesce(trim(cast(r.pay_to_zip as string)), ''),\n      coalesce(trim(cast(r.lob as string)), ''),\n      coalesce(trim(cast(r.provider_end_date as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_provider r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.pcp_npi, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.pcp_name, e.pcp_npi, e.pay_to_zip, e.lob, CASE WHEN o.provider_record_id IS NULL THEN e.provider_start_date ELSE o.provider_start_date END AS provider_start_date, e.provider_end_date,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.provider_record_id, uuid()) AS provider_record_id,\n    CASE\n      WHEN o.provider_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.pcp_npi, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_provider o WHERE o.is_active = true\n  ) o ON o.our_id = e.our_id AND o.pcp_npi <=> e.pcp_npi AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'\nQUALIFY ROW_NUMBER() OVER (PARTITION BY our_id, pcp_npi, provider_start_date, source_system ORDER BY record_hash) = 1"
+        }
+      },
+      {
+        "name": "member_provider_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_provider"
+        ],
+        "select_columns": [
+          "provider_record_id",
+          "our_id",
+          "link_id",
+          "pcp_name",
+          "pcp_npi",
+          "pay_to_zip",
+          "lob",
+          "provider_start_date",
+          "provider_end_date",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_provider": [
+            "enrich_member_provider_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_provider_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_provider_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_provider_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_provider_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_provider"
+        ],
+        "select_columns": [
+          "provider_record_id",
+          "our_id",
+          "link_id",
+          "pcp_name",
+          "pcp_npi",
+          "pay_to_zip",
+          "lob",
+          "provider_start_date",
+          "provider_end_date",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_provider": [
+            "enrich_member_provider_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_provider_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_provider_update_final",
+          "write_member_provider_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_provider_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_practice",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_practice"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_practice WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_practice",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_practice",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, member_group, tin, practice_start_date, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.member_group, r.tin, r.ccn, r.ccn_type, r.tin_market, r.tin_submarket, r.pay_to_zip, r.lob, r.practice_start_date, r.practice_end_date,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.member_group as string)), ''),\n      coalesce(trim(cast(r.tin as string)), ''),\n      coalesce(trim(cast(r.ccn as string)), ''),\n      coalesce(trim(cast(r.ccn_type as string)), ''),\n      coalesce(trim(cast(r.tin_market as string)), ''),\n      coalesce(trim(cast(r.tin_submarket as string)), ''),\n      coalesce(trim(cast(r.pay_to_zip as string)), ''),\n      coalesce(trim(cast(r.lob as string)), ''),\n      coalesce(trim(cast(r.practice_end_date as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_practice r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.member_group, e.tin, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.member_group, e.tin, e.ccn, e.ccn_type, e.tin_market, e.tin_submarket, e.pay_to_zip, e.lob, CASE WHEN o.practice_record_id IS NULL THEN e.practice_start_date ELSE o.practice_start_date END AS practice_start_date, e.practice_end_date,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.practice_record_id, uuid()) AS practice_record_id,\n    CASE\n      WHEN o.practice_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.member_group, o.tin, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_practice o WHERE o.is_active = true\n  ) o ON o.our_id = e.our_id AND o.member_group <=> e.member_group AND o.tin <=> e.tin AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'\nQUALIFY ROW_NUMBER() OVER (PARTITION BY our_id, member_group, tin, practice_start_date, source_system ORDER BY record_hash) = 1",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, member_group, tin, practice_start_date, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.member_group, r.tin, r.ccn, r.ccn_type, r.tin_market, r.tin_submarket, r.pay_to_zip, r.lob, r.practice_start_date, r.practice_end_date,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.member_group as string)), ''),\n      coalesce(trim(cast(r.tin as string)), ''),\n      coalesce(trim(cast(r.ccn as string)), ''),\n      coalesce(trim(cast(r.ccn_type as string)), ''),\n      coalesce(trim(cast(r.tin_market as string)), ''),\n      coalesce(trim(cast(r.tin_submarket as string)), ''),\n      coalesce(trim(cast(r.pay_to_zip as string)), ''),\n      coalesce(trim(cast(r.lob as string)), ''),\n      coalesce(trim(cast(r.practice_end_date as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_practice r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.member_group, e.tin, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.member_group, e.tin, e.ccn, e.ccn_type, e.tin_market, e.tin_submarket, e.pay_to_zip, e.lob, CASE WHEN o.practice_record_id IS NULL THEN e.practice_start_date ELSE o.practice_start_date END AS practice_start_date, e.practice_end_date,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.practice_record_id, uuid()) AS practice_record_id,\n    CASE\n      WHEN o.practice_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.member_group, o.tin, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_practice o WHERE o.is_active = true\n  ) o ON o.our_id = e.our_id AND o.member_group <=> e.member_group AND o.tin <=> e.tin AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'\nQUALIFY ROW_NUMBER() OVER (PARTITION BY our_id, member_group, tin, practice_start_date, source_system ORDER BY record_hash) = 1"
+        }
+      },
+      {
+        "name": "member_practice_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_practice"
+        ],
+        "select_columns": [
+          "practice_record_id",
+          "our_id",
+          "link_id",
+          "member_group",
+          "tin",
+          "ccn",
+          "ccn_type",
+          "tin_market",
+          "tin_submarket",
+          "pay_to_zip",
+          "lob",
+          "practice_start_date",
+          "practice_end_date",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_practice": [
+            "enrich_member_practice_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_practice_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_practice_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_practice_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_practice_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_practice"
+        ],
+        "select_columns": [
+          "practice_record_id",
+          "our_id",
+          "link_id",
+          "member_group",
+          "tin",
+          "ccn",
+          "ccn_type",
+          "tin_market",
+          "tin_submarket",
+          "pay_to_zip",
+          "lob",
+          "practice_start_date",
+          "practice_end_date",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_practice": [
+            "enrich_member_practice_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_practice_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_practice_update_final",
+          "write_member_practice_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_practice_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_risk",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_risk"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_risk WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_risk",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_risk",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, riskscore_yrmo, riskscore_norm, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.riskscore_source, r.riskscore_filedate, r.riskscore_yrmo, r.riskscore_raw, r.riskscore_norm, r.county_name, r.benchmark_year, r.benchmark_type, r.benchmark_period, r.county_rate, r.county_rate_fallback_flag, r.bmark_mmo,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.riskscore_source as string)), ''),\n      coalesce(trim(cast(r.riskscore_filedate as string)), ''),\n      coalesce(trim(cast(r.riskscore_yrmo as string)), ''),\n      coalesce(trim(cast(r.riskscore_raw as string)), ''),\n      coalesce(trim(cast(r.riskscore_norm as string)), ''),\n      coalesce(trim(cast(r.county_name as string)), ''),\n      coalesce(trim(cast(r.benchmark_year as string)), ''),\n      coalesce(trim(cast(r.benchmark_type as string)), ''),\n      coalesce(trim(cast(r.benchmark_period as string)), ''),\n      coalesce(trim(cast(r.county_rate as string)), ''),\n      coalesce(trim(cast(r.county_rate_fallback_flag as string)), ''),\n      coalesce(trim(cast(r.bmark_mmo as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_risk r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.riskscore_yrmo, e.riskscore_norm, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.riskscore_source, e.riskscore_filedate, e.riskscore_yrmo, e.riskscore_raw, e.riskscore_norm, e.county_name, e.benchmark_year, e.benchmark_type, e.benchmark_period, e.county_rate, e.county_rate_fallback_flag, e.bmark_mmo,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.risk_record_id, uuid()) AS risk_record_id,\n    CASE\n      WHEN o.risk_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.riskscore_yrmo, o.riskscore_norm, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_risk o\n  ) o ON o.our_id = e.our_id AND o.riskscore_yrmo <=> e.riskscore_yrmo AND o.riskscore_norm <=> e.riskscore_norm AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, riskscore_yrmo, riskscore_norm, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.riskscore_source, r.riskscore_filedate, r.riskscore_yrmo, r.riskscore_raw, r.riskscore_norm, r.county_name, r.benchmark_year, r.benchmark_type, r.benchmark_period, r.county_rate, r.county_rate_fallback_flag, r.bmark_mmo,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.riskscore_source as string)), ''),\n      coalesce(trim(cast(r.riskscore_filedate as string)), ''),\n      coalesce(trim(cast(r.riskscore_yrmo as string)), ''),\n      coalesce(trim(cast(r.riskscore_raw as string)), ''),\n      coalesce(trim(cast(r.riskscore_norm as string)), ''),\n      coalesce(trim(cast(r.county_name as string)), ''),\n      coalesce(trim(cast(r.benchmark_year as string)), ''),\n      coalesce(trim(cast(r.benchmark_type as string)), ''),\n      coalesce(trim(cast(r.benchmark_period as string)), ''),\n      coalesce(trim(cast(r.county_rate as string)), ''),\n      coalesce(trim(cast(r.county_rate_fallback_flag as string)), ''),\n      coalesce(trim(cast(r.bmark_mmo as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_risk r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.riskscore_yrmo, e.riskscore_norm, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.riskscore_source, e.riskscore_filedate, e.riskscore_yrmo, e.riskscore_raw, e.riskscore_norm, e.county_name, e.benchmark_year, e.benchmark_type, e.benchmark_period, e.county_rate, e.county_rate_fallback_flag, e.bmark_mmo,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.risk_record_id, uuid()) AS risk_record_id,\n    CASE\n      WHEN o.risk_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.riskscore_yrmo, o.riskscore_norm, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_risk o\n  ) o ON o.our_id = e.our_id AND o.riskscore_yrmo <=> e.riskscore_yrmo AND o.riskscore_norm <=> e.riskscore_norm AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'"
+        }
+      },
+      {
+        "name": "member_risk_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_risk"
+        ],
+        "select_columns": [
+          "risk_record_id",
+          "our_id",
+          "link_id",
+          "riskscore_source",
+          "riskscore_filedate",
+          "riskscore_yrmo",
+          "riskscore_raw",
+          "riskscore_norm",
+          "county_name",
+          "benchmark_year",
+          "benchmark_type",
+          "benchmark_period",
+          "county_rate",
+          "county_rate_fallback_flag",
+          "bmark_mmo",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_risk": [
+            "enrich_member_risk_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_risk_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_risk_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_risk_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_risk_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_risk"
+        ],
+        "select_columns": [
+          "risk_record_id",
+          "our_id",
+          "link_id",
+          "riskscore_source",
+          "riskscore_filedate",
+          "riskscore_yrmo",
+          "riskscore_raw",
+          "riskscore_norm",
+          "county_name",
+          "benchmark_year",
+          "benchmark_type",
+          "benchmark_period",
+          "county_rate",
+          "county_rate_fallback_flag",
+          "bmark_mmo",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_risk": [
+            "enrich_member_risk_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_risk_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_risk_update_final",
+          "write_member_risk_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_risk_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_aco_dualeligibility",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_aco_dualeligibility"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_aco_dualeligibility WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_aco_dualeligibility",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_aco_dualeligibility",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.mbi_cclf8_flag, r.bene_dual_stus_cd, r.bene_dual_stus_cd_desc_short, r.bene_dual_stus_cd_desc_long, r.bene_dual_stus_cd_benefit_type, r.bene_dual_stus_cd_category, r.bene_mdcr_stus_cd, r.bene_mdcr_stus, r.bene_psn_yrs_dual, r.bene_low_inc_subs, r.bene_psn_yrs_low_inc_dual, r.bene_person_yrs, r.partd_months, r.long_term_institutionalized, r.adi_natrank, r.esrd_flag, r.aged_flag, r.disabled_flag, r.aged_or_disabled_flag,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.mbi_cclf8_flag as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd_desc_short as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd_desc_long as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd_benefit_type as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd_category as string)), ''),\n      coalesce(trim(cast(r.bene_mdcr_stus_cd as string)), ''),\n      coalesce(trim(cast(r.bene_mdcr_stus as string)), ''),\n      coalesce(trim(cast(r.bene_psn_yrs_dual as string)), ''),\n      coalesce(trim(cast(r.bene_low_inc_subs as string)), ''),\n      coalesce(trim(cast(r.bene_psn_yrs_low_inc_dual as string)), ''),\n      coalesce(trim(cast(r.bene_person_yrs as string)), ''),\n      coalesce(trim(cast(r.partd_months as string)), ''),\n      coalesce(trim(cast(r.long_term_institutionalized as string)), ''),\n      coalesce(trim(cast(r.adi_natrank as string)), ''),\n      coalesce(trim(cast(r.esrd_flag as string)), ''),\n      coalesce(trim(cast(r.aged_flag as string)), ''),\n      coalesce(trim(cast(r.disabled_flag as string)), ''),\n      coalesce(trim(cast(r.aged_or_disabled_flag as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_aco_dualeligibility r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.mbi_cclf8_flag, e.bene_dual_stus_cd, e.bene_dual_stus_cd_desc_short, e.bene_dual_stus_cd_desc_long, e.bene_dual_stus_cd_benefit_type, e.bene_dual_stus_cd_category, e.bene_mdcr_stus_cd, e.bene_mdcr_stus, e.bene_psn_yrs_dual, e.bene_low_inc_subs, e.bene_psn_yrs_low_inc_dual, e.bene_person_yrs, e.partd_months, e.long_term_institutionalized, e.adi_natrank, e.esrd_flag, e.aged_flag, e.disabled_flag, e.aged_or_disabled_flag,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.aco_dualeligibility_record_id, uuid()) AS aco_dualeligibility_record_id,\n    CASE\n      WHEN o.aco_dualeligibility_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_aco_dualeligibility o\n  ) o ON o.our_id = e.our_id AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.mbi_cclf8_flag, r.bene_dual_stus_cd, r.bene_dual_stus_cd_desc_short, r.bene_dual_stus_cd_desc_long, r.bene_dual_stus_cd_benefit_type, r.bene_dual_stus_cd_category, r.bene_mdcr_stus_cd, r.bene_mdcr_stus, r.bene_psn_yrs_dual, r.bene_low_inc_subs, r.bene_psn_yrs_low_inc_dual, r.bene_person_yrs, r.partd_months, r.long_term_institutionalized, r.adi_natrank, r.esrd_flag, r.aged_flag, r.disabled_flag, r.aged_or_disabled_flag,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.mbi_cclf8_flag as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd_desc_short as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd_desc_long as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd_benefit_type as string)), ''),\n      coalesce(trim(cast(r.bene_dual_stus_cd_category as string)), ''),\n      coalesce(trim(cast(r.bene_mdcr_stus_cd as string)), ''),\n      coalesce(trim(cast(r.bene_mdcr_stus as string)), ''),\n      coalesce(trim(cast(r.bene_psn_yrs_dual as string)), ''),\n      coalesce(trim(cast(r.bene_low_inc_subs as string)), ''),\n      coalesce(trim(cast(r.bene_psn_yrs_low_inc_dual as string)), ''),\n      coalesce(trim(cast(r.bene_person_yrs as string)), ''),\n      coalesce(trim(cast(r.partd_months as string)), ''),\n      coalesce(trim(cast(r.long_term_institutionalized as string)), ''),\n      coalesce(trim(cast(r.adi_natrank as string)), ''),\n      coalesce(trim(cast(r.esrd_flag as string)), ''),\n      coalesce(trim(cast(r.aged_flag as string)), ''),\n      coalesce(trim(cast(r.disabled_flag as string)), ''),\n      coalesce(trim(cast(r.aged_or_disabled_flag as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_aco_dualeligibility r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.mbi_cclf8_flag, e.bene_dual_stus_cd, e.bene_dual_stus_cd_desc_short, e.bene_dual_stus_cd_desc_long, e.bene_dual_stus_cd_benefit_type, e.bene_dual_stus_cd_category, e.bene_mdcr_stus_cd, e.bene_mdcr_stus, e.bene_psn_yrs_dual, e.bene_low_inc_subs, e.bene_psn_yrs_low_inc_dual, e.bene_person_yrs, e.partd_months, e.long_term_institutionalized, e.adi_natrank, e.esrd_flag, e.aged_flag, e.disabled_flag, e.aged_or_disabled_flag,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.aco_dualeligibility_record_id, uuid()) AS aco_dualeligibility_record_id,\n    CASE\n      WHEN o.aco_dualeligibility_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_aco_dualeligibility o\n  ) o ON o.our_id = e.our_id AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'"
+        }
+      },
+      {
+        "name": "member_aco_dualeligibility_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_aco_dualeligibility"
+        ],
+        "select_columns": [
+          "aco_dualeligibility_record_id",
+          "our_id",
+          "link_id",
+          "mbi_cclf8_flag",
+          "bene_dual_stus_cd",
+          "bene_dual_stus_cd_desc_short",
+          "bene_dual_stus_cd_desc_long",
+          "bene_dual_stus_cd_benefit_type",
+          "bene_dual_stus_cd_category",
+          "bene_mdcr_stus_cd",
+          "bene_mdcr_stus",
+          "bene_psn_yrs_dual",
+          "bene_low_inc_subs",
+          "bene_psn_yrs_low_inc_dual",
+          "bene_person_yrs",
+          "partd_months",
+          "long_term_institutionalized",
+          "adi_natrank",
+          "esrd_flag",
+          "aged_flag",
+          "disabled_flag",
+          "aged_or_disabled_flag",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_aco_dualeligibility": [
+            "enrich_member_aco_dualeligibility_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_aco_dualeligibility_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_aco_dualeligibility_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_aco_dualeligibility_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_aco_dualeligibility_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_aco_dualeligibility"
+        ],
+        "select_columns": [
+          "aco_dualeligibility_record_id",
+          "our_id",
+          "link_id",
+          "mbi_cclf8_flag",
+          "bene_dual_stus_cd",
+          "bene_dual_stus_cd_desc_short",
+          "bene_dual_stus_cd_desc_long",
+          "bene_dual_stus_cd_benefit_type",
+          "bene_dual_stus_cd_category",
+          "bene_mdcr_stus_cd",
+          "bene_mdcr_stus",
+          "bene_psn_yrs_dual",
+          "bene_low_inc_subs",
+          "bene_psn_yrs_low_inc_dual",
+          "bene_person_yrs",
+          "partd_months",
+          "long_term_institutionalized",
+          "adi_natrank",
+          "esrd_flag",
+          "aged_flag",
+          "disabled_flag",
+          "aged_or_disabled_flag",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_aco_dualeligibility": [
+            "enrich_member_aco_dualeligibility_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_aco_dualeligibility_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_aco_dualeligibility_update_final",
+          "write_member_aco_dualeligibility_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_aco_dualeligibility_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_insurance",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_insurance"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_insurance WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_insurance",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_insurance",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, insurance_id, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.insurance_id, r.insurance_type,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.insurance_id as string)), ''),\n      coalesce(trim(cast(r.insurance_type as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_insurance r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.insurance_id, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.insurance_id, e.insurance_type,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.insurance_record_id, uuid()) AS insurance_record_id,\n    CASE\n      WHEN o.insurance_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.insurance_id, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_insurance o\n  ) o ON o.our_id = e.our_id AND o.insurance_id <=> e.insurance_id AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'\nQUALIFY ROW_NUMBER() OVER (PARTITION BY our_id, insurance_id, source_system ORDER BY record_hash) = 1",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, insurance_id, source_system); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.insurance_id, r.insurance_type,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.insurance_id as string)), ''),\n      coalesce(trim(cast(r.insurance_type as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_insurance r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.insurance_id, e.source_system ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.insurance_id, e.insurance_type,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.insurance_record_id, uuid()) AS insurance_record_id,\n    CASE\n      WHEN o.insurance_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.insurance_id, o.source_system ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_insurance o\n  ) o ON o.our_id = e.our_id AND o.insurance_id <=> e.insurance_id AND o.source_system <=> e.source_system AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'\nQUALIFY ROW_NUMBER() OVER (PARTITION BY our_id, insurance_id, source_system ORDER BY record_hash) = 1"
+        }
+      },
+      {
+        "name": "member_insurance_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_insurance"
+        ],
+        "select_columns": [
+          "insurance_record_id",
+          "our_id",
+          "link_id",
+          "insurance_id",
+          "insurance_type",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_insurance": [
+            "enrich_member_insurance_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_insurance_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_insurance_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_insurance_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_insurance_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_insurance"
+        ],
+        "select_columns": [
+          "insurance_record_id",
+          "our_id",
+          "link_id",
+          "insurance_id",
+          "insurance_type",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_insurance": [
+            "enrich_member_insurance_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_insurance_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_insurance_update_final",
+          "write_member_insurance_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_insurance_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "read_raw_member_source_system_id",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/raw_member_source_system_id"
+        },
+        "sql_override": "SELECT * FROM read_raw_member_source_system_id WHERE batch_id = ${batch_id}"
+      },
+      {
+        "name": "enrich_member_source_system_id",
+        "transformation": "SQL",
+        "dependent_on": [
+          "read_raw_member_source_system_id",
+          "write_member_update"
+        ],
+        "queries": {
+          "result_inserts": "SELECT * FROM (-- Child CDC: merge on (our_id, source_id_value, source_id_type, source_system, member_payor); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.source_id_value, r.source_id_type,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.source_id_value as string)), ''),\n      coalesce(trim(cast(r.source_id_type as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_source_system_id r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.source_id_value, e.source_id_type, e.source_system, e.member_payor ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.source_id_value, e.source_id_type,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.source_system_record_id, uuid()) AS source_system_record_id,\n    CASE\n      WHEN o.source_system_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.source_id_value, o.source_id_type, o.source_system, o.member_payor ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_source_system_id o\n  ) o ON o.our_id = e.our_id AND o.source_id_value <=> e.source_id_value AND o.source_id_type <=> e.source_id_type AND o.source_system <=> e.source_system AND o.member_payor <=> e.member_payor AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'INSERT'",
+          "result_updates": "SELECT * FROM (-- Child CDC: merge on (our_id, source_id_value, source_id_type, source_system, member_payor); link_id in hash -> backfilled; is_active in hash -> soft-delete = UPDATE\nWITH identity AS (\n  SELECT source_system_id, source_system, link_id, our_id,\n    ROW_NUMBER() OVER (PARTITION BY source_system_id, source_system ORDER BY try_cast(batch_id AS bigint) DESC, coalesce(updated_at, created_at) DESC) AS idn_seq\n  FROM ${catalog}.${ods_schema}.member_identity_resolution\n  WHERE is_active = true AND our_id IS NOT NULL\n),\nenriched AS (\n  SELECT i.our_id, i.link_id, r.source_system_id, r.source_id_value, r.source_id_type,\n    coalesce(r.is_active, true) AS is_active,\n    sha2(concat_ws('||',\n      coalesce(trim(cast(i.link_id as string)), ''),\n      coalesce(trim(cast(r.source_id_value as string)), ''),\n      coalesce(trim(cast(r.source_id_type as string)), ''),\n      coalesce(trim(cast(r.is_active as string)), '')\n    ), 256) AS ods_record_hash,\n    r.feed_name, r.source_system, r.member_payor, r.batch_id\n  FROM ${catalog}.${raw_schema}.member_source_system_id r\n  INNER JOIN identity i\n    ON i.source_system_id = r.source_system_id AND i.source_system = r.source_system AND i.idn_seq = 1\n  WHERE r.batch_id = ${batch_id}\n),\nenriched_dedup AS (\n  SELECT * FROM (\n    SELECT e.*, ROW_NUMBER() OVER (PARTITION BY e.our_id, e.source_id_value, e.source_id_type, e.source_system, e.member_payor ORDER BY CASE WHEN e.link_id IS NULL THEN 1 ELSE 0 END, e.source_system_id) AS _dedup_seq\n    FROM enriched e\n  ) WHERE _dedup_seq = 1\n),\nwith_ods AS (\n  SELECT e.our_id, e.link_id, e.source_id_value, e.source_id_type,\n    e.is_active, e.ods_record_hash AS record_hash, e.feed_name, e.source_system, e.member_payor,\n    'ODS_IDENTITY_PIPELINE' AS created_by, coalesce(o.created_at, current_timestamp()) AS created_at,\n    'ODS_IDENTITY_PIPELINE' AS updated_by, current_timestamp() AS updated_at, e.batch_id, e.ods_record_hash,\n    coalesce(o.source_system_record_id, uuid()) AS source_system_record_id,\n    CASE\n      WHEN o.source_system_record_id IS NULL THEN 'INSERT'\n      WHEN try_cast(e.batch_id AS bigint) >= try_cast(o.batch_id AS bigint) AND coalesce(e.ods_record_hash, '') <> coalesce(o.record_hash, '') THEN 'UPDATE'\n      ELSE 'NOOP'\n    END AS cdc_action\n  FROM enriched_dedup e\n  LEFT JOIN (\n    SELECT o.*, ROW_NUMBER() OVER (PARTITION BY o.our_id, o.source_id_value, o.source_id_type, o.source_system, o.member_payor ORDER BY try_cast(o.batch_id AS bigint) DESC, coalesce(o.updated_at, o.created_at) DESC) AS dup_seq\n    FROM ${catalog}.${ods_schema}.member_source_system_id o\n  ) o ON o.our_id = e.our_id AND o.source_id_value <=> e.source_id_value AND o.source_id_type <=> e.source_id_type AND o.source_system <=> e.source_system AND o.member_payor <=> e.member_payor AND o.dup_seq = 1\n)\nSELECT * FROM with_ods WHERE cdc_action <> 'NOOP'\n) x WHERE cdc_action = 'UPDATE'"
+        }
+      },
+      {
+        "name": "member_source_system_id_insert_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_source_system_id"
+        ],
+        "select_columns": [
+          "source_system_record_id",
+          "our_id",
+          "link_id",
+          "source_id_value",
+          "source_id_type",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_source_system_id": [
+            "enrich_member_source_system_id_inserts"
+          ]
+        }
+      },
+      {
+        "name": "write_member_source_system_id_insert",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_source_system_id_insert_final"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_source_system_id_insert"
+        },
+        "write_options": {
+          "mode": "append",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      },
+      {
+        "name": "member_source_system_id_update_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "enrich_member_source_system_id"
+        ],
+        "select_columns": [
+          "source_system_record_id",
+          "our_id",
+          "link_id",
+          "source_id_value",
+          "source_id_type",
+          "is_active",
+          "record_hash",
+          "feed_name",
+          "source_system",
+          "member_payor",
+          "created_by",
+          "created_at",
+          "updated_by",
+          "updated_at",
+          "batch_id"
+        ],
+        "input_selection": {
+          "enrich_member_source_system_id": [
+            "enrich_member_source_system_id_updates"
+          ]
+        }
+      },
+      {
+        "name": "write_member_source_system_id_update",
+        "transformation": "Writer",
+        "dependent_on": [
+          "member_source_system_id_update_final",
+          "write_member_source_system_id_insert"
+        ],
+        "target": {
+          "$ref": "#/targets/ods_member_source_system_id_update"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        }
+      }
+    ],
+    "execution_order": [
+      "member",
+      "member_addresses",
+      "member_emails",
+      "member_phones",
+      "member_enrollment_segments",
+      "member_provider",
+      "member_practice",
+      "member_risk",
+      "member_aco_dualeligibility",
+      "member_insurance",
+      "member_source_system_id"
+    ],
+    "dependency_graph": {
+      "member": {
+        "depends_on_tables": [
+          "member_identity_resolution"
+        ],
+        "note": "SQL CDC on (our_id, source_system); writer insert=append; writer update=merge on (our_id, source_system); link_id in hash + backfilled"
+      },
+      "member_addresses": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, address_type, source_system); writer insert=append; writer update=merge on address_record_id; is_active in hash so soft-delete=UPDATE"
+      },
+      "member_emails": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, email_type, source_system); writer insert=append; writer update=merge on email_record_id; is_active in hash so soft-delete=UPDATE"
+      },
+      "member_phones": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, phone_type, source_system); writer insert=append; writer update=merge on phone_record_id; is_active in hash so soft-delete=UPDATE"
+      },
+      "member_enrollment_segments": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, member_plan, member_payor, enrollment_start_date, source_system); writer insert=append; writer update=merge on enrollment_segment_record_id; is_active in hash so soft-delete=UPDATE"
+      },
+      "member_provider": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, pcp_npi, provider_start_date, source_system); writer insert=append; writer update=merge on provider_record_id; is_active in hash so soft-delete=UPDATE"
+      },
+      "member_practice": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, member_group, tin, practice_start_date, source_system); writer insert=append; writer update=merge on practice_record_id; is_active in hash so soft-delete=UPDATE"
+      },
+      "member_risk": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, riskscore_yrmo, riskscore_norm, source_system); writer insert=append; writer update=merge on risk_record_id; is_active in hash so soft-delete=UPDATE"
+      },
+      "member_aco_dualeligibility": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, source_system); writer insert=append; writer update=merge on aco_dualeligibility_record_id; is_active in hash so soft-delete=UPDATE"
+      },
+      "member_insurance": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, insurance_id, source_system); writer insert=append; writer update=merge on insurance_record_id; is_active in hash so soft-delete=UPDATE"
+      },
+      "member_source_system_id": {
+        "depends_on_tables": [
+          "member_identity_resolution",
+          "member"
+        ],
+        "note": "SQL CDC on (our_id, source_id_value, source_id_type, source_system); writer insert=append; writer update=merge on source_system_record_id; is_active in hash so soft-delete=UPDATE"
+      }
+    },
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "ingestiongrouparch2",
+      "business_date": "2026-07-07",
+      "delivery_id": "ingestiongrouparch2_2026-07-07",
+      "use_existing_batch_id": true,
+      "validate_existing_batch": true,
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "input_registry_processed_on_stage": "silver_raw",
+      "seed_stage_rows": true,
+      "stages": [
+        "silver_ods"
+      ],
+      "storage": {
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        },
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        }
+      },
+      "stage_to_transformations": {
+        "silver_ods": [
+          "read_raw_member",
+          "enrich_member",
+          "member_insert_final",
+          "write_member_insert",
+          "member_update_final",
+          "write_member_update",
+          "read_raw_member_addresses",
+          "enrich_member_addresses",
+          "member_addresses_insert_final",
+          "write_member_addresses_insert",
+          "member_addresses_update_final",
+          "write_member_addresses_update",
+          "read_raw_member_emails",
+          "enrich_member_emails",
+          "member_emails_insert_final",
+          "write_member_emails_insert",
+          "member_emails_update_final",
+          "write_member_emails_update",
+          "read_raw_member_phones",
+          "enrich_member_phones",
+          "member_phones_insert_final",
+          "write_member_phones_insert",
+          "member_phones_update_final",
+          "write_member_phones_update",
+          "read_raw_member_enrollment_segments",
+          "enrich_member_enrollment_segments",
+          "member_enrollment_segments_insert_final",
+          "write_member_enrollment_segments_insert",
+          "member_enrollment_segments_update_final",
+          "write_member_enrollment_segments_update",
+          "read_raw_member_provider",
+          "enrich_member_provider",
+          "member_provider_insert_final",
+          "write_member_provider_insert",
+          "member_provider_update_final",
+          "write_member_provider_update",
+          "read_raw_member_practice",
+          "enrich_member_practice",
+          "member_practice_insert_final",
+          "write_member_practice_insert",
+          "member_practice_update_final",
+          "write_member_practice_update",
+          "read_raw_member_risk",
+          "enrich_member_risk",
+          "member_risk_insert_final",
+          "write_member_risk_insert",
+          "member_risk_update_final",
+          "write_member_risk_update",
+          "read_raw_member_aco_dualeligibility",
+          "enrich_member_aco_dualeligibility",
+          "member_aco_dualeligibility_insert_final",
+          "write_member_aco_dualeligibility_insert",
+          "member_aco_dualeligibility_update_final",
+          "write_member_aco_dualeligibility_update",
+          "read_raw_member_insurance",
+          "enrich_member_insurance",
+          "member_insurance_insert_final",
+          "write_member_insurance_insert",
+          "member_insurance_update_final",
+          "write_member_insurance_update",
+          "read_raw_member_source_system_id",
+          "enrich_member_source_system_id",
+          "member_source_system_id_insert_final",
+          "write_member_source_system_id_insert",
+          "member_source_system_id_update_final",
+          "write_member_source_system_id_update"
+        ]
+      },
+      "error_threshold_pct": 50
+    }
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": null,
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
