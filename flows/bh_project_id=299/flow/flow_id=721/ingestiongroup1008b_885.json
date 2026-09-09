@@ -53,18 +53,6 @@
       },
       {
         "model": "FlowPipelineMapping",
-        "pk": 471,
-        "data": {
-          "flow_pipeline_mapping_id": 471,
-          "flow_id": 721,
-          "pipeline_id": 1707,
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowPipelineMapping",
         "pk": 386,
         "data": {
           "flow_pipeline_mapping_id": 386,
@@ -150,7 +138,7 @@
           "flow_parameter_id": 2655,
           "flow_id": 721,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1524, \"name\": \"ingestiongroup1008b\", \"pipeline_name\": \"ingestiongroup1008b\"}, {\"id\": 1525, \"name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\", \"pipeline_name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\"}, {\"id\": 1707, \"name\": \"enrollment_silver_ods_identity_load_source_system\", \"pipeline_name\": \"enrollment_silver_ods_identity_load_source_system\"}]",
+          "parameter_value": "[{\"id\": 1524, \"name\": \"ingestiongroup1008b\", \"pipeline_name\": \"ingestiongroup1008b\"}, {\"id\": 1525, \"name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\", \"pipeline_name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -366,7 +354,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1524, \"name\": \"ingestiongroup1008b\", \"pipeline_name\": \"ingestiongroup1008b\"}, {\"id\": 1525, \"name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\", \"pipeline_name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\"}, {\"id\": 1707, \"name\": \"enrollment_silver_ods_identity_load_source_system\", \"pipeline_name\": \"enrollment_silver_ods_identity_load_source_system\"}]"
+                  "value": "[{\"id\": 1524, \"name\": \"ingestiongroup1008b\", \"pipeline_name\": \"ingestiongroup1008b\"}, {\"id\": 1525, \"name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\", \"pipeline_name\": \"silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d\"}]"
                 },
                 {
                   "key": "runtime_params_base_path",
@@ -604,7 +592,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
