@@ -53,18 +53,6 @@
       },
       {
         "model": "FlowPipelineMapping",
-        "pk": 470,
-        "data": {
-          "flow_pipeline_mapping_id": 470,
-          "flow_id": 746,
-          "pipeline_id": 1707,
-          "tenant_id": 220,
-          "is_deleted": false,
-          "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowPipelineMapping",
         "pk": 467,
         "data": {
           "flow_pipeline_mapping_id": 467,
@@ -138,7 +126,7 @@
           "flow_parameter_id": 3026,
           "flow_id": 746,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1705, \"name\": \"ingestion_group_arch2\", \"pipeline_name\": \"ingestion-group-arch2\"}, {\"id\": 1707, \"name\": \"enrollment_silver_ods_identity_load_source_system\", \"pipeline_name\": \"enrollment_silver_ods_identity_load_source_system\"}]",
+          "parameter_value": "[{\"id\": 1705, \"name\": \"ingestion_group_arch2\", \"pipeline_name\": \"ingestion-group-arch2\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -354,7 +342,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1705, \"name\": \"ingestion_group_arch2\", \"pipeline_name\": \"ingestion-group-arch2\"}, {\"id\": 1707, \"name\": \"enrollment_silver_ods_identity_load_source_system\", \"pipeline_name\": \"enrollment_silver_ods_identity_load_source_system\"}]"
+                  "value": "[{\"id\": 1705, \"name\": \"ingestion_group_arch2\", \"pipeline_name\": \"ingestion-group-arch2\"}]"
                 },
                 {
                   "key": "runtime_params_base_path",
@@ -576,7 +564,6 @@
                 }
               ],
               "bh_environment_id": 331,
-              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
