@@ -131,7 +131,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_ingestion_group_arch2_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1705/ingestion_group_arch2.json",
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1705/ingestion_group_arch2.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -156,11 +156,57 @@ with DAG(
         "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
         "pool_enabled": True,
         "pool_heartbeat_interval_seconds": 120,
-        "pool_release_lease": True
+        "pool_release_lease": False
     }
     run_pipelines_ingestion_group_arch2 = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
         task_id='run_pipelines_ingestion_group_arch2',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=feed_control_callbacks.submit_job_success_callback,
+        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.compute_pool.databricks_tasks import submit_job_to_cluster
+
+    _submit_params = {
+        "compute_task_id": "create_compute",
+        "job_config": {
+            "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_run_pipelines_enrollment_silver_ods_identity_load_source_system_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1707/enrollment_silver_ods_identity_load_source_system.json",
+                "databricks",
+                "/Workspace/Shared/dev-utils/schemas"
+            ]
+        },
+        "ingestion_group_id": 955,
+        "flow_id": 746,
+        "pipeline_id": "1707",
+        "feed_name": "ingestion-group-arch2",
+        "validate_inbound_task_id": "validate_inbound_files",
+        "facts_source": "databricks",
+        "pipeline_name": "enrollment_silver_ods_identity_load_source_system",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
+        "airflow_connection_id": "databricks_default",
+        "pipeline_key": "enrollment_silver_ods_identity_load_source_system",
+        "bh_project_id": 299,
+        "project_id": 299,
+        "project_name": "flow-test-project",
+        "compute_xcom_key": "return_value",
+        "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
+        "pool_enabled": True,
+        "pool_heartbeat_interval_seconds": 120,
+        "pool_release_lease": True
+    }
+    run_pipelines_enrollment_silver_ods_identity_load_source_system = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='run_pipelines_enrollment_silver_ods_identity_load_source_system',
         python_callable=submit_job_to_cluster,
         params=_submit_params,
         on_success_callback=feed_control_callbacks.submit_job_success_callback,
@@ -426,7 +472,9 @@ with DAG(
     start_flow_task >> validate_inbound_files
     validate_inbound_files >> create_compute
     create_compute >> run_pipelines_ingestion_group_arch2
-    run_pipelines_ingestion_group_arch2 >> archive_processed_files
+    run_pipelines_ingestion_group_arch2 >> run_pipelines_enrollment_silver_ods_identity_load_source_system
+    create_compute >> run_pipelines_enrollment_silver_ods_identity_load_source_system
+    run_pipelines_enrollment_silver_ods_identity_load_source_system >> archive_processed_files
     archive_processed_files >> delete_compute
     create_compute >> delete_compute
     delete_compute >> end_flow_task
