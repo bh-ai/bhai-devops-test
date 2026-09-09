@@ -122,7 +122,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_ingestiongroup1008b_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1524/ingestiongroup1008b.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1524/ingestiongroup1008b.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -168,7 +168,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1525/silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1525/silver_raw_safeharbor_to_members_dedupe_load_260810_5c5d.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
@@ -214,7 +214,7 @@ with DAG(
             "name": "{{ dag.dag_id }}_run_pipelines_enrollment_silver_ods_identity_load_source_system_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/test/pipelines/bh_project_id=299/pipeline/pipeline_id=1707/enrollment_silver_ods_identity_load_source_system.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1707/enrollment_silver_ods_identity_load_source_system.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
