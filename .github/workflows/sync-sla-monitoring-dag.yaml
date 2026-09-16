@@ -18,12 +18,6 @@
 name: sync-sla-monitoring-dag
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - sla_monitoring/env/sla_monitoring_prod.py
-      - .github/workflows/sync-sla-monitoring-dag.yaml
 
   workflow_dispatch:
     inputs:
