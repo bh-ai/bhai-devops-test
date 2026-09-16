@@ -1,0 +1,200 @@
+# GitHub Action: sync-sla-monitoring-dag
+#
+# Injects environment-specific SLA settings into sla_monitoring/env/sla_monitoring_prod.py
+# and uploads ONLY that file to the Airflow dags folder in Azure Blob.
+#
+# Configure the test-dbricks / prod-dbricks GitHub Environments (Settings >
+# Environments) with:
+#   secrets:   AZURE_STORAGE_ACCOUNT_KEY
+#   variables: SLA_MONITOR_PARAMS_JSON (a JSON object of the SLA params to inject)
+#   optional:  AZURE_STORAGE_ACCOUNT_NAME, AZURE_STORAGE_CONTAINER, AZURE_DAG_PREFIX
+#
+# SLA_MONITOR_PARAMS_JSON has no fallback, so a missing variable fails the sync instead of
+# deploying another environment's configuration. Its databricks_warehouse_id / control_catalog /
+# control_schema keys set the module-level default_* variables in the DAG; catalog_url and
+# keycloak_url are not injected at all. The os.environ and Variable.get expressions stay in the
+# DAG and resolve in the Airflow container. Pushes to main deploy to test-dbricks.
+#
+name: sync-sla-monitoring-dag
+
+on:
+
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: 'GitHub Environment to use (loads env secrets/vars)'
+        required: true
+        type: choice
+        options:
+          - test-dbricks
+          - prod-dbricks
+        default: test-dbricks
+
+concurrency:
+  group: sync-sla-monitoring-dag-${{ github.event.inputs.target_environment || 'test-dbricks' }}
+  cancel-in-progress: false
+
+env:
+  TARGET_ENVIRONMENT: ${{ github.event.inputs.target_environment || 'test-dbricks' }}
+  SOURCE: sla_monitoring/env/sla_monitoring_prod.py
+  DAG_FILE_NAME: sla_monitoring_prod.py
+
+jobs:
+  sync-sla-monitoring-dag:
+    name: Sync SLA monitoring DAG
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.target_environment || 'test-dbricks' }}
+    permissions:
+      contents: read
+
+    env:
+      AZURE_STORAGE_ACCOUNT_NAME: ${{ vars.AZURE_STORAGE_ACCOUNT_NAME || 'bhdevstoacct01' }}
+      AZURE_STORAGE_CONTAINER: ${{ vars.AZURE_STORAGE_CONTAINER || 'bh-airflow' }}
+      AZURE_DAG_PREFIX: ${{ vars.AZURE_DAG_PREFIX || 'dags' }}
+
+      # SLA monitoring DAG settings, injected into the DAG on this runner.
+      SLA_MONITOR_PARAMS_JSON: ${{ vars.SLA_MONITOR_PARAMS_JSON }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Inject SLA params into DAG
+        run: |
+          set -euo pipefail
+          echo "Target environment: ${TARGET_ENVIRONMENT}"
+          mkdir -p _sync_dag
+          cp "${SOURCE}" "_sync_dag/${DAG_FILE_NAME}"
+
+          python3 << 'PYEOF'
+          import json
+          import os
+          import re
+
+          path = os.path.join("_sync_dag", os.environ["DAG_FILE_NAME"])
+
+          raw = (os.environ.get("SLA_MONITOR_PARAMS_JSON") or "").strip()
+          if not raw:
+              raise SystemExit("ERROR: SLA_MONITOR_PARAMS_JSON is not set")
+          try:
+              params = json.loads(raw)
+          except ValueError as exc:
+              raise SystemExit("ERROR: SLA_MONITOR_PARAMS_JSON is not valid JSON: %s" % exc)
+          if not isinstance(params, dict) or not params:
+              raise SystemExit("ERROR: SLA_MONITOR_PARAMS_JSON must be a non-empty JSON object")
+
+          # The DAG ships placeholders, so every key must be supplied or it would deploy them.
+          REQUIRED = (
+              "tenant_id",
+              "bh_environment_id",
+              "bh_environment_name",
+              "sla_env_yaml_blob_prefix",
+              "sla_env_yaml_environment_file",
+              "bh_kc_secret_url",
+              "cloud_provider",
+              "airflow_connection_id",
+              "databricks_warehouse_id",
+              "control_catalog",
+              "control_schema",
+              "facts_source",
+              "fail_on_error",
+          )
+          missing = [key for key in REQUIRED if key not in params]
+          if missing:
+              raise SystemExit("ERROR: SLA_MONITOR_PARAMS_JSON is missing keys: " + ", ".join(missing))
+          blank = [key for key in REQUIRED if isinstance(params[key], str) and not params[key].strip()]
+          if blank:
+              raise SystemExit("ERROR: SLA_MONITOR_PARAMS_JSON has blank values: " + ", ".join(blank))
+
+          # These keys set the module-level Variable.get defaults, not the params dict entry.
+          DEFAULT_VARS = {
+              "databricks_warehouse_id": "default_databricks_warehouse_id",
+              "control_catalog": "default_control_catalog",
+              "control_schema": "default_control_schema",
+          }
+
+          def literal(key, value):
+              if isinstance(value, bool):
+                  return "True" if value else "False"
+              if isinstance(value, int) or isinstance(value, float):
+                  return repr(value)
+              if isinstance(value, str):
+                  return json.dumps(value)
+              raise SystemExit("ERROR: %s has an unsupported value type: %r" % (key, value))
+
+          with open(path, encoding="utf-8") as handle:
+              content = handle.read()
+
+          block = re.search(r"^_SLA_MONITOR_PARAMS\s*=\s*\{.*?^\}", content, re.DOTALL | re.MULTILINE)
+          if not block:
+              raise SystemExit("ERROR: no _SLA_MONITOR_PARAMS block found in " + path)
+          head, body, tail = content[:block.start()], block.group(0), content[block.end():]
+
+          for key, value in params.items():
+              rendered = literal(key, value)
+              if key in DEFAULT_VARS:
+                  name = DEFAULT_VARS[key]
+                  head, count = re.subn(
+                      r"^(%s\s*=\s*).*$" % re.escape(name),
+                      lambda match: match.group(1) + rendered,
+                      head,
+                      count=1,
+                      flags=re.MULTILINE,
+                  )
+                  if count != 1:
+                      raise SystemExit("ERROR: no %s assignment found in %s" % (name, path))
+                  continue
+              body, count = re.subn(
+                  r'^(\s*"%s":\s*).*,$' % re.escape(key),
+                  lambda match: match.group(1) + rendered + ",",
+                  body,
+                  count=1,
+                  flags=re.MULTILINE,
+              )
+              if count != 1:
+                  raise SystemExit('ERROR: no "%s" entry found in the params block of %s' % (key, path))
+
+          content = head + body + tail
+          compile(content, path, "exec")
+
+          with open(path, "w", encoding="utf-8", newline="\n") as handle:
+              handle.write(content)
+
+          print("Injected SLA params:", ", ".join(sorted(params)))
+          PYEOF
+
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      - name: Upload SLA monitoring DAG to Airflow dags folder
+        env:
+          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+          RENDERED_DAG: _sync_dag/${{ env.DAG_FILE_NAME }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${AZURE_STORAGE_ACCOUNT_NAME}" ] || [ -z "${AZURE_STORAGE_CONTAINER}" ]; then
+            echo "Set AZURE_STORAGE_ACCOUNT_NAME and AZURE_STORAGE_CONTAINER (env or environment variables)."
+            exit 1
+          fi
+          if [ -z "${AZURE_STORAGE_ACCOUNT_KEY}" ]; then
+            echo "Add GitHub secret AZURE_STORAGE_ACCOUNT_KEY"
+            exit 1
+          fi
+          if [ ! -f "${RENDERED_DAG}" ]; then
+            echo "ERROR: Injected DAG not found: ${RENDERED_DAG}"
+            exit 1
+          fi
+
+          dest="${AZURE_DAG_PREFIX}/${DAG_FILE_NAME}"
+          az storage blob upload \
+            --account-name "${AZURE_STORAGE_ACCOUNT_NAME}" \
+            --account-key "${AZURE_STORAGE_ACCOUNT_KEY}" \
+            --container-name "${AZURE_STORAGE_CONTAINER}" \
+            --file "${RENDERED_DAG}" \
+            --name "$dest" \
+            --overwrite \
+            --only-show-errors
+
+          echo "Synced ${DAG_FILE_NAME} to ${AZURE_STORAGE_ACCOUNT_NAME}/${AZURE_STORAGE_CONTAINER}/$dest"
