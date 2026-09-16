@@ -1,45 +1,32 @@
-# GitHub Action: sync-sla-feed-config-to-azure-blob
+# GitHub Action: Sync feed config env files to Azure Blob Storage
 #
-# Configure the dl-dev-environment / dl-prod-environment GitHub Environments (Settings >
-# Environments) with secrets AZURE_STORAGE_ACCOUNT_KEY, AZURE_STORAGE_ACCOUNT_NAME,
-# AZURE_STORAGE_CONTAINER and optional variable AZURE_DAG_PREFIX.
+# Configure GitHub Environments (Settings > Environments) with secrets AZURE_STORAGE_ACCOUNT_KEY,
+# AZURE_STORAGE_ACCOUNT_NAME, AZURE_STORAGE_CONTAINER and optional variable AZURE_DAG_PREFIX per environment.
+# Manual runs: choose target environment; push to main uses the <github-environment-name> environment.
+# Replace <github-environment-name> with the name of the GitHub environment you want to use.
 #
-# The YAML config path defaults from the selected environment (dl-dev-environment ->
-# env/dev.yaml, dl-prod-environment -> env/prod.yaml) under deployments/. Leave
-# yaml_config_path empty to use that default, or set it to override with any other
-# path under deployments/ (e.g. env/custom-dev.yaml).
-#
-name: sync-sla-feed-config-to-azure-blob
+name: Sync feed config env files to Azure Blob Storage
 
 on:
+
   workflow_dispatch:
     inputs:
       target_environment:
         description: 'GitHub Environment to use (loads env secrets/vars)'
         required: true
-        type: choice
-        options:
-          - dl-dev-environment
-          - dl-prod-environment
-        default: dl-dev-environment
-
-      yaml_config_path:
-        description: 'YAML Configuration Path (Optional). Path under deployments/, e.g. env/custom-dev.yaml. Defaults to env/dev.yaml or env/prod.yaml based on the environment.'
-        required: false
         type: string
+        default: <github-environment-name>
 
 env:
   AZURE_STORAGE_ACCOUNT_NAME: ${{ vars.AZURE_STORAGE_ACCOUNT_NAME || 'bhdevstoacct01' }}
   AZURE_STORAGE_CONTAINER: ${{ vars.AZURE_STORAGE_CONTAINER || 'bh-airflow' }}
   AZURE_DAG_PREFIX: ${{ vars.AZURE_DAG_PREFIX || 'dags' }}
-  TARGET_ENVIRONMENT: ${{ github.event.inputs.target_environment }}
-  YAML_CONFIG_PATH: ${{ github.event.inputs.yaml_config_path }}
 
 jobs:
   sync-feed-config-env:
     name: Sync feed config env files
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.target_environment }}
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.target_environment }}
     permissions:
       contents: read
 
@@ -47,31 +34,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Resolve YAML config path
-        run: |
-          set -euo pipefail
-
-          if [ -n "${YAML_CONFIG_PATH:-}" ]; then
-            resolved_path="${YAML_CONFIG_PATH}"
-          elif [ "${TARGET_ENVIRONMENT}" = "dl-prod-environment" ]; then
-            resolved_path="env/prod.yaml"
-          else
-            resolved_path="env/dev.yaml"
-          fi
-
-          echo "Resolved YAML config path: deployments/${resolved_path}"
-          echo "RESOLVED_YAML_PATH=${resolved_path}" >> "$GITHUB_ENV"
-
       - name: Install Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-      - name: Sync feed config env file to Azure Blob
+      - name: Sync feed config env files to Azure Blob
         env:
           AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
         run: |
-          set -euo pipefail
-
           if [ -z "${{ env.AZURE_STORAGE_ACCOUNT_NAME }}" ] || [ -z "${{ env.AZURE_STORAGE_CONTAINER }}" ]; then
             echo "Set AZURE_STORAGE_ACCOUNT_NAME and AZURE_STORAGE_CONTAINER (env or repo variables)."
             exit 1
@@ -80,20 +50,16 @@ jobs:
             echo "Add GitHub secret AZURE_STORAGE_ACCOUNT_KEY"
             exit 1
           fi
-
-          src="deployments/${RESOLVED_YAML_PATH}"
-          if [ ! -f "$src" ]; then
-            echo "ERROR: File not found: $src"
-            exit 1
+          if [ -d "deployments/env" ] && [ "$(ls -A deployments/env 2>/dev/null)" ]; then
+            dest="${{ env.AZURE_DAG_PREFIX }}/feed_config/env"
+            az storage blob upload-batch \
+              --account-name "${{ env.AZURE_STORAGE_ACCOUNT_NAME }}" \
+              --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+              --destination "${{ env.AZURE_STORAGE_CONTAINER }}" \
+              --source deployments/env \
+              --destination-path "$dest" \
+              --overwrite
+            echo "Synced feed config env files to ${{ env.AZURE_STORAGE_ACCOUNT_NAME }}/${{ env.AZURE_STORAGE_CONTAINER }}/$dest"
+          else
+            echo "No feed config env files to sync."
           fi
-
-          dest="${{ env.AZURE_DAG_PREFIX }}/feed_config/${RESOLVED_YAML_PATH}"
-          az storage blob upload \
-            --account-name "${{ env.AZURE_STORAGE_ACCOUNT_NAME }}" \
-            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
-            --container-name "${{ env.AZURE_STORAGE_CONTAINER }}" \
-            --file "$src" \
-            --name "$dest" \
-            --overwrite
-
-          echo "Synced $src to ${{ env.AZURE_STORAGE_ACCOUNT_NAME }}/${{ env.AZURE_STORAGE_CONTAINER }}/$dest"
