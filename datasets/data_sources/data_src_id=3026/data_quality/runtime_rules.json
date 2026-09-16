@@ -1,0 +1,63 @@
+{
+  "data_source_id": 3026,
+  "data_src_name": "safeharbor_p_d0284_algc26_rp_d260313_t1532354_1",
+  "dq_rules": [
+    {
+      "dq_rule_mapping_id": 2023,
+      "rule_id": 1,
+      "rule_definition_id": 7,
+      "action": "RECORD",
+      "data_source_id": 3026,
+      "data_src_name": "safeharbor_p_d0284_algc26_rp_d260313_t1532354_1",
+      "rule_name": "Member Name Not Null or Empty",
+      "evaluation_scope": "ROW",
+      "rule_type": "NOT_NULL",
+      "parameter_values": {
+        "additional_filters": "1=1",
+        "database_name": "cinqdev",
+        "tolerance(%)": "0",
+        "table_name": "safeharbor_p_d0284_algc26_rp_d260313_t1532354_1",
+        "schema_name": "default",
+        "column_name": "feed_name"
+      },
+      "engines": {
+        "ansi": {
+          "engine": "ansi",
+          "rule_definition_id": 7,
+          "substituted_query": "WITH null_count AS (SELECT COUNT(*) AS total_nulls FROM cinqdev.default.safeharbor_p_d0284_algc26_rp_d260313_t1532354_1 WHERE feed_name IS NULL AND 1=1), overall_count AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.safeharbor_p_d0284_algc26_rp_d260313_t1532354_1 WHERE 1=1) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN try_divide((total_rows - total_nulls) * 100.0, total_rows) >= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;",
+          "failure_predicate": "(1=1) AND (feed_name IS NULL OR TRIM(CAST(feed_name AS STRING)) = '')",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "spark": {
+          "engine": "spark",
+          "rule_definition_id": 35,
+          "substituted_query": "WITH null_count AS (SELECT COUNT(*) AS total_nulls FROM cinqdev.default.safeharbor_p_d0284_algc26_rp_d260313_t1532354_1 WHERE feed_name IS NULL AND 1=1), overall_count AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.safeharbor_p_d0284_algc26_rp_d260313_t1532354_1 WHERE 1=1) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN try_divide((total_rows - total_nulls) * 100.0, total_rows) >= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;",
+          "failure_predicate": "(1=1) AND (feed_name IS NULL OR TRIM(CAST(feed_name AS STRING)) = '')",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "duckdb": {
+          "engine": "duckdb",
+          "rule_definition_id": 22,
+          "substituted_query": "WITH data AS (SELECT * FROM read_csv_auto('{file_path}')), null_count AS (SELECT COUNT(*) AS total_nulls FROM data WHERE (feed_name IS NULL OR feed_name = '') AND 1=1), overall_count AS (SELECT COUNT(*) AS total_rows FROM data WHERE 1=1) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN (total_nulls * 100.0 / total_rows) <= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;",
+          "failure_predicate": "(1=1) AND (feed_name IS NULL OR TRIM(CAST(feed_name AS STRING)) = '')",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "neo4j": {
+          "engine": "neo4j",
+          "rule_definition_id": 31,
+          "substituted_query": "USE `cinqdev` MATCH (n:`safeharbor_p_d0284_algc26_rp_d260313_t1532354_1`) WHERE 1=1 WITH n, CASE WHEN (n.`feed_name` IS NULL OR n.`feed_name` = '') THEN 1 ELSE 0 END AS is_null WITH count(n) AS total_rows, sum(is_null) AS total_nulls WITH total_rows, COALESCE(total_nulls, 0) AS total_nulls, CASE WHEN total_rows > 0 AND (total_nulls * 100.0 / total_rows) <= 0 THEN 'PASS' ELSE 'FAIL' END AS status RETURN total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, status;",
+          "failure_predicate": "(1=1) AND (feed_name IS NULL OR TRIM(CAST(feed_name AS STRING)) = '')",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        }
+      }
+    }
+  ]
+}
