@@ -1,11 +1,11 @@
-# GitHub Action: Sync feed config env files to Azure Blob Storage
+# GitHub Action: Sync SLA feed config env files to Azure Blob Storage
 #
 # Configure GitHub Environments (Settings > Environments) with secrets AZURE_STORAGE_ACCOUNT_KEY,
 # AZURE_STORAGE_ACCOUNT_NAME, AZURE_STORAGE_CONTAINER and optional variable AZURE_DAG_PREFIX per environment.
 # Manual runs: choose target environment; push to main uses the <github-environment-name> environment.
 # Replace <github-environment-name> with the name of the GitHub environment you want to use.
 #
-name: Sync feed config env files to Azure Blob Storage
+name: Sync SLA feed config env files to Azure Blob Storage
 
 on:
 
