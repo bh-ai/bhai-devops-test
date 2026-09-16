@@ -15,7 +15,7 @@
 # keycloak_url are not injected at all. The os.environ and Variable.get expressions stay in the
 # DAG and resolve in the Airflow container. Pushes to main deploy to test-dbricks.
 #
-name: sync-sla-monitoring-dag
+name: Sync SLA monitoring DAG to Azure Blob Storage
 
 on:
 
