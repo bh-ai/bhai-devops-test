@@ -64,8 +64,8 @@ _SLA_MONITOR_PARAMS = {
     "fail_on_error": False,
 }
 
-common_task = CommonTask(dag_id="sla_monitoring", dag_params={})
-sla_task = SLAMonitoringTask(dag_id="sla_monitoring", dag_params={})
+common_task = CommonTask(dag_id="sla_monitoring_prod", dag_params={})
+sla_task = SLAMonitoringTask(dag_id="sla_monitoring_prod", dag_params={})
 
 default_args = {
     "owner": "bh",
@@ -75,7 +75,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id="sla_monitoring",
+    dag_id="sla_monitoring_prod",
     default_args=default_args,
     # schedule=None,
     schedule='*/5 * * * *', # testing
