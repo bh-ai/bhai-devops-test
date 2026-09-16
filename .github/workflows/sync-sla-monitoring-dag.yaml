@@ -1,7 +1,8 @@
 # GitHub Action: sync-sla-monitoring-dag
 #
-# Injects environment-specific SLA settings into sla_monitoring/env/sla_monitoring_prod.py
-# and uploads ONLY that file to the Airflow dags folder in Azure Blob.
+# Injects environment-specific SLA settings into the DAG selected by the dag_file input
+# (default sla_monitoring/env/sla_monitoring_prod.py) and uploads ONLY that file to the
+# Airflow dags folder in Azure Blob, keeping its own file name.
 #
 # Configure the dev / local GitHub Environments (Settings >
 # Environments) with:
@@ -29,6 +30,11 @@ on:
           - dev
           - local
         default: dev
+      dag_file:
+        description: 'DAG File Path (Optional). Path under sla_monitoring/, e.g. env/sla_monitoring_2.py. Defaults to env/sla_monitoring_prod.py.'
+        required: false
+        type: string
+        default: 'env/sla_monitoring_prod.py'
 
 concurrency:
   group: sync-sla-monitoring-dag-${{ github.event.inputs.target_environment || 'dev' }}
@@ -36,8 +42,7 @@ concurrency:
 
 env:
   TARGET_ENVIRONMENT: ${{ github.event.inputs.target_environment || 'dev' }}
-  SOURCE: sla_monitoring/env/sla_monitoring_prod.py
-  DAG_FILE_NAME: sla_monitoring_prod.py
+  SOURCE: sla_monitoring/${{ github.event.inputs.dag_file || 'env/sla_monitoring_prod.py' }}
 
 jobs:
   sync-sla-monitoring-dag:
@@ -63,6 +68,14 @@ jobs:
         run: |
           set -euo pipefail
           echo "Target environment: ${TARGET_ENVIRONMENT}"
+          echo "Source DAG: ${SOURCE}"
+          if [ ! -f "${SOURCE}" ]; then
+            echo "ERROR: DAG file not found: ${SOURCE}"
+            exit 1
+          fi
+          # Named for the selected file so the blob keeps that DAG's file name.
+          export DAG_FILE_NAME="$(basename "${SOURCE}")"
+          echo "DAG_FILE_NAME=${DAG_FILE_NAME}" >> "$GITHUB_ENV"
           mkdir -p _sync_dag
           cp "${SOURCE}" "_sync_dag/${DAG_FILE_NAME}"
 
