@@ -3,7 +3,7 @@
 # Injects environment-specific SLA settings into sla_monitoring/env/sla_monitoring_prod.py
 # and uploads ONLY that file to the Airflow dags folder in Azure Blob.
 #
-# Configure the test-dbricks / prod-dbricks GitHub Environments (Settings >
+# Configure the dev / local GitHub Environments (Settings >
 # Environments) with:
 #   secrets:   AZURE_STORAGE_ACCOUNT_KEY
 #   variables: SLA_MONITOR_PARAMS_JSON (a JSON object of the SLA params to inject)
@@ -13,9 +13,9 @@
 # deploying another environment's configuration. Its databricks_warehouse_id / control_catalog /
 # control_schema keys set the module-level default_* variables in the DAG; catalog_url and
 # keycloak_url are not injected at all. The os.environ and Variable.get expressions stay in the
-# DAG and resolve in the Airflow container. Pushes to main deploy to test-dbricks.
+# DAG and resolve in the Airflow container. This workflow runs on manual dispatch only.
 #
-name: sync-sla-monitoring-dag
+name: Sync SLA monitoring DAG to Azure Blob Storage
 
 on:
 
@@ -26,16 +26,16 @@ on:
         required: true
         type: choice
         options:
-          - test-dbricks
-          - prod-dbricks
-        default: test-dbricks
+          - dev
+          - local
+        default: dev
 
 concurrency:
-  group: sync-sla-monitoring-dag-${{ github.event.inputs.target_environment || 'test-dbricks' }}
+  group: sync-sla-monitoring-dag-${{ github.event.inputs.target_environment || 'dev' }}
   cancel-in-progress: false
 
 env:
-  TARGET_ENVIRONMENT: ${{ github.event.inputs.target_environment || 'test-dbricks' }}
+  TARGET_ENVIRONMENT: ${{ github.event.inputs.target_environment || 'dev' }}
   SOURCE: sla_monitoring/env/sla_monitoring_prod.py
   DAG_FILE_NAME: sla_monitoring_prod.py
 
@@ -43,7 +43,7 @@ jobs:
   sync-sla-monitoring-dag:
     name: Sync SLA monitoring DAG
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.target_environment || 'test-dbricks' }}
+    environment: ${{ github.event.inputs.target_environment || 'dev' }}
     permissions:
       contents: read
 
