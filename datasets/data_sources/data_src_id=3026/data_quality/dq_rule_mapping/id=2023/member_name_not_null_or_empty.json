@@ -1,0 +1,143 @@
+{
+  "id": 2023,
+  "rule_definition_id": 7,
+  "rule_id_backup": 1,
+  "data_source_id": 3026,
+  "dq_asset_id": null,
+  "name": "Member Name Not Null or Empty",
+  "description": "Ensures member name field is populated and not blank.",
+  "is_active": true,
+  "tags": {},
+  "action": null,
+  "treatment_expression": null,
+  "created_at": "2026-09-11T10:16:15.072483Z",
+  "updated_at": "2026-09-11T10:16:15.072483Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "rule_template": "WITH null_count AS (SELECT COUNT(*) AS total_nulls FROM {database_name}.{schema_name}.{table_name} WHERE {column_name} IS NULL AND {additional_filters}), overall_count AS (SELECT COUNT(*) AS total_rows FROM {database_name}.{schema_name}.{table_name} WHERE {additional_filters}) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN try_divide((total_rows - total_nulls) * 100.0, total_rows) >= {tolerance(%)} THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;",
+  "parent_type": "data_source",
+  "parent_id": 3026,
+  "parent_name": "safeharbor_p_d0284_algc26_rp_d260313_t1532354_1",
+  "_graph": {
+    "root": {
+      "model": "DqRuleMapping",
+      "pk": 2023
+    },
+    "nodes": [
+      {
+        "model": "DqRuleMapping",
+        "pk": 2023,
+        "data": {
+          "id": 2023,
+          "rule_definition_id": 7,
+          "rule_id_backup": 1,
+          "data_source_id": 3026,
+          "dq_asset_id": null,
+          "name": "Member Name Not Null or Empty",
+          "description": "Ensures member name field is populated and not blank.",
+          "is_active": true,
+          "tags": {},
+          "action": null,
+          "treatment_expression": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13083,
+        "data": {
+          "id": 13083,
+          "rule_mapping_id": 2023,
+          "parameter_id": 4,
+          "value": "feed_name",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13082,
+        "data": {
+          "id": 13082,
+          "rule_mapping_id": 2023,
+          "parameter_id": 2,
+          "value": "default",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13081,
+        "data": {
+          "id": 13081,
+          "rule_mapping_id": 2023,
+          "parameter_id": 3,
+          "value": "safeharbor_p_d0284_algc26_rp_d260313_t1532354_1",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13080,
+        "data": {
+          "id": 13080,
+          "rule_mapping_id": 2023,
+          "parameter_id": 6,
+          "value": "0",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13079,
+        "data": {
+          "id": 13079,
+          "rule_mapping_id": 2023,
+          "parameter_id": 1,
+          "value": "cinqdev",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13078,
+        "data": {
+          "id": 13078,
+          "rule_mapping_id": 2023,
+          "parameter_id": 5,
+          "value": "1=1",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  },
+  "rule_substituted": "WITH null_count AS (SELECT COUNT(*) AS total_nulls FROM cinqdev.default.safeharbor_p_d0284_algc26_rp_d260313_t1532354_1 WHERE feed_name IS NULL AND 1=1), overall_count AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.safeharbor_p_d0284_algc26_rp_d260313_t1532354_1 WHERE 1=1) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN try_divide((total_rows - total_nulls) * 100.0, total_rows) >= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;"
+}
