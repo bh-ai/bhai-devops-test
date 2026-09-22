@@ -1,0 +1,1636 @@
+{
+  "created_at": "2026-09-22T12:22:34.265601Z",
+  "updated_at": "2026-09-22T12:25:13.557687Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 1905,
+  "pipeline_name": "sv_local_7",
+  "pipeline_key": "sv_local_7",
+  "bh_project_id": 299,
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-sathish-git",
+  "pipeline_json": {
+    "name": "sv_local_7",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "parameters": [
+      {
+        "key": "data",
+        "value": "smaller_data/data.csv"
+      },
+      {
+        "key": "data_1",
+        "value": "smaller_data/data1.csv"
+      },
+      {
+        "key": "legacyauditlogcr",
+        "value": "smaller_data/legacy_audit_log_cr.txt"
+      },
+      {
+        "key": "muthusheet",
+        "value": "smaller_data/muthu(Sheet1).csv"
+      },
+      {
+        "key": "unixstagingconfiglf",
+        "value": "smaller_data/unix_staging_config_lf.env"
+      },
+      {
+        "key": "windowsorderscrlf",
+        "value": "smaller_data/windows_orders_crlf.csv"
+      }
+    ],
+    "connections": {
+      "landing_data_file_connection_obj2396": {
+        "name": "landing_data_file_connection_obj2396",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_data_db_connection_obj2396": {
+        "name": "bronze_data_db_connection_obj2396",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      },
+      "landing_data_1_file_connection_obj2397": {
+        "name": "landing_data_1_file_connection_obj2397",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_data_1_db_connection_obj2397": {
+        "name": "bronze_data_1_db_connection_obj2397",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      },
+      "landing_legacyauditlogcr_file_connection_obj2398": {
+        "name": "landing_legacyauditlogcr_file_connection_obj2398",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_legacyauditlogcr_db_connection_obj2398": {
+        "name": "bronze_legacyauditlogcr_db_connection_obj2398",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      },
+      "landing_muthusheet_file_connection_obj2399": {
+        "name": "landing_muthusheet_file_connection_obj2399",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_muthusheet_db_connection_obj2399": {
+        "name": "bronze_muthusheet_db_connection_obj2399",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      },
+      "landing_unixstagingconfiglf_file_connection_obj2400": {
+        "name": "landing_unixstagingconfiglf_file_connection_obj2400",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_unixstagingconfiglf_db_connection_obj2400": {
+        "name": "bronze_unixstagingconfiglf_db_connection_obj2400",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      },
+      "landing_windowsorderscrlf_file_connection_obj2401": {
+        "name": "landing_windowsorderscrlf_file_connection_obj2401",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_windowsorderscrlf_db_connection_obj2401": {
+        "name": "bronze_windowsorderscrlf_db_connection_obj2401",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      }
+    },
+    "sources": {
+      "landing_source_data_obj2396": {
+        "name": "landing_source_data_obj2396",
+        "source_type": "File",
+        "file_name": "${data}",
+        "connection": {
+          "$ref": "#/connections/landing_data_file_connection_obj2396"
+        },
+        "data_src_id": 3117
+      },
+      "landing_source_data_1_obj2397": {
+        "name": "landing_source_data_1_obj2397",
+        "source_type": "File",
+        "file_name": "${data_1}",
+        "connection": {
+          "$ref": "#/connections/landing_data_1_file_connection_obj2397"
+        },
+        "data_src_id": 3119
+      },
+      "landing_source_legacyauditlogcr_obj2398": {
+        "name": "landing_source_legacyauditlogcr_obj2398",
+        "source_type": "File",
+        "file_name": "${legacyauditlogcr}",
+        "connection": {
+          "$ref": "#/connections/landing_legacyauditlogcr_file_connection_obj2398"
+        },
+        "data_src_id": 3121
+      },
+      "landing_source_muthusheet_obj2399": {
+        "name": "landing_source_muthusheet_obj2399",
+        "source_type": "File",
+        "file_name": "${muthusheet}",
+        "connection": {
+          "$ref": "#/connections/landing_muthusheet_file_connection_obj2399"
+        },
+        "data_src_id": 3123
+      },
+      "landing_source_unixstagingconfiglf_obj2400": {
+        "name": "landing_source_unixstagingconfiglf_obj2400",
+        "source_type": "File",
+        "file_name": "${unixstagingconfiglf}",
+        "connection": {
+          "$ref": "#/connections/landing_unixstagingconfiglf_file_connection_obj2400"
+        },
+        "data_src_id": 3125
+      },
+      "landing_source_windowsorderscrlf_obj2401": {
+        "name": "landing_source_windowsorderscrlf_obj2401",
+        "source_type": "File",
+        "file_name": "${windowsorderscrlf}",
+        "connection": {
+          "$ref": "#/connections/landing_windowsorderscrlf_file_connection_obj2401"
+        },
+        "data_src_id": 3127
+      }
+    },
+    "targets": {
+      "bronze_target_data_obj2396": {
+        "name": "bronze_target_data_obj2396",
+        "target_type": "Relational",
+        "table_name": "data",
+        "connection": {
+          "$ref": "#/connections/bronze_data_db_connection_obj2396"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 3118
+      },
+      "bronze_target_data_1_obj2397": {
+        "name": "bronze_target_data_1_obj2397",
+        "target_type": "Relational",
+        "table_name": "data_1",
+        "connection": {
+          "$ref": "#/connections/bronze_data_1_db_connection_obj2397"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 3120
+      },
+      "bronze_target_legacyauditlogcr_obj2398": {
+        "name": "bronze_target_legacyauditlogcr_obj2398",
+        "target_type": "Relational",
+        "table_name": "legacyauditlogcr",
+        "connection": {
+          "$ref": "#/connections/bronze_legacyauditlogcr_db_connection_obj2398"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 3122
+      },
+      "bronze_target_muthusheet_obj2399": {
+        "name": "bronze_target_muthusheet_obj2399",
+        "target_type": "Relational",
+        "table_name": "muthusheet",
+        "connection": {
+          "$ref": "#/connections/bronze_muthusheet_db_connection_obj2399"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 3124
+      },
+      "bronze_target_unixstagingconfiglf_obj2400": {
+        "name": "bronze_target_unixstagingconfiglf_obj2400",
+        "target_type": "Relational",
+        "table_name": "unixstagingconfiglf",
+        "connection": {
+          "$ref": "#/connections/bronze_unixstagingconfiglf_db_connection_obj2400"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 3126
+      },
+      "bronze_target_windowsorderscrlf_obj2401": {
+        "name": "bronze_target_windowsorderscrlf_obj2401",
+        "target_type": "Relational",
+        "table_name": "windowsorderscrlf",
+        "connection": {
+          "$ref": "#/connections/bronze_windowsorderscrlf_db_connection_obj2401"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 3128
+      }
+    },
+    "transformations": [
+      {
+        "name": "landing_read_data_obj2396",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_data_obj2396"
+        },
+        "file_type": "CSV",
+        "read_options": {
+          "fetch_size": 10000,
+          "sep": ",",
+          "encoding": "UTF-8",
+          "header": true,
+          "inferSchema": false,
+          "multiLine": false,
+          "quote": "\"",
+          "escape": "\\",
+          "comment": "",
+          "preferDate": true,
+          "enforceSchema": true,
+          "ignoreLeadingWhiteSpace": false,
+          "ignoreTrailingWhiteSpace": false,
+          "nullValue": "",
+          "nanValue": "NaN",
+          "positiveInf": "Inf",
+          "negativeInf": "-Inf",
+          "dateFormat": "yyyy-MM-dd",
+          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
+          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
+          "maxColumns": 20480,
+          "maxCharsPerColumn": -1,
+          "columnNameOfCorruptRecord": "corrupt_record",
+          "samplingRatio": 1.0,
+          "emptyValue": "",
+          "locale": "en-US",
+          "lineSep": "\r\n",
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
+          "mode": "PERMISSIVE"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2396",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_data_obj2396"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'sv_local_7'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2396",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2396"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "member_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_address",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_phone",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "data",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_data_obj2396",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2396"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_data_obj2396"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      },
+      {
+        "name": "landing_read_data_1_obj2397",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_data_1_obj2397"
+        },
+        "file_type": "CSV",
+        "read_options": {
+          "fetch_size": 10000,
+          "sep": ",",
+          "encoding": "UTF-8",
+          "header": false,
+          "inferSchema": false,
+          "multiLine": false,
+          "skiprows": 2,
+          "columnNamesOverride": [
+            "member_id_1",
+            "member_name_Dr. Jane Q. Public Jr.",
+            "member_address_123 Main St, Austin, TX 78701",
+            "member_phone_+1-512-555-0100",
+            "scenario_note_title_middle_suffix_standard_us_street"
+          ],
+          "quote": "\"",
+          "escape": "\\",
+          "comment": "",
+          "preferDate": true,
+          "enforceSchema": true,
+          "ignoreLeadingWhiteSpace": false,
+          "ignoreTrailingWhiteSpace": false,
+          "nullValue": "",
+          "nanValue": "NaN",
+          "positiveInf": "Inf",
+          "negativeInf": "-Inf",
+          "dateFormat": "yyyy-MM-dd",
+          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
+          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
+          "maxColumns": 20480,
+          "maxCharsPerColumn": -1,
+          "columnNameOfCorruptRecord": "corrupt_record",
+          "samplingRatio": 1.0,
+          "emptyValue": "",
+          "locale": "en-US",
+          "lineSep": "\r\n",
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
+          "mode": "PERMISSIVE"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2397",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_data_1_obj2397"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'sv_local_7'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2397",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2397"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "member_id_1",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "member_name_dr_jane_q_public_jr",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "member_address_123_main_st_austin_tx_78701",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "member_phone_1_512_555_0100",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "scenario_note_title_middle_suffix_standard_us_street",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "data_1",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_data_1_obj2397",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2397"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_data_1_obj2397"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      },
+      {
+        "name": "landing_read_legacyauditlogcr_obj2398",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_legacyauditlogcr_obj2398"
+        },
+        "file_type": "CSV",
+        "read_options": {
+          "fetch_size": 10000,
+          "sep": ",",
+          "encoding": "UTF-8",
+          "header": true,
+          "inferSchema": false,
+          "multiLine": false,
+          "quote": "\"",
+          "escape": "\\",
+          "comment": "",
+          "preferDate": true,
+          "enforceSchema": true,
+          "ignoreLeadingWhiteSpace": false,
+          "ignoreTrailingWhiteSpace": false,
+          "nullValue": "",
+          "nanValue": "NaN",
+          "positiveInf": "Inf",
+          "negativeInf": "-Inf",
+          "dateFormat": "yyyy-MM-dd",
+          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
+          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
+          "maxColumns": 20480,
+          "maxCharsPerColumn": -1,
+          "columnNameOfCorruptRecord": "corrupt_record",
+          "samplingRatio": 1.0,
+          "emptyValue": "",
+          "locale": "en-US",
+          "lineSep": "\r",
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
+          "mode": "PERMISSIVE"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2398",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_legacyauditlogcr_obj2398"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'sv_local_7'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2398",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2398"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "date_time_user_id_action_record_id_result",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "legacyauditlogcr",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_legacyauditlogcr_obj2398",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2398"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_legacyauditlogcr_obj2398"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      },
+      {
+        "name": "landing_read_muthusheet_obj2399",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_muthusheet_obj2399"
+        },
+        "file_type": "CSV",
+        "read_options": {
+          "fetch_size": 10000,
+          "sep": ",",
+          "encoding": "UTF-8",
+          "header": true,
+          "inferSchema": false,
+          "multiLine": false,
+          "quote": "\"",
+          "escape": "\\",
+          "comment": "",
+          "preferDate": true,
+          "enforceSchema": true,
+          "ignoreLeadingWhiteSpace": false,
+          "ignoreTrailingWhiteSpace": false,
+          "nullValue": "",
+          "nanValue": "NaN",
+          "positiveInf": "Inf",
+          "negativeInf": "-Inf",
+          "dateFormat": "yyyy-MM-dd",
+          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
+          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
+          "maxColumns": 20480,
+          "maxCharsPerColumn": -1,
+          "columnNameOfCorruptRecord": "corrupt_record",
+          "samplingRatio": 1.0,
+          "emptyValue": "",
+          "locale": "en-US",
+          "lineSep": "\r\n",
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
+          "mode": "PERMISSIVE"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2399",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_muthusheet_obj2399"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'sv_local_7'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2399",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2399"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "employee_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "employee_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "age",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "salary",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "column5",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "muthusheet",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_muthusheet_obj2399",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2399"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_muthusheet_obj2399"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      },
+      {
+        "name": "landing_read_unixstagingconfiglf_obj2400",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_unixstagingconfiglf_obj2400"
+        },
+        "file_type": "CSV",
+        "read_options": {
+          "fetch_size": 10000,
+          "sep": ",",
+          "encoding": "UTF-8",
+          "header": true,
+          "inferSchema": false,
+          "multiLine": false,
+          "quote": "\"",
+          "escape": "\\",
+          "comment": "",
+          "preferDate": true,
+          "enforceSchema": true,
+          "ignoreLeadingWhiteSpace": false,
+          "ignoreTrailingWhiteSpace": false,
+          "nullValue": "",
+          "nanValue": "NaN",
+          "positiveInf": "Inf",
+          "negativeInf": "-Inf",
+          "dateFormat": "yyyy-MM-dd",
+          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
+          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
+          "maxColumns": 20480,
+          "maxCharsPerColumn": -1,
+          "columnNameOfCorruptRecord": "corrupt_record",
+          "samplingRatio": 1.0,
+          "emptyValue": "",
+          "locale": "en-US",
+          "lineSep": "\n",
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
+          "mode": "PERMISSIVE"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2400",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_unixstagingconfiglf_obj2400"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'sv_local_7'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2400",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2400"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "bighammer_catalog_api_staging_environment",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "unixstagingconfiglf",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_unixstagingconfiglf_obj2400",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2400"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_unixstagingconfiglf_obj2400"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      },
+      {
+        "name": "landing_read_windowsorderscrlf_obj2401",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_windowsorderscrlf_obj2401"
+        },
+        "file_type": "CSV",
+        "read_options": {
+          "fetch_size": 10000,
+          "sep": ",",
+          "encoding": "UTF-8",
+          "header": true,
+          "inferSchema": false,
+          "multiLine": false,
+          "quote": "\"",
+          "escape": "\\",
+          "comment": "",
+          "preferDate": true,
+          "enforceSchema": true,
+          "ignoreLeadingWhiteSpace": false,
+          "ignoreTrailingWhiteSpace": false,
+          "nullValue": "",
+          "nanValue": "NaN",
+          "positiveInf": "Inf",
+          "negativeInf": "-Inf",
+          "dateFormat": "yyyy-MM-dd",
+          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
+          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
+          "maxColumns": 20480,
+          "maxCharsPerColumn": -1,
+          "columnNameOfCorruptRecord": "corrupt_record",
+          "samplingRatio": 1.0,
+          "emptyValue": "",
+          "locale": "en-US",
+          "lineSep": "\r\n",
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
+          "mode": "PERMISSIVE"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2401",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_windowsorderscrlf_obj2401"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'sv_local_7'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2401",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2401"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "order_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "customer_name",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "product",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "quantity",
+            "type": "long",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "order_date",
+            "type": "date",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "windowsorderscrlf",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_windowsorderscrlf_obj2401",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2401"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_windowsorderscrlf_obj2401"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      }
+    ],
+    "description": "File to DB Ingestion V3 for data_obj2396",
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "sv_local_7",
+      "business_date": "2026-09-22",
+      "delivery_id": "sv_local_7_2026-09-22",
+      "batch_id": 1,
+      "use_existing_batch_id": false,
+      "validate_existing_batch": true,
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "input_registry_processed_on_stage": "bronze",
+      "seed_stage_rows": true,
+      "stages": [
+        "bronze"
+      ],
+      "storage": {
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        },
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        }
+      },
+      "stage_to_transformations": {
+        "bronze": [
+          "landing_read_data_obj2396",
+          "add_lineage_metadata_obj2396",
+          "schema_drift_guard_obj2396",
+          "bronze_write_data_obj2396",
+          "landing_read_data_1_obj2397",
+          "add_lineage_metadata_obj2397",
+          "schema_drift_guard_obj2397",
+          "bronze_write_data_1_obj2397",
+          "landing_read_legacyauditlogcr_obj2398",
+          "add_lineage_metadata_obj2398",
+          "schema_drift_guard_obj2398",
+          "bronze_write_legacyauditlogcr_obj2398",
+          "landing_read_muthusheet_obj2399",
+          "add_lineage_metadata_obj2399",
+          "schema_drift_guard_obj2399",
+          "bronze_write_muthusheet_obj2399",
+          "landing_read_unixstagingconfiglf_obj2400",
+          "add_lineage_metadata_obj2400",
+          "schema_drift_guard_obj2400",
+          "bronze_write_unixstagingconfiglf_obj2400",
+          "landing_read_windowsorderscrlf_obj2401",
+          "add_lineage_metadata_obj2401",
+          "schema_drift_guard_obj2401",
+          "bronze_write_windowsorderscrlf_obj2401"
+        ]
+      },
+      "error_threshold_pct": 50.0,
+      "run_scope": "GROUP",
+      "atomic_commit_enabled": true,
+      "group_id": 980,
+      "expected_group_members": 6,
+      "group_run_id": "sv_local_7_20260922T122513Z"
+    }
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": "design",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
