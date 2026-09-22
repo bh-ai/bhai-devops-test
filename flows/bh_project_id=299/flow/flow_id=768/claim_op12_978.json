@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 475,
+        "data": {
+          "flow_pipeline_mapping_id": 475,
+          "flow_id": 768,
+          "pipeline_id": 1903,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 474,
         "data": {
           "flow_pipeline_mapping_id": 474,
@@ -150,7 +162,7 @@
           "flow_parameter_id": 3056,
           "flow_id": 768,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1901, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1902, \"name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\", \"pipeline_name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\"}, {\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}]",
+          "parameter_value": "[{\"id\": 1901, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1902, \"name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\", \"pipeline_name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\"}, {\"id\": 1903, \"name\": \"claims_silver_ods_fidelis_upstate_ip_new\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP_new\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -366,7 +378,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1901, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1902, \"name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\", \"pipeline_name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\"}, {\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}]"
+                  "value": "[{\"id\": 1901, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1902, \"name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\", \"pipeline_name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\"}, {\"id\": 1903, \"name\": \"claims_silver_ods_fidelis_upstate_ip_new\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP_new\"}]"
                 },
                 {
                   "key": "runtime_params_base_path",
@@ -400,7 +412,7 @@
                     {
                       "source_name": "safeharborfideliscareprodopclaimheaderfullcinqdownstate",
                       "prefix": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP",
-                      "filename_regex": "^safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE_[0-9]{8}_[0-9]{8}[.]txt$",
+                      "filename_regex": "^safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE11_[0-9]{8}_[0-9]{8}[.]txt$",
                       "ignore_subfolders": true,
                       "is_required": true,
                       "min_bytes": 10,
@@ -409,7 +421,7 @@
                     {
                       "source_name": "safeharborfideliscareprodopclaimlinefullcinqdownstate",
                       "prefix": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP",
-                      "filename_regex": "^safeharbor_FidelisCare_Prod_OPClaimLine_FULL_CINQDOWNSTATE_[0-9]{8}_[0-9]{8}[.]txt$",
+                      "filename_regex": "^safeharbor_FidelisCare_Prod_OPClaimLine_FULL_CINQDOWNSTATE11_[0-9]{8}_[0-9]{8}[.]txt$",
                       "ignore_subfolders": true,
                       "is_required": true,
                       "min_bytes": 10,

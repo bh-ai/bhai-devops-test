@@ -1,6 +1,6 @@
 {
   "created_at": "2026-09-22T04:53:27.701313Z",
-  "updated_at": "2026-09-22T06:22:51.455108Z",
+  "updated_at": "2026-09-22T06:27:49.768358Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -43,7 +43,7 @@
         "name": "bronze_safeharborfideliscareprodopclaimheaderfullcinqdownstate_db_connection_obj2392",
         "connection_type": "DatabricksDeltaLake",
         "catalog": "cinqdev",
-        "schema": "default",
+        "schema": "test",
         "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
         "connection_config_id": 185
       },
@@ -59,7 +59,7 @@
         "name": "bronze_safeharborfideliscareprodopclaimlinefullcinqdownstate_db_connection_obj2393",
         "connection_type": "DatabricksDeltaLake",
         "catalog": "cinqdev",
-        "schema": "default",
+        "schema": "test1line",
         "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
         "connection_config_id": 185
       }
@@ -93,7 +93,7 @@
           "$ref": "#/connections/bronze_safeharborfideliscareprodopclaimheaderfullcinqdownstate_db_connection_obj2392"
         },
         "load_mode": "append",
-        "schema": "default",
+        "schema": "test",
         "data_src_id": 3114
       },
       "bronze_target_safeharborfideliscareprodopclaimlinefullcinqdownstate_obj2393": {
@@ -104,7 +104,7 @@
           "$ref": "#/connections/bronze_safeharborfideliscareprodopclaimlinefullcinqdownstate_db_connection_obj2393"
         },
         "load_mode": "append",
-        "schema": "default",
+        "schema": "test1line",
         "data_src_id": 3116
       }
     },
@@ -1183,7 +1183,7 @@
       "atomic_commit_enabled": true,
       "group_id": 978,
       "expected_group_members": 2,
-      "group_run_id": "claim_op12_20260922T062250Z"
+      "group_run_id": "claim_op12_20260922T062748Z"
     }
   },
   "draft_pipeline_json": null,
