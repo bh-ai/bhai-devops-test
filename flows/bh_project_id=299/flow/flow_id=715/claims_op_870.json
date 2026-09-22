@@ -65,6 +65,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 375,
+        "data": {
+          "flow_pipeline_mapping_id": 375,
+          "flow_id": 715,
+          "pipeline_id": 1505,
+          "tenant_id": 220,
+          "is_deleted": true,
+          "deleted_by": "sathish@bighammer.ai"
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 379,
         "data": {
           "flow_pipeline_mapping_id": 379,
@@ -85,18 +97,6 @@
           "tenant_id": 220,
           "is_deleted": false,
           "deleted_by": null
-        }
-      },
-      {
-        "model": "FlowPipelineMapping",
-        "pk": 375,
-        "data": {
-          "flow_pipeline_mapping_id": 375,
-          "flow_id": 715,
-          "pipeline_id": 1505,
-          "tenant_id": 220,
-          "is_deleted": true,
-          "deleted_by": "sathish@bighammer.ai"
         }
       },
       {
@@ -216,7 +216,7 @@
           "flow_parameter_id": 2601,
           "flow_id": 715,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}, {\"id\": 1904, \"name\": \"pharmacy_silver_ods_updated\", \"pipeline_name\": \"pharmacy_silver_ods_updated\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}]",
+          "parameter_value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}, {\"id\": 1904, \"name\": \"pharmacy_silver_ods_updated\", \"pipeline_name\": \"pharmacy_silver_ods_updated\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -432,7 +432,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}, {\"id\": 1904, \"name\": \"pharmacy_silver_ods_updated\", \"pipeline_name\": \"pharmacy_silver_ods_updated\"}, {\"id\": 1505, \"name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\", \"pipeline_name\": \"silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4\"}]"
+                  "value": "[{\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}, {\"id\": 1510, \"name\": \"claims_silver_ods_fidelis_upstate_ip\", \"pipeline_name\": \"claims_silver_ods_fidelis_upstate_IP\"}, {\"id\": 1904, \"name\": \"pharmacy_silver_ods_updated\", \"pipeline_name\": \"pharmacy_silver_ods_updated\"}]"
                 },
                 {
                   "key": "prefix",
@@ -691,6 +691,7 @@
                 }
               ],
               "bh_environment_id": 331,
+              "template_parameters": [],
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
