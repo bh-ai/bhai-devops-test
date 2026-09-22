@@ -1,6 +1,6 @@
 {
   "created_at": "2026-09-22T12:22:34.265601Z",
-  "updated_at": "2026-09-22T14:41:54.028377Z",
+  "updated_at": "2026-09-22T15:36:50.208941Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -1621,7 +1621,7 @@
       "atomic_commit_enabled": true,
       "group_id": 980,
       "expected_group_members": 6,
-      "group_run_id": "sv_local_7_20260922T144153Z"
+      "group_run_id": "sv_local_7_20260922T153649Z"
     }
   },
   "draft_pipeline_json": null,
