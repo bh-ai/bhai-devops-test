@@ -918,6 +918,341 @@ with DAG(
         on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
     )
 
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.cloud_factory import CloudFactory
+    from airflow_plugins.utils.databricks_submit_params import offload_oversized_job_parameters
+    import logging
+    logger = logging.getLogger(__name__)
+
+    def submit_job_to_cluster(**context):
+        params = context.get("params") or {}
+        job_config = params.get("job_config")
+        if not job_config:
+            raise ValueError("Missing job_config in params")
+
+        # arrives with literal { dag.dag_id }/{ ts_nodash }. Render it here.
+        _job_name = job_config.get("name")
+        if isinstance(_job_name, str) and "{" in _job_name:
+            job_config = dict(job_config)
+            job_config["name"] = context["task"].render_template(_job_name, context)
+
+        # Prefer compute_id from params (supports Jinja xcom_pull strings), fallback to XCom.
+        compute_id = params.get("compute_id")
+        xcom_key = str(params.get("compute_xcom_key") or "return_value")
+        if not compute_id or (isinstance(compute_id, str) and "{" in compute_id):
+            ti = context["ti"]
+            # Most flows normalize the create task_id to 'create_compute'. Keep a legacy fallback.
+            compute_task_id = params.get("compute_task_id") or "create_compute"
+            compute_id = ti.xcom_pull(task_ids=compute_task_id, key=xcom_key)
+            if not compute_id:
+                compute_id = ti.xcom_pull(task_ids="databricks_create_cluster_task", key=xcom_key)
+
+        if not compute_id or (isinstance(compute_id, str) and "{" in compute_id):
+            raise ValueError("No compute_id from params or XCom")
+
+
+        valid_files = params.get("valid_files")
+        if isinstance(valid_files, str) and "{{" in valid_files:
+            valid_files = context["task"].render_template(valid_files, context)
+            if isinstance(valid_files, str):
+                import ast
+                try:
+                    valid_files = ast.literal_eval(valid_files)
+                except (ValueError, SyntaxError):
+                    logger.warning("Rendered valid_files is not valid Python literal", extra={"rendered_valid_files": valid_files})
+                    valid_files = None
+        if valid_files:
+            import json
+            from collections import defaultdict
+            by_source = defaultdict(list)
+            for f in valid_files:
+                if not isinstance(f, dict):
+                    continue
+                key = f.get("key")
+                if not key or str(key).startswith("__"):
+                    continue
+                src_name = (f.get("source_name") or "default").strip() or "default"
+                by_source[src_name].append(str(key).strip().lstrip("/"))
+            overrides = {sn: ",".join(sorted(set(paths))) for sn, paths in by_source.items() if paths}
+            if overrides:
+                job_config = dict(job_config)
+                args = list(job_config.get("parameters") or [])
+                args.append(json.dumps(overrides, separators=(",", ":")))
+                job_config["parameters"] = args
+
+
+        batch_id = params.get("batch_id")
+        if isinstance(batch_id, str) and "{{" in batch_id:
+            batch_id = context["task"].render_template(batch_id, context)
+        # Airflow renders xcom_pull templates to a string; normalize empty/None-ish.
+        if isinstance(batch_id, str):
+            _bid = batch_id.strip()
+            batch_id = None if _bid in ("", "None") else _bid
+        validate_task_id = params.get("validate_inbound_task_id")
+        batch_control_overlay = params.get("batch_control")
+        if isinstance(batch_control_overlay, str) and "{{" in batch_control_overlay:
+            batch_control_overlay = context["task"].render_template(batch_control_overlay, context)
+        # Templating returns a str repr of the xcom dict (e.g. "{'business_ts': ...}");
+        # coerce back to a dict via JSON then Python-literal before use.
+        if isinstance(batch_control_overlay, str):
+            _bco = batch_control_overlay.strip()
+            if not _bco or _bco == "None":
+                batch_control_overlay = None
+            else:
+                import json as _json_bco
+                try:
+                    batch_control_overlay = _json_bco.loads(_bco)
+                except Exception:
+                    import ast as _ast_bco
+                    try:
+                        batch_control_overlay = _ast_bco.literal_eval(_bco)
+                    except Exception:
+                        batch_control_overlay = None
+        # Fall back to a direct xcom_pull when the param was missing or unparseable.
+        if (not isinstance(batch_control_overlay, dict) or not batch_control_overlay) and validate_task_id:
+            batch_control_overlay = context["ti"].xcom_pull(
+                task_ids=validate_task_id, key="batch_control"
+            )
+        if isinstance(batch_control_overlay, dict) and batch_control_overlay:
+            job_config = dict(job_config)
+            args = list(job_config.get("parameters") or [])
+            # Ensure 4th positional (runtime_parameters_json) exists, then merge overlay into it.
+            while len(args) < 3:
+                args.append("")
+            if len(args) <= 3:
+                args.append("{}")
+            try:
+                import json as _json
+                runtime = _json.loads(args[3]) if args[3] else {}
+                if not isinstance(runtime, dict):
+                    runtime = {}
+            except Exception:
+                runtime = {}
+            runtime["__batch_control_overlay__"] = batch_control_overlay
+            args[3] = _json.dumps(runtime, separators=(",", ":"), default=str)
+            if batch_id is None and batch_control_overlay.get("batch_id") is not None:
+                batch_id = batch_control_overlay.get("batch_id")
+            job_config["parameters"] = args
+        if batch_id is not None:
+            job_config = dict(job_config)
+            args = list(job_config.get("parameters") or [])
+            # main.py expects batch_id as 5th positional argument.
+            # Ensure 4th positional (runtime_parameters_json) exists first.
+            if len(args) <= 3:
+                args.append("{}")
+            if len(args) == 4:
+                args.append(str(batch_id))
+            else:
+                # keep existing 5th slot if present; else append
+                while len(args) < 4:
+                    args.append("{}")
+                if len(args) == 4:
+                    args.append(str(batch_id))
+                else:
+                    args[4] = str(batch_id)
+            job_config["parameters"] = args
+
+        from airflow.hooks.base import BaseHook
+        conn = BaseHook.get_connection('databricks_default')
+        workspace_url = (conn.host or '').rstrip('/')
+        token = conn.password
+        user_account = conn.login
+        if not user_account:
+            try:
+                import requests as _bh_rq
+                _bh_me = _bh_rq.get(
+                    workspace_url + '/api/2.0/preview/scim/v2/Me',
+                    headers={'Authorization': 'Bearer ' + token},
+                    timeout=10,
+                )
+                if _bh_me.status_code == 200:
+                    _bh_d = _bh_me.json()
+                    user_account = _bh_d.get('userName') or (_bh_d.get('emails') or [{}])[0].get('value')
+            except Exception:
+                pass
+        user_account = user_account or 'unknown'
+        if not workspace_url or not token:
+            raise ValueError("Databricks connection must have host and password (token)")
+
+
+        from airflow_plugins.utils.databricks_dq_submit import apply_writer_dq_rules_to_job_config
+        _dq_catalog = None
+        if params.get("run_data_quality_rules") and str(params.get("dq_rules_source") or "git").lower() == "catalog":
+            try:
+                from airflow_plugins.compute_pool.pool_client import catalog_api_from_context
+                _dq_catalog = catalog_api_from_context(context)
+            except Exception as _dq_exc:
+                logger.warning("Could not init catalog API for Writer DQ runtime rules: %s", _dq_exc)
+        job_config = apply_writer_dq_rules_to_job_config(
+            job_config,
+            context,
+            params,
+            workspace_url=workspace_url,
+            token=token,
+            catalog_api=_dq_catalog,
+        )
+
+        job_config = offload_oversized_job_parameters(
+            job_config, context, params, workspace_url, token
+        )
+
+        audit_meta = {
+            "databricks_cluster_id": compute_id,
+            "databricks_user_account": user_account
+        }
+        # Audit context for the submit_job event: ingestion_group_id, flow_id, pipeline_id.
+        for _audit_k in ("ingestion_group_id", "flow_id", "pipeline_id"):
+            if params.get(_audit_k) is not None:
+                audit_meta[_audit_k] = params.get(_audit_k)
+        # Pipeline definition JSON path (first positional arg) so the failure-capture
+        # pipeline can fetch the pipeline JSON from the Databricks workspace.
+        _pipeline_args = job_config.get("parameters") or []
+        if _pipeline_args:
+            audit_meta["pipeline_json_path"] = _pipeline_args[0]
+
+        factory = CloudFactory("databricks", databricks_workspace_url=workspace_url, databricks_token=token)
+        compute = factory.get_compute(compute_type="databricks")
+        try:
+            _cfg = compute.get_compute_configuration(compute_id)
+            _size = _cfg.get("num_workers")
+            if _size is not None:
+                audit_meta["databricks_cluster_size"] = _size
+        except Exception as _e:
+            logger.warning("Could not resolve cluster size for %s: %s", compute_id, _e)
+
+        _blob_secrets_scope = params.get("blob_secrets_scope")
+        if params.get("metrics_partition_by_execution"):
+            from airflow_plugins.tools.bh_tools.spark_metrics_multipipeline import (
+                apply_multipipeline_metrics_at_submit,
+            )
+            job_config = apply_multipipeline_metrics_at_submit(context, params, job_config)
+        else:
+            metrics_output_dir = str(params.get("metrics_output_dir") or "").strip()
+            if metrics_output_dir or _blob_secrets_scope or (
+                isinstance(job_config.get("spark_conf"), dict)
+                and any(job_config["spark_conf"].values())
+            ):
+                job_config = dict(job_config)
+                spark_conf = dict(job_config.get("spark_conf") or {})
+                if metrics_output_dir:
+                    _pipeline_id = params.get("pipeline_id")
+                    if _pipeline_id is not None:
+                        _pid = str(_pipeline_id).strip()
+                        if _pid and not metrics_output_dir.rstrip("/").endswith(f"/{{_pid}}"):
+                            metrics_output_dir = f"{{metrics_output_dir.rstrip('/')}}/{{_pid}}/"
+                    spark_conf["spark.costanalyzer.outputDir"] = metrics_output_dir
+                if params.get("pipeline_id") is not None:
+                    spark_conf["spark.pipeline.id"] = str(params["pipeline_id"])
+                pipeline_name = params.get("pipeline_name") or params.get("pipeline_key")
+                if pipeline_name is not None and str(pipeline_name).strip():
+                    spark_conf["spark.pipeline.name"] = str(pipeline_name).strip()
+                if _blob_secrets_scope or metrics_output_dir.startswith("abfss://"):
+                    abfss_hadoop_conf = context["ti"].xcom_pull(
+                        task_ids=params.get("compute_task_id") or "create_compute",
+                        key="abfss_hadoop_conf",
+                    )
+                    if not isinstance(abfss_hadoop_conf, dict) or not abfss_hadoop_conf:
+                        compute_task_id = params.get("compute_task_id") or "create_compute"
+                        raise ValueError(
+                            f"Missing abfss_hadoop_conf XCom from task '{{compute_task_id}}'. "
+                            "create_compute must push abfss_hadoop_conf before submit."
+                        )
+                    spark_conf.update(abfss_hadoop_conf)
+                job_config["spark_conf"] = spark_conf
+
+        result = compute.execute_job(compute_id, job_config, run_async=False)
+
+        run_id = result.get("run_id")
+        job_id = result.get("job_id")
+        if run_id:
+            context["ti"].xcom_push(key="run_id", value=run_id)
+            audit_meta["databricks_run_id"] = run_id
+        if job_id:
+            audit_meta["databricks_job_id"] = job_id
+        run_url = result.get("run_page_url")
+        if not run_url and run_id:
+            _job_id = result.get("job_id")
+            if _job_id:
+                run_url = workspace_url + "/jobs/" + str(_job_id) + "/runs/" + str(run_id)
+            else:
+                run_url = workspace_url + "/jobs/runs/" + str(run_id)
+        if run_url:
+            context["ti"].xcom_push(key="databricks_run_url", value=run_url)
+            audit_meta["databricks_run_url"] = run_url
+        context["ti"].xcom_push(key="bh_audit_metadata", value=audit_meta)
+
+        if result.get("status") == "FAILED":
+            raise RuntimeError(result.get("error", "Job submission failed"))
+
+        if result.get("status") == "SUCCESS":
+            from airflow_plugins.tools.bh_tools.spark_metrics_analyze import push_submit_application_id_xcom
+            push_submit_application_id_xcom(context, params, compute_id)
+
+        if str(params.get("metrics_output_dir") or "").strip() and result.get("status") == "SUCCESS":
+            from airflow_plugins.tools.bh_tools.spark_metrics_analyze import (
+                analyze_metrics_after_submit_best_effort,
+            )
+            analyze_metrics_after_submit_best_effort(context)
+
+        if params.get("feed_name") or params.get("feed_id"):
+            from airflow_plugins.dag_task_definitions.feed_control_callbacks import (
+                run_post_submit_feed_control_or_fail,
+            )
+            run_post_submit_feed_control_or_fail(context)
+
+        return result
+
+    _submit_params = {
+        "compute_task_id": "create_compute",
+        "job_config": {
+            "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_run_pipelines_claims_op_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1504/claims_op.json",
+                "databricks",
+                "/Workspace/Shared/dev-utils/schemas"
+            ],
+            "spark_conf": {
+                "spark.pipeline.id": "1504",
+                "spark.pipeline.name": "claims_op"
+            }
+        },
+        "ingestion_group_id": 978,
+        "flow_id": 768,
+        "pipeline_id": "1504",
+        "feed_name": "claim_op12",
+        "validate_inbound_task_id": "validate_inbound_files",
+        "facts_source": "databricks",
+        "pipeline_name": "claims_op",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
+        "metrics_output_dir": "abfss://my-test-bucket@bhnprddwestus3rgbd5e.dfs.core.windows.net/spark-metrics/768/claim_op12_978/",
+        "blob_secrets_scope": "bh-dev-test-key-scope",
+        "metrics_storage_secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "keycloak_secret_name": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v1-secrets",
+        "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v1-secrets",
+        "cloud_provider": "databricks",
+        "airflow_connection_id": "databricks_default",
+        "pipeline_key": "claims_op",
+        "bh_project_id": 299,
+        "project_id": 299,
+        "project_name": "flow-test-project",
+        "metrics_ingest_max_wait_sec": 120,
+        "compute_xcom_key": "return_value",
+        "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}"
+    }
+    run_pipelines_claims_op = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='run_pipelines_claims_op',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=feed_control_callbacks.submit_job_success_callback,
+        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
+    )
+
 
     from airflow.operators.python import PythonOperator
     import os
@@ -1220,7 +1555,9 @@ with DAG(
     create_compute >> run_pipelines_claim_op12
     run_pipelines_claim_op12 >> run_pipelines_silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e
     create_compute >> run_pipelines_silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e
-    run_pipelines_silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e >> archive_processed_files
+    run_pipelines_silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e >> run_pipelines_claims_op
+    create_compute >> run_pipelines_claims_op
+    run_pipelines_claims_op >> archive_processed_files
     archive_processed_files >> delete_compute
     create_compute >> delete_compute
     delete_compute >> end_flow_task

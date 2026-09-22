@@ -1,6 +1,6 @@
 {
   "created_at": "2026-08-04T07:08:35.392881Z",
-  "updated_at": "2026-09-22T04:30:49.466438Z",
+  "updated_at": "2026-09-22T05:06:27.046089Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -158,7 +158,7 @@
         "derived_fields": [
           {
             "name": "feed_name",
-            "expression": "'claims_op'"
+            "expression": "'claim_op12'"
           },
           {
             "name": "ingest_ts",
@@ -805,7 +805,7 @@
         "derived_fields": [
           {
             "name": "feed_name",
-            "expression": "'claims_op'"
+            "expression": "'claim_op12'"
           },
           {
             "name": "ingest_ts",
@@ -1143,9 +1143,9 @@
     "description": "File to DB Ingestion V3 for safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2141",
     "batch_control": {
       "enabled": true,
-      "feed_name": "claims_op",
+      "feed_name": "claim_op12",
       "business_date": "2026-09-22",
-      "delivery_id": "claims_op_2026-09-22",
+      "delivery_id": "claim_op12_2026-09-22",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
