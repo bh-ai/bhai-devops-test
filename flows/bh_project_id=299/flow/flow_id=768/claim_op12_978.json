@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 474,
+        "data": {
+          "flow_pipeline_mapping_id": 474,
+          "flow_id": 768,
+          "pipeline_id": 1504,
+          "tenant_id": 220,
+          "is_deleted": true,
+          "deleted_by": "sathish@bighammer.ai"
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 473,
         "data": {
           "flow_pipeline_mapping_id": 473,
@@ -138,7 +150,7 @@
           "flow_parameter_id": 3056,
           "flow_id": 768,
           "parameter_name": "pipelines",
-          "parameter_value": "[{\"id\": 1901, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1902, \"name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\", \"pipeline_name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\"}]",
+          "parameter_value": "[{\"id\": 1901, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1902, \"name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\", \"pipeline_name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\"}, {\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}]",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -354,7 +366,7 @@
                 },
                 {
                   "key": "pipelines",
-                  "value": "[{\"id\": 1901, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1902, \"name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\", \"pipeline_name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\"}]"
+                  "value": "[{\"id\": 1901, \"name\": \"claim_op12\", \"pipeline_name\": \"claim_op12\"}, {\"id\": 1902, \"name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\", \"pipeline_name\": \"silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e\"}, {\"id\": 1504, \"name\": \"claims_op\", \"pipeline_name\": \"claims_op\"}]"
                 },
                 {
                   "key": "runtime_params_base_path",
@@ -536,15 +548,15 @@
                   "pool_enabled": false
                 },
                 {
-                  "task_id": "run_pipelines_claims_op",
+                  "task_id": "run_pipelines_claims_silver_ods_fidelis_upstate_ip_new",
                   "type": "SubmitJob",
                   "depends_on": [
                     "run_pipelines_silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e"
                   ],
                   "bh_project_name": "flow-test-project",
-                  "pipeline_key": "claims_op",
-                  "pipeline_name": "claims_op",
-                  "pipeline_id": 1504,
+                  "pipeline_key": "claims_silver_ods_fidelis_upstate_ip_new",
+                  "pipeline_name": "claims_silver_ods_fidelis_upstate_IP_new",
+                  "pipeline_id": 1903,
                   "compute_binding": {
                     "source_task_id": "create_compute",
                     "source_output_id": "compute_id"
@@ -555,14 +567,14 @@
                   "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
                   "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
                   "name": "Submit_Job_3",
-                  "nodeId": "Submit_Job_run_pipelines_claims_op",
+                  "nodeId": "Submit_Job_run_pipelines_claims_silver_ods_fidelis_upstate_ip_new",
                   "pool_enabled": false
                 },
                 {
                   "task_id": "archive_processed_files",
                   "type": "ArchiveProcessedFiles",
                   "depends_on": [
-                    "run_pipelines_claims_op"
+                    "run_pipelines_claims_silver_ods_fidelis_upstate_ip_new"
                   ],
                   "bucket_name": "my-test-bucket",
                   "cloud_type": "databricks",

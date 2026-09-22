@@ -1206,25 +1206,25 @@ with DAG(
         "compute_task_id": "create_compute",
         "job_config": {
             "job_type": "spark_python",
-            "name": "{{ dag.dag_id }}_run_pipelines_claims_op_{{ ts_nodash }}",
+            "name": "{{ dag.dag_id }}_run_pipelines_claims_silver_ods_fidelis_upstate_ip_new_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1504/claims_op.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1903/claims_silver_ods_fidelis_upstate_ip_new.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ],
             "spark_conf": {
-                "spark.pipeline.id": "1504",
-                "spark.pipeline.name": "claims_op"
+                "spark.pipeline.id": "1903",
+                "spark.pipeline.name": "claims_silver_ods_fidelis_upstate_IP_new"
             }
         },
         "ingestion_group_id": 978,
         "flow_id": 768,
-        "pipeline_id": "1504",
+        "pipeline_id": "1903",
         "feed_name": "claim_op12",
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
-        "pipeline_name": "claims_op",
+        "pipeline_name": "claims_silver_ods_fidelis_upstate_IP_new",
         "run_data_quality_rules": False,
         "dq_rules_source": "git",
         "metrics_output_dir": "abfss://my-test-bucket@bhnprddwestus3rgbd5e.dfs.core.windows.net/spark-metrics/768/claim_op12_978/",
@@ -1234,7 +1234,7 @@ with DAG(
         "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v1-secrets",
         "cloud_provider": "databricks",
         "airflow_connection_id": "databricks_default",
-        "pipeline_key": "claims_op",
+        "pipeline_key": "claims_silver_ods_fidelis_upstate_ip_new",
         "bh_project_id": 299,
         "project_id": 299,
         "project_name": "flow-test-project",
@@ -1244,9 +1244,9 @@ with DAG(
         "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
         "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}"
     }
-    run_pipelines_claims_op = PythonOperator(
+    run_pipelines_claims_silver_ods_fidelis_upstate_ip_new = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
-        task_id='run_pipelines_claims_op',
+        task_id='run_pipelines_claims_silver_ods_fidelis_upstate_ip_new',
         python_callable=submit_job_to_cluster,
         params=_submit_params,
         on_success_callback=feed_control_callbacks.submit_job_success_callback,
@@ -1555,9 +1555,9 @@ with DAG(
     create_compute >> run_pipelines_claim_op12
     run_pipelines_claim_op12 >> run_pipelines_silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e
     create_compute >> run_pipelines_silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e
-    run_pipelines_silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e >> run_pipelines_claims_op
-    create_compute >> run_pipelines_claims_op
-    run_pipelines_claims_op >> archive_processed_files
+    run_pipelines_silver_raw_fidelis_op_claims_to_healthcare_model_260922_866e >> run_pipelines_claims_silver_ods_fidelis_upstate_ip_new
+    create_compute >> run_pipelines_claims_silver_ods_fidelis_upstate_ip_new
+    run_pipelines_claims_silver_ods_fidelis_upstate_ip_new >> archive_processed_files
     archive_processed_files >> delete_compute
     create_compute >> delete_compute
     delete_compute >> end_flow_task
