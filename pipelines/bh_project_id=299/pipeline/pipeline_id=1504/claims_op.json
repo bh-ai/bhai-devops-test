@@ -1,6 +1,6 @@
 {
   "created_at": "2026-08-04T07:08:35.392881Z",
-  "updated_at": "2026-08-13T10:05:40.356346Z",
+  "updated_at": "2026-09-22T04:30:49.466438Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -15,7 +15,7 @@
   "status": "active",
   "pipeline_version_id": null,
   "bh_project_name": "flow-test-project",
-  "bh_github_username": "bh-varadha-git",
+  "bh_github_username": "bh-sathish-git",
   "pipeline_json": {
     "name": "claims_op",
     "version": "1.0.0",
@@ -1140,12 +1140,12 @@
         }
       }
     ],
-    "description": "Cloned from File to DB Ingestion V2",
+    "description": "File to DB Ingestion V3 for safeharbor_fideliscare_prod_opclaimheader_full_cinqdownstate_20230101_20260331_obj2141",
     "batch_control": {
       "enabled": true,
       "feed_name": "claims_op",
-      "business_date": "2026-08-13",
-      "delivery_id": "claims_op_2026-08-13",
+      "business_date": "2026-09-22",
+      "delivery_id": "claims_op_2026-09-22",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
@@ -1183,7 +1183,7 @@
       "atomic_commit_enabled": true,
       "group_id": 870,
       "expected_group_members": 2,
-      "group_run_id": "claims_op_20260813T100539Z"
+      "group_run_id": "claims_op_20260922T043048Z"
     }
   },
   "draft_pipeline_json": null,

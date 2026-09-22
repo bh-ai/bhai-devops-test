@@ -20,7 +20,7 @@
   "status": "active",
   "pipeline_version_id": null,
   "bh_project_name": "flow-test-project",
-  "bh_github_username": "bh-varadha-git",
+  "bh_github_username": "bh-sathish-git",
   "pipeline_json": {
     "$schema": "https://json-schema.org/draft-07/schema#",
     "name": "silver_raw_fideliscare_claims_join_transform_260717_af62",
