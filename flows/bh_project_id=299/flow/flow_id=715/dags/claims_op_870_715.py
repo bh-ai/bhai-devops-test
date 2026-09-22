@@ -174,25 +174,25 @@ with DAG(
         "compute_task_id": "create_compute",
         "job_config": {
             "job_type": "spark_python",
-            "name": "{{ dag.dag_id }}_run_pipelines_silver_raw_fideliscare_claims_join_transform_260717_af62_{{ ts_nodash }}",
+            "name": "{{ dag.dag_id }}_run_pipelines_claims_silver_ods_fidelis_upstate_ip_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1511/silver_raw_fideliscare_claims_join_transform_260717_af62.json",
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1510/claims_silver_ods_fidelis_upstate_ip.json",
                 "databricks",
                 "/Workspace/Shared/dev-utils/schemas"
             ]
         },
         "ingestion_group_id": 870,
         "flow_id": 715,
-        "pipeline_id": "1511",
+        "pipeline_id": "1510",
         "feed_name": "claims_op",
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
-        "pipeline_name": "silver_raw_fideliscare_claims_join_transform_260717_af62",
+        "pipeline_name": "claims_silver_ods_fidelis_upstate_IP",
         "run_data_quality_rules": False,
         "dq_rules_source": "git",
         "airflow_connection_id": "databricks_default",
-        "pipeline_key": "silver_raw_fideliscare_claims_join_transform_260717_af62",
+        "pipeline_key": "claims_silver_ods_fidelis_upstate_ip",
         "bh_project_id": 299,
         "project_id": 299,
         "project_name": "flow-test-project",
@@ -204,9 +204,55 @@ with DAG(
         "pool_heartbeat_interval_seconds": 120,
         "pool_release_lease": False
     }
-    run_pipelines_silver_raw_fideliscare_claims_join_transform_260717_af62 = PythonOperator(
+    run_pipelines_claims_silver_ods_fidelis_upstate_ip = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
-        task_id='run_pipelines_silver_raw_fideliscare_claims_join_transform_260717_af62',
+        task_id='run_pipelines_claims_silver_ods_fidelis_upstate_ip',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=feed_control_callbacks.submit_job_success_callback,
+        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.compute_pool.databricks_tasks import submit_job_to_cluster
+
+    _submit_params = {
+        "compute_task_id": "create_compute",
+        "job_config": {
+            "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_run_pipelines_pharmacy_silver_ods_updated_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1904/pharmacy_silver_ods_updated.json",
+                "databricks",
+                "/Workspace/Shared/dev-utils/schemas"
+            ]
+        },
+        "ingestion_group_id": 870,
+        "flow_id": 715,
+        "pipeline_id": "1904",
+        "feed_name": "claims_op",
+        "validate_inbound_task_id": "validate_inbound_files",
+        "facts_source": "databricks",
+        "pipeline_name": "pharmacy_silver_ods_updated",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
+        "airflow_connection_id": "databricks_default",
+        "pipeline_key": "pharmacy_silver_ods_updated",
+        "bh_project_id": 299,
+        "project_id": 299,
+        "project_name": "flow-test-project",
+        "compute_xcom_key": "return_value",
+        "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
+        "pool_enabled": True,
+        "pool_heartbeat_interval_seconds": 120,
+        "pool_release_lease": False
+    }
+    run_pipelines_pharmacy_silver_ods_updated = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='run_pipelines_pharmacy_silver_ods_updated',
         python_callable=submit_job_to_cluster,
         params=_submit_params,
         on_success_callback=feed_control_callbacks.submit_job_success_callback,
@@ -248,57 +294,11 @@ with DAG(
         "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
         "pool_enabled": True,
         "pool_heartbeat_interval_seconds": 120,
-        "pool_release_lease": False
+        "pool_release_lease": True
     }
     run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4 = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
         task_id='run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4',
-        python_callable=submit_job_to_cluster,
-        params=_submit_params,
-        on_success_callback=feed_control_callbacks.submit_job_success_callback,
-        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
-    )
-
-    from airflow.operators.python import PythonOperator
-    from airflow_plugins.compute_pool.databricks_tasks import submit_job_to_cluster
-
-    _submit_params = {
-        "compute_task_id": "create_compute",
-        "job_config": {
-            "job_type": "spark_python",
-            "name": "{{ dag.dag_id }}_run_pipelines_claims_silver_ods_fidelis_upstate_ip_{{ ts_nodash }}",
-            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
-            "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1510/claims_silver_ods_fidelis_upstate_ip.json",
-                "databricks",
-                "/Workspace/Shared/dev-utils/schemas"
-            ]
-        },
-        "ingestion_group_id": 870,
-        "flow_id": 715,
-        "pipeline_id": "1510",
-        "feed_name": "claims_op",
-        "validate_inbound_task_id": "validate_inbound_files",
-        "facts_source": "databricks",
-        "pipeline_name": "claims_silver_ods_fidelis_upstate_IP",
-        "run_data_quality_rules": False,
-        "dq_rules_source": "git",
-        "airflow_connection_id": "databricks_default",
-        "pipeline_key": "claims_silver_ods_fidelis_upstate_ip",
-        "bh_project_id": 299,
-        "project_id": 299,
-        "project_name": "flow-test-project",
-        "compute_xcom_key": "return_value",
-        "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
-        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
-        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
-        "pool_enabled": True,
-        "pool_heartbeat_interval_seconds": 120,
-        "pool_release_lease": True
-    }
-    run_pipelines_claims_silver_ods_fidelis_upstate_ip = PythonOperator(
-        pre_execute=common_task.pre_execute_callback,
-        task_id='run_pipelines_claims_silver_ods_fidelis_upstate_ip',
         python_callable=submit_job_to_cluster,
         params=_submit_params,
         on_success_callback=feed_control_callbacks.submit_job_success_callback,
@@ -564,13 +564,13 @@ with DAG(
     start_flow_task >> validate_inbound_files
     validate_inbound_files >> create_compute
     create_compute >> run_pipelines_claims_op
-    run_pipelines_claims_op >> run_pipelines_silver_raw_fideliscare_claims_join_transform_260717_af62
-    create_compute >> run_pipelines_silver_raw_fideliscare_claims_join_transform_260717_af62
-    run_pipelines_silver_raw_fideliscare_claims_join_transform_260717_af62 >> run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4
-    create_compute >> run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4
-    run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4 >> run_pipelines_claims_silver_ods_fidelis_upstate_ip
+    run_pipelines_claims_op >> run_pipelines_claims_silver_ods_fidelis_upstate_ip
     create_compute >> run_pipelines_claims_silver_ods_fidelis_upstate_ip
-    run_pipelines_claims_silver_ods_fidelis_upstate_ip >> archive_processed_files
+    run_pipelines_claims_silver_ods_fidelis_upstate_ip >> run_pipelines_pharmacy_silver_ods_updated
+    create_compute >> run_pipelines_pharmacy_silver_ods_updated
+    run_pipelines_pharmacy_silver_ods_updated >> run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4
+    create_compute >> run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4
+    run_pipelines_silver_raw_fideliscare_claims_to_pharmacy_pipeline_260804_18b4 >> archive_processed_files
     archive_processed_files >> delete_compute
     create_compute >> delete_compute
     delete_compute >> end_flow_task
