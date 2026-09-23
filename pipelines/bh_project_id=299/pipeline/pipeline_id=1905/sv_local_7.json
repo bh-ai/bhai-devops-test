@@ -1,6 +1,6 @@
 {
   "created_at": "2026-09-22T12:22:34.265601Z",
-  "updated_at": "2026-09-22T15:38:44.318403Z",
+  "updated_at": "2026-09-23T05:22:42.422622Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -1566,8 +1566,8 @@
     "batch_control": {
       "enabled": true,
       "feed_name": "sv_local_7",
-      "business_date": "2026-09-22",
-      "delivery_id": "sv_local_7_2026-09-22",
+      "business_date": "2026-09-23",
+      "delivery_id": "sv_local_7_2026-09-23",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
@@ -1621,7 +1621,7 @@
       "atomic_commit_enabled": true,
       "group_id": 980,
       "expected_group_members": 6,
-      "group_run_id": "sv_local_7_20260922T153843Z"
+      "group_run_id": "sv_local_7_20260923T052241Z"
     }
   },
   "draft_pipeline_json": null,
