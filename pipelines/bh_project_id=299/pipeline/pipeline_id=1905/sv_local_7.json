@@ -1,6 +1,6 @@
 {
   "created_at": "2026-09-22T12:22:34.265601Z",
-  "updated_at": "2026-09-23T08:04:34.566933Z",
+  "updated_at": "2026-09-23T08:06:56.837007Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -26,10 +26,6 @@
         "value": "smaller_data/data1.csv"
       },
       {
-        "key": "legacyauditlogcr",
-        "value": "smaller_data/legacy_audit_log_cr.txt"
-      },
-      {
         "key": "data",
         "value": "smaller_data/data.csv"
       },
@@ -44,6 +40,10 @@
       {
         "key": "unixstagingconfiglf",
         "value": "smaller_data/unix_staging_config_lf.env"
+      },
+      {
+        "key": "legacyauditlogcr",
+        "value": "smaller_data/legacy_audit_log_cr.txt"
       }
     ],
     "connections": {
@@ -57,22 +57,6 @@
       },
       "bronze_data_1_db_connection_obj2397": {
         "name": "bronze_data_1_db_connection_obj2397",
-        "connection_type": "DatabricksDeltaLake",
-        "catalog": "cinqdev",
-        "schema": "default",
-        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
-        "connection_config_id": 185
-      },
-      "landing_legacyauditlogcr_file_connection_obj2398": {
-        "name": "landing_legacyauditlogcr_file_connection_obj2398",
-        "connection_type": "azure_blob",
-        "container_name": "my-test-bucket",
-        "file_path_prefix": "",
-        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
-        "connection_config_id": 186
-      },
-      "bronze_legacyauditlogcr_db_connection_obj2398": {
-        "name": "bronze_legacyauditlogcr_db_connection_obj2398",
         "connection_type": "DatabricksDeltaLake",
         "catalog": "cinqdev",
         "schema": "default",
@@ -142,6 +126,22 @@
         "schema": "default",
         "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
         "connection_config_id": 185
+      },
+      "landing_legacyauditlogcr_file_connection_obj2398": {
+        "name": "landing_legacyauditlogcr_file_connection_obj2398",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_legacyauditlogcr_db_connection_obj2398": {
+        "name": "bronze_legacyauditlogcr_db_connection_obj2398",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "default",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
       }
     },
     "sources": {
@@ -153,15 +153,6 @@
           "$ref": "#/connections/landing_data_1_file_connection_obj2397"
         },
         "data_src_id": 3119
-      },
-      "landing_source_legacyauditlogcr_obj2398": {
-        "name": "landing_source_legacyauditlogcr_obj2398",
-        "source_type": "File",
-        "file_name": "${legacyauditlogcr}",
-        "connection": {
-          "$ref": "#/connections/landing_legacyauditlogcr_file_connection_obj2398"
-        },
-        "data_src_id": 3121
       },
       "landing_source_data_obj2396": {
         "name": "landing_source_data_obj2396",
@@ -198,6 +189,15 @@
           "$ref": "#/connections/landing_unixstagingconfiglf_file_connection_obj2400"
         },
         "data_src_id": 3125
+      },
+      "landing_source_legacyauditlogcr_obj2398": {
+        "name": "landing_source_legacyauditlogcr_obj2398",
+        "source_type": "File",
+        "file_name": "${legacyauditlogcr}",
+        "connection": {
+          "$ref": "#/connections/landing_legacyauditlogcr_file_connection_obj2398"
+        },
+        "data_src_id": 3121
       }
     },
     "targets": {
@@ -211,17 +211,6 @@
         "load_mode": "append",
         "schema": "default",
         "data_src_id": 3120
-      },
-      "bronze_target_legacyauditlogcr_obj2398": {
-        "name": "bronze_target_legacyauditlogcr_obj2398",
-        "target_type": "Relational",
-        "table_name": "legacyauditlogcr",
-        "connection": {
-          "$ref": "#/connections/bronze_legacyauditlogcr_db_connection_obj2398"
-        },
-        "load_mode": "append",
-        "schema": "default",
-        "data_src_id": 3122
       },
       "bronze_target_data_obj2396": {
         "name": "bronze_target_data_obj2396",
@@ -266,6 +255,17 @@
         "load_mode": "append",
         "schema": "default",
         "data_src_id": 3126
+      },
+      "bronze_target_legacyauditlogcr_obj2398": {
+        "name": "bronze_target_legacyauditlogcr_obj2398",
+        "target_type": "Relational",
+        "table_name": "legacyauditlogcr",
+        "connection": {
+          "$ref": "#/connections/bronze_legacyauditlogcr_db_connection_obj2398"
+        },
+        "load_mode": "append",
+        "schema": "default",
+        "data_src_id": 3122
       }
     },
     "transformations": [
@@ -483,203 +483,6 @@
         ],
         "target": {
           "$ref": "#/targets/bronze_target_data_1_obj2397"
-        },
-        "write_options": {
-          "truncate": false,
-          "cascadeTruncate": false,
-          "refreshKrb5Config": false,
-          "encrypt": "false",
-          "trustServerCertificate": "false",
-          "partitionBy": [
-            "ingest_year",
-            "ingest_month",
-            "ingest_day",
-            "batch_id"
-          ]
-        }
-      },
-      {
-        "name": "landing_read_legacyauditlogcr_obj2398",
-        "transformation": "Reader",
-        "source": {
-          "$ref": "#/sources/landing_source_legacyauditlogcr_obj2398"
-        },
-        "file_type": "CSV",
-        "read_options": {
-          "fetch_size": 10000,
-          "sep": ",",
-          "encoding": "UTF-8",
-          "header": true,
-          "inferSchema": false,
-          "multiLine": false,
-          "quote": "\"",
-          "escape": "\\",
-          "comment": "",
-          "preferDate": true,
-          "enforceSchema": true,
-          "ignoreLeadingWhiteSpace": false,
-          "ignoreTrailingWhiteSpace": false,
-          "nullValue": "",
-          "nanValue": "NaN",
-          "positiveInf": "Inf",
-          "negativeInf": "-Inf",
-          "dateFormat": "yyyy-MM-dd",
-          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
-          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
-          "maxColumns": 20480,
-          "maxCharsPerColumn": -1,
-          "columnNameOfCorruptRecord": "corrupt_record",
-          "samplingRatio": 1.0,
-          "emptyValue": "",
-          "locale": "en-US",
-          "lineSep": "\r",
-          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
-          "mode": "PERMISSIVE"
-        },
-        "dependent_on": []
-      },
-      {
-        "name": "add_lineage_metadata_obj2398",
-        "transformation": "Expression",
-        "dependent_on": [
-          "landing_read_legacyauditlogcr_obj2398"
-        ],
-        "derived_fields": [
-          {
-            "name": "feed_name",
-            "expression": "'sv_local_7'"
-          },
-          {
-            "name": "ingest_ts",
-            "expression": "current_timestamp()"
-          },
-          {
-            "name": "ingest_year",
-            "expression": "year(current_date())"
-          },
-          {
-            "name": "ingest_month",
-            "expression": "month(current_date())"
-          },
-          {
-            "name": "ingest_day",
-            "expression": "day(current_date())"
-          },
-          {
-            "name": "created_ts",
-            "expression": "current_timestamp()"
-          },
-          {
-            "name": "updated_ts",
-            "expression": "current_timestamp()"
-          },
-          {
-            "name": "corrupt_record",
-            "expression": "cast(null as string)"
-          },
-          {
-            "name": "batch_id",
-            "expression": "batch_id"
-          }
-        ]
-      },
-      {
-        "name": "schema_drift_guard_obj2398",
-        "transformation": "SchemaDriftGuard",
-        "dependent_on": [
-          "add_lineage_metadata_obj2398"
-        ],
-        "schema_version": "v1",
-        "rescued_column": "_rescued_data",
-        "raw_record_column": "_raw_record",
-        "detect_only": false,
-        "persist_quarantine_to_control": true,
-        "version": "1.0.0",
-        "engine_type": "pyspark",
-        "expected_schema": [
-          {
-            "name": "date_time_user_id_action_record_id_result",
-            "type": "string",
-            "nullable": false,
-            "is_required": true
-          },
-          {
-            "name": "corrupt_record",
-            "type": "string",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "batch_id",
-            "type": "string",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "feed_name",
-            "type": "string",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "ingest_ts",
-            "type": "timestamp",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "ingest_year",
-            "type": "integer",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "ingest_month",
-            "type": "integer",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "ingest_day",
-            "type": "integer",
-            "nullable": true,
-            "is_required": false
-          }
-        ],
-        "ignore_columns": [
-          "_raw_record",
-          "_rescued_data",
-          "batch_id",
-          "corrupt_record",
-          "created_ts",
-          "dq_failed_rules",
-          "feed_name",
-          "ingest_day",
-          "ingest_month",
-          "ingest_ts",
-          "ingest_year",
-          "ingestion_ts",
-          "source_file_name",
-          "source_row_number",
-          "updated_ts"
-        ],
-        "dataset_id": "legacyauditlogcr",
-        "drift_policy": {
-          "new_column": "rescue",
-          "missing_required_column": "fail_batch",
-          "missing_optional_column": "accept",
-          "type_mismatch_required": "quarantine_record",
-          "type_mismatch_optional": "rescue"
-        }
-      },
-      {
-        "name": "bronze_write_legacyauditlogcr_obj2398",
-        "transformation": "Writer",
-        "dependent_on": [
-          "schema_drift_guard_obj2398"
-        ],
-        "target": {
-          "$ref": "#/targets/bronze_target_legacyauditlogcr_obj2398"
         },
         "write_options": {
           "truncate": false,
@@ -1560,6 +1363,203 @@
             "batch_id"
           ]
         }
+      },
+      {
+        "name": "landing_read_legacyauditlogcr_obj2398",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_legacyauditlogcr_obj2398"
+        },
+        "file_type": "CSV",
+        "read_options": {
+          "fetch_size": 10000,
+          "sep": ",",
+          "encoding": "UTF-8",
+          "header": true,
+          "inferSchema": false,
+          "multiLine": false,
+          "quote": "\"",
+          "escape": "\\",
+          "comment": "",
+          "preferDate": true,
+          "enforceSchema": true,
+          "ignoreLeadingWhiteSpace": false,
+          "ignoreTrailingWhiteSpace": false,
+          "nullValue": "",
+          "nanValue": "NaN",
+          "positiveInf": "Inf",
+          "negativeInf": "-Inf",
+          "dateFormat": "yyyy-MM-dd",
+          "timestampFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS][XXX]",
+          "timestampNTZFormat": "yyyy-MM-dd'T'HH:mm:ss[.SSS]",
+          "maxColumns": 20480,
+          "maxCharsPerColumn": -1,
+          "columnNameOfCorruptRecord": "corrupt_record",
+          "samplingRatio": 1.0,
+          "emptyValue": "",
+          "locale": "en-US",
+          "lineSep": "\r",
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
+          "mode": "PERMISSIVE"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2398",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_legacyauditlogcr_obj2398"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'sv_local_7'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2398",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2398"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "date_time_user_id_action_record_id_result",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "legacyauditlogcr",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_legacyauditlogcr_obj2398",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2398"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_legacyauditlogcr_obj2398"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
       }
     ],
     "description": "File to DB Ingestion V3 for data_1_obj2397",
@@ -1594,10 +1594,6 @@
           "add_lineage_metadata_obj2397",
           "schema_drift_guard_obj2397",
           "bronze_write_data_1_obj2397",
-          "landing_read_legacyauditlogcr_obj2398",
-          "add_lineage_metadata_obj2398",
-          "schema_drift_guard_obj2398",
-          "bronze_write_legacyauditlogcr_obj2398",
           "landing_read_data_obj2396",
           "add_lineage_metadata_obj2396",
           "schema_drift_guard_obj2396",
@@ -1613,7 +1609,11 @@
           "landing_read_unixstagingconfiglf_obj2400",
           "add_lineage_metadata_obj2400",
           "schema_drift_guard_obj2400",
-          "bronze_write_unixstagingconfiglf_obj2400"
+          "bronze_write_unixstagingconfiglf_obj2400",
+          "landing_read_legacyauditlogcr_obj2398",
+          "add_lineage_metadata_obj2398",
+          "schema_drift_guard_obj2398",
+          "bronze_write_legacyauditlogcr_obj2398"
         ]
       },
       "error_threshold_pct": 50.0,
@@ -1621,7 +1621,7 @@
       "atomic_commit_enabled": true,
       "group_id": 980,
       "expected_group_members": 6,
-      "group_run_id": "sv_local_7_20260923T080433Z"
+      "group_run_id": "sv_local_7_20260923T080655Z"
     }
   },
   "draft_pipeline_json": null,
