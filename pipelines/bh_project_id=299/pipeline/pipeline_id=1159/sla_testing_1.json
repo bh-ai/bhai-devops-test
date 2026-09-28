@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-03T11:28:32.635173Z",
-  "updated_at": "2026-07-03T11:43:31.214405Z",
+  "updated_at": "2026-09-28T13:40:29.006847Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -15,7 +15,7 @@
   "status": "active",
   "pipeline_version_id": null,
   "bh_project_name": "flow-test-project",
-  "bh_github_username": "bh-varadha-git",
+  "bh_github_username": "bh-sathish-git",
   "pipeline_json": {
     "name": "sla_testing_1",
     "version": "1.0.0",
@@ -104,115 +104,8 @@
           "emptyValue": "",
           "locale": "en-US",
           "lineSep": "\r\n",
-          "unescapedQuoteHandling": "STOP_AT_DELIMITER",
-          "mode": "PERMISSIVE"
+          "unescapedQuoteHandling": "STOP_AT_DELIMITER"
         },
-        "schema": [
-          {
-            "name": "sbscr_nbr",
-            "type": "string"
-          },
-          {
-            "name": "source_patient_id",
-            "type": "string"
-          },
-          {
-            "name": "empi",
-            "type": "string"
-          },
-          {
-            "name": "mbr_lst_nm",
-            "type": "string"
-          },
-          {
-            "name": "mbr_midl_init",
-            "type": "string"
-          },
-          {
-            "name": "mbr_fst_nm",
-            "type": "string"
-          },
-          {
-            "name": "mbr_gdr_cd",
-            "type": "string"
-          },
-          {
-            "name": "bth_dt",
-            "type": "long"
-          },
-          {
-            "name": "contr_curr_pln_nm",
-            "type": "string"
-          },
-          {
-            "name": "contr_nbr",
-            "type": "string"
-          },
-          {
-            "name": "contr_pbp",
-            "type": "long"
-          },
-          {
-            "name": "contr_nbr_pbp",
-            "type": "string"
-          },
-          {
-            "name": "curr_mbi",
-            "type": "string"
-          },
-          {
-            "name": "dth_dt",
-            "type": "string"
-          },
-          {
-            "name": "record_start_dt",
-            "type": "long"
-          },
-          {
-            "name": "record_end_dt",
-            "type": "long"
-          },
-          {
-            "name": "mbr_adr_loc_adr1",
-            "type": "string"
-          },
-          {
-            "name": "mbr_adr_loc_adr2",
-            "type": "string"
-          },
-          {
-            "name": "mbr_adr_loc_cty",
-            "type": "string"
-          },
-          {
-            "name": "mbr_adr_loc_st_cd",
-            "type": "string"
-          },
-          {
-            "name": "mbr_adr_loc_zip_cd",
-            "type": "string"
-          },
-          {
-            "name": "column21",
-            "type": "string"
-          },
-          {
-            "name": "mbr_do_not_cntc_flg",
-            "type": "string"
-          },
-          {
-            "name": "assigned_provider_npi",
-            "type": "string"
-          },
-          {
-            "name": "assigned_tin",
-            "type": "string"
-          },
-          {
-            "name": "corrupt_record",
-            "type": "string"
-          }
-        ],
         "dependent_on": []
       },
       {
@@ -251,6 +144,10 @@
             "expression": "current_timestamp()"
           },
           {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
             "name": "batch_id",
             "expression": "batch_id"
           }
@@ -265,7 +162,8 @@
         "schema_version": "v1",
         "rescued_column": "_rescued_data",
         "raw_record_column": "_raw_record",
-        "detect_only": true,
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
         "version": "1.0.0",
         "engine_type": "pyspark",
         "expected_schema": [
@@ -462,10 +360,28 @@
             "is_required": false
           }
         ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
         "dataset_id": "safeharbor_cinqcare_elig_20260703t134040",
         "drift_policy": {
           "new_column": "rescue",
           "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
           "type_mismatch_required": "quarantine_record",
           "type_mismatch_optional": "rescue"
         }
@@ -494,12 +410,12 @@
         }
       }
     ],
-    "description": "Cloned from File to DB Ingestion V2",
+    "description": "File to DB Ingestion V3 for safeharbor_cinqcare_elig_20260703t134040_obj1598",
     "batch_control": {
       "enabled": true,
       "feed_name": "sla_testing_1",
-      "business_date": "2026-07-03",
-      "delivery_id": "sla_testing_1_2026-07-03",
+      "business_date": "2026-09-28",
+      "delivery_id": "sla_testing_1_2026-09-28",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
@@ -533,7 +449,7 @@
       "atomic_commit_enabled": true,
       "group_id": 666,
       "expected_group_members": 1,
-      "group_run_id": "sla_testing_1_20260703T114331Z"
+      "group_run_id": "sla_testing_1_20260928T134028Z"
     }
   },
   "draft_pipeline_json": null,

@@ -1,6 +1,6 @@
 {
   "created_at": "2026-07-03T11:34:23.120288Z",
-  "updated_at": "2026-07-03T11:43:36.005374Z",
+  "updated_at": "2026-09-28T13:39:10.360946Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -20,7 +20,7 @@
   "status": "active",
   "pipeline_version_id": null,
   "bh_project_name": "flow-test-project",
-  "bh_github_username": "bh-varadha-git",
+  "bh_github_username": "bh-sathish-git",
   "pipeline_json": {
     "$schema": "https://json-schema.org/draft-07/schema#",
     "name": "silver_raw_cinqcare_elig_to_members_load_260703_2795",
@@ -44,7 +44,7 @@
         "data_src_id": 2369,
         "name": "safeharbor_cinqcare_elig_20260703t134040_9f2py",
         "source_type": "Relational",
-        "table_name": "safeharbor_cinqcare_elig_20260703t134040_9f2py",
+        "table_name": "safeharbor_cinqcare_elig_20260703t134040",
         "connection": {
           "$ref": "#/connections/databricks-azure_cinqdev"
         },
@@ -2077,7 +2077,7 @@
       }
     }
   },
-  "draft_pipeline_json": null,
+  "draft_pipeline_json": {},
   "pipeline_type": "requirement",
   "engine_type": "pyspark",
   "total_test_scenario": null,

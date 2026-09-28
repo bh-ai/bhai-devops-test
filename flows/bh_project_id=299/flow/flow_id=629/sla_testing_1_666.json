@@ -290,7 +290,9 @@
                     }
                   ],
                   "name": "Create_Compute",
-                  "nodeId": "create_compute_Create Compute"
+                  "nodeId": "create_compute_Create Compute",
+                  "compute_config_id": 145,
+                  "pool_enabled": false
                 },
                 {
                   "task_id": "Run Jobs_sla_testing_1",
@@ -310,7 +312,8 @@
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "name": "Submit_Job",
-                  "nodeId": "Submit_Job_Run Jobs_sla_testing_1"
+                  "nodeId": "Submit_Job_Run Jobs_sla_testing_1",
+                  "pool_enabled": false
                 },
                 {
                   "task_id": "Run Jobs_silver_raw_cinqcare_elig_to_members_load_260703_2795",
@@ -330,7 +333,8 @@
                   "cloud_type": "databricks",
                   "airflow_connection_id": "databricks_default",
                   "name": "Submit_Job_2",
-                  "nodeId": "Submit_Job_Run Jobs_silver_raw_cinqcare_elig_to_members_load_260703_2795"
+                  "nodeId": "Submit_Job_Run Jobs_silver_raw_cinqcare_elig_to_members_load_260703_2795",
+                  "pool_enabled": false
                 },
                 {
                   "task_id": "Delete Compute",
@@ -346,7 +350,8 @@
                     "source_output_id": "compute_id"
                   },
                   "name": "Delete_Compute",
-                  "nodeId": "delete_compute_Delete Compute"
+                  "nodeId": "delete_compute_Delete Compute",
+                  "pool_enabled": false
                 }
               ],
               "bh_environment_id": 331,
@@ -354,6 +359,7 @@
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
               "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net",
+              "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v1-secrets",
               "ingestion_group_id": 666
             }
           },
