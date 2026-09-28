@@ -1,6 +1,6 @@
 {
   "created_at": "2026-09-22T06:39:55.237460Z",
-  "updated_at": "2026-09-22T06:41:14.580580Z",
+  "updated_at": "2026-09-28T13:00:58.131282Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -1198,9 +1198,9 @@
     },
     "batch_control": {
       "enabled": true,
-      "feed_name": "claims_op",
+      "feed_name": "claims_op13",
       "business_date": "2026-06-24",
-      "delivery_id": "claims_op_2026-06-24",
+      "delivery_id": "claims_op13_2026-06-24",
       "use_existing_batch_id": true,
       "validate_existing_batch": true,
       "require_input_acceptance": true,
