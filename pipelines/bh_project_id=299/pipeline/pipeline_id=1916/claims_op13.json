@@ -1,6 +1,6 @@
 {
   "created_at": "2026-09-28T12:55:50.560611Z",
-  "updated_at": "2026-10-01T14:25:09.378845Z",
+  "updated_at": "2026-10-01T15:22:01.586473Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -1183,7 +1183,7 @@
       "atomic_commit_enabled": true,
       "group_id": 984,
       "expected_group_members": 2,
-      "group_run_id": "claims_op13_20261001T142506Z"
+      "group_run_id": "claims_op13_20261001T152200Z"
     }
   },
   "draft_pipeline_json": null,

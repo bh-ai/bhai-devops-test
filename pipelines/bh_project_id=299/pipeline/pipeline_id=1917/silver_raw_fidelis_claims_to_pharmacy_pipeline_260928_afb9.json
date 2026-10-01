@@ -1,6 +1,6 @@
 {
   "created_at": "2026-09-28T12:58:06.370408Z",
-  "updated_at": "2026-10-01T12:59:51.350380Z",
+  "updated_at": "2026-10-01T15:21:13.347423Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -29,12 +29,12 @@
       {
         "data_src_id": 3153,
         "ingest_object_id": null,
-        "label": "safeharborfideliscareprodopclaimlinefullcinqdownstate_lmhqd \u00b7 default.safeharborfideliscareprodopclaimlinefullcinqdownstate"
+        "label": "default.safeharborfideliscareprodopclaimlinefullcinqdownstate"
       },
       {
         "data_src_id": 3151,
         "ingest_object_id": null,
-        "label": "safeharborfideliscareprodopclaimheaderfullcinqdownstate_t9kmh \u00b7 default.safeharborfideliscareprodopclaimheaderfullcinqdownstate"
+        "label": "default.safeharborfideliscareprodopclaimheaderfullcinqdownstate"
       }
     ],
     "target_rows": [
