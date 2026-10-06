@@ -1,6 +1,6 @@
 {
   "created_at": "2026-09-22T06:39:55.237460Z",
-  "updated_at": "2026-10-05T10:24:20.741169Z",
+  "updated_at": "2026-10-06T11:30:50.379814Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -18,7 +18,7 @@
   "bh_github_username": "bh-sathish-git",
   "pipeline_json": {
     "$schema": "https://json-schema.org/draft-07/schema#",
-    "name": "pharmacy_silver_ods_updated",
+    "name": "claims_silver_ods_fidelis_upstate_IP_new",
     "description": "Silver raw to silver ODS v2 \u2014 hash CDC (INSERT/UPDATE/NOOP), ods_record_hash includes is_active, merge on natural keys without source_system, deduped patients join, no DELETE writer.",
     "version": "1.0.0",
     "engine_type": "pyspark",
@@ -1269,7 +1269,7 @@
       "error_threshold_pct": 50
     }
   },
-  "draft_pipeline_json": null,
+  "draft_pipeline_json": {},
   "pipeline_type": null,
   "engine_type": "pyspark",
   "total_test_scenario": null,
