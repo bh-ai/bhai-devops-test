@@ -77,6 +77,20 @@
       },
       {
         "model": "FlowParameter",
+        "pk": 3122,
+        "data": {
+          "flow_parameter_id": 3122,
+          "flow_id": 682,
+          "parameter_name": "use_valid_files_manifest",
+          "parameter_value": false,
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
         "pk": 2176,
         "data": {
           "flow_parameter_id": 2176,
@@ -97,6 +111,20 @@
           "flow_id": 682,
           "parameter_name": "source_prefix",
           "parameter_value": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch",
+          "parameter_type": "USER",
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowParameter",
+        "pk": 3123,
+        "data": {
+          "flow_parameter_id": 3123,
+          "flow_id": 682,
+          "parameter_name": "runtime_params_base_path",
+          "parameter_value": "/Workspace/Shared/runtime_params",
           "parameter_type": "USER",
           "tenant_id": 220,
           "is_deleted": false,
@@ -275,7 +303,10 @@
               "version": "1.0.0",
               "project_id": 299,
               "project_name": "flow-test-project",
-              "cron_expression": "*/15 * * * *",
+              "cron_expression": {
+                "is_scheduled": true,
+                "cron_expression": "*/15 * * * *"
+              },
               "tenant_id": 220,
               "flow_tags": [
                 {
@@ -329,12 +360,20 @@
                   "value": "[{\"id\": 1322, \"name\": \"ingestiongroup217a\", \"pipeline_name\": \"ingestiongroup217a\"}, {\"id\": 1323, \"name\": \"silver_raw_safeharbor_to_members_dedupe_load_260721_c73d\", \"pipeline_name\": \"silver_raw_safeharbor_to_members_dedupe_load_260721_c73d\"}]"
                 },
                 {
+                  "key": "runtime_params_base_path",
+                  "value": "/Workspace/Shared/runtime_params"
+                },
+                {
                   "key": "source_prefix",
                   "value": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch"
                 },
                 {
                   "key": "sources",
                   "value": "[{\"source_name\": \"safeharbor_cinqdownstate_member_roster_03_05_2026\", \"prefix\": \"bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch\", \"filename_regex\": \"safeharbor_CINQDOWNSTATE_Member_Roster_03_05_2026.xlsx\", \"ignore_subfolders\": true, \"is_required\": true, \"min_bytes\": 10, \"min_files\": 1}]"
+                },
+                {
+                  "key": "use_valid_files_manifest",
+                  "value": false
                 }
               ],
               "tasks": [
@@ -359,7 +398,9 @@
                       "min_files": 1
                     }
                   ],
-                  "feed_name": "ingestiongroup217a",
+                  "feed_name": "<<feed_name>>",
+                  "use_valid_files_manifest": false,
+                  "runtime_params_base_path": "/Workspace/Shared/runtime_params",
                   "name": "Validate",
                   "nodeId": "validate_validate_inbound_files"
                 },
