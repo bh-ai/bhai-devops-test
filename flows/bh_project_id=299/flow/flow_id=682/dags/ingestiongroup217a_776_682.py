@@ -62,6 +62,8 @@ with DAG(
         "max_files": None,
         "quarantine_prefix": "bhargs/1-Enrollment/1-Enrollment/Fedelis NY/Downstate/Batch/rejected",
         "fail_on_invalid": True,
+        "use_valid_files_manifest": False,
+        "runtime_params_base_path": "/Workspace/Shared/runtime_params",
         "sources": [
             {
                 "source_name": "safeharbor_cinqdownstate_member_roster_03_05_2026",
@@ -76,8 +78,8 @@ with DAG(
         "allow_control_table_failure": False,
         "require_batch_id": None,
         "require_feed_control_policy": True,
-        "control_catalog": None,
-        "control_schema": None,
+        "control_catalog": "cinqdev",
+        "control_schema": "control",
         "feed_name": "ingestiongroup217a",
         "feed_id": "ingestiongroup217a"
     }
@@ -182,6 +184,7 @@ with DAG(
 
     from airflow.operators.python import PythonOperator
     from airflow_plugins.cloud_factory import CloudFactory
+    from airflow_plugins.utils.databricks_submit_params import offload_oversized_job_parameters
     import logging
     logger = logging.getLogger(__name__)
 
@@ -245,6 +248,55 @@ with DAG(
         batch_id = params.get("batch_id")
         if isinstance(batch_id, str) and "{{" in batch_id:
             batch_id = context["task"].render_template(batch_id, context)
+        # Airflow renders xcom_pull templates to a string; normalize empty/None-ish.
+        if isinstance(batch_id, str):
+            _bid = batch_id.strip()
+            batch_id = None if _bid in ("", "None") else _bid
+        validate_task_id = params.get("validate_inbound_task_id")
+        batch_control_overlay = params.get("batch_control")
+        if isinstance(batch_control_overlay, str) and "{{" in batch_control_overlay:
+            batch_control_overlay = context["task"].render_template(batch_control_overlay, context)
+        # Templating returns a str repr of the xcom dict (e.g. "{'business_ts': ...}");
+        # coerce back to a dict via JSON then Python-literal before use.
+        if isinstance(batch_control_overlay, str):
+            _bco = batch_control_overlay.strip()
+            if not _bco or _bco == "None":
+                batch_control_overlay = None
+            else:
+                import json as _json_bco
+                try:
+                    batch_control_overlay = _json_bco.loads(_bco)
+                except Exception:
+                    import ast as _ast_bco
+                    try:
+                        batch_control_overlay = _ast_bco.literal_eval(_bco)
+                    except Exception:
+                        batch_control_overlay = None
+        # Fall back to a direct xcom_pull when the param was missing or unparseable.
+        if (not isinstance(batch_control_overlay, dict) or not batch_control_overlay) and validate_task_id:
+            batch_control_overlay = context["ti"].xcom_pull(
+                task_ids=validate_task_id, key="batch_control"
+            )
+        if isinstance(batch_control_overlay, dict) and batch_control_overlay:
+            job_config = dict(job_config)
+            args = list(job_config.get("parameters") or [])
+            # Ensure 4th positional (runtime_parameters_json) exists, then merge overlay into it.
+            while len(args) < 3:
+                args.append("")
+            if len(args) <= 3:
+                args.append("{}")
+            try:
+                import json as _json
+                runtime = _json.loads(args[3]) if args[3] else {}
+                if not isinstance(runtime, dict):
+                    runtime = {}
+            except Exception:
+                runtime = {}
+            runtime["__batch_control_overlay__"] = batch_control_overlay
+            args[3] = _json.dumps(runtime, separators=(",", ":"), default=str)
+            if batch_id is None and batch_control_overlay.get("batch_id") is not None:
+                batch_id = batch_control_overlay.get("batch_id")
+            job_config["parameters"] = args
         if batch_id is not None:
             job_config = dict(job_config)
             args = list(job_config.get("parameters") or [])
@@ -252,7 +304,16 @@ with DAG(
             # Ensure 4th positional (runtime_parameters_json) exists first.
             if len(args) <= 3:
                 args.append("{}")
-            args.append(str(batch_id))
+            if len(args) == 4:
+                args.append(str(batch_id))
+            else:
+                # keep existing 5th slot if present; else append
+                while len(args) < 4:
+                    args.append("{}")
+                if len(args) == 4:
+                    args.append(str(batch_id))
+                else:
+                    args[4] = str(batch_id)
             job_config["parameters"] = args
 
         from airflow.hooks.base import BaseHook
@@ -276,6 +337,28 @@ with DAG(
         user_account = user_account or 'unknown'
         if not workspace_url or not token:
             raise ValueError("Databricks connection must have host and password (token)")
+
+
+        from airflow_plugins.utils.databricks_dq_submit import apply_writer_dq_rules_to_job_config
+        _dq_catalog = None
+        if params.get("run_data_quality_rules") and str(params.get("dq_rules_source") or "git").lower() == "catalog":
+            try:
+                from airflow_plugins.compute_pool.pool_client import catalog_api_from_context
+                _dq_catalog = catalog_api_from_context(context)
+            except Exception as _dq_exc:
+                logger.warning("Could not init catalog API for Writer DQ runtime rules: %s", _dq_exc)
+        job_config = apply_writer_dq_rules_to_job_config(
+            job_config,
+            context,
+            params,
+            workspace_url=workspace_url,
+            token=token,
+            catalog_api=_dq_catalog,
+        )
+
+        job_config = offload_oversized_job_parameters(
+            job_config, context, params, workspace_url, token
+        )
 
         audit_meta = {
             "databricks_cluster_id": compute_id,
@@ -349,16 +432,23 @@ with DAG(
         },
         "ingestion_group_id": 776,
         "flow_id": 682,
-        "pipeline_id": 1322,
+        "pipeline_id": "1322",
         "feed_name": "ingestiongroup217a",
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
+        "stage_name": "landing_bronze",
         "pipeline_name": "ingestiongroup217a",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
         "airflow_connection_id": "databricks_default",
         "pipeline_key": "ingestiongroup217a",
+        "bh_project_id": 299,
+        "project_id": 299,
+        "project_name": "flow-test-project",
         "compute_xcom_key": "return_value",
         "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
-        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}"
+        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}"
     }
     run_pipelines_ingestiongroup217a = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
@@ -371,6 +461,7 @@ with DAG(
 
     from airflow.operators.python import PythonOperator
     from airflow_plugins.cloud_factory import CloudFactory
+    from airflow_plugins.utils.databricks_submit_params import offload_oversized_job_parameters
     import logging
     logger = logging.getLogger(__name__)
 
@@ -434,6 +525,55 @@ with DAG(
         batch_id = params.get("batch_id")
         if isinstance(batch_id, str) and "{{" in batch_id:
             batch_id = context["task"].render_template(batch_id, context)
+        # Airflow renders xcom_pull templates to a string; normalize empty/None-ish.
+        if isinstance(batch_id, str):
+            _bid = batch_id.strip()
+            batch_id = None if _bid in ("", "None") else _bid
+        validate_task_id = params.get("validate_inbound_task_id")
+        batch_control_overlay = params.get("batch_control")
+        if isinstance(batch_control_overlay, str) and "{{" in batch_control_overlay:
+            batch_control_overlay = context["task"].render_template(batch_control_overlay, context)
+        # Templating returns a str repr of the xcom dict (e.g. "{'business_ts': ...}");
+        # coerce back to a dict via JSON then Python-literal before use.
+        if isinstance(batch_control_overlay, str):
+            _bco = batch_control_overlay.strip()
+            if not _bco or _bco == "None":
+                batch_control_overlay = None
+            else:
+                import json as _json_bco
+                try:
+                    batch_control_overlay = _json_bco.loads(_bco)
+                except Exception:
+                    import ast as _ast_bco
+                    try:
+                        batch_control_overlay = _ast_bco.literal_eval(_bco)
+                    except Exception:
+                        batch_control_overlay = None
+        # Fall back to a direct xcom_pull when the param was missing or unparseable.
+        if (not isinstance(batch_control_overlay, dict) or not batch_control_overlay) and validate_task_id:
+            batch_control_overlay = context["ti"].xcom_pull(
+                task_ids=validate_task_id, key="batch_control"
+            )
+        if isinstance(batch_control_overlay, dict) and batch_control_overlay:
+            job_config = dict(job_config)
+            args = list(job_config.get("parameters") or [])
+            # Ensure 4th positional (runtime_parameters_json) exists, then merge overlay into it.
+            while len(args) < 3:
+                args.append("")
+            if len(args) <= 3:
+                args.append("{}")
+            try:
+                import json as _json
+                runtime = _json.loads(args[3]) if args[3] else {}
+                if not isinstance(runtime, dict):
+                    runtime = {}
+            except Exception:
+                runtime = {}
+            runtime["__batch_control_overlay__"] = batch_control_overlay
+            args[3] = _json.dumps(runtime, separators=(",", ":"), default=str)
+            if batch_id is None and batch_control_overlay.get("batch_id") is not None:
+                batch_id = batch_control_overlay.get("batch_id")
+            job_config["parameters"] = args
         if batch_id is not None:
             job_config = dict(job_config)
             args = list(job_config.get("parameters") or [])
@@ -441,7 +581,16 @@ with DAG(
             # Ensure 4th positional (runtime_parameters_json) exists first.
             if len(args) <= 3:
                 args.append("{}")
-            args.append(str(batch_id))
+            if len(args) == 4:
+                args.append(str(batch_id))
+            else:
+                # keep existing 5th slot if present; else append
+                while len(args) < 4:
+                    args.append("{}")
+                if len(args) == 4:
+                    args.append(str(batch_id))
+                else:
+                    args[4] = str(batch_id)
             job_config["parameters"] = args
 
         from airflow.hooks.base import BaseHook
@@ -465,6 +614,28 @@ with DAG(
         user_account = user_account or 'unknown'
         if not workspace_url or not token:
             raise ValueError("Databricks connection must have host and password (token)")
+
+
+        from airflow_plugins.utils.databricks_dq_submit import apply_writer_dq_rules_to_job_config
+        _dq_catalog = None
+        if params.get("run_data_quality_rules") and str(params.get("dq_rules_source") or "git").lower() == "catalog":
+            try:
+                from airflow_plugins.compute_pool.pool_client import catalog_api_from_context
+                _dq_catalog = catalog_api_from_context(context)
+            except Exception as _dq_exc:
+                logger.warning("Could not init catalog API for Writer DQ runtime rules: %s", _dq_exc)
+        job_config = apply_writer_dq_rules_to_job_config(
+            job_config,
+            context,
+            params,
+            workspace_url=workspace_url,
+            token=token,
+            catalog_api=_dq_catalog,
+        )
+
+        job_config = offload_oversized_job_parameters(
+            job_config, context, params, workspace_url, token
+        )
 
         audit_meta = {
             "databricks_cluster_id": compute_id,
@@ -538,16 +709,23 @@ with DAG(
         },
         "ingestion_group_id": 776,
         "flow_id": 682,
-        "pipeline_id": 1323,
+        "pipeline_id": "1323",
         "feed_name": "ingestiongroup217a",
         "validate_inbound_task_id": "validate_inbound_files",
         "facts_source": "databricks",
+        "stage_name": "bronze_silverraw",
         "pipeline_name": "silver_raw_safeharbor_to_members_dedupe_load_260721_c73d",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
         "airflow_connection_id": "databricks_default",
         "pipeline_key": "silver_raw_safeharbor_to_members_dedupe_load_260721_c73d",
+        "bh_project_id": 299,
+        "project_id": 299,
+        "project_name": "flow-test-project",
         "compute_xcom_key": "return_value",
         "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
-        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}"
+        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}"
     }
     run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260721_c73d = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
@@ -698,6 +876,11 @@ with DAG(
                 source_key = _extract_source_key(item)
                 if source_key:
                     files_to_archive.append(source_key)
+
+        # Multi-sheet Excel files yield one input entry per sheet, all
+        # pointing at the same source key — dedupe or delete_source
+        # would fail archiving the same file twice.
+        files_to_archive = list(dict.fromkeys(files_to_archive))
 
         if not files_to_archive:
             objects_with_metadata = []

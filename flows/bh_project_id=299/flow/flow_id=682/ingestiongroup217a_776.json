@@ -303,10 +303,7 @@
               "version": "1.0.0",
               "project_id": 299,
               "project_name": "flow-test-project",
-              "cron_expression": {
-                "is_scheduled": true,
-                "cron_expression": "*/15 * * * *"
-              },
+              "cron_expression": "*/15 * * * *",
               "tenant_id": 220,
               "flow_tags": [
                 {
@@ -398,7 +395,7 @@
                       "min_files": 1
                     }
                   ],
-                  "feed_name": "<<feed_name>>",
+                  "feed_name": "ingestiongroup217a",
                   "use_valid_files_manifest": false,
                   "runtime_params_base_path": "/Workspace/Shared/runtime_params",
                   "name": "Validate",
@@ -487,7 +484,9 @@
                   "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
                   "name": "Submit_Job",
                   "nodeId": "Submit_Job_run_pipelines_ingestiongroup217a",
-                  "pool_enabled": false
+                  "pool_enabled": false,
+                  "stage_name": "landing_bronze",
+                  "run_data_quality_rules": false
                 },
                 {
                   "task_id": "run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260721_c73d",
@@ -510,7 +509,9 @@
                   "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
                   "name": "Submit_Job_2",
                   "nodeId": "Submit_Job_run_pipelines_silver_raw_safeharbor_to_members_dedupe_load_260721_c73d",
-                  "pool_enabled": false
+                  "pool_enabled": false,
+                  "stage_name": "bronze_silverraw",
+                  "run_data_quality_rules": false
                 },
                 {
                   "task_id": "archive_processed_files",
