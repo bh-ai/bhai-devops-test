@@ -465,8 +465,9 @@
                   "nodeId": "delete_compute_delete_compute"
                 }
               ],
-              "bh_project_id": 299,
+              "template_parameters": [],
               "bh_environment_id": 331,
+              "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
               "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net",

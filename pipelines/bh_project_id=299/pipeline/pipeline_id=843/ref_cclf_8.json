@@ -1,6 +1,6 @@
 {
   "created_at": "2026-05-26T08:13:19.560311Z",
-  "updated_at": "2026-10-09T12:40:40.590975Z",
+  "updated_at": "2026-10-09T13:07:18.896418Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -77,8 +77,42 @@
         },
         "file_type": "FixedWidth",
         "read_options": {
-          "fetch_size": 10000,
           "encoding": "UTF-8",
+          "fetch_size": 10000,
+          "columnNames": [
+            "BENE_MBI_ID",
+            "BENE_HIC_NUM",
+            "BENE_FIPS_STATE_CD",
+            "BLANK",
+            "BENE_ZIP_CD",
+            "BENE_DOB",
+            "BENE_SEX_CD",
+            "BENE_RACE_CD",
+            "BENE_AGE",
+            "BENE_MDCR_STUS_CD",
+            "BENE_DUAL_STUS_CD",
+            "BENE_DEATH_DT",
+            "BENE_RNG_BGN_DT",
+            "BENE_RNG_END_DT",
+            "BENE_1ST_NAME",
+            "BENE_MIDL_NAME",
+            "BENE_LAST_NAME",
+            "BENE_ORGNL_ENTLMT_RSN_CD",
+            "BENE_ENTLMT_BUYIN_IND",
+            "BENE_PART_A_ENRLMT_BGN_DT",
+            "BENE_PART_B_ENRLMT_BGN_DT",
+            "BENE_LINE_1_ADR",
+            "BENE_LINE_2_ADR",
+            "BENE_LINE_3_ADR",
+            "BENE_LINE_4_ADR",
+            "BENE_LINE_5_ADR",
+            "BENE_LINE_6_ADR",
+            "GEO_ZIP_PLC_NAME",
+            "GEO_USPS_STATE_CD",
+            "GEO_ZIP5_CD",
+            "GEO_ZIP4_CD",
+            "BENE_FIPS_CNTY_CD"
+          ],
           "columnPositions": [
             [
               1,
@@ -203,45 +237,16 @@
             [
               545,
               549
+            ],
+            [
+              545,
+              549
             ]
           ],
-          "columnNames": [
-            "BENE_MBI_ID",
-            "BENE_HIC_NUM",
-            "BENE_FIPS_STATE_CD",
-            "BENE_FIPS_CNTY_CD",
-            "BENE_ZIP_CD",
-            "BENE_DOB",
-            "BENE_SEX_CD",
-            "BENE_RACE_CD",
-            "BENE_AGE",
-            "BENE_MDCR_STUS_CD",
-            "BENE_DUAL_STUS_CD",
-            "BENE_DEATH_DT",
-            "BENE_RNG_BGN_DT",
-            "BENE_RNG_END_DT",
-            "BENE_1ST_NAME",
-            "BENE_MIDL_NAME",
-            "BENE_LAST_NAME",
-            "BENE_ORGNL_ENTLMT_RSN_CD",
-            "BENE_ENTLMT_BUYIN_IND",
-            "BENE_PART_A_ENRLMT_BGN_DT",
-            "BENE_PART_B_ENRLMT_BGN_DT",
-            "BENE_LINE_1_ADR",
-            "BENE_LINE_2_ADR",
-            "BENE_LINE_3_ADR",
-            "BENE_LINE_4_ADR",
-            "BENE_LINE_5_ADR",
-            "BENE_LINE_6_ADR",
-            "GEO_ZIP_PLC_NAME",
-            "GEO_USPS_STATE_CD",
-            "GEO_ZIP5_CD",
-            "GEO_ZIP4_CD"
-          ],
-          "nullValue": "",
           "lineSep": "\r\n",
-          "trimValues": true,
+          "nullValue": "",
           "skipLines": 0,
+          "trimValues": true,
           "inferSchema": true,
           "mode": "PERMISSIVE",
           "columnNameOfCorruptRecord": "corrupt_record"
@@ -326,7 +331,7 @@
             "is_required": true
           },
           {
-            "name": "BENE_FIPS_CNTY_CD",
+            "name": "BLANK",
             "type": "integer",
             "nullable": false,
             "is_required": true
@@ -534,6 +539,12 @@
             "type": "integer",
             "nullable": true,
             "is_required": false
+          },
+          {
+            "name": "BENE_FIPS_CNTY_CD",
+            "type": "integer",
+            "nullable": false,
+            "is_required": true
           }
         ],
         "ignore_columns": [
@@ -572,10 +583,10 @@
           "$ref": "#/targets/bronze_target_ref_cclf_8_obj888"
         },
         "write_options": {
+          "encrypt": "false",
           "truncate": false,
           "cascadeTruncate": false,
           "refreshKrb5Config": false,
-          "encrypt": "false",
           "trustServerCertificate": "false",
           "partitionBy": [
             "ingest_year",
@@ -625,7 +636,7 @@
       "atomic_commit_enabled": true,
       "group_id": 416,
       "expected_group_members": 1,
-      "group_run_id": "ref_cclf_8_20261009T124039Z"
+      "group_run_id": "ref_cclf_8_20261009T130717Z"
     }
   },
   "draft_pipeline_json": null,
