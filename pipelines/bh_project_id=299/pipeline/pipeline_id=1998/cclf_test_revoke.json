@@ -1,6 +1,6 @@
 {
   "created_at": "2026-10-12T08:21:56.743068Z",
-  "updated_at": "2026-10-12T08:56:22.485613Z",
+  "updated_at": "2026-10-12T12:05:45.361696Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -39,7 +39,7 @@
         "name": "bronze_pdacozcyd_db_connection_obj2456",
         "connection_type": "DatabricksDeltaLake",
         "catalog": "cinqdev",
-        "schema": "staging",
+        "schema": "bronze_claims",
         "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
         "connection_config_id": 185
       }
@@ -64,7 +64,7 @@
           "$ref": "#/connections/bronze_pdacozcyd_db_connection_obj2456"
         },
         "load_mode": "append",
-        "schema": "staging",
+        "schema": "bronze_claims",
         "data_src_id": 3440
       }
     },
@@ -780,7 +780,7 @@
       "atomic_commit_enabled": true,
       "group_id": 1003,
       "expected_group_members": 1,
-      "group_run_id": "cclf_test_revoke_20261012T085622Z"
+      "group_run_id": "cclf_test_revoke_20261012T120544Z"
     }
   },
   "draft_pipeline_json": null,

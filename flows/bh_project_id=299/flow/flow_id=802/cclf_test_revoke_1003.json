@@ -53,6 +53,18 @@
       },
       {
         "model": "FlowPipelineMapping",
+        "pk": 490,
+        "data": {
+          "flow_pipeline_mapping_id": 490,
+          "flow_id": 802,
+          "pipeline_id": 1904,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "FlowPipelineMapping",
         "pk": 489,
         "data": {
           "flow_pipeline_mapping_id": 489,
