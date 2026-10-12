@@ -1,0 +1,795 @@
+{
+  "created_at": "2026-10-12T08:21:56.743068Z",
+  "updated_at": "2026-10-12T08:56:22.485613Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 1998,
+  "pipeline_name": "cclf_test_revoke",
+  "pipeline_key": "cclf_test_revoke",
+  "bh_project_id": 299,
+  "notes": null,
+  "tags": null,
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": "flow-test-project",
+  "bh_github_username": "bh-sathish-git",
+  "pipeline_json": {
+    "name": "cclf_test_revoke",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "parameters": [
+      {
+        "key": "pdacozcyd",
+        "value": "cclf_testing/P.D0284.ACO.ZC1Y26.D260501.dat"
+      }
+    ],
+    "connections": {
+      "landing_pdacozcyd_file_connection_obj2456": {
+        "name": "landing_pdacozcyd_file_connection_obj2456",
+        "connection_type": "azure_blob",
+        "container_name": "my-test-bucket",
+        "file_path_prefix": "",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureblob-azureblob",
+        "connection_config_id": 186
+      },
+      "bronze_pdacozcyd_db_connection_obj2456": {
+        "name": "bronze_pdacozcyd_db_connection_obj2456",
+        "connection_type": "DatabricksDeltaLake",
+        "catalog": "cinqdev",
+        "schema": "staging",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure",
+        "connection_config_id": 185
+      }
+    },
+    "sources": {
+      "landing_source_pdacozcyd_obj2456": {
+        "name": "landing_source_pdacozcyd_obj2456",
+        "source_type": "File",
+        "file_name": "${pdacozcyd}",
+        "connection": {
+          "$ref": "#/connections/landing_pdacozcyd_file_connection_obj2456"
+        },
+        "data_src_id": 3439
+      }
+    },
+    "targets": {
+      "bronze_target_pdacozcyd_obj2456": {
+        "name": "bronze_target_pdacozcyd_obj2456",
+        "target_type": "Relational",
+        "table_name": "pdacozcyd",
+        "connection": {
+          "$ref": "#/connections/bronze_pdacozcyd_db_connection_obj2456"
+        },
+        "load_mode": "append",
+        "schema": "staging",
+        "data_src_id": 3440
+      }
+    },
+    "transformations": [
+      {
+        "name": "landing_read_pdacozcyd_obj2456",
+        "transformation": "Reader",
+        "source": {
+          "$ref": "#/sources/landing_source_pdacozcyd_obj2456"
+        },
+        "file_type": "FixedWidth",
+        "read_options": {
+          "fetch_size": 10000,
+          "encoding": "UTF-8",
+          "columnPositions": [
+            [
+              1,
+              13
+            ],
+            [
+              14,
+              19
+            ],
+            [
+              20,
+              30
+            ],
+            [
+              31,
+              41
+            ],
+            [
+              42,
+              43
+            ],
+            [
+              44,
+              53
+            ],
+            [
+              54,
+              63
+            ],
+            [
+              64,
+              64
+            ],
+            [
+              65,
+              65
+            ],
+            [
+              66,
+              72
+            ],
+            [
+              73,
+              79
+            ],
+            [
+              80,
+              81
+            ],
+            [
+              82,
+              98
+            ],
+            [
+              99,
+              99
+            ],
+            [
+              100,
+              101
+            ],
+            [
+              102,
+              103
+            ],
+            [
+              104,
+              107
+            ],
+            [
+              108,
+              108
+            ],
+            [
+              109,
+              118
+            ],
+            [
+              119,
+              128
+            ],
+            [
+              129,
+              138
+            ],
+            [
+              139,
+              148
+            ],
+            [
+              149,
+              150
+            ],
+            [
+              151,
+              160
+            ],
+            [
+              161,
+              170
+            ],
+            [
+              171,
+              181
+            ],
+            [
+              182,
+              183
+            ],
+            [
+              184,
+              185
+            ],
+            [
+              186,
+              186
+            ],
+            [
+              187,
+              187
+            ],
+            [
+              188,
+              188
+            ],
+            [
+              189,
+              203
+            ],
+            [
+              204,
+              218
+            ],
+            [
+              219,
+              240
+            ],
+            [
+              241,
+              255
+            ],
+            [
+              256,
+              270
+            ],
+            [
+              271,
+              292
+            ],
+            [
+              293,
+              312
+            ],
+            [
+              313,
+              322
+            ],
+            [
+              323,
+              332
+            ],
+            [
+              333,
+              342
+            ],
+            [
+              343,
+              352
+            ],
+            [
+              353,
+              392
+            ],
+            [
+              393,
+              432
+            ],
+            [
+              433,
+              437
+            ]
+          ],
+          "columnNames": [
+            "CUR_CLM_UNIQ_ID",
+            "PRVDR_OSCAR_NUM",
+            "BENE_MBI_ID",
+            "BENE_HIC_NUM",
+            "CLM_TYPE_CD",
+            "CLM_FROM_DT",
+            "CLM_THRU_DT",
+            "CLM_BILL_FAC_TYPE_CD",
+            "CLM_BILL_CLSFCTN_CD",
+            "PRNCPL_DGNS_CD",
+            "ADMTG_DGNS_CD",
+            "CLM_MDCR_NPMT_RSN_CD",
+            "CLM_PMT_AMT",
+            "CLM_NCH_PRMRY_PYR_CD",
+            "PRVDR_FAC_FIPS_ST_CD",
+            "BENE_PTNT_STUS_CD",
+            "DGNS_DRG_CD",
+            "CLM_OP_SRVC_TYPE_CD",
+            "FAC_PRVDR_NPI_NUM",
+            "OPRTG_PRVDR_NPI_NUM",
+            "ATNDG_PRVDR_NPI_NUM",
+            "OTHR_PRVDR_NPI_NUM",
+            "CLM_ADJSMT_TYPE_CD",
+            "CLM_EFCTV_DT",
+            "CLM_IDR_LD_DT",
+            "BENE_EQTBL_BIC_HICN_NUM",
+            "CLM_ADMSN_TYPE_CD",
+            "CLM_ADMSN_SRC_CD",
+            "CLM_BILL_FREQ_CD",
+            "CLM_QUERY_CD",
+            "DGNS_PRCDR_ICD_IND",
+            "CLM_MDCR_INSTNL_TOT_CHRG_AMT",
+            "CLM_MDCR_IP_PPS_CPTL_IME_AMT",
+            "CLM_OPRTNL_IME_AMT",
+            "CLM_MDCR_IP_PPS_DSPRPRTNT_AMT",
+            "CLM_HIPPS_UNCOMPD_CARE_AMT",
+            "CLM_OPRTNL_DSPRPRTNT_AMT",
+            "CLM_BLG_PRVDR_OSCAR_NUM",
+            "CLM_BLG_PRVDR_NPI_NUM",
+            "CLM_OPRTG_PRVDR_NPI_NUM",
+            "CLM_ATNDG_PRVDR_NPI_NUM",
+            "CLM_OTHR_PRVDR_NPI_NUM",
+            "CLM_CNTL_NUM",
+            "CLM_ORG_CNTL_NUM",
+            "CLM_CNTRCTR_NUM"
+          ],
+          "nullValue": "",
+          "lineSep": "\r\n",
+          "trimValues": true,
+          "skipLines": 0,
+          "inferSchema": true,
+          "mode": "PERMISSIVE",
+          "columnNameOfCorruptRecord": "corrupt_record"
+        },
+        "dependent_on": []
+      },
+      {
+        "name": "add_lineage_metadata_obj2456",
+        "transformation": "Expression",
+        "dependent_on": [
+          "landing_read_pdacozcyd_obj2456"
+        ],
+        "derived_fields": [
+          {
+            "name": "feed_name",
+            "expression": "'cclf_test_revoke'"
+          },
+          {
+            "name": "ingest_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "ingest_year",
+            "expression": "year(current_date())"
+          },
+          {
+            "name": "ingest_month",
+            "expression": "month(current_date())"
+          },
+          {
+            "name": "ingest_day",
+            "expression": "day(current_date())"
+          },
+          {
+            "name": "created_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "updated_ts",
+            "expression": "current_timestamp()"
+          },
+          {
+            "name": "corrupt_record",
+            "expression": "cast(null as string)"
+          },
+          {
+            "name": "batch_id",
+            "expression": "batch_id"
+          }
+        ]
+      },
+      {
+        "name": "schema_drift_guard_obj2456",
+        "transformation": "SchemaDriftGuard",
+        "dependent_on": [
+          "add_lineage_metadata_obj2456"
+        ],
+        "schema_version": "v1",
+        "rescued_column": "_rescued_data",
+        "raw_record_column": "_raw_record",
+        "detect_only": false,
+        "persist_quarantine_to_control": true,
+        "version": "1.0.0",
+        "engine_type": "pyspark",
+        "expected_schema": [
+          {
+            "name": "cur_clm_uniq_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "prvdr_oscar_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "bene_mbi_id",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "bene_hic_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_type_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_from_dt",
+            "type": "date",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_thru_dt",
+            "type": "date",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_bill_fac_type_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_bill_clsfctn_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "prncpl_dgns_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "admtg_dgns_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_mdcr_npmt_rsn_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_pmt_amt",
+            "type": "decimal(38,10)",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_nch_prmry_pyr_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "prvdr_fac_fips_st_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "bene_ptnt_stus_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "dgns_drg_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_op_srvc_type_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "fac_prvdr_npi_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "oprtg_prvdr_npi_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "atndg_prvdr_npi_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "othr_prvdr_npi_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_adjsmt_type_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_efctv_dt",
+            "type": "date",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_idr_ld_dt",
+            "type": "date",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "bene_eqtbl_bic_hicn_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_admsn_type_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_admsn_src_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_bill_freq_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_query_cd",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "dgns_prcdr_icd_ind",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_mdcr_instnl_tot_chrg_amt",
+            "type": "decimal(38,10)",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_mdcr_ip_pps_cptl_ime_amt",
+            "type": "decimal(38,10)",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_oprtnl_ime_amt",
+            "type": "decimal(38,10)",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_mdcr_ip_pps_dsprprtnt_amt",
+            "type": "decimal(38,10)",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_hipps_uncompd_care_amt",
+            "type": "decimal(38,10)",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_oprtnl_dsprprtnt_amt",
+            "type": "decimal(38,10)",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_blg_prvdr_oscar_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_blg_prvdr_npi_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_oprtg_prvdr_npi_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_atndg_prvdr_npi_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_othr_prvdr_npi_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_cntl_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_org_cntl_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "clm_cntrctr_num",
+            "type": "string",
+            "nullable": false,
+            "is_required": true
+          },
+          {
+            "name": "corrupt_record",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "feed_name",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_year",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_month",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          },
+          {
+            "name": "ingest_day",
+            "type": "integer",
+            "nullable": true,
+            "is_required": false
+          }
+        ],
+        "ignore_columns": [
+          "_raw_record",
+          "_rescued_data",
+          "batch_id",
+          "corrupt_record",
+          "created_ts",
+          "dq_failed_rules",
+          "feed_name",
+          "file_date",
+          "ingest_day",
+          "ingest_month",
+          "ingest_ts",
+          "ingest_year",
+          "ingestion_ts",
+          "source_file_name",
+          "source_row_number",
+          "updated_ts"
+        ],
+        "dataset_id": "pdacozcyd",
+        "drift_policy": {
+          "new_column": "rescue",
+          "missing_required_column": "fail_batch",
+          "missing_optional_column": "accept",
+          "type_mismatch_required": "quarantine_record",
+          "type_mismatch_optional": "rescue"
+        }
+      },
+      {
+        "name": "bronze_write_pdacozcyd_obj2456",
+        "transformation": "Writer",
+        "dependent_on": [
+          "schema_drift_guard_obj2456"
+        ],
+        "target": {
+          "$ref": "#/targets/bronze_target_pdacozcyd_obj2456"
+        },
+        "write_options": {
+          "truncate": false,
+          "cascadeTruncate": false,
+          "refreshKrb5Config": false,
+          "encrypt": "false",
+          "trustServerCertificate": "false",
+          "partitionBy": [
+            "ingest_year",
+            "ingest_month",
+            "ingest_day",
+            "batch_id"
+          ]
+        }
+      }
+    ],
+    "description": "File to DB Ingestion V3 for pdacozcyd_obj2456",
+    "batch_control": {
+      "enabled": true,
+      "feed_name": "cclf_test_revoke",
+      "business_date": "2026-10-12",
+      "delivery_id": "cclf_test_revoke_2026-10-12",
+      "batch_id": 1,
+      "use_existing_batch_id": false,
+      "validate_existing_batch": true,
+      "require_input_acceptance": true,
+      "auto_accept_input_on_batch_init": true,
+      "input_registry_processed_on_stage": "bronze",
+      "seed_stage_rows": true,
+      "stages": [
+        "bronze"
+      ],
+      "storage": {
+        "connection": {
+          "name": "control_delta",
+          "connection_type": "DatabricksDeltaLake"
+        },
+        "namespace": {
+          "catalog": "cinqdev",
+          "schema": "control"
+        }
+      },
+      "stage_to_transformations": {
+        "bronze": [
+          "landing_read_pdacozcyd_obj2456",
+          "add_lineage_metadata_obj2456",
+          "schema_drift_guard_obj2456",
+          "bronze_write_pdacozcyd_obj2456"
+        ]
+      },
+      "error_threshold_pct": 50.0,
+      "run_scope": "GROUP",
+      "atomic_commit_enabled": true,
+      "group_id": 1003,
+      "expected_group_members": 1,
+      "group_run_id": "cclf_test_revoke_20261012T085622Z"
+    }
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": "design",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
