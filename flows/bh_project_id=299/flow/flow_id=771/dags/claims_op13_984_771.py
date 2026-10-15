@@ -128,6 +128,144 @@ with DAG(
         "compute_task_id": "create_compute",
         "job_config": {
             "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_run_pipelines_safeharborfideliscareprodopclaimheaderfullcinqdownstate_984_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=2005/safeharborfideliscareprodopclaimheaderfullcinqdownstate_984.json",
+                "databricks",
+                "/Workspace/Shared/dev-utils/schemas"
+            ]
+        },
+        "ingestion_group_id": 984,
+        "flow_id": 771,
+        "pipeline_id": "2005",
+        "feed_name": "claims_op13",
+        "validate_inbound_task_id": "validate_inbound_files",
+        "facts_source": "databricks",
+        "pipeline_name": "safeharborfideliscareprodopclaimheaderfullcinqdownstate_984",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
+        "airflow_connection_id": "databricks_default",
+        "pipeline_key": "safeharborfideliscareprodopclaimheaderfullcinqdownstate_984",
+        "bh_project_id": 299,
+        "project_id": 299,
+        "project_name": "flow-test-project",
+        "compute_xcom_key": "return_value",
+        "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
+        "pool_enabled": True,
+        "pool_heartbeat_interval_seconds": 120,
+        "pool_release_lease": False
+    }
+    run_pipelines_safeharborfideliscareprodopclaimheaderfullcinqdownstate_984 = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='run_pipelines_safeharborfideliscareprodopclaimheaderfullcinqdownstate_984',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=feed_control_callbacks.submit_job_success_callback,
+        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.compute_pool.databricks_tasks import submit_job_to_cluster
+
+    _submit_params = {
+        "compute_task_id": "create_compute",
+        "job_config": {
+            "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_run_pipelines_safeharborfideliscareprodopclaimlinefullcinqdownstate_984_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=2006/safeharborfideliscareprodopclaimlinefullcinqdownstate_984.json",
+                "databricks",
+                "/Workspace/Shared/dev-utils/schemas"
+            ]
+        },
+        "ingestion_group_id": 984,
+        "flow_id": 771,
+        "pipeline_id": "2006",
+        "feed_name": "claims_op13",
+        "validate_inbound_task_id": "validate_inbound_files",
+        "facts_source": "databricks",
+        "pipeline_name": "safeharborfideliscareprodopclaimlinefullcinqdownstate_984",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
+        "airflow_connection_id": "databricks_default",
+        "pipeline_key": "safeharborfideliscareprodopclaimlinefullcinqdownstate_984",
+        "bh_project_id": 299,
+        "project_id": 299,
+        "project_name": "flow-test-project",
+        "compute_xcom_key": "return_value",
+        "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
+        "pool_enabled": True,
+        "pool_heartbeat_interval_seconds": 120,
+        "pool_release_lease": False
+    }
+    run_pipelines_safeharborfideliscareprodopclaimlinefullcinqdownstate_984 = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='run_pipelines_safeharborfideliscareprodopclaimlinefullcinqdownstate_984',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=feed_control_callbacks.submit_job_success_callback,
+        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.compute_pool.databricks_tasks import submit_job_to_cluster
+
+    _submit_params = {
+        "compute_task_id": "create_compute",
+        "job_config": {
+            "job_type": "spark_python",
+            "name": "{{ dag.dag_id }}_run_pipelines_pharmacy_silver_ods_updated_{{ ts_nodash }}",
+            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
+            "parameters": [
+                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1904/pharmacy_silver_ods_updated.json",
+                "databricks",
+                "/Workspace/Shared/dev-utils/schemas"
+            ]
+        },
+        "ingestion_group_id": 984,
+        "flow_id": 771,
+        "pipeline_id": "1904",
+        "feed_name": "claims_op13",
+        "validate_inbound_task_id": "validate_inbound_files",
+        "facts_source": "databricks",
+        "pipeline_name": "pharmacy_silver_ods_updated",
+        "run_data_quality_rules": False,
+        "dq_rules_source": "git",
+        "airflow_connection_id": "databricks_default",
+        "pipeline_key": "pharmacy_silver_ods_updated",
+        "bh_project_id": 299,
+        "project_id": 299,
+        "project_name": "flow-test-project",
+        "compute_xcom_key": "return_value",
+        "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
+        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
+        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
+        "pool_enabled": True,
+        "pool_heartbeat_interval_seconds": 120,
+        "pool_release_lease": False
+    }
+    run_pipelines_pharmacy_silver_ods_updated = PythonOperator(
+        pre_execute=common_task.pre_execute_callback,
+        task_id='run_pipelines_pharmacy_silver_ods_updated',
+        python_callable=submit_job_to_cluster,
+        params=_submit_params,
+        on_success_callback=feed_control_callbacks.submit_job_success_callback,
+        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
+    )
+
+    from airflow.operators.python import PythonOperator
+    from airflow_plugins.compute_pool.databricks_tasks import submit_job_to_cluster
+
+    _submit_params = {
+        "compute_task_id": "create_compute",
+        "job_config": {
+            "job_type": "spark_python",
             "name": "{{ dag.dag_id }}_run_pipelines_claims_op13_{{ ts_nodash }}",
             "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
             "parameters": [
@@ -202,57 +340,11 @@ with DAG(
         "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
         "pool_enabled": True,
         "pool_heartbeat_interval_seconds": 120,
-        "pool_release_lease": False
+        "pool_release_lease": True
     }
     run_pipelines_silver_raw_fidelis_claims_to_pharmacy_pipeline_260928_afb9 = PythonOperator(
         pre_execute=common_task.pre_execute_callback,
         task_id='run_pipelines_silver_raw_fidelis_claims_to_pharmacy_pipeline_260928_afb9',
-        python_callable=submit_job_to_cluster,
-        params=_submit_params,
-        on_success_callback=feed_control_callbacks.submit_job_success_callback,
-        on_failure_callback=feed_control_callbacks.submit_job_failure_callback,
-    )
-
-    from airflow.operators.python import PythonOperator
-    from airflow_plugins.compute_pool.databricks_tasks import submit_job_to_cluster
-
-    _submit_params = {
-        "compute_task_id": "create_compute",
-        "job_config": {
-            "job_type": "spark_python",
-            "name": "{{ dag.dag_id }}_run_pipelines_pharmacy_silver_ods_updated_{{ ts_nodash }}",
-            "python_file": "/Workspace/Shared/dev-utils/pipelines/main.py",
-            "parameters": [
-                "/Workspace/Shared/codespace/pipelines/bh_project_id=299/pipeline/pipeline_id=1904/pharmacy_silver_ods_updated.json",
-                "databricks",
-                "/Workspace/Shared/dev-utils/schemas"
-            ]
-        },
-        "ingestion_group_id": 984,
-        "flow_id": 771,
-        "pipeline_id": "1904",
-        "feed_name": "claims_op13",
-        "validate_inbound_task_id": "validate_inbound_files",
-        "facts_source": "databricks",
-        "pipeline_name": "pharmacy_silver_ods_updated",
-        "run_data_quality_rules": False,
-        "dq_rules_source": "git",
-        "airflow_connection_id": "databricks_default",
-        "pipeline_key": "pharmacy_silver_ods_updated",
-        "bh_project_id": 299,
-        "project_id": 299,
-        "project_name": "flow-test-project",
-        "compute_xcom_key": "return_value",
-        "valid_files": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='valid_files') }}",
-        "batch_id": "{{ task_instance.xcom_pull(task_ids='validate_inbound_files', key='batch_id') }}",
-        "batch_control": "{{ ti.xcom_pull(task_ids='validate_inbound_files', key='batch_control') }}",
-        "pool_enabled": True,
-        "pool_heartbeat_interval_seconds": 120,
-        "pool_release_lease": True
-    }
-    run_pipelines_pharmacy_silver_ods_updated = PythonOperator(
-        pre_execute=common_task.pre_execute_callback,
-        task_id='run_pipelines_pharmacy_silver_ods_updated',
         python_callable=submit_job_to_cluster,
         params=_submit_params,
         on_success_callback=feed_control_callbacks.submit_job_success_callback,
@@ -517,12 +609,16 @@ with DAG(
 
     start_flow_task >> validate_inbound_files
     validate_inbound_files >> create_compute
+    create_compute >> run_pipelines_safeharborfideliscareprodopclaimheaderfullcinqdownstate_984
+    run_pipelines_safeharborfideliscareprodopclaimheaderfullcinqdownstate_984 >> run_pipelines_safeharborfideliscareprodopclaimlinefullcinqdownstate_984
+    create_compute >> run_pipelines_safeharborfideliscareprodopclaimlinefullcinqdownstate_984
+    run_pipelines_safeharborfideliscareprodopclaimlinefullcinqdownstate_984 >> run_pipelines_pharmacy_silver_ods_updated
+    create_compute >> run_pipelines_pharmacy_silver_ods_updated
+    run_pipelines_pharmacy_silver_ods_updated >> run_pipelines_claims_op13
     create_compute >> run_pipelines_claims_op13
     run_pipelines_claims_op13 >> run_pipelines_silver_raw_fidelis_claims_to_pharmacy_pipeline_260928_afb9
     create_compute >> run_pipelines_silver_raw_fidelis_claims_to_pharmacy_pipeline_260928_afb9
-    run_pipelines_silver_raw_fidelis_claims_to_pharmacy_pipeline_260928_afb9 >> run_pipelines_pharmacy_silver_ods_updated
-    create_compute >> run_pipelines_pharmacy_silver_ods_updated
-    run_pipelines_pharmacy_silver_ods_updated >> archive_processed_files
+    run_pipelines_silver_raw_fidelis_claims_to_pharmacy_pipeline_260928_afb9 >> archive_processed_files
     archive_processed_files >> delete_compute
     create_compute >> delete_compute
     delete_compute >> end_flow_task
