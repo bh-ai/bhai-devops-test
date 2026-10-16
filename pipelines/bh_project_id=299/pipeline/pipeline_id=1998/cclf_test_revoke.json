@@ -1,6 +1,6 @@
 {
   "created_at": "2026-10-12T08:21:56.743068Z",
-  "updated_at": "2026-10-12T14:06:42.467372Z",
+  "updated_at": "2026-10-16T12:34:56.522424Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -77,56 +77,8 @@
         },
         "file_type": "FixedWidth",
         "read_options": {
-          "encoding": "UTF-8",
           "fetch_size": 10000,
-          "columnNames": [
-            "CUR_CLM_UNIQ_ID",
-            "PRVDR_OSCAR_NUM",
-            "BENE_MBI_ID",
-            "BLANK",
-            "CLM_TYPE_CD",
-            "CLM_FROM_DT",
-            "CLM_THRU_DT",
-            "CLM_BILL_FAC_TYPE_CD",
-            "CLM_BILL_CLSFCTN_CD",
-            "PRNCPL_DGNS_CD",
-            "ADMTG_DGNS_CD",
-            "CLM_MDCR_NPMT_RSN_CD",
-            "CLM_PMT_AMT",
-            "CLM_NCH_PRMRY_PYR_CD",
-            "PRVDR_FAC_FIPS_ST_CD",
-            "BENE_PTNT_STUS_CD",
-            "DGNS_DRG_CD",
-            "CLM_OP_SRVC_TYPE_CD",
-            "FAC_PRVDR_NPI_NUM",
-            "OPRTG_PRVDR_NPI_NUM",
-            "ATNDG_PRVDR_NPI_NUM",
-            "OTHR_PRVDR_NPI_NUM",
-            "CLM_ADJSMT_TYPE_CD",
-            "CLM_EFCTV_DT",
-            "CLM_IDR_LD_DT",
-            "BENE_EQTBL_BIC_HICN_NUM",
-            "CLM_ADMSN_TYPE_CD",
-            "CLM_ADMSN_SRC_CD",
-            "CLM_BILL_FREQ_CD",
-            "CLM_QUERY_CD",
-            "DGNS_PRCDR_ICD_IND",
-            "CLM_MDCR_INSTNL_TOT_CHRG_AMT",
-            "CLM_MDCR_IP_PPS_CPTL_IME_AMT",
-            "CLM_OPRTNL_IME_AMT",
-            "CLM_MDCR_IP_PPS_DSPRPRTNT_AMT",
-            "CLM_HIPPS_UNCOMPD_CARE_AMT",
-            "CLM_OPRTNL_DSPRPRTNT_AMT",
-            "CLM_BLG_PRVDR_OSCAR_NUM",
-            "CLM_BLG_PRVDR_NPI_NUM",
-            "CLM_OPRTG_PRVDR_NPI_NUM",
-            "CLM_ATNDG_PRVDR_NPI_NUM",
-            "CLM_OTHR_PRVDR_NPI_NUM",
-            "CLM_CNTL_NUM",
-            "CLM_ORG_CNTL_NUM",
-            "CLM_CNTRCTR_NUM",
-            "BENE_HIC_NUM"
-          ],
+          "encoding": "UTF-8",
           "columnPositions": [
             [
               1,
@@ -309,14 +261,62 @@
               437
             ],
             [
-              31,
-              41
+              438,
+              450
             ]
           ],
-          "lineSep": "\r\n",
+          "columnNames": [
+            "CUR_CLM_UNIQ_ID",
+            "PRVDR_OSCAR_NUM",
+            "BENE_MBI_ID",
+            "BLANK",
+            "CLM_TYPE_CD",
+            "CLM_FROM_DT",
+            "CLM_THRU_DT",
+            "CLM_BILL_FAC_TYPE_CD",
+            "CLM_BILL_CLSFCTN_CD",
+            "PRNCPL_DGNS_CD",
+            "ADMTG_DGNS_CD",
+            "CLM_MDCR_NPMT_RSN_CD",
+            "CLM_PMT_AMT",
+            "CLM_NCH_PRMRY_PYR_CD",
+            "PRVDR_FAC_FIPS_ST_CD",
+            "BENE_PTNT_STUS_CD",
+            "DGNS_DRG_CD",
+            "CLM_OP_SRVC_TYPE_CD",
+            "FAC_PRVDR_NPI_NUM",
+            "OPRTG_PRVDR_NPI_NUM",
+            "ATNDG_PRVDR_NPI_NUM",
+            "OTHR_PRVDR_NPI_NUM",
+            "CLM_ADJSMT_TYPE_CD",
+            "CLM_EFCTV_DT",
+            "CLM_IDR_LD_DT",
+            "BENE_EQTBL_BIC_HICN_NUM",
+            "CLM_ADMSN_TYPE_CD",
+            "CLM_ADMSN_SRC_CD",
+            "CLM_BILL_FREQ_CD",
+            "CLM_QUERY_CD",
+            "DGNS_PRCDR_ICD_IND",
+            "CLM_MDCR_INSTNL_TOT_CHRG_AMT",
+            "CLM_MDCR_IP_PPS_CPTL_IME_AMT",
+            "CLM_OPRTNL_IME_AMT",
+            "CLM_MDCR_IP_PPS_DSPRPRTNT_AMT",
+            "CLM_HIPPS_UNCOMPD_CARE_AMT",
+            "CLM_OPRTNL_DSPRPRTNT_AMT",
+            "CLM_BLG_PRVDR_OSCAR_NUM",
+            "CLM_BLG_PRVDR_NPI_NUM",
+            "CLM_OPRTG_PRVDR_NPI_NUM",
+            "CLM_ATNDG_PRVDR_NPI_NUM",
+            "CLM_OTHR_PRVDR_NPI_NUM",
+            "CLM_CNTL_NUM",
+            "CLM_ORG_CNTL_NUM",
+            "CLM_CNTRCTR_NUM",
+            "BENE_HIC_NUM"
+          ],
           "nullValue": "",
-          "skipLines": 0,
+          "lineSep": "\r\n",
           "trimValues": true,
+          "skipLines": 0,
           "inferSchema": true,
           "mode": "PERMISSIVE",
           "columnNameOfCorruptRecord": "corrupt_record"
@@ -653,6 +653,12 @@
             "is_required": true
           },
           {
+            "name": "bene_hic_num",
+            "type": "string",
+            "nullable": true,
+            "is_required": false
+          },
+          {
             "name": "corrupt_record",
             "type": "string",
             "nullable": true,
@@ -691,12 +697,6 @@
           {
             "name": "ingest_day",
             "type": "integer",
-            "nullable": true,
-            "is_required": false
-          },
-          {
-            "name": "bene_hic_num",
-            "type": "string",
             "nullable": true,
             "is_required": false
           }
@@ -738,10 +738,10 @@
           "$ref": "#/targets/bronze_target_pdacozcyd_obj2456"
         },
         "write_options": {
-          "encrypt": "false",
           "truncate": false,
           "cascadeTruncate": false,
           "refreshKrb5Config": false,
+          "encrypt": "false",
           "trustServerCertificate": "false",
           "partitionBy": [
             "ingest_year",
@@ -756,8 +756,8 @@
     "batch_control": {
       "enabled": true,
       "feed_name": "cclf_test_revoke",
-      "business_date": "2026-10-12",
-      "delivery_id": "cclf_test_revoke_2026-10-12",
+      "business_date": "2026-10-16",
+      "delivery_id": "cclf_test_revoke_2026-10-16",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
@@ -791,7 +791,7 @@
       "atomic_commit_enabled": true,
       "group_id": 1003,
       "expected_group_members": 1,
-      "group_run_id": "cclf_test_revoke_20261012T140641Z"
+      "group_run_id": "cclf_test_revoke_20261016T123455Z"
     }
   },
   "draft_pipeline_json": null,
