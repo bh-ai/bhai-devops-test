@@ -67,7 +67,7 @@ with DAG(
         "sources": [
             {
                 "source_name": "safeharborfideliscareprodopclaimheaderfullcinqdownstate",
-                "prefix": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP",
+                "prefix": "bhargs/3-Claims/3-Claims/Fidelis/Downstate/OP_1",
                 "filename_regex": "^safeharbor_FidelisCare_Prod_OPClaimHeader_FULL_CINQDOWNSTATE_[0-9]{8}_[0-9]{8}[.]txt$",
                 "ignore_subfolders": True,
                 "is_required": True,

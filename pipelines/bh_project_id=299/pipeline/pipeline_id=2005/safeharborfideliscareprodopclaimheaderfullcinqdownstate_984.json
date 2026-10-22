@@ -1,6 +1,6 @@
 {
   "created_at": "2026-10-15T12:53:14.482108Z",
-  "updated_at": "2026-10-15T12:53:14.482108Z",
+  "updated_at": "2026-10-22T14:29:33.914193Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -118,7 +118,7 @@
         "derived_fields": [
           {
             "name": "feed_name",
-            "expression": "'safeharborfideliscareprodopclaimheaderfullcinqdownstate'"
+            "expression": "'claims_op13'"
           },
           {
             "name": "ingest_ts",
@@ -714,16 +714,17 @@
             "ingest_month",
             "ingest_day",
             "batch_id"
-          ]
+          ],
+          "mergeSchema": true
         }
       }
     ],
     "description": "File to DB Ingestion V3 for safeharborfideliscareprodopclaimheaderfullcinqdownstate_984",
     "batch_control": {
       "enabled": true,
-      "feed_name": "safeharborfideliscareprodopclaimheaderfullcinqdownstate",
-      "business_date": "2026-10-15",
-      "delivery_id": "safeharborfideliscareprodopclaimheaderfullcinqdownstate_2026-10-15",
+      "feed_name": "claims_op13",
+      "business_date": "2026-10-22",
+      "delivery_id": "safeharborfideliscareprodopclaimheaderfullcinqdownstate_2026-10-22",
       "batch_id": 1,
       "use_existing_batch_id": false,
       "validate_existing_batch": true,
