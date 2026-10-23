@@ -1,0 +1,460 @@
+{
+  "created_at": "2026-10-23T05:18:33.099173Z",
+  "updated_at": "2026-10-23T05:24:37.811378Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "pipeline_id": 2032,
+  "pipeline_name": "demo-001",
+  "pipeline_key": "demo_001",
+  "bh_project_id": 299,
+  "notes": "",
+  "tags": {},
+  "status": "active",
+  "pipeline_version_id": null,
+  "bh_project_name": null,
+  "bh_github_username": null,
+  "pipeline_json": {
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "name": "demo_001",
+    "description": "Requirement Pipeline",
+    "version": "1.0.0",
+    "engine_type": "pyspark",
+    "mode": "ENGINE",
+    "parameters": [],
+    "connections": {
+      "postgres-azure": {
+        "connection_config_id": 184,
+        "name": "postgres-azure",
+        "connection_config_name": "postgres-azure",
+        "connection_type": "PostgreSQL",
+        "database": "sample_db",
+        "schema": "consumer_demo",
+        "driver": "org.postgresql.Driver",
+        "host": "4.227.38.66",
+        "port": "5434",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-postgres-postgresazure"
+      }
+    },
+    "sources": {
+      "store_order_items": {
+        "data_src_id": 852,
+        "name": "store_order_items",
+        "source_type": "Relational",
+        "table_name": "store_order_items",
+        "connection": {
+          "$ref": "#/connections/postgres-azure"
+        },
+        "fields": [
+          "order_id",
+          "order_date",
+          "store_id",
+          "product_id",
+          "units",
+          "unit_price",
+          "discount_amount",
+          "status"
+        ],
+        "schema": [
+          {
+            "name": "order_id",
+            "type": "integer",
+            "nullable": false
+          },
+          {
+            "name": "order_date",
+            "type": "date",
+            "nullable": false
+          },
+          {
+            "name": "store_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "product_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "units",
+            "type": "integer",
+            "nullable": false
+          },
+          {
+            "name": "unit_price",
+            "type": "decimal(10,2)",
+            "nullable": false
+          },
+          {
+            "name": "discount_amount",
+            "type": "decimal(10,2)",
+            "nullable": false
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "nullable": false
+          }
+        ],
+        "db_schema": "consumer_demo"
+      }
+    },
+    "targets": {
+      "sales_orders_clean": {
+        "data_src_id": 844,
+        "name": "sales_orders_clean",
+        "target_type": "Relational",
+        "table_name": "sales_orders_clean",
+        "load_mode": "overwrite",
+        "connection": {
+          "$ref": "#/connections/postgres-azure"
+        },
+        "schema": "consumer_demo",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": "Integer",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "order_date",
+            "type": "Date",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "store_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "product_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "units",
+            "type": "Integer",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "unit_price",
+            "type": "Decimal",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "discount_amount",
+            "type": "Decimal",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "net_sales",
+            "type": "Decimal",
+            "nullable": false,
+            "is_pk": false
+          }
+        ]
+      },
+      "quarantine_store_order_items": {
+        "data_src_id": 844,
+        "name": "quarantine_store_order_items",
+        "target_type": "Relational",
+        "table_name": "quarantine_store_order_items",
+        "load_mode": "overwrite",
+        "connection": {
+          "$ref": "#/connections/postgres-azure"
+        },
+        "schema": "consumer_demo",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": "Integer",
+            "nullable": false,
+            "is_pk": true
+          },
+          {
+            "name": "order_date",
+            "type": "Date",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "store_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "product_id",
+            "type": "String",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "units",
+            "type": "Integer",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "unit_price",
+            "type": "Decimal",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "discount_amount",
+            "type": "Decimal",
+            "nullable": false,
+            "is_pk": false
+          },
+          {
+            "name": "net_sales",
+            "type": "Decimal",
+            "nullable": false,
+            "is_pk": false
+          }
+        ]
+      }
+    },
+    "transformations": [
+      {
+        "name": "store_order_items",
+        "transformation": "Reader",
+        "dependent_on": [],
+        "source": {
+          "$ref": "#/sources/store_order_items"
+        },
+        "rename_columns": {
+          "order_id": "order_id_src_1",
+          "order_date": "order_date_src_1",
+          "store_id": "store_id_src_1",
+          "product_id": "product_id_src_1",
+          "units": "units_src_1",
+          "unit_price": "unit_price_src_1",
+          "discount_amount": "discount_amount_src_1",
+          "status": "status_src_1"
+        },
+        "schema": [
+          {
+            "name": "order_id",
+            "type": "integer",
+            "nullable": false
+          },
+          {
+            "name": "order_date",
+            "type": "date",
+            "nullable": false
+          },
+          {
+            "name": "store_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "product_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "units",
+            "type": "integer",
+            "nullable": false
+          },
+          {
+            "name": "unit_price",
+            "type": "decimal(10,2)",
+            "nullable": false
+          },
+          {
+            "name": "discount_amount",
+            "type": "decimal(10,2)",
+            "nullable": false
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "nullable": false
+          }
+        ],
+        "read_options": {
+          "dbtable": "store_order_items"
+        }
+      },
+      {
+        "name": "dq_checks_store_order_items",
+        "transformation": "DataQuality",
+        "dependent_on": [
+          "store_order_items"
+        ],
+        "dq_rules": [
+          {
+            "rule_name": "Order Date Not Null",
+            "column_type": "string",
+            "action": "error",
+            "column": "order_date_src_1",
+            "rule_type": "notnull",
+            "template_name": "NOT_NULL",
+            "rule_family": "QUALITY",
+            "source_type": "file",
+            "single_column": true
+          },
+          {
+            "rule_name": "Product ID Not Null Check",
+            "column_type": "string",
+            "action": "error",
+            "column": "product_id_src_1",
+            "rule_type": "minlength",
+            "value": 1,
+            "template_name": "NOT_NULL_OR_EMPTY",
+            "rule_family": "QUALITY",
+            "source_type": "file",
+            "single_column": true
+          }
+        ]
+      },
+      {
+        "name": "sales_orders_clean",
+        "transformation": "Writer",
+        "dependent_on": [
+          "sales_orders_clean_final"
+        ],
+        "target": {
+          "$ref": "#/targets/sales_orders_clean"
+        },
+        "write_options": {
+          "mode": "overwrite",
+          "dbtable": "sales_orders_clean"
+        }
+      },
+      {
+        "name": "sales_orders_clean_final",
+        "transformation": "Expression",
+        "dependent_on": [
+          "ComputeNetSalesAndRename"
+        ],
+        "rename_columns": {},
+        "select_columns": [
+          "order_id",
+          "order_date",
+          "store_id",
+          "product_id",
+          "units",
+          "unit_price",
+          "discount_amount",
+          "net_sales",
+          "order_id_src_1",
+          "order_date_src_1",
+          "store_id_src_1",
+          "product_id_src_1",
+          "units_src_1",
+          "unit_price_src_1",
+          "discount_amount_src_1"
+        ]
+      },
+      {
+        "name": "FilterFulfilledOrders",
+        "transformation": "Filter",
+        "dependent_on": [
+          "dq_checks_store_order_items"
+        ],
+        "condition": "status_src_1 IN ('SHIPPED', 'RETURNED')"
+      },
+      {
+        "name": "ComputeNetSalesAndRename",
+        "transformation": "Expression",
+        "dependent_on": [
+          "FilterFulfilledOrders"
+        ],
+        "derived_fields": [
+          {
+            "name": "net_sales",
+            "expression": "ROUND((units_src_1 * unit_price_src_1) - discount_amount_src_1, 2)"
+          },
+          {
+            "name": "order_id",
+            "expression": "order_id_src_1"
+          },
+          {
+            "name": "order_date",
+            "expression": "order_date_src_1"
+          },
+          {
+            "name": "store_id",
+            "expression": "store_id_src_1"
+          },
+          {
+            "name": "product_id",
+            "expression": "product_id_src_1"
+          },
+          {
+            "name": "units",
+            "expression": "units_src_1"
+          },
+          {
+            "name": "unit_price",
+            "expression": "unit_price_src_1"
+          },
+          {
+            "name": "discount_amount",
+            "expression": "discount_amount_src_1"
+          }
+        ],
+        "select_columns": [
+          "net_sales",
+          "order_id_src_1",
+          "order_date_src_1",
+          "store_id_src_1",
+          "product_id_src_1",
+          "units_src_1",
+          "unit_price_src_1",
+          "discount_amount_src_1",
+          "order_id_src_1",
+          "order_date_src_1",
+          "store_id_src_1",
+          "product_id_src_1",
+          "units_src_1",
+          "unit_price_src_1",
+          "discount_amount_src_1"
+        ]
+      },
+      {
+        "name": "quarantine_store_order_items",
+        "transformation": "Writer",
+        "dependent_on": [
+          "dq_checks_store_order_items"
+        ],
+        "target": {
+          "$ref": "#/targets/quarantine_store_order_items"
+        },
+        "write_options": {
+          "mode": "overwrite",
+          "dbtable": "quarantine_store_order_items"
+        },
+        "input_selection": {
+          "dq_checks_store_order_items": [
+            "dq_checks_store_order_items_err_recs"
+          ]
+        }
+      }
+    ]
+  },
+  "draft_pipeline_json": null,
+  "pipeline_type": "requirement",
+  "engine_type": "pyspark",
+  "total_test_scenario": null,
+  "passed_test": null,
+  "failed_test": null,
+  "sme_recommendations_count": null,
+  "process_status": null,
+  "pipeline_parameters": []
+}
