@@ -3,4 +3,4 @@ main:
     feeds:
       - ingestiongroup1008b
       - ingestiongroup1607a
-      - demo-001
+      - demo_001
