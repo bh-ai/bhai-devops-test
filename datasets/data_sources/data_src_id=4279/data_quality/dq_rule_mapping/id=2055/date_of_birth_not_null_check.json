@@ -1,0 +1,143 @@
+{
+  "id": 2055,
+  "rule_definition_id": 7,
+  "rule_id_backup": 1,
+  "data_source_id": 4279,
+  "dq_asset_id": null,
+  "name": "date_of_birth \u00b7 Not Null Check",
+  "description": "Not Null Check on member.date_of_birth",
+  "is_active": true,
+  "tags": {},
+  "action": "RECORD",
+  "treatment_expression": null,
+  "created_at": "2026-10-26T09:51:20.932239Z",
+  "updated_at": "2026-10-26T09:51:20.932239Z",
+  "created_by": "sathish@bighammer.ai",
+  "updated_by": "sathish@bighammer.ai",
+  "is_deleted": false,
+  "deleted_by": null,
+  "tenant_id": 220,
+  "rule_template": "WITH null_count AS (SELECT COUNT(*) AS total_nulls FROM {database_name}.{schema_name}.{table_name} WHERE {column_name} IS NULL AND {additional_filters}), overall_count AS (SELECT COUNT(*) AS total_rows FROM {database_name}.{schema_name}.{table_name} WHERE {additional_filters}) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN try_divide((total_rows - total_nulls) * 100.0, total_rows) >= {tolerance(%)} THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;",
+  "parent_type": "data_source",
+  "parent_id": 4279,
+  "parent_name": "member",
+  "_graph": {
+    "root": {
+      "model": "DqRuleMapping",
+      "pk": 2055
+    },
+    "nodes": [
+      {
+        "model": "DqRuleMapping",
+        "pk": 2055,
+        "data": {
+          "id": 2055,
+          "rule_definition_id": 7,
+          "rule_id_backup": 1,
+          "data_source_id": 4279,
+          "dq_asset_id": null,
+          "name": "date_of_birth \u00b7 Not Null Check",
+          "description": "Not Null Check on member.date_of_birth",
+          "is_active": true,
+          "tags": {},
+          "action": "RECORD",
+          "treatment_expression": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13290,
+        "data": {
+          "id": 13290,
+          "rule_mapping_id": 2055,
+          "parameter_id": 4,
+          "value": "date_of_birth",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13289,
+        "data": {
+          "id": 13289,
+          "rule_mapping_id": 2055,
+          "parameter_id": 3,
+          "value": "member",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13288,
+        "data": {
+          "id": 13288,
+          "rule_mapping_id": 2055,
+          "parameter_id": 6,
+          "value": "0",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13287,
+        "data": {
+          "id": 13287,
+          "rule_mapping_id": 2055,
+          "parameter_id": 5,
+          "value": "1=1",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13286,
+        "data": {
+          "id": 13286,
+          "rule_mapping_id": 2055,
+          "parameter_id": 1,
+          "value": "cinqdev",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      },
+      {
+        "model": "DqParameterMapping",
+        "pk": 13285,
+        "data": {
+          "id": 13285,
+          "rule_mapping_id": 2055,
+          "parameter_id": 2,
+          "value": "default",
+          "is_active": true,
+          "tags": null,
+          "tenant_id": 220,
+          "is_deleted": false,
+          "deleted_by": null
+        }
+      }
+    ]
+  },
+  "rule_substituted": "WITH null_count AS (SELECT COUNT(*) AS total_nulls FROM cinqdev.default.member WHERE date_of_birth IS NULL AND 1=1), overall_count AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.member WHERE 1=1) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN try_divide((total_rows - total_nulls) * 100.0, total_rows) >= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;"
+}
