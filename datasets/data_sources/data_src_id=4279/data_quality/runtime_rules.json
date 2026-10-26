@@ -1,0 +1,179 @@
+{
+  "data_source_id": 4279,
+  "data_src_name": "member",
+  "dq_rules": [
+    {
+      "dq_rule_mapping_id": 2054,
+      "rule_id": 2,
+      "rule_definition_id": 8,
+      "action": "RECORD",
+      "data_source_id": 4279,
+      "data_src_name": "member",
+      "rule_name": "gender \u00b7 Allowed Values Check",
+      "evaluation_scope": "ROW",
+      "rule_type": "ALLOWED_VALUES",
+      "parameter_values": {
+        "schema_name": "default",
+        "column_type": "String",
+        "database_name": "cinqdev",
+        "additional_filters": "1=1",
+        "allowed_values": "MALE, FEMALE, UNKNOWN",
+        "tolerance(%)": "0",
+        "table_name": "member",
+        "column_name": "gender"
+      },
+      "engines": {
+        "ansi": {
+          "engine": "ansi",
+          "rule_definition_id": 8,
+          "substituted_query": "WITH allowed_vals AS (SELECT TRIM(value) AS val_text FROM (SELECT EXPLODE(SPLIT('MALE, FEMALE, UNKNOWN', ',')) AS value)), allowed_cast AS (SELECT CAST(val_text AS String) AS val FROM allowed_vals), failed AS (SELECT COUNT(*) AS fail_rows FROM cinqdev.default.member t WHERE 1=1 AND t.gender NOT IN (SELECT val FROM allowed_cast)), total AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.member WHERE 1=1) SELECT total_rows AS rows_total, total_rows - fail_rows AS rows_passed, fail_rows AS rows_failed, CASE WHEN try_divide(fail_rows * 100.0, total_rows) <= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM failed, total;",
+          "failure_predicate": "(1=1) AND NOT array_contains(transform(split('MALE, FEMALE, UNKNOWN', ','), x -> trim(x)), CAST(gender AS STRING))",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "spark": {
+          "engine": "spark",
+          "rule_definition_id": 38,
+          "substituted_query": "WITH allowed_vals AS (SELECT TRIM(value) AS val_text FROM (SELECT EXPLODE(SPLIT('MALE, FEMALE, UNKNOWN', ',')) AS value)), allowed_cast AS (SELECT CAST(val_text AS String) AS val FROM allowed_vals), failed AS (SELECT COUNT(*) AS fail_rows FROM cinqdev.default.member t WHERE 1=1 AND t.gender NOT IN (SELECT val FROM allowed_cast)), total AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.member WHERE 1=1) SELECT total_rows AS rows_total, total_rows - fail_rows AS rows_passed, fail_rows AS rows_failed, CASE WHEN try_divide(fail_rows * 100.0, total_rows) <= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM failed, total;",
+          "failure_predicate": "(1=1) AND NOT array_contains(transform(split('MALE, FEMALE, UNKNOWN', ','), x -> trim(x)), CAST(gender AS STRING))",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "duckdb": {
+          "engine": "duckdb",
+          "rule_definition_id": 21,
+          "substituted_query": "WITH data AS (SELECT * FROM read_csv_auto('{file_path}')), failed AS (SELECT COUNT(*) AS fail_rows FROM data WHERE gender NOT IN (MALE, FEMALE, UNKNOWN) AND 1=1), total AS (SELECT COUNT(*) AS total_rows FROM data WHERE 1=1) SELECT total_rows AS rows_total, total_rows - fail_rows AS rows_passed, fail_rows AS rows_failed, CASE WHEN (fail_rows * 100.0 / total_rows) <= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM failed, total;",
+          "failure_predicate": "(1=1) AND NOT array_contains(transform(split('MALE, FEMALE, UNKNOWN', ','), x -> trim(x)), CAST(gender AS STRING))",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "neo4j": {
+          "engine": "neo4j",
+          "rule_definition_id": 30,
+          "substituted_query": "USE `cinqdev` MATCH (n:`member`) WHERE 1=1 WITH n, CASE WHEN NOT n.`gender` IN [MALE, FEMALE, UNKNOWN] THEN 1 ELSE 0 END AS is_fail WITH count(n) AS total_rows, sum(is_fail) AS fail_rows WITH total_rows, COALESCE(fail_rows, 0) AS fail_rows, CASE WHEN total_rows > 0 AND (fail_rows * 100.0 / total_rows) <= 0 THEN 'PASS' ELSE 'FAIL' END AS status RETURN total_rows AS rows_total, (total_rows - fail_rows) AS rows_passed, fail_rows AS rows_failed, status;",
+          "failure_predicate": "(1=1) AND NOT array_contains(transform(split('MALE, FEMALE, UNKNOWN', ','), x -> trim(x)), CAST(gender AS STRING))",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        }
+      }
+    },
+    {
+      "dq_rule_mapping_id": 2055,
+      "rule_id": 1,
+      "rule_definition_id": 7,
+      "action": "RECORD",
+      "data_source_id": 4279,
+      "data_src_name": "member",
+      "rule_name": "date_of_birth \u00b7 Not Null Check",
+      "evaluation_scope": "ROW",
+      "rule_type": "NOT_NULL",
+      "parameter_values": {
+        "schema_name": "default",
+        "database_name": "cinqdev",
+        "additional_filters": "1=1",
+        "tolerance(%)": "0",
+        "table_name": "member",
+        "column_name": "date_of_birth"
+      },
+      "engines": {
+        "ansi": {
+          "engine": "ansi",
+          "rule_definition_id": 7,
+          "substituted_query": "WITH null_count AS (SELECT COUNT(*) AS total_nulls FROM cinqdev.default.member WHERE date_of_birth IS NULL AND 1=1), overall_count AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.member WHERE 1=1) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN try_divide((total_rows - total_nulls) * 100.0, total_rows) >= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;",
+          "failure_predicate": "(1=1) AND (date_of_birth IS NULL OR TRIM(CAST(date_of_birth AS STRING)) = '')",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "spark": {
+          "engine": "spark",
+          "rule_definition_id": 35,
+          "substituted_query": "WITH null_count AS (SELECT COUNT(*) AS total_nulls FROM cinqdev.default.member WHERE date_of_birth IS NULL AND 1=1), overall_count AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.member WHERE 1=1) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN try_divide((total_rows - total_nulls) * 100.0, total_rows) >= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;",
+          "failure_predicate": "(1=1) AND (date_of_birth IS NULL OR TRIM(CAST(date_of_birth AS STRING)) = '')",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "duckdb": {
+          "engine": "duckdb",
+          "rule_definition_id": 22,
+          "substituted_query": "WITH data AS (SELECT * FROM read_csv_auto('{file_path}')), null_count AS (SELECT COUNT(*) AS total_nulls FROM data WHERE (date_of_birth IS NULL OR date_of_birth = '') AND 1=1), overall_count AS (SELECT COUNT(*) AS total_rows FROM data WHERE 1=1) SELECT total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, CASE WHEN (total_nulls * 100.0 / total_rows) <= 0 THEN 'PASS' ELSE 'FAIL' END AS status FROM null_count, overall_count;",
+          "failure_predicate": "(1=1) AND (date_of_birth IS NULL OR TRIM(CAST(date_of_birth AS STRING)) = '')",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "neo4j": {
+          "engine": "neo4j",
+          "rule_definition_id": 31,
+          "substituted_query": "USE `cinqdev` MATCH (n:`member`) WHERE 1=1 WITH n, CASE WHEN (n.`date_of_birth` IS NULL OR n.`date_of_birth` = '') THEN 1 ELSE 0 END AS is_null WITH count(n) AS total_rows, sum(is_null) AS total_nulls WITH total_rows, COALESCE(total_nulls, 0) AS total_nulls, CASE WHEN total_rows > 0 AND (total_nulls * 100.0 / total_rows) <= 0 THEN 'PASS' ELSE 'FAIL' END AS status RETURN total_rows AS rows_total, (total_rows - total_nulls) AS rows_passed, total_nulls AS rows_failed, status;",
+          "failure_predicate": "(1=1) AND (date_of_birth IS NULL OR TRIM(CAST(date_of_birth AS STRING)) = '')",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        }
+      }
+    },
+    {
+      "dq_rule_mapping_id": 2056,
+      "rule_id": 8,
+      "rule_definition_id": 3,
+      "action": "RECORD",
+      "data_source_id": 4279,
+      "data_src_name": "member",
+      "rule_name": "Cross-Column Consistency",
+      "evaluation_scope": "ROW",
+      "rule_type": "CROSS_COLUMN_PREDICATE",
+      "parameter_values": {
+        "schema_name": "default",
+        "database_name": "cinqdev",
+        "tolerance(%)": "100",
+        "consistency_condition": "death_date <= date_of_birth",
+        "table_name": "member",
+        "additional_filters": "1=1"
+      },
+      "engines": {
+        "ansi": {
+          "engine": "ansi",
+          "rule_definition_id": 3,
+          "substituted_query": "WITH failed AS (SELECT COUNT(*) AS fail_rows FROM cinqdev.default.member WHERE NOT (CASE WHEN death_date <= date_of_birth THEN TRUE ELSE FALSE END) AND 1=1), total AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.member WHERE 1=1) SELECT total_rows AS rows_total, total_rows - fail_rows AS rows_passed, fail_rows AS rows_failed, CASE WHEN try_divide(fail_rows * 100.0, total_rows) <= 100 THEN 'PASS' ELSE 'FAIL' END AS status FROM failed, total;",
+          "failure_predicate": "(1=1) AND NOT (CASE WHEN death_date <= date_of_birth THEN TRUE ELSE FALSE END)",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "spark": {
+          "engine": "spark",
+          "rule_definition_id": 41,
+          "substituted_query": "WITH failed AS (SELECT COUNT(*) AS fail_rows FROM cinqdev.default.member WHERE NOT (CASE WHEN death_date <= date_of_birth THEN TRUE ELSE FALSE END) AND 1=1), total AS (SELECT COUNT(*) AS total_rows FROM cinqdev.default.member WHERE 1=1) SELECT total_rows AS rows_total, total_rows - fail_rows AS rows_passed, fail_rows AS rows_failed, CASE WHEN try_divide(fail_rows * 100.0, total_rows) <= 100 THEN 'PASS' ELSE 'FAIL' END AS status FROM failed, total;",
+          "failure_predicate": "(1=1) AND NOT (CASE WHEN death_date <= date_of_birth THEN TRUE ELSE FALSE END)",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "duckdb": {
+          "engine": "duckdb",
+          "rule_definition_id": 15,
+          "substituted_query": "WITH data AS (SELECT * FROM read_csv_auto('{file_path}')), failed AS (SELECT COUNT(*) AS fail_rows FROM data WHERE NOT (CASE WHEN death_date <= date_of_birth THEN TRUE ELSE FALSE END) AND 1=1), total AS (SELECT COUNT(*) AS total_rows FROM data WHERE 1=1) SELECT total_rows AS rows_total, total_rows - fail_rows AS rows_passed, fail_rows AS rows_failed, CASE WHEN (fail_rows * 100.0 / total_rows) <= 100 THEN 'PASS' ELSE 'FAIL' END AS status FROM failed, total;",
+          "failure_predicate": "(1=1) AND NOT (CASE WHEN death_date <= date_of_birth THEN TRUE ELSE FALSE END)",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        },
+        "neo4j": {
+          "engine": "neo4j",
+          "rule_definition_id": 24,
+          "substituted_query": "USE `cinqdev` MATCH (n:`member`) WHERE 1=1 WITH n, CASE WHEN NOT (death_date <= date_of_birth) THEN 1 ELSE 0 END AS is_fail WITH count(n) AS total_rows, sum(is_fail) AS fail_rows WITH total_rows, COALESCE(fail_rows, 0) AS fail_rows, CASE WHEN total_rows > 0 AND (fail_rows * 100.0 / total_rows) <= 100 THEN 'PASS' ELSE 'FAIL' END AS status RETURN total_rows AS rows_total, (total_rows - fail_rows) AS rows_passed, fail_rows AS rows_failed, status;",
+          "failure_predicate": "(1=1) AND NOT (CASE WHEN death_date <= date_of_birth THEN TRUE ELSE FALSE END)",
+          "referential": null,
+          "uniqueness": null,
+          "stage_filter": null
+        }
+      }
+    }
+  ]
+}
