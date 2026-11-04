@@ -19,7 +19,15 @@ with DAG(
     default_args=default_args,
     schedule=None,
     catchup=False,
-    tags=['dev']
+    tags=['dev'],
+    params={
+    "bh_environment_name": "test-dbricks",
+    "bh_environment_id": 331,
+    "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v1-secrets",
+    "engine_version": "3.2.6",
+    "driver_jars": "postgresql-42.7.12.jar",
+    "customer_root_base": "s3://bh-dev-utils"
+}
 ) as dag:
 
 
@@ -36,7 +44,7 @@ with DAG(
             'bh_project_id': 299,
             'project_name': 'flow-test-project',
             'flow_tags': [{'key': 'environment', 'value': 'dev'}],
-            'flow_type': 'INGESTION',
+            'flow_type': 'DATA_PIPELINE',
             'tenant_id': 220,
             'flow_status': 'In Progress',
         }
@@ -254,7 +262,7 @@ with DAG(
     from airflow.operators.python import PythonOperator
     import os
     from airflow.hooks.base import BaseHook
-    from airflow_plugins.cloud_factory import CloudFactory
+    from cloud_factory import CloudFactory
 
     def archive_processed_files(**context):
         params = context.get("params") or {}
@@ -395,6 +403,31 @@ with DAG(
         # pointing at the same source key — dedupe or delete_source
         # would fail archiving the same file twice.
         files_to_archive = list(dict.fromkeys(files_to_archive))
+        files_were_provided = "files" in params
+
+        if not files_to_archive and (files_were_provided or not source_prefix):
+            if not allow_empty:
+                from bh_errors import BhErrors, BhKnownError
+                raise BhKnownError(
+                    code=BhErrors.BH_ARC_001,
+                    reason="NO_FILES_TO_ARCHIVE",
+                    message="No files to archive",
+                    details={
+                        "bucket_name": bucket_name,
+                        "archive_prefix": archive_prefix,
+                    },
+                )
+            summary = {
+                "cloud_type": cloud_type,
+                "bucket_name": bucket_name,
+                "archive_prefix": archive_prefix,
+                "archived_count": 0,
+                "delete_source": delete_source,
+                "archived_files": [],
+            }
+            ti.xcom_push(key="archived_files", value=[])
+            ti.xcom_push(key="archive_summary", value=summary)
+            return summary
 
         if not files_to_archive:
             objects_with_metadata = []
@@ -415,7 +448,17 @@ with DAG(
                 files_to_archive = [k for k in files_to_archive if k and not k.endswith("/")]
 
         if not files_to_archive and not allow_empty:
-            raise ValueError("No files found to archive")
+            from bh_errors import BhErrors, BhKnownError
+            raise BhKnownError(
+                code=BhErrors.BH_ARC_001,
+                reason="NO_FILES_TO_ARCHIVE",
+                message="No files to archive",
+                details={
+                    "bucket_name": bucket_name,
+                    "archive_prefix": archive_prefix,
+                    "source_prefix": source_prefix,
+                },
+            )
 
         archived_files = []
         for source_key in files_to_archive:

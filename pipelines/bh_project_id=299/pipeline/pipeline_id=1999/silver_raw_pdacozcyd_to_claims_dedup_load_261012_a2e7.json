@@ -1,6 +1,6 @@
 {
   "created_at": "2026-10-12T08:50:17.046769Z",
-  "updated_at": "2026-10-12T08:56:18.681640Z",
+  "updated_at": "2026-11-04T11:30:37.313556Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -24,7 +24,7 @@
   "pipeline_json": {
     "$schema": "https://json-schema.org/draft-07/schema#",
     "name": "silver_raw_pdacozcyd_to_claims_dedup_load_261012_a2e7",
-    "description": "Requirement Pipeline",
+    "description": " ",
     "version": "1.0.0",
     "engine_type": "pyspark",
     "mode": "ENGINE",
@@ -38,6 +38,22 @@
         "catalog": "cinqdev",
         "schema": "staging",
         "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure"
+      },
+      "pdacozcyd": {
+        "name": "databricks-azure_cinqdev",
+        "connection_type": "DatabricksDeltaLake",
+        "connection_config_id": 185,
+        "catalog": "cinqdev",
+        "schema": "staging",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure"
+      },
+      "claim_line": {
+        "name": "databricks-azure_cinqdev",
+        "connection_type": "DatabricksDeltaLake",
+        "connection_config_id": 185,
+        "catalog": "cinqdev",
+        "schema": "silverraw_claims",
+        "secret_name": "bh-dev-westus3-kv-key-scope/bh-azureunity-databricksazure"
       }
     },
     "sources": {
@@ -47,7 +63,7 @@
         "source_type": "Relational",
         "table_name": "pdacozcyd",
         "connection": {
-          "$ref": "#/connections/databricks-azure_cinqdev"
+          "$ref": "#/connections/pdacozcyd"
         },
         "fields": [
           "cur_clm_uniq_id",
@@ -365,7 +381,8 @@
             "nullable": true
           }
         ],
-        "db_schema": "staging"
+        "db_schema": "staging",
+        "schema_name": "staging"
       }
     },
     "targets": {
@@ -1007,7 +1024,7 @@
         "table_name": "claim_line",
         "load_mode": "merge",
         "connection": {
-          "$ref": "#/connections/databricks-azure_cinqdev"
+          "$ref": "#/connections/claim_line"
         },
         "schema": "silverraw_claims",
         "merge_keys": [
@@ -1175,7 +1192,8 @@
             "nullable": true,
             "is_pk": false
           }
-        ]
+        ],
+        "schema_name": "silverraw_claims"
       },
       "patient": {
         "data_src_id": 1123,
@@ -2485,486 +2503,89 @@
             "nullable": true
           }
         ],
-        "read_options": {}
-      },
-      {
-        "name": "claim_procedure",
-        "transformation": "Writer",
-        "dependent_on": [
-          "claim_procedure_final"
-        ],
-        "target": {
-          "$ref": "#/targets/claim_procedure"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
+        "read_options": {
+          "header": true
         }
       },
       {
-        "name": "pharmacy_claim_line",
-        "transformation": "Writer",
-        "dependent_on": [
-          "pharmacy_claim_line_final"
-        ],
-        "target": {
-          "$ref": "#/targets/pharmacy_claim_line"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "pharmacy_claim_header",
-        "transformation": "Writer",
-        "dependent_on": [
-          "pharmacy_claim_header_final"
-        ],
-        "target": {
-          "$ref": "#/targets/pharmacy_claim_header"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "claim_line_adjudication",
-        "transformation": "Writer",
-        "dependent_on": [
-          "claim_line_adjudication_final"
-        ],
-        "target": {
-          "$ref": "#/targets/claim_line_adjudication"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "claim_line",
-        "transformation": "Writer",
-        "dependent_on": [
-          "claim_line_final"
-        ],
-        "target": {
-          "$ref": "#/targets/claim_line"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "patient",
-        "transformation": "Writer",
-        "dependent_on": [
-          "patient_final"
-        ],
-        "target": {
-          "$ref": "#/targets/patient"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "claim_diagnosis",
-        "transformation": "Writer",
-        "dependent_on": [
-          "claim_diagnosis_final"
-        ],
-        "target": {
-          "$ref": "#/targets/claim_diagnosis"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "claim_provider",
-        "transformation": "Writer",
-        "dependent_on": [
-          "claim_provider_final"
-        ],
-        "target": {
-          "$ref": "#/targets/claim_provider"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "claim_header",
-        "transformation": "Writer",
-        "dependent_on": [
-          "claim_header_final"
-        ],
-        "target": {
-          "$ref": "#/targets/claim_header"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "claim_adjudication",
-        "transformation": "Writer",
-        "dependent_on": [
-          "claim_adjudication_final"
-        ],
-        "target": {
-          "$ref": "#/targets/claim_adjudication"
-        },
-        "write_options": {
-          "mode": "merge",
-          "createDisposition": "CREATE_IF_NEEDED",
-          "writeMethod": "direct"
-        }
-      },
-      {
-        "name": "claim_procedure_final",
+        "name": "pdacozcyd_MaxBatchExpr",
         "transformation": "Expression",
         "dependent_on": [
-          "claim_procedure_expr"
-        ],
-        "rename_columns": {},
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "record_hash",
-          "is_deleted",
-          "created_at",
-          "updated_at",
-          "procedure_sequence",
-          "source_procedure_code",
-          "source_procedure_code_system",
-          "procedure_type",
-          "procedure_date"
+          "pdacozcyd"
         ],
         "derived_fields": [
           {
-            "name": "record_hash",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "is_deleted",
-            "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "created_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "updated_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "procedure_sequence",
-            "expression": "CAST(NULL AS INTEGER)"
-          },
-          {
-            "name": "source_procedure_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "source_procedure_code_system",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "procedure_type",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "procedure_date",
-            "expression": "CAST(NULL AS DATE)"
+            "name": "max_batch_id",
+            "expression": "max(batch_id_src_1) OVER ()"
           }
         ]
       },
       {
-        "name": "pharmacy_claim_line_final",
+        "name": "pdacozcyd_IngestFilter",
+        "transformation": "Filter",
+        "dependent_on": [
+          "pdacozcyd_MaxBatchExpr"
+        ],
+        "condition": "batch_id_src_1 = max_batch_id AND (corrupt_record_src_1 IS NULL OR corrupt_record_src_1 = '')"
+      },
+      {
+        "name": "dedup_pdacozcyd",
+        "transformation": "Deduplicator",
+        "dependent_on": [
+          "pdacozcyd_IngestFilter"
+        ],
+        "dedup_by": [
+          "cur_clm_uniq_id_src_1"
+        ],
+        "keep": "first",
+        "order_by": [
+          {
+            "column": "cur_clm_uniq_id_src_1",
+            "order": "asc"
+          }
+        ]
+      },
+      {
+        "name": "claim_line_expr",
         "transformation": "Expression",
         "dependent_on": [
-          "pharmacy_claim_line_expr"
+          "dedup_pdacozcyd"
         ],
-        "rename_columns": {},
         "select_columns": [
           "batch_id",
           "created_by",
           "updated_by",
           "source_system",
           "source_claim_id",
-          "patient_id",
-          "claim_type",
           "service_date",
-          "record_hash",
-          "is_deleted",
-          "created_at",
-          "updated_at",
-          "line_number",
-          "prescription_date",
-          "filled_date",
-          "ndc_code",
-          "source_drug_code",
-          "source_code_system",
-          "quantity",
-          "days_supply",
-          "prescriber_id",
-          "prescriber_npi",
-          "dispensing_facility_id",
-          "line_charge",
-          "allowed_amount",
-          "plan_paid_amount",
-          "member_responsibility",
-          "claim_status",
-          "denial_reason"
+          "service_end_date"
         ],
         "derived_fields": [
           {
-            "name": "record_hash",
-            "expression": "CAST(NULL AS STRING)"
+            "name": "created_by",
+            "expression": "CAST('pdacozcyd' AS STRING)"
           },
           {
-            "name": "is_deleted",
-            "expression": "CAST(NULL AS BOOLEAN)"
+            "name": "updated_by",
+            "expression": "CAST('pdacozcyd' AS STRING)"
           },
           {
-            "name": "created_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
+            "name": "source_system",
+            "expression": "CAST('PDACOZCYD' AS STRING)"
           },
           {
-            "name": "updated_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
+            "name": "service_date",
+            "expression": "CAST(clm_from_dt_src_1 AS DATE)"
           },
           {
-            "name": "line_number",
-            "expression": "CAST(NULL AS INTEGER)"
-          },
-          {
-            "name": "prescription_date",
-            "expression": "CAST(NULL AS DATE)"
-          },
-          {
-            "name": "filled_date",
-            "expression": "CAST(NULL AS DATE)"
-          },
-          {
-            "name": "ndc_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "source_drug_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "source_code_system",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "quantity",
-            "expression": "CAST(NULL AS DECIMAL)"
-          },
-          {
-            "name": "days_supply",
-            "expression": "CAST(NULL AS INTEGER)"
-          },
-          {
-            "name": "prescriber_id",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "prescriber_npi",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "dispensing_facility_id",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "line_charge",
-            "expression": "CAST(NULL AS DECIMAL)"
-          },
-          {
-            "name": "allowed_amount",
-            "expression": "CAST(NULL AS DECIMAL)"
-          },
-          {
-            "name": "plan_paid_amount",
-            "expression": "CAST(NULL AS DECIMAL)"
-          },
-          {
-            "name": "member_responsibility",
-            "expression": "CAST(NULL AS DECIMAL)"
-          },
-          {
-            "name": "claim_status",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "denial_reason",
-            "expression": "CAST(NULL AS STRING)"
+            "name": "service_end_date",
+            "expression": "CAST(clm_thru_dt_src_1 AS DATE)"
           }
-        ]
-      },
-      {
-        "name": "pharmacy_claim_header_final",
-        "transformation": "Expression",
-        "dependent_on": [
-          "pharmacy_claim_header_expr"
         ],
-        "rename_columns": {},
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "claim_type",
-          "patient_id",
-          "claim_effective_date",
-          "record_hash",
-          "is_deleted",
-          "created_at",
-          "updated_at",
-          "external_claim_id",
-          "primary_payer_id",
-          "claim_status",
-          "denial_reason"
-        ],
-        "derived_fields": [
-          {
-            "name": "record_hash",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "is_deleted",
-            "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "created_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "updated_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "external_claim_id",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "primary_payer_id",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "claim_status",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "denial_reason",
-            "expression": "CAST(NULL AS STRING)"
-          }
-        ]
-      },
-      {
-        "name": "claim_line_adjudication_final",
-        "transformation": "Expression",
-        "dependent_on": [
-          "claim_line_adjudication_expr"
-        ],
-        "rename_columns": {},
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "record_hash",
-          "is_deleted",
-          "created_at",
-          "updated_at",
-          "source_line_id",
-          "adjudication_type",
-          "adjudication_category_code",
-          "adjudication_category_system",
-          "adjudication_reason_code",
-          "adjudication_reason_system",
-          "amount",
-          "currency",
-          "value"
-        ],
-        "derived_fields": [
-          {
-            "name": "record_hash",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "is_deleted",
-            "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "created_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "updated_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "source_line_id",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "adjudication_type",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "adjudication_category_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "adjudication_category_system",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "adjudication_reason_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "adjudication_reason_system",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "amount",
-            "expression": "CAST(NULL AS DECIMAL)"
-          },
-          {
-            "name": "currency",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "value",
-            "expression": "CAST(NULL AS STRING)"
-          }
-        ]
+        "rename_columns": {
+          "batch_id_src_1": "batch_id",
+          "cur_clm_uniq_id_src_1": "source_claim_id"
+        }
       },
       {
         "name": "claim_line_final",
@@ -3020,7 +2641,7 @@
           },
           {
             "name": "source_line_id",
-            "expression": "CAST(NULL AS STRING)"
+            "expression": "CAST(COALESCE(NULL, 1) AS STRING)"
           },
           {
             "name": "revenue_code",
@@ -3061,950 +2682,20 @@
         ]
       },
       {
-        "name": "patient_final",
-        "transformation": "Expression",
+        "name": "claim_line",
+        "transformation": "Writer",
         "dependent_on": [
-          "patient_expr"
+          "claim_line_final"
         ],
-        "rename_columns": {},
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_member_id",
-          "mbi_id",
-          "hicn",
-          "state_fips_code",
-          "record_hash",
-          "is_deleted",
-          "created_at",
-          "updated_at",
-          "first_name",
-          "middle_name",
-          "last_name",
-          "date_of_birth",
-          "deceased_date",
-          "death_indicator",
-          "gender",
-          "race_code",
-          "ethnicity_code",
-          "address_line1",
-          "address_line2",
-          "city",
-          "state",
-          "zip_code",
-          "country",
-          "address_line3",
-          "address_line4",
-          "address_line5",
-          "address_line6",
-          "county_fips_code",
-          "zip5",
-          "zip4",
-          "mdcr_status_code",
-          "dual_status_code",
-          "original_entitlement_reason_code",
-          "entitlement_buyin_indicator",
-          "part_a_enrollment_begin_date",
-          "part_b_enrollment_begin_date",
-          "bene_rng_bgn_dt",
-          "bene_rng_end_dt"
-        ],
-        "derived_fields": [
-          {
-            "name": "record_hash",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "is_deleted",
-            "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "created_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "updated_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "first_name",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "middle_name",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "last_name",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "date_of_birth",
-            "expression": "CAST(NULL AS DATE)"
-          },
-          {
-            "name": "deceased_date",
-            "expression": "CAST(NULL AS DATE)"
-          },
-          {
-            "name": "death_indicator",
-            "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "gender",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "race_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "ethnicity_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "address_line1",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "address_line2",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "city",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "state",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "zip_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "country",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "address_line3",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "address_line4",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "address_line5",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "address_line6",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "county_fips_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "zip5",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "zip4",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "mdcr_status_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "dual_status_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "original_entitlement_reason_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "entitlement_buyin_indicator",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "part_a_enrollment_begin_date",
-            "expression": "CAST(NULL AS DATE)"
-          },
-          {
-            "name": "part_b_enrollment_begin_date",
-            "expression": "CAST(NULL AS DATE)"
-          },
-          {
-            "name": "bene_rng_bgn_dt",
-            "expression": "CAST(NULL AS DATE)"
-          },
-          {
-            "name": "bene_rng_end_dt",
-            "expression": "CAST(NULL AS DATE)"
-          }
-        ]
-      },
-      {
-        "name": "claim_diagnosis_final",
-        "transformation": "Expression",
-        "dependent_on": [
-          "claim_diagnosis_expr"
-        ],
-        "rename_columns": {},
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "source_diagnosis_code",
-          "source_diagnosis_code_system",
-          "diagnosis_sequence",
-          "diagnosis_type",
-          "record_hash",
-          "is_deleted",
-          "created_at",
-          "updated_at",
-          "poa_flag"
-        ],
-        "derived_fields": [
-          {
-            "name": "record_hash",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "is_deleted",
-            "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "created_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "updated_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "poa_flag",
-            "expression": "CAST(NULL AS STRING)"
-          }
-        ]
-      },
-      {
-        "name": "claim_provider_final",
-        "transformation": "Expression",
-        "dependent_on": [
-          "claim_provider_expr"
-        ],
-        "rename_columns": {},
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "provider_identifier_system",
-          "provider_identifier_value",
-          "provider_scope",
-          "npi",
-          "record_hash",
-          "is_deleted",
-          "created_at",
-          "updated_at",
-          "provider_sequence",
-          "provider_role_code",
-          "provider_role_system",
-          "source_line_id",
-          "tin"
-        ],
-        "derived_fields": [
-          {
-            "name": "record_hash",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "is_deleted",
-            "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "created_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "updated_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "provider_sequence",
-            "expression": "CAST(NULL AS INTEGER)"
-          },
-          {
-            "name": "provider_role_code",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "provider_role_system",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "source_line_id",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "tin",
-            "expression": "CAST(NULL AS STRING)"
-          }
-        ]
-      },
-      {
-        "name": "claim_header_final",
-        "transformation": "Expression",
-        "dependent_on": [
-          "claim_header_expr"
-        ],
-        "rename_columns": {},
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "claim_type",
-          "patient_id",
-          "source_billing_org_id",
-          "admission_date",
-          "discharge_date",
-          "statement_from",
-          "statement_through",
-          "claim_effective_date",
-          "claim_received_date",
-          "replaced_claim_id",
-          "drg_code",
-          "bill_type",
-          "admission_type",
-          "admission_source",
-          "discharge_status",
-          "claim_adjustment_type_cd",
-          "record_hash",
-          "is_deleted",
-          "created_at",
-          "updated_at",
-          "source_resource_id",
-          "source_resource_type",
-          "source_format",
-          "source_rendering_org_id",
-          "paid_date",
-          "claim_version_num",
-          "drg_code_system",
-          "claim_status"
-        ],
-        "derived_fields": [
-          {
-            "name": "record_hash",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "is_deleted",
-            "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "created_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "updated_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "source_resource_id",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "source_resource_type",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "source_format",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "source_rendering_org_id",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "paid_date",
-            "expression": "CAST(NULL AS DATE)"
-          },
-          {
-            "name": "claim_version_num",
-            "expression": "CAST(NULL AS INTEGER)"
-          },
-          {
-            "name": "drg_code_system",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "claim_status",
-            "expression": "CAST(NULL AS STRING)"
-          }
-        ]
-      },
-      {
-        "name": "claim_adjudication_final",
-        "transformation": "Expression",
-        "dependent_on": [
-          "claim_adjudication_expr"
-        ],
-        "rename_columns": {},
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "adjudication_category_code",
-          "adjudication_reason_code",
-          "amount",
-          "currency",
-          "record_hash",
-          "is_deleted",
-          "created_at",
-          "updated_at",
-          "adjudication_type",
-          "adjudication_category_system",
-          "adjudication_reason_system",
-          "value"
-        ],
-        "derived_fields": [
-          {
-            "name": "record_hash",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "is_deleted",
-            "expression": "CAST(NULL AS BOOLEAN)"
-          },
-          {
-            "name": "created_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "updated_at",
-            "expression": "CAST(NULL AS TIMESTAMP)"
-          },
-          {
-            "name": "adjudication_type",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "adjudication_category_system",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "adjudication_reason_system",
-            "expression": "CAST(NULL AS STRING)"
-          },
-          {
-            "name": "value",
-            "expression": "CAST(NULL AS STRING)"
-          }
-        ]
-      },
-      {
-        "name": "pdacozcyd_MaxBatchExpr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "pdacozcyd"
-        ],
-        "derived_fields": [
-          {
-            "name": "max_batch_id",
-            "expression": "max(batch_id_src_1) OVER ()"
-          }
-        ]
-      },
-      {
-        "name": "pdacozcyd_IngestFilter",
-        "transformation": "Filter",
-        "dependent_on": [
-          "pdacozcyd_MaxBatchExpr"
-        ],
-        "condition": "batch_id_src_1 = max_batch_id AND (corrupt_record_src_1 IS NULL OR corrupt_record_src_1 = '')"
-      },
-      {
-        "name": "dedup_pdacozcyd",
-        "transformation": "Deduplicator",
-        "dependent_on": [
-          "pdacozcyd_IngestFilter"
-        ],
-        "dedup_by": [
-          "cur_clm_uniq_id_src_1"
-        ],
-        "keep": "first",
-        "order_by": [
-          {
-            "column": "cur_clm_uniq_id_src_1",
-            "order": "asc"
-          }
-        ]
-      },
-      {
-        "name": "claim_procedure_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "cur_clm_uniq_id_src_1": "source_claim_id"
-        }
-      },
-      {
-        "name": "pharmacy_claim_line_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "patient_id",
-          "claim_type",
-          "service_date"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          },
-          {
-            "name": "service_date",
-            "expression": "CAST(clm_from_dt_src_1 AS DATE)"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "cur_clm_uniq_id_src_1": "source_claim_id",
-          "bene_mbi_id_src_1": "patient_id",
-          "clm_type_cd_src_1": "claim_type"
-        }
-      },
-      {
-        "name": "pharmacy_claim_header_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "claim_type",
-          "patient_id",
-          "claim_effective_date"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          },
-          {
-            "name": "claim_effective_date",
-            "expression": "CAST(clm_efctv_dt_src_1 AS DATE)"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "cur_clm_uniq_id_src_1": "source_claim_id",
-          "clm_type_cd_src_1": "claim_type",
-          "bene_mbi_id_src_1": "patient_id"
-        }
-      },
-      {
-        "name": "claim_line_adjudication_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "cur_clm_uniq_id_src_1": "source_claim_id"
-        }
-      },
-      {
-        "name": "claim_line_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "service_date",
-          "service_end_date"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          },
-          {
-            "name": "service_date",
-            "expression": "CAST(clm_from_dt_src_1 AS DATE)"
-          },
-          {
-            "name": "service_end_date",
-            "expression": "CAST(clm_thru_dt_src_1 AS DATE)"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "cur_clm_uniq_id_src_1": "source_claim_id"
-        }
-      },
-      {
-        "name": "patient_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_member_id",
-          "mbi_id",
-          "hicn",
-          "state_fips_code"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          },
-          {
-            "name": "mbi_id",
-            "expression": "bene_mbi_id_src_1"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "bene_mbi_id_src_1": "source_member_id",
-          "bene_hic_num_src_1": "hicn",
-          "prvdr_fac_fips_st_cd_src_1": "state_fips_code"
-        }
-      },
-      {
-        "name": "claim_diagnosis_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "source_diagnosis_code",
-          "source_diagnosis_code_system",
-          "diagnosis_sequence",
-          "diagnosis_type"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          },
-          {
-            "name": "diagnosis_sequence",
-            "expression": "CAST(1 AS INTEGER)"
-          },
-          {
-            "name": "diagnosis_type",
-            "expression": "CAST('principal' AS STRING)"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "cur_clm_uniq_id_src_1": "source_claim_id",
-          "prncpl_dgns_cd_src_1": "source_diagnosis_code",
-          "dgns_prcdr_icd_ind_src_1": "source_diagnosis_code_system"
-        }
-      },
-      {
-        "name": "claim_provider_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "provider_identifier_system",
-          "provider_identifier_value",
-          "provider_scope",
-          "npi"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          },
-          {
-            "name": "provider_identifier_system",
-            "expression": "CAST('NPI' AS STRING)"
-          },
-          {
-            "name": "provider_scope",
-            "expression": "CAST('claim' AS STRING)"
-          },
-          {
-            "name": "npi",
-            "expression": "fac_prvdr_npi_num_src_1"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "cur_clm_uniq_id_src_1": "source_claim_id",
-          "fac_prvdr_npi_num_src_1": "provider_identifier_value"
-        }
-      },
-      {
-        "name": "claim_header_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "claim_type",
-          "patient_id",
-          "source_billing_org_id",
-          "admission_date",
-          "discharge_date",
-          "statement_from",
-          "statement_through",
-          "claim_effective_date",
-          "claim_received_date",
-          "replaced_claim_id",
-          "drg_code",
-          "bill_type",
-          "admission_type",
-          "admission_source",
-          "discharge_status",
-          "claim_adjustment_type_cd"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          },
-          {
-            "name": "admission_date",
-            "expression": "CAST(clm_from_dt_src_1 AS DATE)"
-          },
-          {
-            "name": "discharge_date",
-            "expression": "CAST(clm_thru_dt_src_1 AS DATE)"
-          },
-          {
-            "name": "statement_from",
-            "expression": "CAST(clm_from_dt_src_1 AS DATE)"
-          },
-          {
-            "name": "statement_through",
-            "expression": "CAST(clm_thru_dt_src_1 AS DATE)"
-          },
-          {
-            "name": "claim_effective_date",
-            "expression": "CAST(clm_efctv_dt_src_1 AS DATE)"
-          },
-          {
-            "name": "claim_received_date",
-            "expression": "CAST(clm_idr_ld_dt_src_1 AS DATE)"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "cur_clm_uniq_id_src_1": "source_claim_id",
-          "clm_type_cd_src_1": "claim_type",
-          "bene_mbi_id_src_1": "patient_id",
-          "clm_blg_prvdr_npi_num_src_1": "source_billing_org_id",
-          "clm_org_cntl_num_src_1": "replaced_claim_id",
-          "dgns_drg_cd_src_1": "drg_code",
-          "clm_bill_fac_type_cd_src_1": "bill_type",
-          "clm_admsn_type_cd_src_1": "admission_type",
-          "clm_admsn_src_cd_src_1": "admission_source",
-          "bene_ptnt_stus_cd_src_1": "discharge_status",
-          "clm_adjsmt_type_cd_src_1": "claim_adjustment_type_cd"
-        }
-      },
-      {
-        "name": "claim_adjudication_expr",
-        "transformation": "Expression",
-        "dependent_on": [
-          "dedup_pdacozcyd"
-        ],
-        "select_columns": [
-          "batch_id",
-          "created_by",
-          "updated_by",
-          "source_system",
-          "source_claim_id",
-          "adjudication_category_code",
-          "adjudication_reason_code",
-          "amount",
-          "currency"
-        ],
-        "derived_fields": [
-          {
-            "name": "created_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "updated_by",
-            "expression": "CAST('pdacozcyd' AS STRING)"
-          },
-          {
-            "name": "source_system",
-            "expression": "CAST('PDACOZCYD' AS STRING)"
-          },
-          {
-            "name": "amount",
-            "expression": "CAST(clm_pmt_amt_src_1 AS DECIMAL)"
-          },
-          {
-            "name": "currency",
-            "expression": "CAST('USD' AS STRING)"
-          }
-        ],
-        "rename_columns": {
-          "batch_id_src_1": "batch_id",
-          "cur_clm_uniq_id_src_1": "source_claim_id",
-          "clm_nch_prmry_pyr_cd_src_1": "adjudication_category_code",
-          "clm_mdcr_npmt_rsn_cd_src_1": "adjudication_reason_code"
-        }
+        "target": {
+          "$ref": "#/targets/claim_line"
+        },
+        "write_options": {
+          "mode": "merge",
+          "createDisposition": "CREATE_IF_NEEDED",
+          "writeMethod": "direct"
+        },
+        "file_name": "output.csv"
       }
     ],
     "batch_control": {

@@ -310,7 +310,7 @@
               "flow_name": "cclf_test_revoke_1003",
               "flow_id": 802,
               "flow_key": "cclf_test_revoke_1003",
-              "flow_type": "INGESTION",
+              "flow_type": "DATA_PIPELINE",
               "description": "desc",
               "version": "1.0.0",
               "project_id": 299,
