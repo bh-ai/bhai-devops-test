@@ -1,6 +1,6 @@
 {
   "created_at": "2026-10-12T08:50:17.046769Z",
-  "updated_at": "2026-11-04T11:30:37.313556Z",
+  "updated_at": "2026-11-04T11:36:24.915610Z",
   "created_by": "sathish@bighammer.ai",
   "updated_by": "sathish@bighammer.ai",
   "is_deleted": false,
@@ -2637,7 +2637,7 @@
           },
           {
             "name": "line_number",
-            "expression": "CAST(NULL AS INTEGER)"
+            "expression": "CAST(COALESCE(NULL, 1) AS INTEGER)"
           },
           {
             "name": "source_line_id",
