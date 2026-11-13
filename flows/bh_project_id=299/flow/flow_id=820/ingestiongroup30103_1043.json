@@ -422,7 +422,7 @@
                       "driver_node_type_id": null,
                       "runtime_engine": null,
                       "data_security_mode": "SINGLE_USER",
-                      "single_user_name": "sathish@bighammer.ai",
+                      "single_user_name": "eabad0e8-b1d5-4f28-b26d-1dd24e4bf3de",
                       "policy_id": null,
                       "apply_policy_default_values": true,
                       "idempotency_token": null,
@@ -504,7 +504,11 @@
                   "nodeId": "Submit_Job_run_pipelines_ingestiongroup30103",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
-                  "pool_release_lease": false
+                  "pool_release_lease": false,
+                  "stage_name": "landing_bronze",
+                  "run_data_intelligence": false,
+                  "di_policy_enabled": false,
+                  "di_intelligence_state": "NOT_EVALUATED"
                 },
                 {
                   "task_id": "run_pipelines_silver_raw_safeharbor_cinq_to_members_dedupe_load_261106_a3c1",
@@ -529,7 +533,11 @@
                   "nodeId": "Submit_Job_run_pipelines_silver_raw_safeharbor_cinq_to_members_dedupe_load_261106_a3c1",
                   "pool_enabled": true,
                   "pool_heartbeat_interval_seconds": 120,
-                  "pool_release_lease": true
+                  "pool_release_lease": true,
+                  "stage_name": "bronze_silverraw",
+                  "run_data_intelligence": false,
+                  "di_policy_enabled": false,
+                  "di_intelligence_state": "NOT_EVALUATED"
                 },
                 {
                   "task_id": "archive_processed_files",
@@ -567,12 +575,12 @@
                 }
               ],
               "bh_environment_id": 331,
+              "ingestion_group_id": 1043,
               "bh_project_id": 299,
               "bh_environment_name": "test-dbricks",
               "cloud_provider": "databricks",
               "vault_url": "https://bh-dev-westus3-kv-key.vault.azure.net",
-              "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v1-secrets",
-              "ingestion_group_id": 1043
+              "bh_kc_secret_url": "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v2-secrets"
             }
           },
           "schema_id": null,
