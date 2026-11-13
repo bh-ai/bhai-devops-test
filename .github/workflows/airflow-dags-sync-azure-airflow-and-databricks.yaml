@@ -110,7 +110,7 @@ jobs:
           dags_dir = "_sync_dags"
           env_name = os.environ.get("BH_ENVIRONMENT_NAME", "azure-westus3")
           env_id = os.environ.get("BH_ENVIRONMENT_ID", "1")
-          kc_secret = os.environ.get("KC_SECRET", "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v1-secrets")
+          kc_secret = os.environ.get("KC_SECRET", "bh-dev-westus3-kv-key-scope/bh-app-sathish-databricks-keycloak-331-v2-secrets")
           cloud_provider = os.environ.get("CLOUD_PROVIDER", "databricks")
           sla_env_yaml_prefix = os.environ.get("SLA_ENV_YAML_BLOB_PREFIX") or "dags/feed_config/env"
           sla_env_yaml_file = os.environ.get("SLA_ENV_YAML_ENVIRONMENT_FILE") or "dev.yaml"
