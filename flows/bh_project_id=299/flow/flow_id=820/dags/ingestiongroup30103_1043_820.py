@@ -145,7 +145,14 @@ with DAG(
         "pipeline_name": "ingestiongroup30103",
         "run_data_quality_rules": False,
         "dq_rules_source": "git",
-        "run_data_intelligence": False,
+        "run_data_intelligence": True,
+        "di_baseline_snapshot": {
+            "policy_version_id": None,
+            "baselines": []
+        },
+        "di_data_source_ids": [
+            4168
+        ],
         "airflow_connection_id": "databricks_default",
         "pipeline_key": "ingestiongroup30103",
         "bh_project_id": 299,

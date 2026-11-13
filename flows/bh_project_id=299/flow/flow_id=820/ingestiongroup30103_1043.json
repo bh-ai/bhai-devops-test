@@ -506,9 +506,16 @@
                   "pool_heartbeat_interval_seconds": 120,
                   "pool_release_lease": false,
                   "stage_name": "landing_bronze",
-                  "run_data_intelligence": false,
-                  "di_policy_enabled": false,
-                  "di_intelligence_state": "NOT_EVALUATED"
+                  "run_data_intelligence": true,
+                  "di_policy_enabled": true,
+                  "di_policy_version_id": null,
+                  "di_baseline_snapshot": {
+                    "policy_version_id": null,
+                    "baselines": []
+                  },
+                  "di_data_source_ids": [
+                    4168
+                  ]
                 },
                 {
                   "task_id": "run_pipelines_silver_raw_safeharbor_cinq_to_members_dedupe_load_261106_a3c1",
